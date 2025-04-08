@@ -4,23 +4,21 @@ package model;
 
 public abstract class Usuario{
 	//**----------------VARIÀVEIS-------------------**//
-		protected String id;
+		
 		protected String nome;
 		protected String cpf;
 		protected String email;
-		protected String telefone;
 		//protected LocalDate dataDeNascimento;
-		protected Endereco endereco;
+		//protected Endereco endereco;
 		protected boolean status;
 		//protected LocalDate dataDeCadastro;
 		
 		
 		//**--------------CONSTRUTOR----------------------**//
-		public Usuario(String nome, String cpf, String email, String telefone) {
+		public Usuario(String nome, String cpf, String email) {
 			this.nome = nome;
 			this.cpf = cpf;
 			this.email = email;
-			this.telefone = telefone;
 			//this.dataDeCadastro = LocalDate.now();
 			this.status = true;
 		}
@@ -49,17 +47,7 @@ public abstract class Usuario{
 			}
 		}
 		
-		public void atualizarTelefone(String novoTelefone) {
-			if(novoTelefone != null && !novoTelefone.isBlank()) {
-				this.telefone = novoTelefone;
-			}
-		}
 		
-		public void atualizarEndereco(String novoEndereco) {
-			if(novoEndereco != null && !novoEndereco.isBlank()) {
-				this.telefone = novoEndereco;
-			}
-		}
 		
 		/*public int calcularIdade() {
 			if(dataDeNascimento == null) {
@@ -70,9 +58,6 @@ public abstract class Usuario{
 		
 		
 		//**---------------GETTERS E SETTERS------------------**//
-		public String getId() {
-			return id;
-		}
 		
 		public String getNome() {
 			return nome;
@@ -108,21 +93,6 @@ public abstract class Usuario{
 			this.email = email.toLowerCase();
 		}
 
-		public String getTelefone() {
-			return telefone;
-		}
-
-		public final void setTelefone(String telefone) {
-			String limpaTelefone = telefone.replaceAll("[^0-9]", "");
-			if(limpaTelefone.length() < 10 || limpaTelefone.length() > 11) {
-				System.out.println("telefone invalido");
-			}
-			this.telefone = limpaTelefone;
-		}
-
-		
-		
-		
 		
 		
 	}

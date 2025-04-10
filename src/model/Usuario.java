@@ -3,18 +3,28 @@ package model;
 /*import java.time.format.DateTimeFormatter;*/
 
 public abstract class Usuario{
-	//**----------------VARIÀVEIS-------------------**//
+	
+	//================================================================//
+	//============================ATRIBUTOS===========================//
+	//================================================================//
 		
 		protected String nome;
-		protected String cpf;
 		protected String email;
+		protected String senha;
+		
+		protected String cpf;
 		//protected LocalDate dataDeNascimento;
 		//protected Endereco endereco;
 		protected boolean status;
 		//protected LocalDate dataDeCadastro;
 		
+	//================================================================//
+	//================================================================//
+	//================================================================//	
 		
-		//**--------------CONSTRUTOR----------------------**//
+	//================================================================//
+	//===========================CONSTRUTOR===========================//
+	//================================================================//
 		public Usuario(String nome, String cpf, String email) {
 			this.nome = nome;
 			this.cpf = cpf;

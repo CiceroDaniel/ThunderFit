@@ -23,14 +23,7 @@ public class Plano {
 	public String planosDisponiveis() {
 		return "PLANOS DISPONIVEIS\n\n1-- "+Mensal.mostrarDetalhes()+"\n2-- "+Trimestral.mostrarDetalhes()+"\n3-- "+Anual.mostrarDetalhes();
 	}
-	
-	/*public void escolherPlano() {
 
-		}
-	}*/
-	
-	
-	
 	
 	
 	//----------------------Getters and Setters----------------------------------

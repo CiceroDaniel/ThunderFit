@@ -4,21 +4,31 @@ public class Aluno extends Usuario {
 	//**----------------VARIÀVEIS-------------------**//
 		private double altura;
 		private double peso;
-		private String objetivo;
+		private Metas metas;
+		private String metaPersonalizada;
 		private Plano plano;
 		
 		//**--------------CONSTRUTOR----------------------**//
-		public Aluno(String nome, String cpf, String email, double altura, double peso, String objetivo,Plano plano) {
+		public Aluno(String nome, String cpf, String email, double altura, double peso, Metas metas,Plano plano) {
 			super(nome,cpf,email);
 			this.altura = altura;
 			this.peso = peso;
-			this.objetivo = objetivo;
+			this.metas = metas;
+			this.plano= plano;
+		}
+		
+		public Aluno(String nome, String cpf, String email, double altura, double peso, Metas metas,String metaPersonalizada,Plano plano) {
+			super(nome,cpf,email);
+			this.altura = altura;
+			this.peso = peso;
+			this.metas = metas;
+			this.metaPersonalizada= (metas == Metas.personalizada) ? metaPersonalizada : null; //operador ternario(simplifica o if)
 			this.plano= plano;
 		}
 		
 		@Override
 		public String gerarCredenciais() {
-			return "Nome:" +nome+"\nCPF: "+cpf+"\nEmail: "+email+"\nAltura: "+altura+"\nPeso: "+peso+"\nObjetivo: "+objetivo+"\nInformaçoes do Plano\n"+plano.mostrarDetalhes();
+			return "Nome:" +nome+"\nCPF: "+cpf+"\nEmail: "+email+"\nAltura: "+altura+"\nPeso: "+peso+"\nMetas: "+metas+" , Descrição: "+metas.descricao+"\nInformaçoes do Plano\n"+plano.mostrarDetalhes();
 		}
 		
 		@Override
@@ -28,6 +38,21 @@ public class Aluno extends Usuario {
 		
 		
 		
+		
+		public enum Metas{
+			ganharMassa("Ganhar Massa"),perderPeso("Perder peso"),personalizada("Personalizada");
+			
+			
+			private String descricao;
+			
+			 Metas(String descricao){
+				this.descricao=descricao;
+			}
+			
+			public String getDescricao() {
+				return descricao;
+			}
+		}
 		
 		
 		public double getAltura() {
@@ -41,12 +66,6 @@ public class Aluno extends Usuario {
 		}
 		public void setPeso(double peso) {
 			this.peso = peso;
-		}
-		public String getObjetivo() {
-			return objetivo;
-		}
-		public void setObjetivo(String objetivo) {
-			this.objetivo = objetivo;
 		}
 		public Plano getPlano() {
 			return plano;

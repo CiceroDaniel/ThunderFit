@@ -1,12 +1,13 @@
 package model;
 
+import model.Aluno.Metas;
+
 public class MainTeste {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Aluno al1=new Aluno("Angelo","111.222.333-44","email",1.70,54,"slaslasalsalsalsals",Plano.Mensal);
-		System.out.println(al1.gerarCredenciais());
-
+		Aluno a1=new Aluno("Victr","111.111.111-22","VIC.HDD", 1.75, 54, Metas.perderPeso,"Perder 8kg", Plano.Anual);
+		System.out.println(a1.gerarCredenciais());
+		
 	}
 
 }

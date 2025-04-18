@@ -26,9 +26,11 @@ public class Aluno extends Usuario {
 			this.plano= plano;
 		}
 		
+		//*----------------METODOS--------------
+		
 		@Override
 		public String gerarCredenciais() {
-			return "Nome:" +nome+"\nCPF: "+cpf+"\nEmail: "+email+"\nAltura: "+altura+"\nPeso: "+peso+"\nMetas: "+metas+" , Descrição: "+metas.descricao+"\nInformaçoes do Plano\n"+plano.mostrarDetalhes();
+			return "Nome:" +nome+"\nCPF: "+cpf+"\nEmail: "+email+"\nAltura: "+altura+"\nPeso: "+peso+"\nMetas: "+metas+" , Descrição: "+metas.descricao+"\nInformaçoes do Plano\n"+plano.nome+" , Valor: "+plano.valor;
 		}
 		
 		@Override
@@ -38,7 +40,7 @@ public class Aluno extends Usuario {
 		
 		
 		
-		
+		//*----------------------ENUM'S---------------------------
 		public enum Metas{
 			ganharMassa("Ganhar Massa"),perderPeso("Perder peso"),personalizada("Personalizada");
 			
@@ -54,13 +56,50 @@ public class Aluno extends Usuario {
 			}
 		}
 		
+		public enum Plano{
+			planoMensal("Plano mensal",100), planoTrimestral("Plano trimestral",280),planoAnual("Plano anual",1000);
+			
+			private final String nome;
+			private double valor;
+
+			Plano(String nome, double valor) {
+				this.nome=nome;
+				this.valor=valor;
+			}
+			
+			public String getNome() {
+				return nome;
+			}
+			public double getValor() {
+				return valor;
+			}
+			public void setValor(double valor,Usuario usuario) {
+				if(usuario != null &&usuario.temAcessoAdmin()) {
+					this.valor=valor;
+				}else {
+					System.out.println("Apenas para admistradores");
+				}
+				
+				
+			}
+			
+			
+		}
+		
+		
+		
+		
+		//*-----------------------GETTERS AND SETTERS--------------------
 		
 		public double getAltura() {
 			return altura;
 		}
 		public void setAltura(double altura) {
-			this.altura = altura;
-		}
+			if(altura>0) {
+				this.altura = altura;
+				}
+			}
+			
 		public double getPeso() {
 			return peso;
 		}

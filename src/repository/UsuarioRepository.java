@@ -17,14 +17,43 @@ public class UsuarioRepository {
 			System.out.println("Erro: Nome invalido!");
 			return;
 		}
+		if(buscarCpf(usuario.getCpf()) != null) {
+			System.out.println("Erro: CPF já cadastrado!");
+			return;
+		}
 		
 		
 		usuarios.add(usuario);
 		System.out.println("Usuario cadastrado com sucesso!");
+	}
+	
+	public Usuario buscarCpf( String cpf) {
+		for(Usuario u : usuarios) {
+			if(u.getCpf().equals(cpf)) {
+				return u;
+			}
+		}
+		return null;
+	}
+	
+	public void atualizarDados(Usuario usuario) {
 		
 	}
 	
+	public List<Usuario> listarTodos(){
+		return new ArrayList<>(usuarios);
+	}
 
+	
+	
+	public boolean remover(Usuario usuario) {
+		if(usuario == null) {
+			System.out.println("Erro: Usuario não pode ser nulo!");
+			return false;
+		}
+		return usuarios.remove(usuario);
+		
+	}
 	
 	
 	

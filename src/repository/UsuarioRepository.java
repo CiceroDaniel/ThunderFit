@@ -37,7 +37,10 @@ public class UsuarioRepository {
 	}
 	
 	public void atualizarDados(Usuario usuario) {
-		
+		int indice= usuarios.indexOf(buscarCpf(usuario.getCpf()));
+		if(indice != -1) {
+			usuarios.set(indice, usuario);
+		}
 	}
 	
 	public List<Usuario> listarTodos(){

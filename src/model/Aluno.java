@@ -9,16 +9,16 @@ public class Aluno extends Usuario {
 		private Plano plano;
 		
 		//**--------------CONSTRUTOR----------------------**//
-		public Aluno(String nome, String cpf, String email, double altura, double peso, Metas metas,Plano plano) {
-			super(nome,cpf,email);
+		public Aluno(String nome, String cpf, String email,String senha ,double altura, double peso, Metas metas,Plano plano) {
+			super(nome,cpf,email,senha);
 			this.altura = altura;
 			this.peso = peso;
 			this.metas = metas;
 			this.plano= plano;
 		}
 		
-		public Aluno(String nome, String cpf, String email, double altura, double peso, Metas metas,String metaPersonalizada,Plano plano) {
-			super(nome,cpf,email);
+		public Aluno(String nome, String cpf, String email,String senha, double altura, double peso, Metas metas,String metaPersonalizada,Plano plano) {
+			super(nome,cpf,email,senha);
 			this.altura = altura;
 			this.peso = peso;
 			this.metas = metas;

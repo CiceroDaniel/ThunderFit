@@ -8,6 +8,7 @@ public abstract class Usuario{
 		protected String nome;
 		protected String cpf;
 		protected String email;
+		private String senha;
 		
 		//protected LocalDate dataDeNascimento;
 		//protected Endereco endereco;
@@ -16,10 +17,11 @@ public abstract class Usuario{
 		
 		
 		//**--------------CONSTRUTOR----------------------**//
-		public Usuario(String nome, String cpf, String email) {
+		public Usuario(String nome, String cpf, String email, String senha) {
 			this.setNome(nome);
 			this.setCpf(cpf);
 			this.setEmail(email);
+			this.setSenha(senha);
 			//this.dataDeCadastro = LocalDate.now();
 			this.status = true;
 		}
@@ -94,6 +96,13 @@ public abstract class Usuario{
 			this.email = email.toLowerCase();
 		}
 
-		
+		public void setSenha(String senha) {
+			if(senha == null || senha.length() < 8) {
+				throw new IllegalAccessError("/nErro: Senha deve ter no minimo 8 caracteres!");
+			}
+			this.senha=senha;
+			
+		}
+
 		
 	}

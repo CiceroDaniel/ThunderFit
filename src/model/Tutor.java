@@ -4,8 +4,8 @@ public class Tutor extends Usuario{
 
 	protected float salario;
 	
-	public Tutor(String nome, String cpf, String email,float salario) {
-		super(nome, cpf, email);
+	public Tutor(String nome, String cpf, String email,String senha,float salario) {
+		super(nome, cpf, email, senha);
 		this.salario=salario;
 	}
 

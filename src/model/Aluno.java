@@ -22,7 +22,7 @@ public class Aluno extends Usuario {
 			this.altura = altura;
 			this.peso = peso;
 			this.metas = metas;
-			this.metaPersonalizada= (metas == Metas.personalizada) ? metaPersonalizada : null; //operador ternario(simplifica o if)
+			this.setMetaPersonalizada((metas == Metas.personalizada) ? metaPersonalizada : null); //operador ternario(simplifica o if)
 			this.plano= plano;
 		}
 		
@@ -104,12 +104,23 @@ public class Aluno extends Usuario {
 			return peso;
 		}
 		public void setPeso(double peso) {
+			if(peso>0) {
 			this.peso = peso;
+			}
+			throw new IllegalArgumentException("Peso invalido");
 		}
 		public Plano getPlano() {
 			return plano;
 		}
 		public void setPlano(Plano plano) {
 			this.plano = plano;
+		}
+
+		public String getMetaPersonalizada() {
+			return metaPersonalizada;
+		}
+
+		public void setMetaPersonalizada(String metaPersonalizada) {
+			this.metaPersonalizada = metaPersonalizada;
 		}
 }

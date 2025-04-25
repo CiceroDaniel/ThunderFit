@@ -33,15 +33,17 @@ public abstract class Usuario{
 		//**--------------METODOS CONCRETOS-------------------**//
 		public void desativarUsuario() {
 			if(!this.status) {
-				System.out.println("Usuario ja está desativado");
+				throw new IllegalArgumentException("Usuario ja está desativado");
 			}
 			this.status = false;
 		}
 		
 		public void ativarUsusario() {
 			if(this.status) {
-				System.out.println("Usuario ja está ativo");
+				throw new IllegalArgumentException("Usuario ja está ativo");
 			}
+			this.status = true;
+			
 		}
 		
 		public void atualizarEmail(String novoEmail) {
@@ -102,6 +104,9 @@ public abstract class Usuario{
 			}
 			this.senha=senha;
 			
+		}
+		public boolean getAtivo() {
+			return status;
 		}
 
 		

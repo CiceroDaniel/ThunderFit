@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Tutor extends Usuario{
 
 	protected float salario;
@@ -7,7 +9,7 @@ public class Tutor extends Usuario{
 	
 	public Tutor(String nome, String cpf, String email,String senha,float salario) {
 		super(nome, cpf, email, senha);
-		this.salario=salario;
+		this.setSalario(salario);
 	}
 
 	
@@ -15,6 +17,10 @@ public class Tutor extends Usuario{
 	//------------------------ Metodos ---------------------------
 	
 	public void criarTreino(Aluno aluno, String nome) {
+		Objects.requireNonNull(aluno,"Erro: Aluno não pode ser nulo!");
+		if(nome== null || nome.isBlank()) {
+			
+		}
 		
 	}
 	
@@ -37,12 +43,22 @@ public class Tutor extends Usuario{
 	
 	
 	//----------------------Getters and Setters------------------
-	public boolean isTrabalhoAtivo() {
+	public boolean getTrabalhoAtivo() {
 		return trabalhoAtivo;
 	}
 
 	public void setTrabalhoAtivo(boolean trabalhoAtivo) {
 		this.trabalhoAtivo = trabalhoAtivo;
+	}
+	
+	public float getSalario() {
+		return salario;
+	}
+	public void setSalario(float salario) {
+		if(salario<=0) {
+			throw new IllegalArgumentException("Erro: Salario invalido!");
+		}
+		this.salario=salario;
 	}
 	
 	

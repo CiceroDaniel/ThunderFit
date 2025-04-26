@@ -9,28 +9,21 @@ public class Aluno extends Usuario {
 		private Plano plano;
 		
 		//**--------------CONSTRUTOR----------------------**//
-		public Aluno(String nome, String cpf, String email,String senha ,double altura, double peso, Metas metas,Plano plano) {
-			super(nome,cpf,email,senha);
-			this.altura = altura;
-			this.peso = peso;
-			this.metas = metas;
-			this.plano= plano;
-		}
 		
 		public Aluno(String nome, String cpf, String email,String senha, double altura, double peso, Metas metas,String metaPersonalizada,Plano plano) {
 			super(nome,cpf,email,senha);
-			this.altura = altura;
-			this.peso = peso;
-			this.metas = metas;
+			this.setAltura(altura);
+			this.setPeso(peso);
+			this.setMetas(metas);
 			this.setMetaPersonalizada((metas == Metas.personalizada) ? metaPersonalizada : null); //operador ternario(simplifica o if)
-			this.plano= plano;
+			this.setPlano(plano);
 		}
 		
 		//*----------------METODOS--------------
 		
 		@Override
 		public String gerarCredenciais() {
-			return "Nome:" +nome+"\nCPF: "+cpf+"\nEmail: "+email+"\nAltura: "+altura+"\nPeso: "+peso+"\nMetas: "+metas+" , Descrição: "+metas.descricao+"\nInformaçoes do Plano\n"+plano.nome+" , Valor: "+plano.valor;
+			return "Nome:" +nome+"\nCPF: "+cpf+"\nEmail: "+email+"\nAltura: "+altura+"\nPeso: "+peso+"\nMetas: "+metas+" , Descrição: "+metas.getDescricao()+"\nInformaçoes do Plano\n"+plano.getNome()+" , Valor: "+plano.getValor();
 		}
 		
 		@Override
@@ -73,18 +66,15 @@ public class Aluno extends Usuario {
 			public double getValor() {
 				return valor;
 			}
-			public void setValor(double valor,Usuario usuario) {
-				if(usuario != null &&usuario.temAcessoAdmin()) {
-					this.valor=valor;
-				}else {
-					System.out.println("Apenas para admistradores");
-				}
+			public void setValor(double valor, Usuario usuario) {
+			    if(usuario == null || !usuario.temAcessoAdmin()) {
+			        throw new SecurityException("Acesso negado: apenas administradores podem alterar valores");
+			    }
+			    this.valor = valor;
+			}
 				
 				
 			}
-			
-			
-		}
 		
 		
 		
@@ -95,26 +85,40 @@ public class Aluno extends Usuario {
 			return altura;
 		}
 		public void setAltura(double altura) {
-			if(altura>0) {
-				this.altura = altura;
+			if(altura<=0) {
+				throw new IllegalArgumentException("Erro: Altura invalido!");
 				}
+			this.altura = altura;
 			}
 			
 		public double getPeso() {
 			return peso;
 		}
 		public void setPeso(double peso) {
-			if(peso>0) {
-			this.peso = peso;
+			if(peso<=0) {
+				throw new IllegalArgumentException("Erro: Peso invalido!");
 			}
-			throw new IllegalArgumentException("Peso invalido");
+			this.peso = peso;
 		}
 		public Plano getPlano() {
 			return plano;
 		}
 		public void setPlano(Plano plano) {
+			if(plano == null) {
+				throw new IllegalArgumentException("Erro: Plano não pode ficar vazio!");
+			}
 			this.plano = plano;
+			}
+		
+		public Metas getMetas() {
+			return metas;
 		}
+		public void setMetas(Metas metas) {
+			if(metas == null) {
+				throw new IllegalArgumentException("Erro: Metas não pode ficar vazio!");
+			}
+			this.metas = metas;
+			}
 
 		public String getMetaPersonalizada() {
 			return metaPersonalizada;

@@ -1,5 +1,9 @@
 package model;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.ArrayList;
+
 public class Aluno extends Usuario {
 	//**----------------VARIÀVEIS-------------------**//
 		private double altura;
@@ -7,76 +11,40 @@ public class Aluno extends Usuario {
 		private Metas metas;
 		private String metaPersonalizada;
 		private Plano plano;
+		private Nivel nivel;
+		private List<Treino> treinos;
+		
 		
 		//**--------------CONSTRUTOR----------------------**//
 		
-		public Aluno(String nome, String cpf, String email,String senha, double altura, double peso, Metas metas,String metaPersonalizada,Plano plano) {
+		public Aluno(String nome, String cpf, String email,String senha, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano) {
 			super(nome,cpf,email,senha);
 			this.setAltura(altura);
 			this.setPeso(peso);
+			this.setNivel(nivel);
 			this.setMetas(metas);
-			this.setMetaPersonalizada((metas == Metas.personalizada) ? metaPersonalizada : null); //operador ternario(simplifica o if)
+			this.setMetaPersonalizada(metaPersonalizada); 
 			this.setPlano(plano);
+			this.treinos = new ArrayList<>();
 		}
 		
 		//*----------------METODOS--------------
 		
 		@Override
 		public String gerarCredenciais() {
-			return "Nome:" +nome+"\nCPF: "+cpf+"\nEmail: "+email+"\nAltura: "+altura+"\nPeso: "+peso+"\nMetas: "+metas+" , Descrição: "+metas.getDescricao()+"\nInformaçoes do Plano\n"+plano.getNome()+" , Valor: "+plano.getValor();
-		}
+			return String.format("Nome: %s\nCPF: %s\nEmail: %s\nAltura: %.2fm \nPeso: %.2fkg\nNivel: %s\nMetas:  %s, Descrição: %s\nInformaçoes do Plano\n%s \nValor: R$%.2f ",
+					this.getNome(),this.getCpf(),this.getEmail(),this.getAltura(),this.getPeso(),this.nivel.name(),this.metas.name(),this.metaPersonalizada,this.plano.getNome(),this.plano.getValor());
+			}
 		
 		@Override
 		public boolean temAcessoAdmin() {
 			return false;
 		}
 		
-		
-		
-		//*----------------------ENUM'S---------------------------
-		public enum Metas{
-			ganharMassa("Ganhar Massa"),perderPeso("Perder peso"),personalizada("Personalizada");
-			
-			
-			private String descricao;
-			
-			 Metas(String descricao){
-				this.descricao=descricao;
-			}
-			
-			public String getDescricao() {
-				return descricao;
-			}
+		protected void adicionarTreino(Treino treino) { // sera usado pelo tutor
+			Objects.requireNonNull(treino,"Erro: Treino não pode ser nulo");
+			this.treinos.add(treino);
 		}
-		
-		public enum Plano{
-			planoMensal("Plano mensal",100), planoTrimestral("Plano trimestral",280),planoAnual("Plano anual",1000);
-			
-			private final String nome;
-			private double valor;
-
-			Plano(String nome, double valor) {
-				this.nome=nome;
-				this.valor=valor;
-			}
-			
-			public String getNome() {
-				return nome;
-			}
-			public double getValor() {
-				return valor;
-			}
-			public void setValor(double valor, Usuario usuario) {
-			    if(usuario == null || !usuario.temAcessoAdmin()) {
-			        throw new SecurityException("Acesso negado: apenas administradores podem alterar valores");
-			    }
-			    this.valor = valor;
-			}
-				
-				
-			}
-		
-		
 		
 		
 		//*-----------------------GETTERS AND SETTERS--------------------
@@ -125,6 +93,18 @@ public class Aluno extends Usuario {
 		}
 
 		public void setMetaPersonalizada(String metaPersonalizada) {
-			this.metaPersonalizada = metaPersonalizada;
+			if(metas == metas.personalizada) {
+				if(metaPersonalizada == null || metaPersonalizada.isBlank()) {
+					throw new IllegalArgumentException("Erro: Descrição invalida!");
+				}
+			}
+			this.metaPersonalizada=metaPersonalizada;
+		}
+		
+		public void setNivel(Nivel nivel) {
+			if(nivel == null) {
+				throw new IllegalArgumentException("Erro: Nível invalido!");
+			}
+			this.nivel=nivel;
 		}
 }

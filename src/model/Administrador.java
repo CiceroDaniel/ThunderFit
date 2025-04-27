@@ -9,13 +9,12 @@ public class Administrador extends Usuario{
 
 	@Override
 	public String gerarCredenciais() {
-		// TODO Auto-generated method stub
-		return null;
+		return String.format("Nome: %s\nCPF: %s\nEmail: %s",
+		this.getNome(),this.getCpf(),this.getEmail());
 	}
 
 	@Override
 	public boolean temAcessoAdmin() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

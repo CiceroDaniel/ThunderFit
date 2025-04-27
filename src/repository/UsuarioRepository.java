@@ -3,23 +3,20 @@ package repository;
 import model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class UsuarioRepository {
 	private List<Usuario> usuarios = new ArrayList<>();
 	
 	public void cadastro(Usuario usuario) {
-		if(usuario == null) {
-			System.out.println("Erro: Usuario não pode ser nulo!");
-			return;
-		}
+		Objects.requireNonNull(usuario,"Erro: Usuario não pode ser nulo!");
+		
 		if(usuario.getNome()==null || usuario.getNome().isBlank()) {
-			System.out.println("Erro: Nome invalido!");
-			return;
+			throw new IllegalArgumentException("Erro: Nome invalido!");
 		}
 		if(buscarCpf(usuario.getCpf()) != null) {
-			System.out.println("Erro: CPF já cadastrado!");
-			return;
+			throw new IllegalArgumentException("Erro: CPF já cadastrado!");
 		}
 		
 		
@@ -28,12 +25,32 @@ public class UsuarioRepository {
 	}
 	
 	public Usuario buscarCpf( String cpf) {
+		if(cpf == null || cpf.isBlank()) {
+			return null;
+		}
+		String cpfLimpo= cpf.replaceAll("[^0-9]", "");
 		for(Usuario u : usuarios) {
-			if(u.getCpf().equals(cpf)) {
+			if(u.getCpf().equals(cpfLimpo)) {
 				return u;
 			}
 		}
 		return null;
+	}
+	
+	public List<Usuario> buscarPorNome(String nome){
+		List<Usuario> encontrados = new ArrayList<>();
+		
+		if(nome == null || nome.isBlank()) {
+			return encontrados;
+		}
+		
+		for(Usuario u: usuarios) {
+			if(u.getNome() != null && u.getNome().equalsIgnoreCase(nome)) {
+				encontrados.add(u);
+			}
+		}
+		
+		return encontrados;
 	}
 	
 	public void atualizarDados(Usuario usuario) {
@@ -49,12 +66,16 @@ public class UsuarioRepository {
 
 	
 	
-	public boolean remover(Usuario usuario) {
-		if(usuario == null) {
-			System.out.println("Erro: Usuario não pode ser nulo!");
+	public boolean removerPorCpf(String cpf) {
+		Usuario usuario = buscarCpf(cpf);
+		if(usuario != null) {
+			usuarios.remove(usuario);
+			System.out.println("Usuario removido com sucesso!");
+			return true;
+		} else {
+			System.out.println("Usuario não encontrado!");
 			return false;
 		}
-		return usuarios.remove(usuario);
 		
 	}
 	

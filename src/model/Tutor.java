@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Objects;
 
 public class Tutor extends Usuario{
 
@@ -10,28 +9,18 @@ public class Tutor extends Usuario{
 	public Tutor(String nome, String cpf, String email,String senha,float salario) {
 		super(nome, cpf, email, senha);
 		this.setSalario(salario);
+		this.trabalhoAtivo= true;
 	}
 
 	
 	
 	//------------------------ Metodos ---------------------------
 	
-	public void criarTreino(Aluno aluno, String nome) {
-		Objects.requireNonNull(aluno,"Erro: Aluno não pode ser nulo!");
-		if(nome== null || nome.isBlank()) {
-			
-		}
-		
-	}
-	
-	public void avaliarAluno(Aluno aluno) {
-		
-	}
-	
 	
 	@Override
 	public String gerarCredenciais() {
-		return "Nome: "+nome+"\nCPF: "+cpf+"\nEmail: "+email+"\nSalario: "+salario;
+		return String.format("Nome: %s\nCPF: %s\nEmail: %s\nSalario: R$%.2f",
+		this.getNome(),this.getCpf(),this.getEmail(),this.getSalario());
 	}
 
 	@Override

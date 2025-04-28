@@ -12,10 +12,10 @@ public abstract class Usuario{
 		protected String email;
 		protected String senha;
 		
-		protected String cpf;
+		//protected String cpf;
 		//protected LocalDate dataDeNascimento;
 		//protected Endereco endereco;
-		protected boolean status;
+		//protected boolean status;
 		//protected LocalDate dataDeCadastro;
 		
 	//================================================================//
@@ -25,19 +25,22 @@ public abstract class Usuario{
 	//================================================================//
 	//===========================CONSTRUTOR===========================//
 	//================================================================//
-		public Usuario(String nome, String cpf, String email) {
+		public Usuario(String nome,String email,String senha, String cpf) {
 			this.nome = nome;
-			this.cpf = cpf;
+			//this.cpf = cpf;
 			this.email = email;
+			this.senha=senha;
 			//this.dataDeCadastro = LocalDate.now();
-			this.status = true;
+			//this.status = true;
 		}
 		
 		//**---------------METODOS ABSTRATOS--------------**//
+		
+		/*
 		public abstract String gerarCredenciais();
 		public abstract boolean temAcessoAdmin();
 		
-		//**--------------METODOS CONCRETOS-------------------**//
+		//**--------------METODOS CONCRETOS-------------------**//*
 		public void desativarUsuario() {
 			if(!this.status) {
 				System.out.println("Usuario ja está desativado");
@@ -57,7 +60,7 @@ public abstract class Usuario{
 			}
 		}
 		
-		
+		*/
 		
 		/*public int calcularIdade() {
 			if(dataDeNascimento == null) {
@@ -79,18 +82,18 @@ public abstract class Usuario{
 			}
 			this.nome = nome.trim();
 		}
-
+/*
 		public String getCpf() {
 			return cpf;
 		}
-		
+		*//*
 		public final void setCpf(String cpf) {
 			String limpaCpf = cpf.replaceAll("[^0-9]", "");
 			if(limpaCpf.length() != 11) {
 				System.out.println("o cpf dever conter apenas 11 digitos");
 			}
 			this.cpf = limpaCpf;
-		}
+		}*/
 
 		public String getEmail() {
 			return email;
@@ -102,6 +105,16 @@ public abstract class Usuario{
 			}
 			this.email = email.toLowerCase();
 		}
+
+		public String getSenha() {
+			return senha;
+		}
+
+		public void setSenha(String senha) {
+			this.senha = senha;
+		}
+		
+		
 
 		
 		

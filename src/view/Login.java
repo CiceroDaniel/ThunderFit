@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.Alunocontroller;
 import model.Aluno;
 
 import java.awt.Color;
@@ -13,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 
 import javax.swing.JTextField;
@@ -20,8 +23,11 @@ import javax.swing.JButton;
 import javax.swing.JSlider;
 import javax.swing.JEditorPane;
 import javax.swing.JPasswordField;
+
+import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Panel;
+import java.awt.RenderingHints;
 import java.awt.Label;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
@@ -34,7 +40,7 @@ public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textFieldUsuario;
+	private JTextField textFieldEmail;
 	private JLabel lblNome;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
@@ -59,9 +65,9 @@ public class Login extends JFrame {
 	private JLabel lblNewLabel_iconeSenha;
 	private JLabel lblNewLabel_walpaper2;
 	
-	 // Lista de clientes cadastrados
+	 // Lista de alunos cadastrados
 	
-   //private ArrayList<Cliente> clientes = Cad.getClientes();
+    private ArrayList<Aluno> alunos = (ArrayList<Aluno>) Alunocontroller.getAlunos();
 
 	/**
 	 * Launch the application.
@@ -82,6 +88,41 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	//===========================ARREDONDAR BORDAS DOS BOTÕES===============================//
+	
+		public class RoundedButtonSimples extends JButton{
+			private int arc;
+			
+			public RoundedButtonSimples(String text,int arc) {
+				super(text);
+				this.arc=arc;
+				
+				setContentAreaFilled(false);
+				setFocusPainted(false);
+				setBorderPainted(false);
+				setOpaque(false);
+			}
+			@Override
+			protected void paintComponent(Graphics g) {
+				Graphics2D g2 = (Graphics2D) g.create();
+				
+				g2.setColor(getBackground());
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+				g2.fillRoundRect(0, 0, getWidth(),getHeight(), arc, arc);
+				super.paintComponent(g);
+				g2.dispose();
+		}
+			
+			@Override
+			protected void paintBorder(Graphics g) {
+				Graphics2D g2 = (Graphics2D) g.create();
+				g2.setColor(getForeground());
+				g2.setStroke(new BasicStroke(1.5f));
+				g2.drawRoundRect(0,0,getWidth()-1,getHeight()-1,arc,arc);
+				g2.dispose();
+			}
+		}
 	public Login() {
 		setResizable(false);
 		setBackground(new Color(255, 255, 255));
@@ -101,11 +142,11 @@ public class Login extends JFrame {
 		
 		//CAIXA PRA INFORMAR EMAIL
 		
-		textFieldUsuario = new JTextField();
-		textFieldUsuario.setBounds(58, 234, 380, 33);
-		textFieldUsuario.setFont(new Font("Tahoma", Font.BOLD, 15));
-		contentPane.add(textFieldUsuario);
-		textFieldUsuario.setColumns(10);
+		textFieldEmail = new JTextField();
+		textFieldEmail.setBounds(58, 234, 380, 33);
+		textFieldEmail.setFont(new Font("Tahoma", Font.BOLD, 15));
+		contentPane.add(textFieldEmail);
+		textFieldEmail.setColumns(10);
 		
 		//CAIXA PRA INFORMAR SENHA
 		
@@ -122,46 +163,51 @@ public class Login extends JFrame {
 		//=============================EVENTO=============================//
 		//================================================================//
 		
-		 JButton btnLogin = new JButton("LOGIN");
+		RoundedButtonSimples btnLogin = new RoundedButtonSimples("LOGIN",20);
 	        btnLogin.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	           
-	                String email = textFieldUsuario.getText();
-	                String senha = new String(passwordField.getPassword());
+	                String email = textFieldEmail.getText().trim();//trim remove os espaços extras
+	                String senha = new String(passwordField.getPassword()).trim();
 	                
-                   //TESTAR SE O LOGIN É VALIDO
+	            	if(!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")) {
+                		JOptionPane.showMessageDialog(btnLogin,"Verifique seus dados");	
+                		return;
+                	}
+                	
+	             //TESTAR SE O LOGIN É VALIDO
 	                boolean loginValido = false;
 	                
                 // Verifica se algum cliente cadastrado tem o email e senha corretos
-	                for (Aluno aluno : Cad.getAlunos()) {//VERIFICA A LISTA DE PESSOAS CADASTRADAS
-	                    if (aluno.getEmail().equals(email) && aluno.getSenha().equals(senha)) {
+	                for (Aluno aluno : Alunocontroller.getAlunos()) {//VERIFICA A LISTA DE PESSOAS CADASTRADAs
+	                if (aluno.getEmail().equals(email) && aluno.getSenha().equals(senha)) {
+						
 	                        loginValido = true;
 	                        break;
-	                    }
 	                }
-
+	              }
 	                if (loginValido) {
 	                    JOptionPane.showMessageDialog(btnLogin, "Bem vindo!");
-
-	                    // Direciona para a tela principal após o login
+	               
+		                // Direciona para a tela principal após o login
 	                    dispose();
-	                    
 	                    Principal principalScreen = new Principal();
 	                    principalScreen.setVisible(true);
 
 	                } else {
 	                    JOptionPane.showMessageDialog(btnLogin, "Email ou senha incorretos.", "Erro", JOptionPane.WARNING_MESSAGE);
-	                }
-	            }
-	            
+	              }
+	           }
+	           
 	        });
+	        
 	                
 	            
-	        btnLogin.setBounds(186, 448, 114, 33);
-	        btnLogin.setForeground(new Color(255, 255, 255));
-	        btnLogin.setBackground(new Color(204, 102, 255));
-	        btnLogin.setFont(new Font("Tahoma", Font.BOLD, 11));
-	        contentPane.add(btnLogin);
+	    btnLogin.setBounds(186, 448, 114, 33);
+	    btnLogin.setForeground(new Color(255, 255, 255));
+	    btnLogin.setBackground(new Color(204, 102, 255));
+	    btnLogin.setFont(new Font("Tahoma", Font.BOLD, 11));
+	    contentPane.add(btnLogin);
 	    
  		
 		btnLogin.setBounds(187, 487, 114, 33);

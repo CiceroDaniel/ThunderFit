@@ -8,7 +8,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Perfil extends JFrame {
 
@@ -34,9 +40,22 @@ public class Perfil extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	
+	//METODO ADICIONAR IMAGEM AO BOTÃO
+		public void setImageBotao(JButton botao,String caminho,int largura,int altura) {
+			ImageIcon icon = new ImageIcon(getClass().getResource(caminho));
+			Image img = icon.getImage().getScaledInstance(largura,altura,Image.SCALE_SMOOTH);
+			botao.setIcon(new ImageIcon(img));
+			botao.setHorizontalTextPosition(SwingConstants.RIGHT);
+			botao.setIconTextGap(10);
+		}
+	
+	
 	public Perfil() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 979,631);
+		setBounds(100, 100, 1080,720);
+		
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(41, 41, 41));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -47,7 +66,7 @@ public class Perfil extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 0, 0));
 		panel.setForeground(new Color(0, 0, 0));
-		panel.setBounds(0, 0, 963, 38);
+		panel.setBounds(0, 0, 1066, 38);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -58,27 +77,28 @@ public class Perfil extends JFrame {
 		lblNewLabel_2.setForeground(new Color(255, 102, 204));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
-		JLabel lblNewLabel = new JLabel("__________________________________________________________________________________________________________________________________________");
+		
+		JLabel lblNewLabel = new JLabel("______________________________________________________________________________________________________________________________________________");
 		lblNewLabel.setForeground(new Color(255, 153, 255));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel.setBounds(0, 22, 973, 20);
+		lblNewLabel.setBounds(0, 22, 1094, 20);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("__________________________________________________________________________________________________________________________________________");
 		lblNewLabel_1.setForeground(new Color(255, 153, 255));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1.setBounds(0, 536, 979, 20);
+		lblNewLabel_1.setBounds(0, 630, 1094, 20);
 		contentPane.add(lblNewLabel_1);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setForeground(Color.BLACK);
 		panel_1.setBackground(Color.BLACK);
-		panel_1.setBounds(0, 554, 963, 38);
+		panel_1.setBounds(0, 645, 1066, 38);
 		contentPane.add(panel_1);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("THUNDERFIT");
-		lblNewLabel_2_1.setBounds(430, 5, 120, 30);
+		lblNewLabel_2_1.setBounds(463, 6, 140, 30);
 		panel_1.add(lblNewLabel_2_1);
 		lblNewLabel_2_1.setVerticalAlignment(SwingConstants.TOP);
 		lblNewLabel_2_1.setForeground(new Color(255, 102, 204));
@@ -93,12 +113,12 @@ public class Perfil extends JFrame {
 		JLabel lblNewLabel_2_1_1_1 = new JLabel("+55 9881234-5678");
 		lblNewLabel_2_1_1_1.setForeground(Color.WHITE);
 		lblNewLabel_2_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2_1_1_1.setBounds(780, 0, 170, 40);
+		lblNewLabel_2_1_1_1.setBounds(896, -1, 170, 40);
 		panel_1.add(lblNewLabel_2_1_1_1);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(213, 148, 237));
-		panel_2.setBounds(29, 67, 888, 131);
+		panel_2.setBounds(29, 67, 1002, 131);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -115,12 +135,12 @@ public class Perfil extends JFrame {
 		lblNewLabel_1_2_1.setBounds(140, 27, 107, 20);
 		panel_2.add(lblNewLabel_1_2_1);
 		
-		JLabel lblNewLabel_2_2_1_3_1_2 = new JLabel("OI....");
-		lblNewLabel_2_2_1_3_1_2.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_2_2_1_3_1_2.setForeground(Color.WHITE);
-		lblNewLabel_2_2_1_3_1_2.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_2_2_1_3_1_2.setBounds(140, 24, 107, 15);
-		panel_2.add(lblNewLabel_2_2_1_3_1_2);
+		JLabel lblNewLabel_Nome = new JLabel("OI");
+		lblNewLabel_Nome.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_Nome.setForeground(Color.WHITE);
+		lblNewLabel_Nome.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_Nome.setBounds(140, 24, 107, 15);
+		panel_2.add(lblNewLabel_Nome);
 		
 		JLabel lblNewLabel_2_2_1_3_1_1_1 = new JLabel("EMAIL:");
 		lblNewLabel_2_2_1_3_1_1_1.setVerticalAlignment(SwingConstants.TOP);
@@ -131,7 +151,7 @@ public class Perfil extends JFrame {
 		
 		JPanel panel_2_1 = new JPanel();
 		panel_2_1.setBackground(new Color(79, 79, 79));
-		panel_2_1.setBounds(30, 242, 321, 226);
+		panel_2_1.setBounds(29, 240, 320, 300);
 		contentPane.add(panel_2_1);
 		panel_2_1.setLayout(null);
 		
@@ -191,7 +211,7 @@ public class Perfil extends JFrame {
 		
 		JPanel panel_2_1_1 = new JPanel();
 		panel_2_1_1.setBackground(new Color(79, 79, 79));
-		panel_2_1_1.setBounds(392, 242, 261, 141);
+		panel_2_1_1.setBounds(428, 240, 261, 141);
 		contentPane.add(panel_2_1_1);
 		panel_2_1_1.setLayout(null);
 		
@@ -223,7 +243,7 @@ public class Perfil extends JFrame {
 		
 		JPanel panel_2_1_1_1 = new JPanel();
 		panel_2_1_1_1.setBackground(new Color(79, 79, 79));
-		panel_2_1_1_1.setBounds(684, 242, 244, 249);
+		panel_2_1_1_1.setBounds(787, 240, 244, 249);
 		contentPane.add(panel_2_1_1_1);
 		panel_2_1_1_1.setLayout(null);
 		
@@ -239,6 +259,43 @@ public class Perfil extends JFrame {
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_1_2.setBounds(83, 185, 107, 20);
 		panel_2_1_1_1.add(lblNewLabel_1_2);
-	}
+		
+		//System.out.println(getClass().getResource("img/iconemenu.jpg"));
 
+		
+		JButton btnNewButtonMenu = new JButton("");
+		setImageBotao(btnNewButtonMenu,"/img/iconemenu.jpg",30,30);	
+		btnNewButtonMenu.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				dispose();
+				
+				Principal principalScreen = new Principal();
+				principalScreen.setVisible(true);
+				
+			}
+		});
+		btnNewButtonMenu.setBounds(1026, 5, 30, 30);
+		panel.add(btnNewButtonMenu);
+		
+		JButton btnNewButton_LOGOUT = new JButton("");
+		btnNewButton_LOGOUT.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_LOGOUT.setBounds(1024, 605, 30, 30);
+		contentPane.add(btnNewButton_LOGOUT);
+		/*
+		JLabel lblNewLabel_nome = new JLabel("Nome:");
+		lblNewLabel_nome.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_nome.setBounds(131, 494, 103, 32);
+		contentPane.add(lblNome);
+		
+		lblNomeValor =  new JLabel(aluno.getNome());
+		lblNomeValor.setBounds(130,30,200,25);
+		contentPane.add(lblNomeValor);
+		*/
+		
+	}
 }

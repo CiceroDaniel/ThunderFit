@@ -5,11 +5,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.Alunocontroller;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 
 import javax.swing.JTextField;
@@ -17,8 +22,11 @@ import javax.swing.JButton;
 import javax.swing.JSlider;
 import javax.swing.JEditorPane;
 import javax.swing.JPasswordField;
+
+import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Panel;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -77,7 +85,7 @@ public class Cad extends JFrame {
 	//===========================ARRAY LIST===========================//
 	//================================================================//
 	
-	
+	/*
 	private static ArrayList<Aluno> alunos = new ArrayList<>();
 	//clientes armazena os cliaentes cadastrados
 	
@@ -86,12 +94,43 @@ public class Cad extends JFrame {
 	public static ArrayList<Aluno>getAlunos(){
 		return alunos;
 	}
-	
+	*/
 	
 	//================================================================//
     //================================================================//
 	//================================================================//
-	
+	public class RoundedButtonSimples extends JButton{
+		private int arc;
+		
+		public RoundedButtonSimples(String text,int arc) {
+			super(text);
+			this.arc=arc;
+			
+			setContentAreaFilled(false);
+			setFocusPainted(false);
+			setBorderPainted(false);
+			setOpaque(false);
+		}
+		@Override
+		protected void paintComponent(Graphics g) {
+			Graphics2D g2 = (Graphics2D) g.create();
+			
+			g2.setColor(getBackground());
+			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+			g2.fillRoundRect(0, 0, getWidth(),getHeight(), arc, arc);
+			super.paintComponent(g);
+			g2.dispose();
+	}
+		
+		@Override
+		protected void paintBorder(Graphics g) {
+			Graphics2D g2 = (Graphics2D) g.create();
+			g2.setColor(getForeground());
+			g2.setStroke(new BasicStroke(1.5f));
+			g2.drawRoundRect(0,0,getWidth()-1,getHeight()-1,arc,arc);
+			g2.dispose();
+		}
+	}
 	
 	
 	Cad() {
@@ -230,12 +269,39 @@ public class Cad extends JFrame {
 		//================================================================//
 	
 		
-		JButton btnCadastro = new JButton("CADASTRO");
+		RoundedButtonSimples btnCadastro = new RoundedButtonSimples("CADASTRO",20);
 		btnCadastro.setForeground(new Color(255, 255, 255));
 		btnCadastro.setBackground(new Color(204, 102, 255));
 		btnCadastro.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCadastro.setBounds(187, 499, 114, 33);
 		contentPane.add(btnCadastro);
+		
+		
+		
+		
+		
+		
+		//TESTE
+		
+		/*
+		
+		public class SessaoUsuario{
+			private static Aluno usuarioAtual;
+			
+			public static void setUsuarioAtual(Aluno aluno) {
+				usuarioAtual = aluno;
+			}
+			public static Aluno getUssuarioAtual() {
+				return usuarioAtual;
+			}
+			public static void limparSessao() {
+				usuarioAtual = null;
+			}
+		}
+		
+	*/	
+		
+		
 		
 		//AÇÃO DO BOTÃO
 		
@@ -244,25 +310,29 @@ public class Cad extends JFrame {
 		btnCadastro.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				 // Captura os valores dos campos de texto
-				String nome=textFieldEmail.getText();
-				String email=textFieldNome.getText();
+				String nome=textFieldNome.getText();
+				String email=textFieldEmail.getText();
 				String senha= new String(passwordField.getPassword());
-				
-				 // Cria um objeto Cliente com os dados fornecidos
-				Aluno aluno = new Aluno(nome,email,senha, getOpacity(), getOpacity(), senha, null);
-			
+		
 				
                 if(nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
-					/* testa essa merda 
-					 * !email.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")) 
-					 */
+              	
                 	JOptionPane.showMessageDialog(btnCadastro,"Preencha todos os campos");
                 	
+                }else if(!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")){
                 	
+                	JOptionPane.showMessageDialog(btnCadastro,"	Verifique as informações");	
 					
-				}else {
-				
-				alunos.add(aluno);
+                }else if(Alunocontroller.verificarAlunoExistente(email)){
+                	JOptionPane.showMessageDialog(btnCadastro,"	Já existe um usuario com esse email");	
+               	
+				}else{
+					
+				// Cria um objeto aluno com os dados fornecidos
+				Aluno aluno = new Aluno(nome,email,senha);	
+				Alunocontroller.adicionarAluno(aluno);//CHAMA O METODO DA CLASSE ALUNOCONTROLLER	
+					
+				//alunos.add(aluno);
 					
 				 JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
 	                
@@ -273,8 +343,8 @@ public class Cad extends JFrame {
 	                
 	                dispose();
 	                
-	                Login loginScreen = new Login();
-	                loginScreen.setVisible(true);
+	                Subtela subtelaScreen = new Subtela();
+	                subtelaScreen.setVisible(true);
 	                
 				
 			}

@@ -1,6 +1,7 @@
 package model;
 
 public class Aluno extends Usuario {
+	//private static String ;
 	//================================================================//
 	//============================ATRIBUTOS===========================//
 	//================================================================//
@@ -8,8 +9,11 @@ public class Aluno extends Usuario {
 		private double altura;
 		private double peso;
 		private String objetivo;
+		private String datanascimento;
+		private String datainicio;
 		private Plano plano;
 		
+	
 		
 	//================================================================//
 	//================================================================//
@@ -18,26 +22,42 @@ public class Aluno extends Usuario {
 	//================================================================//
 	//===========================CONSTRUTOR===========================//
 	//================================================================//
-	    
-	    
-	    public Aluno(String nome, String cpf, String email, double altura, double peso, String objetivo, Plano plano) {
-		super(nome, cpf, email);
+		
+		//CONSTRUTOR QUE SERA CHAMADO NO CAD
+		public Aluno(String nome,String email,String senha) {
+			super(nome,email,senha,null);
+			this.altura=0;
+			this.peso=0;
+			this.objetivo="não definido";
+			//this.plano = new Plano();
+		}
+  
+		
+
+
+	public Aluno(String nome, String email, String senha, String cpf, double altura, double peso, String datanascimento,
+		String datainicio) {
+		super(nome, email, senha, cpf);
 		this.altura = altura;
 		this.peso = peso;
-		this.objetivo = objetivo;
-		this.plano = plano;
+		this.datanascimento = datanascimento;
+		this.datainicio = datainicio;
 	}
 
 
-		/*
-		public Aluno(String nome, String cpf, String email, double altura, double peso, String objetivo,Plano plano) {
-			super(nome,cpf,email);
-			this.altura = altura;
-			this.peso = peso;
-			this.objetivo = objetivo;
-			this.plano= plano;
-		}*/
-		
+
+
+	public Aluno(String nome, String email, String senha, String cpf, double altura, double peso, String objetivo,
+		String datanascimento, String datainicio, Plano plano) {
+		super(nome, email, senha, cpf);
+		this.altura = altura;
+		this.peso = peso;
+		this.objetivo = objetivo;
+		this.datanascimento = datanascimento;
+		this.datainicio = datainicio;
+		this.plano = plano;
+	}
+
 	//================================================================//
 	//================================================================//
 	//================================================================//
@@ -46,6 +66,9 @@ public class Aluno extends Usuario {
 	//=======================GETTERS E SETTERS========================//
 	//================================================================//
 	    
+
+
+
 		public double getAltura() {
 			return altura;
 		}
@@ -84,6 +107,7 @@ public class Aluno extends Usuario {
 		public void setPlano(Plano plano) {
 			this.plano = plano;
 		}
+		
 
 
 	    
@@ -92,7 +116,7 @@ public class Aluno extends Usuario {
 	//================================================================//
 	   
 		
-		
+		/*
 		@Override
 		public String gerarCredenciais() {
 			return "Nome:" +nome+"\nCPF: "+cpf+"\nEmail: "+email+"\nAltura: "+altura+"\nPeso: "+peso+"\nObjetivo: "+objetivo+"\nInformaçoes do Plano\n"+plano.mostrarDetalhes();
@@ -103,39 +127,9 @@ public class Aluno extends Usuario {
 		public boolean temAcessoAdmin() {
 			return false;
 		}
+*/
 
-
-		public Object getSenha() {
-			// TODO Auto-generated method stub
-			return null;
-		}
 		
-		/*
-		public double getAltura() {
-			return altura;
-		}
-		public void setAltura(double altura) {
-			this.altura = altura;
-		}
-		public double getPeso() {
-			return peso;
-		}
-		public void setPeso(double peso) {
-			this.peso = peso;
-		}
-		public String getObjetivo() {
-			return objetivo;
-		}
-		public void setObjetivo(String objetivo) {
-			this.objetivo = objetivo;
-		}
-		public Plano getPlano() {
-			return plano;
-		}
-		public void setPlano(Plano plano) {
-			this.plano = plano;
-		}
-		*/
 		/*
 		// Método para verificar se o email e a senha batem
 	    public boolean verificarLogin(String email, String senha) {

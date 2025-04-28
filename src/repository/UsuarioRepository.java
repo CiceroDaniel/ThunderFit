@@ -1,5 +1,8 @@
 package repository;
 
+
+import model.Tutor;
+import model.Aluno;
 import model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +66,31 @@ public class UsuarioRepository {
 	public List<Usuario> listarTodos(){
 		return new ArrayList<>(usuarios);
 	}
+	
+	public List<Aluno> listarAlunos(){
+		List<Aluno> alunos = new ArrayList<>();
+		for(Usuario usuario : usuarios) {
+			if(usuarios instanceof Aluno) {
+				alunos.add((Aluno) usuario);
+				
+			}
+		}
+		return alunos;
+		
+	}
 
+	
+	public List<Tutor> listarTutores(){
+		List<Tutor> tutores = new ArrayList<>();
+		for(Usuario usuario : usuarios) {
+			if(usuarios instanceof Tutor) {
+				tutores.add((Tutor) usuario);
+				
+			}
+		}
+		return tutores;
+		
+	}
 	
 	
 	public boolean removerPorCpf(String cpf) {

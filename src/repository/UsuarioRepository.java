@@ -70,7 +70,7 @@ public class UsuarioRepository {
 	public List<Aluno> listarAlunos(){
 		List<Aluno> alunos = new ArrayList<>();
 		for(Usuario usuario : usuarios) {
-			if(usuarios instanceof Aluno) {
+			if(usuario instanceof Aluno) {
 				alunos.add((Aluno) usuario);
 				
 			}
@@ -83,7 +83,7 @@ public class UsuarioRepository {
 	public List<Tutor> listarTutores(){
 		List<Tutor> tutores = new ArrayList<>();
 		for(Usuario usuario : usuarios) {
-			if(usuarios instanceof Tutor) {
+			if(usuario instanceof Tutor) {
 				tutores.add((Tutor) usuario);
 				
 			}

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 
 public class UsuarioRepository {
-	private List<Usuario> usuarios = new ArrayList<>();
+	private final List<Usuario> usuarios = new ArrayList<>();
 	
 	public void cadastro(Usuario usuario) {
 		Objects.requireNonNull(usuario,"Erro: Usuario não pode ser nulo!");

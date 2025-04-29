@@ -17,7 +17,19 @@ public class ExercicioRepository {
 	public List<Exercicio> listarTodos(){
 		return new ArrayList<>(exercicios);
 	}
-
+	
+	public List<Exercicio> listarGrupoMuscular(String grupoMuscular){
+		List<Exercicio> encontrados = new ArrayList<>();
+		
+		for(Exercicio exercicio: exercicios) {
+			if(exercicio.getGrupoMuscular().equalsIgnoreCase(grupoMuscular)) {
+				encontrados.add(exercicio);
+			}
+		}
+		return encontrados;
+	}
+	
+	
 	public Exercicio buscarPorNome(String nome) {
 		for(Exercicio exercicio : exercicios) {
 			if(exercicio.getNome().equalsIgnoreCase(nome)) {

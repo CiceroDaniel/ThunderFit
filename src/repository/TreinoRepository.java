@@ -13,7 +13,7 @@ public class TreinoRepository {
 	public void criarTreino(Treino treino) {
 		Objects.requireNonNull(treino,"Erro: O treino não pode ser nulo!");
 		treinos.add(treino);
-		System.out.println("Treino cadstrado com sucesso!");
+		System.out.println("Treino cadastrado com sucesso!");
 		}
 	
 	public List<Treino> listarTodos(){
@@ -40,5 +40,26 @@ public class TreinoRepository {
 	        System.out.println("Treino não encontrado.");
 	        return false;
 	    }
+	  
+	  
+	  public boolean adicionarExercicioNoTreino(String nomeTreino, Exercicio exercicio) {
+		  Treino treino = buscarPorNome(nomeTreino);
+		  if(treino != null) {
+			 treino.adicionarExercicio(exercicio);
+			 return true;
+		  }
+		  return false;
+	  }
 
+	  public boolean removerExercicioNoTreino(String nomeTreino, Exercicio exercicio) {
+		  Treino treino = buscarPorNome(nomeTreino);
+		  if(treino != null) {
+			 treino.removerExercicio(exercicio);
+			 return true;
+		  }
+		  return false;
+		  
+		  
+	  }
+	  
 }

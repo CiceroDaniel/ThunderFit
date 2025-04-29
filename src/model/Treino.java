@@ -16,6 +16,16 @@ public class Treino {
 		this.nivelDif=nivel;
 		this.exercicios = new ArrayList<>();
 	}
+	
+	//------------------- Metodos ---------------------------
+	
+	public void adicionarExercicio(Exercicio exercicio) {
+		this.exercicios.add(exercicio);
+	}
+	
+	public void removerExercicio(Exercicio exercicio) {
+		this.exercicios.remove(exercicio);
+	}
 
 	//----------------------Getters and Setters---------------------
 	public void setNome(String nome) {

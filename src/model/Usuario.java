@@ -1,10 +1,12 @@
 package model;
 
+import java.util.UUID;
+
 /*import java.time.format.DateTimeFormatter;*/
 
 public abstract class Usuario{
 	//**----------------VARIÀVEIS-------------------**//
-		
+		private final UUID id;
 		protected String nome;
 		protected String cpf;
 		protected String email;
@@ -12,12 +14,13 @@ public abstract class Usuario{
 		
 		//protected LocalDate dataDeNascimento;
 		//protected Endereco endereco;
-		protected boolean status;
+		protected boolean status;	
 		//protected LocalDate dataDeCadastro;
 		
 		
 		//**--------------CONSTRUTOR----------------------**//
 		public Usuario(String nome, String cpf, String email, String senha) {
+			this.id = UUID.randomUUID();
 			this.setNome(nome);
 			this.setCpf(cpf);
 			this.setEmail(email);
@@ -65,7 +68,9 @@ public abstract class Usuario{
 		
 		
 		//**---------------GETTERS E SETTERS------------------**//
-		
+		public UUID getId() {
+			return id;
+		}
 		public String getNome() {
 			return nome;
 		}

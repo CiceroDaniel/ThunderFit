@@ -20,7 +20,7 @@ public class teste {
 						+ "ESCOLHA A OPÇÃO: ");
 				op = scan.nextInt();
 				scan.nextLine();
-				
+				//testando pra victor hugo
 				switch(op) {
 					case 1 -> ClienteMenu.menu();
 				}

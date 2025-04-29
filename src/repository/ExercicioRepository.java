@@ -28,6 +28,16 @@ public class ExercicioRepository {
 		return null;
 	}
 	
+	  public boolean removerPorNome(String nome) {
+	        Exercicio exercicio = buscarPorNome(nome);
+	        if (exercicio != null) {
+	            exercicios.remove(exercicio);
+	            System.out.println("Exercicio removido com sucesso!");
+	            return true;
+	        }
+	        System.out.println("Exercicio não encontrado.");
+	        return false;
+	    }
 	
 	
 }

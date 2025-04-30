@@ -1,5 +1,8 @@
 package view;
 
+
+//FAZER UMA CAIXA DE TEXTO PARA CPF
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -37,12 +40,13 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import model.Aluno;//chama a classe aluno que esta no outro pacote
+import controller.Alunocontroller;
 
 public class Cad extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textFieldNome;
+	private JTextField Campodenome;
 	private JLabel lblNome;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
@@ -64,6 +68,7 @@ public class Cad extends JFrame {
 	private JLabel lblNewLabel_10;
 	private JLabel lblNewLabel_11;
 	private JLabel lblNewLabel_IconPerfil;
+	private JLabel linkParaLoginCadastroInstrutor;
 
 	/**
 	 * Launch the application.
@@ -81,24 +86,6 @@ public class Cad extends JFrame {
 		});
 	}
 
-	//================================================================//
-	//===========================ARRAY LIST===========================//
-	//================================================================//
-	
-	/*
-	private static ArrayList<Aluno> alunos = new ArrayList<>();
-	//clientes armazena os cliaentes cadastrados
-	
-	
-	//METODO PARA OBTER LISTA DE CLIENTES
-	public static ArrayList<Aluno>getAlunos(){
-		return alunos;
-	}
-	*/
-	
-	//================================================================//
-    //================================================================//
-	//================================================================//
 	public class RoundedButtonSimples extends JButton{
 		private int arc;
 		
@@ -150,11 +137,12 @@ public class Cad extends JFrame {
 		//=============================CAIXAS=============================//
 		//================================================================//
 		
-		textFieldNome = new JTextField();
-		textFieldNome.setFont(new Font("Tahoma", Font.BOLD, 15));
-		textFieldNome.setBounds(58, 217, 380, 33);
-		contentPane.add(textFieldNome);
-		textFieldNome.setColumns(10);
+		Campodenome = new JTextField();
+		Campodenome.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Campodenome.setBounds(58, 217, 380, 33);
+		contentPane.add(Campodenome);
+		Campodenome.setColumns(10);
+	
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(58, 413, 380, 33);
@@ -165,6 +153,8 @@ public class Cad extends JFrame {
 		textFieldEmail.setColumns(10);
 		textFieldEmail.setBounds(58, 313, 380, 33);
 		contentPane.add(textFieldEmail);
+		
+		
 		
 		//================================================================//
 		//================================================================//
@@ -278,31 +268,6 @@ public class Cad extends JFrame {
 		
 		
 		
-		
-		
-		
-		//TESTE
-		
-		/*
-		
-		public class SessaoUsuario{
-			private static Aluno usuarioAtual;
-			
-			public static void setUsuarioAtual(Aluno aluno) {
-				usuarioAtual = aluno;
-			}
-			public static Aluno getUssuarioAtual() {
-				return usuarioAtual;
-			}
-			public static void limparSessao() {
-				usuarioAtual = null;
-			}
-		}
-		
-	*/	
-		
-		
-		
 		//AÇÃO DO BOTÃO
 		
 		//=============================CADASTRAR=============================//
@@ -310,46 +275,58 @@ public class Cad extends JFrame {
 		btnCadastro.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				 // Captura os valores dos campos de texto
-				String nome=textFieldNome.getText();
+				String nome=Campodenome.getText();
 				String email=textFieldEmail.getText();
 				String senha= new String(passwordField.getPassword());
 		
+				//Usuario usuario = new Usuario(nome,email,senha);
 				
                 if(nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
               	
                 	JOptionPane.showMessageDialog(btnCadastro,"Preencha todos os campos");
                 	
-                }else if(!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")){
+                }else{
                 	
-                	JOptionPane.showMessageDialog(btnCadastro,"	Verifique as informações");	
+                	try {
+                		
+                	}catch(IllegalArgumentException ex) {
+                		JOptionPane.showMessageDialog(btnCadastro,"Verifique as informações do email");
+                		return;
+                	}
+                
 					
-                }else if(Alunocontroller.verificarAlunoExistente(email)){
+                if(Alunocontroller.verificarAlunoExistente(email)){//ele chama o alunocontroller
                 	JOptionPane.showMessageDialog(btnCadastro,"	Já existe um usuario com esse email");	
                	
 				}else{
 					
 				// Cria um objeto aluno com os dados fornecidos
 				Aluno aluno = new Aluno(nome,email,senha);	
+				
+				
 				Alunocontroller.adicionarAluno(aluno);//CHAMA O METODO DA CLASSE ALUNOCONTROLLER	
 					
-				//alunos.add(aluno);
-					
-				 JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
+				 JOptionPane.showMessageDialog(null,aluno.gerarCredenciaisCadastro());
+				 //JOptionPane.showMessageDialog(null, "Nome:"+aluno.getNome()+"Email:"+aluno.getEmail()+"Senha:"+aluno.getSenha());
 	                
 	                // Limpa os campos
 	                textFieldEmail.setText("");  
-	                textFieldNome.setText("");    
-	                passwordField.setText(""); 
+	                Campodenome.setText("");    
+	                passwordField.setText("");
+	                
 	                
 	                dispose();
-	                
-	                Subtela subtelaScreen = new Subtela();
-	                subtelaScreen.setVisible(true);
+	                //ta pegando as informações do aluno nome,email e senha e mandando para a subtela
+	                Formulario formularioScreen = new Formulario(aluno);
+	                formularioScreen.setVisible(true);
 	                
 				
 			}
 		}
-		});
+	}
+});
+			
+		
 		
 		
 		
@@ -423,6 +400,23 @@ public class Cad extends JFrame {
 			}
 		});
 		
+		JLabel linkParaLoginCadastroAdmInstrutor = new JLabel("CADASTRO DE ADMNISTRADOR OU INSTRUTOR");
+		linkParaLoginCadastroAdmInstrutor.setForeground(Color.BLUE);
+		linkParaLoginCadastroAdmInstrutor.setFont(new Font("Tahoma", Font.BOLD, 10));
+		linkParaLoginCadastroAdmInstrutor.setBounds(27, 619, 262, 33);
+		contentPane.add(linkParaLoginCadastroAdmInstrutor);
+		
+		
+		linkParaLoginCadastroAdmInstrutor.addMouseListener(new MouseAdapter() {
+			@Override	
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				
+				CadAdmInstrutor cadAdmScreen = new CadAdmInstrutor();
+				cadAdmScreen.setVisible(true);
+			}
+		});
+		
+		
 	}
-
 }

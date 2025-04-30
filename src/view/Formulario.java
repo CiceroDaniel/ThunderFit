@@ -1,5 +1,8 @@
 package view;
 
+//NÃO ESTÁ FUNCIONANDO CORRETAMENTE
+
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -31,11 +34,15 @@ import javax.swing.border.SoftBevelBorder;
 
 import controller.Alunocontroller;
 import model.Aluno;
+import model.Aluno.Genero;
+import model.Metas;
+import model.Nivel;
 import model.Plano;
+import view.Cad;
 
 import javax.swing.border.BevelBorder;
 
-public class Subtela extends JFrame {
+public class Formulario extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -43,6 +50,7 @@ public class Subtela extends JFrame {
 	private JTextField textField_ALTURA;
 	private JTextField textField_DATANASCIMENTO;
 	private JTextField textField_DATAINICIO;
+	Genero generoSelecionado;
 
 	/**
 	 * Launch the application.
@@ -51,7 +59,7 @@ public class Subtela extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Subtela frame = new Subtela();
+					Formulario frame = new Formulario(aluno);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -153,10 +161,13 @@ public class Subtela extends JFrame {
 			g2.dispose();
 		}
 	}
+	///MODIFIQUEI PARA STATIC
+	private static Aluno aluno;
 	
-	
-	
-	public Subtela() {
+	public Formulario(Aluno aluno) {
+		
+		this.aluno = aluno;
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1080, 720);
@@ -168,7 +179,6 @@ public class Subtela extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-
 		JPanel panel = new JPanel();
 		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel.setBackground(new Color(71, 71, 71));
@@ -368,32 +378,32 @@ public class Subtela extends JFrame {
 		//==============================================//
 		
 		//==================OP_GANHARPESO====================//
-		RoundedButtonRadios OganharPeso = new RoundedButtonRadios("",30);
+		RoundedButtonRadios ganharMassa = new RoundedButtonRadios("",30);
 		
-		OganharPeso.setBounds(6, 183, 127, 21);
-		OganharPeso.setBackground(new Color(92, 92, 92));
-		panel_1.add(OganharPeso);
-		OganharPeso.setFont(new Font("Tahoma", Font.BOLD, 12));
+		ganharMassa.setBounds(6, 183, 127, 21);
+		ganharMassa.setBackground(new Color(92, 92, 92));
+		panel_1.add(ganharMassa);
+		ganharMassa.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
 		//==================OP_PERDERPESO====================//
-		RoundedButtonRadios OPperderpeso = new RoundedButtonRadios("",30);
-		OPperderpeso.setBounds(6, 183, 127, 21);
-		OPperderpeso.setFont(new Font("Tahoma", Font.BOLD, 12));
-		OPperderpeso.setBackground(new Color(92, 92, 92));
-		panel_1_1.add(OPperderpeso);
+		RoundedButtonRadios perderPeso = new RoundedButtonRadios("",30);
+		perderPeso.setBounds(6, 183, 127, 21);
+		perderPeso.setFont(new Font("Tahoma", Font.BOLD, 12));
+		perderPeso.setBackground(new Color(92, 92, 92));
+		panel_1_1.add(perderPeso);
 		
 		//==================OP_OUTRO====================//
-		RoundedButtonRadios Opsaudavel = new RoundedButtonRadios("",30);
-		Opsaudavel.setBounds(6, 183, 127, 21);
-		Opsaudavel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		Opsaudavel.setBackground(new Color(92, 92, 92));
-		panel_1_1_1.add(Opsaudavel);
+		RoundedButtonRadios personalizada = new RoundedButtonRadios("",30);
+		personalizada.setBounds(6, 183, 127, 21);
+		personalizada.setFont(new Font("Tahoma", Font.BOLD, 12));
+		personalizada.setBackground(new Color(92, 92, 92));
+		panel_1_1_1.add(personalizada);
 		
 		//Todos os jbuttons estão em um só grupo,assim não é possivel o usuario selecionar mais de um
 		ButtonGroup grupo = new ButtonGroup();
-		grupo.add(OganharPeso);
-		grupo.add(OPperderpeso);
-		grupo.add(Opsaudavel);
+		grupo.add(ganharMassa);
+		grupo.add(perderPeso);
+		grupo.add(personalizada);
 		
 		
 		//==============================================//
@@ -401,34 +411,34 @@ public class Subtela extends JFrame {
 		//==============================================//
 		
 		//==================OP_MENSAL====================//
-		RoundedButtonRadios opmensal = new RoundedButtonRadios("MENSAL",30);
-		opmensal.setForeground(Color.WHITE);
-		opmensal.setFont(new Font("Tahoma", Font.BOLD, 12));
-		opmensal.setBackground(new Color(92, 92, 92));
-		opmensal.setBounds(10, 56, 198, 34);
-		panel_3_2_1.add(opmensal);
+		RoundedButtonRadios planoMensal = new RoundedButtonRadios("MENSAL",30);
+		planoMensal.setForeground(Color.WHITE);
+		planoMensal.setFont(new Font("Tahoma", Font.BOLD, 12));
+		planoMensal.setBackground(new Color(92, 92, 92));
+		planoMensal.setBounds(10, 56, 198, 34);
+		panel_3_2_1.add(planoMensal);
 		
 		//==================OP_BIMESTRAL====================//
-		RoundedButtonRadios opbimestral = new RoundedButtonRadios("BIMESTRAL",30);
-		opbimestral.setForeground(Color.WHITE);
-		opbimestral.setFont(new Font("Tahoma", Font.BOLD, 12));
-		opbimestral.setBackground(new Color(92, 92, 92));
-		opbimestral.setBounds(10, 102, 198, 34);
-		panel_3_2_1.add(opbimestral);
+		RoundedButtonRadios planoTrimenstral = new RoundedButtonRadios("TRIMENSTRAL",30);
+		planoTrimenstral.setForeground(Color.WHITE);
+		planoTrimenstral.setFont(new Font("Tahoma", Font.BOLD, 12));
+		planoTrimenstral.setBackground(new Color(92, 92, 92));
+		planoTrimenstral.setBounds(10, 102, 198, 34);
+		panel_3_2_1.add(planoTrimenstral);
 		
 		//==================OP_BIMESTRAL====================//
-		RoundedButtonRadios optrimestral = new RoundedButtonRadios("TRIMESTRAL",30);
-		optrimestral.setForeground(Color.WHITE);
-		optrimestral.setFont(new Font("Tahoma", Font.BOLD, 12));
-		optrimestral.setBackground(new Color(92, 92, 92));
-		optrimestral.setBounds(10, 149, 198, 34);
-		panel_3_2_1.add(optrimestral);
+		RoundedButtonRadios planoAnual = new RoundedButtonRadios("ANUAL",30);
+		planoAnual.setForeground(Color.WHITE);
+		planoAnual.setFont(new Font("Tahoma", Font.BOLD, 12));
+		planoAnual.setBackground(new Color(92, 92, 92));
+		planoAnual.setBounds(10, 149, 198, 34);
+		panel_3_2_1.add(planoAnual);
 		
 		ButtonGroup grupoPlano = new ButtonGroup();
 		
-		grupoPlano.add(opmensal);
-		grupoPlano.add(opbimestral);
-		grupoPlano.add(optrimestral);
+		grupoPlano.add(planoMensal);
+		grupoPlano.add(planoTrimenstral);
+		grupoPlano.add(planoAnual);
 		
 
 		//==============================================//
@@ -436,26 +446,26 @@ public class Subtela extends JFrame {
 		//==============================================//
 		
 		//==================OP_MULHER====================//
-		RoundedButtonRadios OPMULHER = new RoundedButtonRadios("MULHER",30);
+		RoundedButtonRadios mulher = new RoundedButtonRadios("MULHER",30);
 		
-		OPMULHER.setFont(new Font("Tahoma", Font.BOLD, 13));
-		OPMULHER.setForeground(new Color(255, 255, 255));
-		OPMULHER.setBackground(new Color(88, 88, 88));
-		OPMULHER.setBounds(6, 48, 134, 31);
-		panel_3.add(OPMULHER);
+		mulher.setFont(new Font("Tahoma", Font.BOLD, 13));
+		mulher.setForeground(new Color(255, 255, 255));
+		mulher.setBackground(new Color(88, 88, 88));
+		mulher.setBounds(6, 48, 134, 31);
+		panel_3.add(mulher);
 		
 		//==================OP_HOMEM====================//
-		RoundedButtonRadios OPHOMEM = new RoundedButtonRadios("HOMEM",30);
-		OPHOMEM.setForeground(new Color(255, 255, 255));
-		OPHOMEM.setFont(new Font("Tahoma", Font.BOLD, 13));
-		OPHOMEM.setBackground(new Color(88, 88, 88));
-		OPHOMEM.setBounds(6, 91, 134, 31);
-		panel_3.add(OPHOMEM);
+		RoundedButtonRadios homem = new RoundedButtonRadios("HOMEM",30);
+		homem.setForeground(new Color(255, 255, 255));
+		homem.setFont(new Font("Tahoma", Font.BOLD, 13));
+		homem.setBackground(new Color(88, 88, 88));
+		homem.setBounds(6, 91, 134, 31);
+		panel_3.add(homem);
 		
 		ButtonGroup grupoGenero = new ButtonGroup();
 		
-		grupoGenero.add(OPMULHER);
-		grupoGenero.add(OPHOMEM);
+		grupoGenero.add(homem);
+		grupoGenero.add(mulher);
 		
 		
 		//==============================================//
@@ -463,16 +473,29 @@ public class Subtela extends JFrame {
 		//==============================================//
 		
 		
+		
 		RoundedButtonSimples btnNewButton = new RoundedButtonSimples("CONTINUAR",20);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(!OganharPeso.isSelected() && !OPperderpeso.isSelected() && !Opsaudavel.isSelected() ) {
-					JOptionPane.showMessageDialog(null,"Selecione todas as opções e preencha todos os campos");
+				if(!ganharMassa.isSelected() && !perderPeso.isSelected() && !personalizada.isSelected() ) {
+					JOptionPane.showMessageDialog(null,"Selecione uma das opções de metas");
+					
 					return;
-				}else if(!OPMULHER.isSelected()&&!OPHOMEM.isSelected()){
+				}else if(!homem.isSelected()&&!mulher.isSelected()){
+					JOptionPane.showMessageDialog(null,"Selecione um dos generos");
+					if(homem.isSelected()) {
+						//CONECTADO AO ENUM
+						generoSelecionado = Genero.MASCULINO;
+					}else if(mulher.isSelected()) {
+						generoSelecionado = Genero.FEMININO;
+						
+					}else {
+						generoSelecionado = Genero.OUTRO;
+					}
 					return;
-				}else if(!opmensal.isSelected() && !opbimestral.isSelected() && !optrimestral.isSelected()) {
+				}else if(!planoMensal.isSelected() && !planoTrimenstral.isSelected() && !planoAnual.isSelected()) {
+					JOptionPane.showMessageDialog(null,"Selecione um plano");
 					return;		
 				}
 				if(textFieldPESO.getText().trim().isEmpty()||
@@ -512,13 +535,19 @@ public class Subtela extends JFrame {
 					return;
 				}*/
 				
-				Aluno aluno = new Aluno(null,null,null,null,altura,peso,datanascimento,datainicio);
+				
+				Aluno aluno = new Aluno(null,null,null,null, altura,peso,null, null, datanascimento,null, datainicio,datainicio, generoSelecionado);
 				Alunocontroller.adicionarAluno(aluno);
 					
+				textField_ALTURA.setText("");
+				textFieldPESO.setText("");
+				textField_DATANASCIMENTO.setText("");
+				textField_DATAINICIO.setText("");
+				
 					dispose();
 					
-					Login loginScreen = new Login();
-					loginScreen.setVisible(true);
+					TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario();
+					escolhaScreen.setVisible(true);
 				
 			
 		}

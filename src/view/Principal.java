@@ -22,10 +22,13 @@ import java.awt.Panel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import model.Aluno;
+
 public class Principal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private static Aluno aluno;
 
 	/**
 	 * Launch the application.
@@ -34,7 +37,7 @@ public class Principal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Principal frame = new Principal();
+					Principal frame = new Principal(aluno);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +60,7 @@ public class Principal extends JFrame {
 	}
 	
 	
-	public Principal() {
+	public Principal(Aluno aluno) {
 		setResizable(false);
 		setBackground(new Color(224, 188, 233));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,7 +93,7 @@ public class Principal extends JFrame {
 				
 			dispose();
 			
-			Meta metaScreen = new Meta();
+			Meta metaScreen = new Meta(aluno);
 			metaScreen.setVisible(true);
 			
 			}
@@ -108,7 +111,7 @@ public class Principal extends JFrame {
 				
 				dispose();
 				
-				Cronograma cronogramaScreen = new Cronograma();
+				Cronograma cronogramaScreen = new Cronograma(aluno);
 				cronogramaScreen.setVisible(true);
 				
 			}
@@ -126,7 +129,7 @@ public class Principal extends JFrame {
 				
 				dispose();
 				
-				Pacote pacoteScreen = new Pacote();
+				Pacote pacoteScreen = new Pacote(aluno);
 				pacoteScreen.setVisible(true);
 			}
 		});
@@ -280,7 +283,7 @@ public class Principal extends JFrame {
 				
 				dispose();
 				
-				Perfil perfilScreen = new Perfil();
+				Perfil perfilScreen = new Perfil(aluno);
 				perfilScreen.setVisible(true);
 				
 			}

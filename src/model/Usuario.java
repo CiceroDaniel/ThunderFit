@@ -6,9 +6,9 @@ public abstract class Usuario{
 	//**----------------VARIÀVEIS-------------------**//
 		
 		protected String nome;
-		protected String cpf;
 		protected String email;
 		private String senha;
+		protected String cpf;
 		
 		//protected LocalDate dataDeNascimento;
 		//protected Endereco endereco;
@@ -17,17 +17,19 @@ public abstract class Usuario{
 		
 		
 		//**--------------CONSTRUTOR----------------------**//
-		public Usuario(String nome, String cpf, String email, String senha) {
+		public Usuario(String nome, String email, String senha, String cpf) {
 			this.setNome(nome);
-			this.setCpf(cpf);
 			this.setEmail(email);
 			this.setSenha(senha);
+			//this.setCpf(cpf);//IMPLEMENTAR DEPOIS
 			//this.dataDeCadastro = LocalDate.now();
+			
 			this.status = true;
 		}
 		
 		//**---------------METODOS ABSTRATOS--------------**//
-		public abstract String gerarCredenciais();
+		public abstract String gerarCredenciaisCadastro();
+		public abstract String gerarCredenciaisLogin();
 		public abstract boolean temAcessoAdmin();
 		
 		//**--------------METODOS CONCRETOS-------------------**//
@@ -77,18 +79,6 @@ public abstract class Usuario{
 			this.nome = nome.trim();
 		}
 
-		public String getCpf() {
-			return cpf;
-		}
-		
-		public final void setCpf(String cpf) {
-			String limpaCpf = cpf.replaceAll("[^0-9]", "");
-			if(limpaCpf.length() != 11 || !validarCpf(cpf)) {
-				throw new IllegalArgumentException("Erro: CPF invalido!");
-			}
-			this.cpf = limpaCpf;
-		}
-
 		public String getEmail() {
 			return email;
 		}
@@ -111,11 +101,23 @@ public abstract class Usuario{
 			this.senha=senha;
 			
 		}
+		/*
+		public String getCpf() {
+			return cpf;
+		}
+		
+		public final void setCpf(String cpf) {
+			String limpaCpf = cpf.replaceAll("[^0-9]", "");
+			if(limpaCpf.length() != 11 || !validarCpf(cpf)) {
+				throw new IllegalArgumentException("Erro: CPF invalido!");
+			}
+			this.cpf = limpaCpf;
+		}
 		
 		
 		public boolean getAtivo() {
 			return status;
-		}
+		}*/
 
 		
 	}

@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.Aluno;
+
 import java.awt.SystemColor;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -27,7 +30,7 @@ public class Cronograma extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Cronograma frame = new Cronograma();
+					Cronograma frame = new Cronograma(aluno);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +42,9 @@ public class Cronograma extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Cronograma() {
+	private static Aluno aluno;
+	
+	public Cronograma(Aluno aluno) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100,1080,720);
 		contentPane = new JPanel();
@@ -188,7 +193,7 @@ public class Cronograma extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				
-				Principal principalScreen = new Principal();
+				Principal principalScreen = new Principal(aluno);
 				principalScreen.setVisible(true);
 			}
 		});

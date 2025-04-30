@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.Aluno;
+
 import java.awt.Color;
 import java.awt.Panel;
 import javax.swing.JLabel;
@@ -25,7 +28,7 @@ public class Meta extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Meta frame = new Meta();
+					Meta frame = new Meta(aluno);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +40,9 @@ public class Meta extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Meta() {
+	private static Aluno aluno;
+	
+	public Meta(Aluno aluno) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100,1080,720);
 		contentPane = new JPanel();
@@ -70,7 +75,7 @@ public class Meta extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				dispose();
-				Principal principalScreen = new Principal();
+				Principal principalScreen = new Principal(aluno);
 			    principalScreen.setVisible(true);
 				
 			}

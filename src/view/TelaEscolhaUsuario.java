@@ -14,6 +14,8 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionEvent;
 
 public class TelaEscolhaUsuario extends JFrame {
 
@@ -50,24 +52,14 @@ public class TelaEscolhaUsuario extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton_Cliente = new JButton("Aluno");
-		btnNewButton_Cliente.setBounds(113, 194, 212, 259);
+		JButton btnNewButton_Cliente = new JButton("       ALUNO");
+		btnNewButton_Cliente.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnNewButton_Cliente.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_Cliente.setBounds(113, 143, 418, 132);
 		contentPane.add(btnNewButton_Cliente);
 		
-		/* // Ação do link (redireciona para a tela de login)
-		linkParaLoginCadastro.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			
-				
-				dispose();
-				
-				Login loginScreen = new Login();
-				loginScreen.setVisible(true);
-			}
-		});*/
+		//BOTÃO DO CLIENTE//ALUNO
 		
-		//BOTÃO DO CLIENTE
 		btnNewButton_Cliente.addMouseListener(new MouseAdapter() {
 			
 			@Override
@@ -75,21 +67,35 @@ public class TelaEscolhaUsuario extends JFrame {
 				
 				dispose();
 				
-				Cad cadastroClienteScreen = new Cad();
-				cadastroClienteScreen.setVisible(true);
+				Login LoginScreen = new Login();
+				LoginScreen.setVisible(true);
 			}
 		});
 		
 
 		//BOYÃO DE INSTRUTOR
-		JButton btnNewButton_Instrutor = new JButton("New button");
-		btnNewButton_Instrutor.setBounds(424, 194, 212, 259);
-		contentPane.add(btnNewButton_Instrutor);
+		JButton btnNewButton_Adm = new JButton("       ADM");
+		btnNewButton_Adm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				dispose();
+				
+				Cad cadScreen = new Cad();
+				cadScreen.setVisible(true);
+				
+			}
+		});
+		btnNewButton_Adm.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_Adm.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnNewButton_Adm.setBounds(113, 303, 418, 132);
+		contentPane.add(btnNewButton_Adm);
 		
 		//BOTÃO DO ADM
-		JButton btnNewButton_ADM = new JButton("New button");
-		btnNewButton_ADM.setBounds(737, 194, 212, 259);
-		contentPane.add(btnNewButton_ADM);
+		JButton btnNewButton_Instrutor = new JButton("       INSTRUTOR");
+		btnNewButton_Instrutor.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_Instrutor.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnNewButton_Instrutor.setBounds(113, 459, 418, 132);
+		contentPane.add(btnNewButton_Instrutor);
 		
 		JLabel lblNewLabel = new JLabel("ESCOLHA DE USUARIO");
 		lblNewLabel.setForeground(new Color(255, 255, 255));

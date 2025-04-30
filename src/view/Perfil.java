@@ -16,10 +16,14 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import model.Aluno;
+
 public class Perfil extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	
+	private static Aluno aluno;//importando aluno e suas informações compartilha a mesma referencia em quase todas as telas
 
 	/**
 	 * Launch the application.
@@ -28,7 +32,7 @@ public class Perfil extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Perfil frame = new Perfil();
+					Perfil frame = new Perfil(aluno);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,6 +46,8 @@ public class Perfil extends JFrame {
 	 */
 	
 	
+	
+	
 	//METODO ADICIONAR IMAGEM AO BOTÃO
 		public void setImageBotao(JButton botao,String caminho,int largura,int altura) {
 			ImageIcon icon = new ImageIcon(getClass().getResource(caminho));
@@ -52,7 +58,10 @@ public class Perfil extends JFrame {
 		}
 	
 	
-	public Perfil() {
+	public Perfil(Aluno aluno) {//chamando aluno
+
+		this.aluno=aluno;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1080,720);
 		
@@ -209,6 +218,12 @@ public class Perfil extends JFrame {
 		lblNewLabel_2_2_1_3.setBounds(165, 119, 145, 15);
 		panel_2_1.add(lblNewLabel_2_2_1_3);
 		
+		JLabel lblNewLabel_informaçõesdatadeinicio = new JLabel("New label");	
+		
+		lblNewLabel_informaçõesdatadeinicio.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_informaçõesdatadeinicio.setBounds(10, 91, 103, 13);
+		panel_2_1.add(lblNewLabel_informaçõesdatadeinicio);
+		
 		JPanel panel_2_1_1 = new JPanel();
 		panel_2_1_1.setBackground(new Color(79, 79, 79));
 		panel_2_1_1.setBounds(428, 240, 261, 141);
@@ -271,7 +286,7 @@ public class Perfil extends JFrame {
 				
 				dispose();
 				
-				Principal principalScreen = new Principal();
+				Principal principalScreen = new Principal(aluno);
 				principalScreen.setVisible(true);
 				
 			}

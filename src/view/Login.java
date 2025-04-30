@@ -65,6 +65,8 @@ public class Login extends JFrame {
 	private JLabel lblNewLabel_iconeSenha;
 	private JLabel lblNewLabel_walpaper2;
 	
+	
+	private Aluno aluno;
 	 // Lista de alunos cadastrados
 	
     private ArrayList<Aluno> alunos = (ArrayList<Aluno>) Alunocontroller.getAlunos();
@@ -191,7 +193,7 @@ public class Login extends JFrame {
 	               
 		                // Direciona para a tela principal após o login
 	                    dispose();
-	                    Principal principalScreen = new Principal();
+	                    Principal principalScreen = new Principal(aluno);
 	                    principalScreen.setVisible(true);
 
 	                } else {

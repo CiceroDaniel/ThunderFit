@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import model.Aluno;
@@ -12,15 +13,31 @@ import java.awt.Color;
 import java.awt.Panel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Pacote extends JFrame {
+	
+	//METODO ADICIONAR IMAGEM AO BOTÃO
+			public void setImageBotao(JButton botao,String caminho,int largura,int altura) {
+				ImageIcon icon = new ImageIcon(getClass().getResource(caminho));
+				Image img = icon.getImage().getScaledInstance(largura,altura,Image.SCALE_SMOOTH);
+				botao.setIcon(new ImageIcon(img));
+				botao.setHorizontalTextPosition(SwingConstants.RIGHT);
+				botao.setIconTextGap(10);
+			}
+
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+
+
 
 	/**
 	 * Launch the application.
@@ -72,19 +89,26 @@ public class Pacote extends JFrame {
 		lblNewLabel_1.setBounds(48, 0, 140, 38);
 		panel_1.add(lblNewLabel_1);
 		
-		JButton btnNewButton_menu = new JButton("");
-		btnNewButton_menu.addActionListener(new ActionListener() {
+		JButton btnNewButton_perfil = new JButton("");
+		btnNewButton_perfil.setIconTextGap(10);
+		btnNewButton_perfil.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnNewButton_perfil.setBounds(1030, 4, 30, 30);
+		panel_1.add(btnNewButton_perfil);
+		setImageBotao(btnNewButton_perfil,"/img/iconemenu.jpg",30,30);
+		btnNewButton_perfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				dispose();
 				
 				Principal principalScreen = new Principal(aluno);
 				principalScreen.setVisible(true);
+
+				btnNewButton_perfil.setBounds(1030, 4, 30, 30);
+				panel_1.add(btnNewButton_perfil);
 				
 			}
 		});
-		btnNewButton_menu.setBounds(1030, 4, 30, 30);
-		panel_1.add(btnNewButton_menu);
+	
 		
 		Panel panel_1_1 = new Panel();
 		panel_1_1.setLayout(null);
@@ -183,5 +207,7 @@ public class Pacote extends JFrame {
 		btnEscolher.setBackground(new Color(204, 102, 204));
 		btnEscolher.setBounds(372, 590, 143, 23);
 		contentPane.add(btnEscolher);
+		
+	
 	}
 }

@@ -12,14 +12,27 @@ import java.awt.SystemColor;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Panel;
 
 public class Cronograma extends JFrame {
+	
+	//METODO ADICIONAR IMAGEM AO BOTÃO
+			public void setImageBotao(JButton botao,String caminho,int largura,int altura) {
+				ImageIcon icon = new ImageIcon(getClass().getResource(caminho));
+				Image img = icon.getImage().getScaledInstance(largura,altura,Image.SCALE_SMOOTH);
+				botao.setIcon(new ImageIcon(img));
+				botao.setHorizontalTextPosition(SwingConstants.RIGHT);
+				botao.setIconTextGap(10);
+			}
 
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -189,6 +202,8 @@ public class Cronograma extends JFrame {
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_4.setBounds(0, 617, 1076, 32);
 		contentPane.add(lblNewLabel_4);
+		
+		setImageBotao(btnNewButton_MENU,"/img/iconemenu.jpg",30,30);
 		btnNewButton_MENU.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();

@@ -352,19 +352,19 @@ public class Login extends JFrame {
 		lblNewLabel_iconeEmail = new JLabel("");
 		ImageIcon originalIcon1 = new ImageIcon(getClass().getResource("/img/EMAIL.jpeg"));
 		Image originalImage1 = originalIcon1.getImage();
-		Image resizideImage1 = originalImage1.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+		Image resizideImage1 = originalImage1.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 		ImageIcon resizideIcon1 = new ImageIcon(resizideImage1);
 		lblNewLabel_iconeEmail.setIcon(resizideIcon1);
-		lblNewLabel_iconeEmail.setBounds(15, 225, 50, 50);
+		lblNewLabel_iconeEmail.setBounds(5, 225, 50, 50);
 		contentPane.add(lblNewLabel_iconeEmail);
 		
 		lblNewLabel_iconeSenha = new JLabel("");
 		ImageIcon originalIcon2 = new ImageIcon(getClass().getResource("/img/SENHA.jpeg"));
 		Image originalImage2 = originalIcon2.getImage();
-		Image resizideImage2 = originalImage2.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+		Image resizideImage2 = originalImage2.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 		ImageIcon resizideIcon2 = new ImageIcon(resizideImage2);
 		lblNewLabel_iconeSenha.setIcon(resizideIcon2);
-		lblNewLabel_iconeSenha.setBounds(15, 320, 50, 50);
+		lblNewLabel_iconeSenha.setBounds(5, 320, 50, 50);
 		contentPane.add(lblNewLabel_iconeSenha);
 		
 		lblNewLabel_walpaper2 = new JLabel("New label");

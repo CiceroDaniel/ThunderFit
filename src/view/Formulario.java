@@ -520,7 +520,7 @@ public class Formulario extends JFrame {
 						generoSelecionado = Genero.OUTRO;
 					}
 				
-					return;
+					return ;
 				}else if(!planoMensal.isSelected() && !planoTrimestral.isSelected() && !planoAnual.isSelected()) {
 					JOptionPane.showMessageDialog(null,"Selecione um plano");
 					

@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import model.Aluno;
@@ -12,6 +13,9 @@ import java.awt.Color;
 import java.awt.Panel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -20,6 +24,16 @@ public class Meta extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	
+	//METODO ADICIONAR IMAGEM AO BOTÃO
+	public void setImageBotao(JButton botao,String caminho,int largura,int altura) {
+		ImageIcon icon = new ImageIcon(getClass().getResource(caminho));
+		Image img = icon.getImage().getScaledInstance(largura,altura,Image.SCALE_SMOOTH);
+		botao.setIcon(new ImageIcon(img));
+		botao.setHorizontalTextPosition(SwingConstants.RIGHT);
+		botao.setIconTextGap(10);
+	}
+
 
 	/**
 	 * Launch the application.
@@ -70,7 +84,9 @@ public class Meta extends JFrame {
 		lblNewLabel_1.setBounds(48, 0, 140, 38);
 		panel_1.add(lblNewLabel_1);
 		
+		
 		JButton btnNewButton_perfil = new JButton("");
+		setImageBotao(btnNewButton_perfil,"/img/iconemenu.jpg",30,30);
 		btnNewButton_perfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

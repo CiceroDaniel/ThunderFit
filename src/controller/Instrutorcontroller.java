@@ -1,11 +1,14 @@
 package controller;
 
 
+import model.Aluno;
 import model.Tutor;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Instrutorcontroller {
+	
+	  private static List<Aluno> alunos = new ArrayList<>();
 	
 	//Metodos staticos que são compartilhados por todas as instancias da classe
 
@@ -33,9 +36,18 @@ public class Instrutorcontroller {
     }
     
     /*
+    public void Pesquisaraluno(Aluno aluno) {
+    	
+    }
+    
+    public void Removeraluno(Aluno aluno) {
+    	alunos.remove(aluno);
+    }*/
+    
+    /*
      * 
-     * 
-     * 
+     * VERIFIQUE SE FICA MELHOR USAR ESSES METODOS AQUI NO CONTROLLER
+     * JÁ QUE O ALUNO N PODE SE EXCLUIR
      * 
      * 
      * 

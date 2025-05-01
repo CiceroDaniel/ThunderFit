@@ -56,6 +56,23 @@ public class UsuarioRepository {
 		return encontrados;
 	}
 	
+	public List<Usuario> buscarPorEmail(String email){
+		List<Usuario> encontrados = new ArrayList<>();
+		
+		if(email == null || email.isBlank()) {
+			return encontrados;
+		}
+		
+		for(Usuario u: usuarios) {
+			if(u.getNome() != null && u.getNome().equalsIgnoreCase(email)) {
+				encontrados.add(u);
+			}
+		}
+		
+		return encontrados;
+	}
+	
+	
 	public void atualizarDados(Usuario usuario) {
 		int indice= usuarios.indexOf(buscarCpf(usuario.getCpf()));
 		if(indice != -1) {

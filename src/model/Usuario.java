@@ -6,7 +6,6 @@ import java.util.UUID;
 
 public abstract class Usuario{
 	//**----------------VARIÀVEIS-------------------**//
-		private final UUID id;
 		protected String nome;
 		protected String cpf;
 		protected String email;
@@ -20,7 +19,6 @@ public abstract class Usuario{
 		
 		//**--------------CONSTRUTOR----------------------**//
 		public Usuario(String nome, String cpf, String email, String senha) {
-			this.id = UUID.randomUUID();
 			this.setNome(nome);
 			this.setCpf(cpf);
 			this.setEmail(email);
@@ -68,9 +66,7 @@ public abstract class Usuario{
 		
 		
 		//**---------------GETTERS E SETTERS------------------**//
-		public UUID getId() {
-			return id;
-		}
+		
 		public String getNome() {
 			return nome;
 		}

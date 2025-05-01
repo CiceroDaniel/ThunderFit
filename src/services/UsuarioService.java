@@ -14,10 +14,13 @@ public class UsuarioService {
 		this.usuarioRepository = usuarioRepository;
 	}
 	
+	
+	//--------------------------- CADASTRO ---------------------------------
+	
 	public void cadastroAluno(String nome,String cpf,String email, String senha,double altura,
 			double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano ) {
 		
-		if(usuarioRepository.buscarCpf(cpf)!= null) {
+		if(usuarioRepository.buscarPorCpf(cpf)!= null) {
 			throw new IllegalArgumentException(" Erro: CPF já cadastrado!");
 		}
 		if(usuarioRepository.buscarPorEmail(email)!= null) {
@@ -32,7 +35,7 @@ public class UsuarioService {
 	
 	public void cadastroTutor(String nome,String cpf,String email, String senha, float salario ) {
 		
-		if(usuarioRepository.buscarCpf(cpf)!= null) {
+		if(usuarioRepository.buscarPorCpf(cpf)!= null) {
 			throw new IllegalArgumentException(" Erro: CPF já cadastrado!");
 		}
 		if(usuarioRepository.buscarPorEmail(email)!= null) {
@@ -56,16 +59,18 @@ public class UsuarioService {
         admCadastrado = true;
     }
 	
+	//--------------------------- LISTAR ---------------------------------
+	
 	public List<Usuario> listarUsuarios(Usuario solicitante){
 		if(!(solicitante instanceof Administrador)) {
-			throw new IllegalArgumentException("Erro: Apenas ADMs podem listar");
+			throw new SecurityException("Apenas ADMs podem listar");
 		}
 		return usuarioRepository.listarTodos();
 	}
 	
 	public List<Aluno> listarAluno(Usuario solicitante){
 		if(!(solicitante instanceof Tutor ||solicitante instanceof Administrador)) {
-			throw new IllegalArgumentException("Erro: Apenas tutores e ADMs podem listar");
+			throw new SecurityException("Apenas tutores e ADMs podem listar");
 		}
 		
 		return usuarioRepository.listarAlunos();
@@ -73,13 +78,15 @@ public class UsuarioService {
 
 	public List<Tutor> listarTutores(Usuario solicitante){
 		if(!(solicitante instanceof Administrador)) {
-			throw new IllegalArgumentException("Erro: Apenas ADMs podem listar");
+			throw new SecurityException(" Apenas ADMs podem listar");
 		}
 		return usuarioRepository.listarTutores();
 	}
 	
+	//--------------------------- ATUALIZAR ---------------------------------
+	
 	public void atualizarDados(String cpf, String novoEmail, double novoPeso, Metas novaMeta, Plano novoPlano) {
-		Aluno aluno = (Aluno) usuarioRepository.buscarCpf(cpf);
+		Aluno aluno = (Aluno) usuarioRepository.buscarPorCpf(cpf);
 		if(aluno == null) throw new IllegalArgumentException("Erro: Aluno não encontrado!");
 		
 		 	if (novoEmail != null) aluno.setEmail(novoEmail);
@@ -90,5 +97,34 @@ public class UsuarioService {
 		    usuarioRepository.atualizarDados(aluno);
 	}
 	
+	//--------------------------- BUSCAR ---------------------------------
+	
+	public Usuario buscarPorCpf(String cpf, Usuario solicitante) {
+		if(!(solicitante instanceof Tutor ||solicitante instanceof Administrador)) {
+			throw new SecurityException("Apenas tutores e ADMs podem buscar Usuarios");
+		}
+		Usuario usuario = usuarioRepository.buscarPorCpf(cpf);
+		if(usuario == null) {
+			throw new IllegalArgumentException("Usuario não encontrado!");
+		}
+		return usuario;
+	}
+	
+	public List<Usuario> buscarPorNome(String nome, Usuario solicitante){
+		if(!(solicitante instanceof Tutor ||solicitante instanceof Administrador)) {
+			throw new SecurityException("Apenas tutores e ADMs podem buscar Usuarios");
+		}
+		
+		  if (nome == null || nome.trim().isEmpty()) {
+		        throw new IllegalArgumentException("Erro: Nome não pode ser vazio!");
+		    }
+		  
+		  return usuarioRepository.buscarPorNome(nome);
+		
+	}
+	
+	public Usuario buscarPorEmail(String email) {
+		return usuarioRepository.buscarPorEmail(email);
+	}
 	
 }

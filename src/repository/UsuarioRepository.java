@@ -18,8 +18,11 @@ public class UsuarioRepository {
 		if(usuario.getNome()==null || usuario.getNome().isBlank()) {
 			throw new IllegalArgumentException("Erro: Nome invalido!");
 		}
-		if(buscarCpf(usuario.getCpf()) != null) {
+		if(buscarPorCpf(usuario.getCpf()) != null) {
 			throw new IllegalArgumentException("Erro: CPF já cadastrado!");
+		}
+		if(buscarPorEmail(usuario.getEmail()) != null) {
+			throw new IllegalArgumentException("Erro: Email já cadastrado!");
 		}
 		
 		
@@ -27,7 +30,7 @@ public class UsuarioRepository {
 		System.out.println("Usuario cadastrado com sucesso!");
 	}
 	
-	public Usuario buscarCpf( String cpf) {
+	public Usuario buscarPorCpf( String cpf) {
 		if(cpf == null || cpf.isBlank()) {
 			return null;
 		}
@@ -56,25 +59,22 @@ public class UsuarioRepository {
 		return encontrados;
 	}
 	
-	public List<Usuario> buscarPorEmail(String email){
-		List<Usuario> encontrados = new ArrayList<>();
-		
+	public Usuario buscarPorEmail(String email){
 		if(email == null || email.isBlank()) {
-			return encontrados;
+			return null;
 		}
-		
-		for(Usuario u: usuarios) {
-			if(u.getNome() != null && u.getNome().equalsIgnoreCase(email)) {
-				encontrados.add(u);
+		for(Usuario u : usuarios) {
+			if(u.getEmail()!= null && u.getEmail().equalsIgnoreCase(email.trim())) {
+				return u;
 			}
 		}
+		return null;
 		
-		return encontrados;
 	}
 	
 	
 	public void atualizarDados(Usuario usuario) {
-		int indice= usuarios.indexOf(buscarCpf(usuario.getCpf()));
+		int indice= usuarios.indexOf(buscarPorCpf(usuario.getCpf()));
 		if(indice != -1) {
 			usuarios.set(indice, usuario);
 		}
@@ -111,7 +111,7 @@ public class UsuarioRepository {
 	
 	
 	public boolean removerPorCpf(String cpf) {
-		Usuario usuario = buscarCpf(cpf);
+		Usuario usuario = buscarPorCpf(cpf);
 		if(usuario != null) {
 			usuarios.remove(usuario);
 			System.out.println("Usuario removido com sucesso!");

@@ -1,13 +1,12 @@
 package view;
-//ESSA TELA APARECERA PARA O ADM,COM TODAS AS PESSOAS CADASTRADAS
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 
-public class TabelaCadastros extends JFrame {
+public class TabeladeCadastrosAdm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -19,7 +18,7 @@ public class TabelaCadastros extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TabelaCadastros frame = new TabelaCadastros();
+					TabeladeCadastrosAdm frame = new TabeladeCadastrosAdm();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,9 +30,9 @@ public class TabelaCadastros extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TabelaCadastros() {
+	public TabeladeCadastrosAdm() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1080,720);
+		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

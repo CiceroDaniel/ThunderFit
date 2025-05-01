@@ -58,8 +58,8 @@ public class Cad extends JFrame {
 	private JLabel lblAcompanheSeuProgresso;
 	private JLabel lblEPreparesePara;
 	private JLabel lblSeusResultados;
-	private JPasswordField passwordField;
-	private JTextField textFieldEmail;
+	private JPasswordField Camposenha;
+	private JTextField Campoemail;
 	private JLabel lblNome_2;
 	private JLabel lblNewLabel_linha;
 	private JLabel lblNewLabel_ImageFundo;
@@ -73,6 +73,7 @@ public class Cad extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -84,7 +85,7 @@ public class Cad extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	public class RoundedButtonSimples extends JButton{
 		private int arc;
@@ -120,7 +121,15 @@ public class Cad extends JFrame {
 	}
 	
 	
-	Cad() {
+	private Aluno aluno;
+	
+	
+	
+	
+	public Cad(Aluno aluno) {
+		
+		this.aluno=aluno;
+		
 		setResizable(false);
 		setBackground(new Color(224, 188, 233));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -144,15 +153,15 @@ public class Cad extends JFrame {
 		Campodenome.setColumns(10);
 	
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(58, 413, 380, 33);
-		contentPane.add(passwordField);
+		Camposenha = new JPasswordField();
+		Camposenha.setBounds(58, 413, 380, 33);
+		contentPane.add(Camposenha);
 		
-		textFieldEmail = new JTextField();
-		textFieldEmail.setFont(new Font("Tahoma", Font.BOLD, 15));
-		textFieldEmail.setColumns(10);
-		textFieldEmail.setBounds(58, 313, 380, 33);
-		contentPane.add(textFieldEmail);
+		Campoemail = new JTextField();
+		Campoemail.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Campoemail.setColumns(10);
+		Campoemail.setBounds(58, 313, 380, 33);
+		contentPane.add(Campoemail);
 		
 		
 		
@@ -274,16 +283,19 @@ public class Cad extends JFrame {
 		
 		btnCadastro.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
+				
 				 // Captura os valores dos campos de texto
 				String nome=Campodenome.getText();
-				String email=textFieldEmail.getText();
-				String senha= new String(passwordField.getPassword());
+				String email=Campoemail.getText();
+				String senha= new String(Camposenha.getPassword());
 		
 				//Usuario usuario = new Usuario(nome,email,senha);
 				
                 if(nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
               	
                 	JOptionPane.showMessageDialog(btnCadastro,"Preencha todos os campos");
+                	
+                	
                 	
                 }else{
                 	
@@ -301,18 +313,16 @@ public class Cad extends JFrame {
 				}else{
 					
 				// Cria um objeto aluno com os dados fornecidos
-				Aluno aluno = new Aluno(nome,email,senha);	
-				
-				
+				Aluno aluno = new Aluno(nome,email,senha);			
 				Alunocontroller.adicionarAluno(aluno);//CHAMA O METODO DA CLASSE ALUNOCONTROLLER	
 					
 				 JOptionPane.showMessageDialog(null,aluno.gerarCredenciaisCadastro());
 				 //JOptionPane.showMessageDialog(null, "Nome:"+aluno.getNome()+"Email:"+aluno.getEmail()+"Senha:"+aluno.getSenha());
 	                
 	                // Limpa os campos
-	                textFieldEmail.setText("");  
+	                Campoemail.setText("");  
 	                Campodenome.setText("");    
-	                passwordField.setText("");
+	                Camposenha.setText("");
 	                
 	                
 	                dispose();
@@ -395,7 +405,7 @@ public class Cad extends JFrame {
 				
 				dispose();
 				
-				Login loginScreen = new Login();
+				Login loginScreen = new Login(aluno);
 				loginScreen.setVisible(true);
 			}
 		});

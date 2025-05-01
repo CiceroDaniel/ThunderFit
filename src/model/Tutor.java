@@ -7,7 +7,7 @@ public class Tutor extends Usuario{
 	private boolean trabalhoAtivo;
 	
 	public Tutor(String nome, String cpf, String email,String senha,float salario) {
-		super(nome, cpf, email, senha);
+		super(nome, /*cpf*/ email, senha);
 		this.setSalario(salario);
 		this.trabalhoAtivo= true;
 	}
@@ -20,7 +20,7 @@ public class Tutor extends Usuario{
 	@Override
 	public String gerarCredenciais() {
 		return String.format("Nome: %s\nCPF: %s\nEmail: %s\nSalario: R$%.2f",
-		this.getNome(),this.getCpf(),this.getEmail(),this.getSalario());
+		this.getNome(),/*this.getCpf(),*/this.getEmail(),this.getSalario());
 	}
 
 	@Override
@@ -48,6 +48,22 @@ public class Tutor extends Usuario{
 			throw new IllegalArgumentException("Erro: Salario invalido!");
 		}
 		this.salario=salario;
+	}
+
+
+
+	@Override
+	public String gerarCredenciaisCadastro() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public String gerarCredenciaisLogin() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

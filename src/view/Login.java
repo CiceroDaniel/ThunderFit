@@ -65,15 +65,14 @@ public class Login extends JFrame {
 	private JLabel lblNewLabel_iconeSenha;
 	private JLabel lblNewLabel_walpaper2;
 	
-	
-	private Aluno aluno;
+
 	 // Lista de alunos cadastrados
 	
     private ArrayList<Aluno> alunos = (ArrayList<Aluno>) Alunocontroller.getAlunos();
 
 	/**
 	 * Launch the application.
-	 */
+	 *//*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -86,7 +85,7 @@ public class Login extends JFrame {
 			}
 		});
 	}
-
+*/
 	/**
 	 * Create the frame.
 	 */
@@ -125,7 +124,10 @@ public class Login extends JFrame {
 				g2.dispose();
 			}
 		}
-	public Login() {
+		
+		private Aluno aluno;
+		
+	public Login(Aluno aluno) {
 		setResizable(false);
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -193,6 +195,9 @@ public class Login extends JFrame {
 	               
 		                // Direciona para a tela principal após o login
 	                    dispose();
+	                    
+	                    
+	                    
 	                    Principal principalScreen = new Principal(aluno);
 	                    principalScreen.setVisible(true);
 
@@ -378,7 +383,7 @@ public class Login extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen = new Cad();
+				Cad cadScreen = new Cad(aluno);
 				cadScreen.setVisible(true);
 		}
 	});

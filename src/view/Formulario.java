@@ -1,9 +1,7 @@
 package view;
 
 //NÃO ESTÁ FUNCIONANDO CORRETAMENTE
-
-
-import java.awt.EventQueue;
+//AINDA NÃO CONSEGUIR FAZER ELE GUARDAR O QUE ESCOLHI NOS JBUTTONS
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,14 +19,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import javax.swing.JToggleButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.border.SoftBevelBorder;
 
@@ -36,26 +29,23 @@ import controller.Alunocontroller;
 import model.Aluno;
 import model.Aluno.Genero;
 import model.Metas;
-import model.Nivel;
 import model.Plano;
-import view.Cad;
-
 import javax.swing.border.BevelBorder;
 
 public class Formulario extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textFieldPESO;
-	private JTextField textField_ALTURA;
-	private JTextField textField_DATANASCIMENTO;
-	private JTextField textField_DATAINICIO;
+	private JTextField Peso;
+	private JTextField Altura;
+	private JTextField Datanascimento;
+	private JTextField Datainicio;
+	
 	Genero generoSelecionado;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
+	Plano planoSelecionado;
+	Metas metaSelecionada;
+/*
+ public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -66,11 +56,10 @@ public class Formulario extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
-	/**
-	 * Create the frame.
-	 */
+
+	
 	//===========================ARREDONDAR BORDAS DOS BOTÕES===============================//
 	
 	public class RoundedButtonSimples extends JButton{
@@ -161,12 +150,14 @@ public class Formulario extends JFrame {
 			g2.dispose();
 		}
 	}
-	///MODIFIQUEI PARA STATIC
-	private static Aluno aluno;
+	
+	private Aluno aluno;
+	
 	
 	public Formulario(Aluno aluno) {
 		
-		this.aluno = aluno;
+		this.aluno = aluno;//AQUI É PRA GUARDAR O ALUNO QUE A GENTE CRIOU
+	
 		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -419,12 +410,12 @@ public class Formulario extends JFrame {
 		panel_3_2_1.add(planoMensal);
 		
 		//==================OP_BIMESTRAL====================//
-		RoundedButtonRadios planoTrimenstral = new RoundedButtonRadios("TRIMENSTRAL",30);
-		planoTrimenstral.setForeground(Color.WHITE);
-		planoTrimenstral.setFont(new Font("Tahoma", Font.BOLD, 12));
-		planoTrimenstral.setBackground(new Color(92, 92, 92));
-		planoTrimenstral.setBounds(10, 102, 198, 34);
-		panel_3_2_1.add(planoTrimenstral);
+		RoundedButtonRadios planoTrimestral = new RoundedButtonRadios("TRIMENSTRAL",30);
+		planoTrimestral.setForeground(Color.WHITE);
+		planoTrimestral.setFont(new Font("Tahoma", Font.BOLD, 12));
+		planoTrimestral.setBackground(new Color(92, 92, 92));
+		planoTrimestral.setBounds(10, 102, 198, 34);
+		panel_3_2_1.add(planoTrimestral);
 		
 		//==================OP_BIMESTRAL====================//
 		RoundedButtonRadios planoAnual = new RoundedButtonRadios("ANUAL",30);
@@ -437,7 +428,7 @@ public class Formulario extends JFrame {
 		ButtonGroup grupoPlano = new ButtonGroup();
 		
 		grupoPlano.add(planoMensal);
-		grupoPlano.add(planoTrimenstral);
+		grupoPlano.add(planoTrimestral);
 		grupoPlano.add(planoAnual);
 		
 
@@ -466,7 +457,35 @@ public class Formulario extends JFrame {
 		
 		grupoGenero.add(homem);
 		grupoGenero.add(mulher);
-		
+		//==============================================//
+		//==============CAIXAS DE TEXTO=================//
+		//==============================================//
+			
+				Peso = new JTextField();
+				Peso.setBounds(26, 64, 96, 47);
+				panel_3_1.add(Peso);
+				Peso.setColumns(10);
+				
+				Altura = new JTextField();
+				Altura.setBounds(25, 65, 96, 45);
+				panel_3_1_1.add(Altura);
+				Altura.setColumns(10);
+
+				Datanascimento = new JTextField();
+				Datanascimento.setBounds(10, 74, 198, 32);
+				panel_3_2.add(Datanascimento);
+				Datanascimento.setColumns(10);
+				
+				Datainicio = new JTextField();
+				Datainicio.setColumns(10);
+				Datainicio.setBounds(10, 136, 198, 32);
+				panel_3_2.add(Datainicio);
+				
+				
+				
+		//==============================================//
+	    //==============================================//
+	    //==============================================//
 		
 		//==============================================//
 		//=================VOLTAR/SAIR==================//
@@ -478,75 +497,118 @@ public class Formulario extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+
+				
 				if(!ganharMassa.isSelected() && !perderPeso.isSelected() && !personalizada.isSelected() ) {
 					JOptionPane.showMessageDialog(null,"Selecione uma das opções de metas");
 					
 					return;
 				}else if(!homem.isSelected()&&!mulher.isSelected()){
 					JOptionPane.showMessageDialog(null,"Selecione um dos generos");
+					
 					if(homem.isSelected()) {
+						
 						//CONECTADO AO ENUM
 						generoSelecionado = Genero.MASCULINO;
+						
+						
 					}else if(mulher.isSelected()) {
 						generoSelecionado = Genero.FEMININO;
+					
 						
 					}else {
 						generoSelecionado = Genero.OUTRO;
 					}
+				
 					return;
-				}else if(!planoMensal.isSelected() && !planoTrimenstral.isSelected() && !planoAnual.isSelected()) {
+				}else if(!planoMensal.isSelected() && !planoTrimestral.isSelected() && !planoAnual.isSelected()) {
 					JOptionPane.showMessageDialog(null,"Selecione um plano");
+					
+					if(planoMensal.isSelected()) {
+						
+						planoSelecionado = Plano.planoMensal;
+						
+					}else if(planoTrimestral.isSelected()) {
+						
+						planoSelecionado = Plano.planoTrimestral;
+						
+					}else {
+						
+						planoSelecionado = Plano.planoAnual;
+						
+					}
+					
 					return;		
+				}else if(!ganharMassa.isSelected() && !perderPeso.isSelected() && !personalizada.isSelected()) {
+					
+					
+					if(ganharMassa.isSelected()) {
+						
+						metaSelecionada = Metas.ganharMassa;
+			
+						
+					}else if(perderPeso.isSelected()) {
+						
+						metaSelecionada = Metas.perderPeso;
+						
+					}else {
+						
+						metaSelecionada = Metas.personalizada;
+						
+					}
+					
+					
 				}
-				if(textFieldPESO.getText().trim().isEmpty()||
-				   textField_ALTURA.getText().trim().isEmpty()||
-				   textField_DATANASCIMENTO.getText().trim().isEmpty()||
-				   textField_DATAINICIO.getText().trim().isEmpty()) {
+				if(Peso.getText().trim().isEmpty()||
+				   Altura.getText().trim().isEmpty()||
+				   Datanascimento.getText().trim().isEmpty()||
+				   Datainicio.getText().trim().isEmpty()) {
 				JOptionPane.showMessageDialog(null,"Preencha todos os campos");
 				return;
 				}
 				
-				//VALIDAR PESO E ALTURA
-				
-				double peso = 0;
-				double altura = 0;
-				
-				try {
-					peso = Double.parseDouble(textFieldPESO.getText());
-					altura = Double.parseDouble(textField_ALTURA.getText());
-					
-				}catch(NumberFormatException ex){
-					
-					JOptionPane.showMessageDialog(null,"Peso e altura devem ser numeros");
-				return;
-				}
-				
-				String datanascimento = textField_DATANASCIMENTO.getText();
-				String datainicio = textField_DATAINICIO.getText();
-				
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-				sdf.setLenient(false);
-				/*
-				try {
-					Date dataNasc = sdf.parse(datanascimento);
-					Date dataIni = sdf.parse(datainicio);
-					
-				}catch(ParseException ex) {
-					return;
-				}*/
 				
 				
-				Aluno aluno = new Aluno(null,null,null,null, altura,peso,null, null, datanascimento,null, datainicio,datainicio, generoSelecionado);
+				
+				//System.out.println("imc"+aluno.calcularImc(0));
+				
+				
+				double peso = Double.parseDouble(Peso.getText());
+				double altura = Double.parseDouble(Altura.getText());
+				String datanascimento = Datanascimento.getText();
+				String datainicio = Datainicio.getText();
+				
+			
+				//TO USANDO OS SETTERS PORQUE DIVIDIMOS A TELA EM DUAS ETAPAS
+				//CADASTRO --> FORMULARIO
+				//AI NÃO PRECISO FICAR FAZENDO SEMPRE UM NOVO CONSTRUTOR
+				
+				aluno.setDatanascimento(datanascimento);
+				aluno.setDatainicio(datainicio);
+				aluno.setAltura(altura);
+				aluno.setPeso(peso);
+				
+		
+			/*
+				aluno.setPlano(planoSelecionado);
+				aluno.setGenero(generoSelecionado);
+				aluno.setMetas(metaSelecionada);
+			*/
+				
+				
 				Alunocontroller.adicionarAluno(aluno);
+				
+				JOptionPane.showMessageDialog(btnNewButton,aluno.gerarCredenciaisLogin());
+				
 					
-				textField_ALTURA.setText("");
-				textFieldPESO.setText("");
-				textField_DATANASCIMENTO.setText("");
-				textField_DATAINICIO.setText("");
+				Altura.setText("");
+				Peso.setText("");
+				Datanascimento.setText("");
+				Datainicio.setText("");
 				
 					dispose();
 					
-					TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario();
+					TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno);
 					escolhaScreen.setVisible(true);
 				
 			
@@ -564,7 +626,7 @@ public class Formulario extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen =  new Cad();
+				Cad cadScreen =  new Cad(aluno);
 				cadScreen.setVisible(true);
 			}
 		});
@@ -574,33 +636,6 @@ public class Formulario extends JFrame {
 		btnNewButton_1.setBounds(360, 527, 129, 25);
 		panel.add(btnNewButton_1);
 
-		//==============================================//
-		//==============CAIXAS DE TEXTO=================//
-		//==============================================//
-	
-		textFieldPESO = new JTextField();
-		textFieldPESO.setBounds(26, 64, 96, 47);
-		panel_3_1.add(textFieldPESO);
-		textFieldPESO.setColumns(10);
-		
-		textField_ALTURA = new JTextField();
-		textField_ALTURA.setBounds(25, 65, 96, 45);
-		panel_3_1_1.add(textField_ALTURA);
-		textField_ALTURA.setColumns(10);
-
-		textField_DATANASCIMENTO = new JTextField();
-		textField_DATANASCIMENTO.setBounds(10, 74, 198, 32);
-		panel_3_2.add(textField_DATANASCIMENTO);
-		textField_DATANASCIMENTO.setColumns(10);
-		
-		textField_DATAINICIO = new JTextField();
-		textField_DATAINICIO.setColumns(10);
-		textField_DATAINICIO.setBounds(10, 136, 198, 32);
-		panel_3_2.add(textField_DATAINICIO);
-		
-		//==============================================//
-		//==============================================//
-		//==============================================//
 		
 		
 		//FAZER CACULO DE IMC

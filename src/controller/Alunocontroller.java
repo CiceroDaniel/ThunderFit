@@ -31,5 +31,14 @@ public class Alunocontroller {
         return false;
     }
     
+    /*
+     * METODOS
+     * 
+     * VERIFICAR SE O ALUNO ESTÁ NA ACADEMIA E CONTAR PRESENÇA
+     * FAZER UMA MEDIA DESSA PRESENÇA
+     * 
+     * 
+     * */
+    
 
 }

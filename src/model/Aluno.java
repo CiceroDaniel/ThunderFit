@@ -21,31 +21,29 @@ public class Aluno extends Usuario {
 		
 		private Genero genero;//genero do tipo Genero
 		
-		
-		//**--------------CONSTRUTOR----------------------**//
-		
+		private double imc;
 		
 		
+		//**--------------CONSTRUTOR----------------------**//                                                                                                                                                                                                                                                                                                                                  
+			
 		public Aluno(String nome,String email,String senha) {
-			super(nome, email, senha, null);
+			super(nome, email, senha/*null*/);
 			this.altura=0;
 			this.peso=0;
-			this.metas=metas.personalizada;
-			this.metaPersonalizada="";
-			this.nivel=nivel.INICIANTE;
-			this.genero=genero.OUTRO;
-			this.plano=plano.planoMensal;
-			
-			/*FOI NESCESSARIO INICIALIZADOS,VERIFIQUE A INTERFACE CADASTRAR*/
-			/*OS SETTERS DO ALUNO ESTÃO SENDO VERIFICADOS NO SWING,PREENCHAM TUDO E TESTEM POR SOMENTE UM DIGITO NA SENHA OU NOME E VERIFIQUEM NO CONSOLE*/
-			
+			this.metas=metas;
+			this.metaPersonalizada=metaPersonalizada;
+			this.nivel=nivel;
+			this.genero=genero;
+			this.plano=plano;
+			this.imc=imc;
+		
 			
 		}
-		
 
 
-		public Aluno(String nome, String cpf, String email,String senha, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano,String datanascimento,String datainicio,Genero genero) {
-			super(nome,cpf,email,senha);
+
+		public Aluno(String nome, /*String cpf,*/ String email,String senha, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano,String datanascimento,String datainicio,Genero genero,double imc) {
+			super(nome,/*cpf,*/email,senha);
 			this.setAltura(altura);
 			this.setPeso(peso);
 			this.setNivel(nivel);
@@ -56,11 +54,30 @@ public class Aluno extends Usuario {
 			this.datanascimento=datanascimento;
 			this.datainicio=datainicio;
 			this.genero = genero;
+			this.imc=imc;
 			}
 		
 		//*----------------METODOS--------------
-
-
+		/*
+		 * 
+		 * 
+		 *METODOS QUE PRECISAM SER IMPLEMENTADOS 
+		 * 
+		 * 
+		public double calcularImc() {
+		return imc;
+		}
+		
+		public boolean alunoPresente() {
+			return false;
+		}
+		
+		public int alunoFrequenecia(){
+		
+		}
+		
+		*/
+		
 
 		@Override
 		public String gerarCredenciaisCadastro() {
@@ -68,11 +85,18 @@ public class Aluno extends Usuario {
 					this.getNome(),/*this.getCpf()*/this.getEmail(),this.getSenha());
 			}
 		
-		@Override
+		//@Override
 		public String gerarCredenciaisLogin() {
-			return String.format("Nome: %s\nEmail: %s\nAltura: %.2fm \nPeso: %.2fkg\nNivel: %s\nMetas:  %s, Descrição: %s\nInformaçoes do Plano\n%s \nValor: R$%.2f ",
-					this.getNome(),/*this.getCpf()*/this.getEmail(),this.getAltura(),this.getPeso(),this.nivel.name(),this.metas.name(),this.metaPersonalizada,this.plano.getNome(),this.plano.getValor());
+			return String.format("\nAltura: %.2f \nPeso: %.2f\nGenero:%s\nMetas:%s\nPlano:%s\nData de inicio:%s\nData de Nascimento:%s",
+					this.getAltura(),this.getPeso(),this.getGenero(),this.getMetas(),this.getPlano(),this.getDatainicio(),this.getDatanascimento());
 			}
+		
+		//@Override
+		//public String gerarCredenciaisLogin() {
+			//return String.format("%s\nAltura: %.2fm \nPeso: %.2fkg\nNivel: %s\nMetas:  %s, Descrição: %s\nInformaçoes do Plano:%s \nValor: R$%.2f ",
+				//	this.getNome(),/*this.getCpf()*/this.getEmail(),this.getAltura(),this.getPeso(),this.nivel.name(),this.metas.name(),this.metaPersonalizada,this.plano.getNome(),this.plano.getValor());
+			//}
+		
 		
 		@Override
 		public boolean temAcessoAdmin() {
@@ -83,11 +107,6 @@ public class Aluno extends Usuario {
 			Objects.requireNonNull(treino,"Erro: Treino não pode ser nulo");
 			this.treinos.add(treino);
 		}
-		
-		public void calcularImc() {
-			
-		}
-		
 		
 		
 		//*-----------------------GETTERS AND SETTERS--------------------
@@ -165,6 +184,36 @@ public class Aluno extends Usuario {
 				throw new IllegalArgumentException("Erro");
 			}
 			this.genero=genero;
+		}
+
+		//TESTE
+
+		public double getImc() {
+			return imc;
+		}
+
+		public void setImc(double imc) {
+			this.imc = imc;
+		}
+
+		public String getDatanascimento() {
+			return datanascimento;
+		}
+
+		public void setDatanascimento(String datanascimento) {
+			this.datanascimento = datanascimento;
+		}
+
+
+
+		public String getDatainicio() {
+			return datainicio;
+		}
+
+
+
+		public void setDatainicio(String datainicio) {
+			this.datainicio = datainicio;
 		}
 		
 		

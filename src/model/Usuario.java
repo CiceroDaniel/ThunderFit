@@ -9,18 +9,20 @@ public abstract class Usuario{
 		protected String email;
 		private String senha;
 		protected String cpf;
-		
-		//protected LocalDate dataDeNascimento;
-		//protected Endereco endereco;
 		protected boolean status;
-		//protected LocalDate dataDeCadastro;
+
+
+		//protected LocalDate dataDeNascimento;
+				//protected Endereco endereco;
+				//protected LocalDate dataDeCadastro;
 		
 		
 		//**--------------CONSTRUTOR----------------------**//
-		public Usuario(String nome, String email, String senha, String cpf) {
+		public Usuario(String nome, String email, String senha/*String cpf*/) {
 			this.setNome(nome);
 			this.setEmail(email);
 			this.setSenha(senha);
+			
 			//this.setCpf(cpf);//IMPLEMENTAR DEPOIS
 			//this.dataDeCadastro = LocalDate.now();
 			
@@ -118,6 +120,11 @@ public abstract class Usuario{
 		public boolean getAtivo() {
 			return status;
 		}*/
+
+		public String gerarCredenciais() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
 		
 	}

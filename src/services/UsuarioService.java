@@ -68,7 +68,7 @@ public class UsuarioService {
 		return usuarioRepository.listarTodos();
 	}
 	
-	public List<Aluno> listarAluno(Usuario solicitante){
+	public List<Aluno> listarAlunos(Usuario solicitante){
 		if(!(solicitante instanceof Tutor ||solicitante instanceof Administrador)) {
 			throw new SecurityException("Apenas tutores e ADMs podem listar");
 		}
@@ -89,7 +89,7 @@ public class UsuarioService {
 		Aluno aluno = (Aluno) usuarioRepository.buscarPorCpf(cpf);
 		if(aluno == null) throw new IllegalArgumentException("Erro: Aluno não encontrado!");
 		
-		 	if (novoEmail != null) aluno.setEmail(novoEmail);
+		 	if (novoEmail != null && !novoEmail.isBlank()) aluno.setEmail(novoEmail);
 		    if (novoPeso > 0) aluno.setPeso(novoPeso);
 		    if (novaMeta != null) aluno.setMetas(novaMeta);
 		    if (novoPlano != null) aluno.setPlano(novoPlano);
@@ -100,7 +100,7 @@ public class UsuarioService {
 	public void atualizarStatusOnline(String cpf, boolean online) {
 		Usuario usuario = usuarioRepository.buscarPorCpf(cpf);
 		if(usuario != null) {			
-			usuario.setAtivo(online);
+			usuario.setOnline(online);
 		}
 	}
 	
@@ -138,7 +138,7 @@ public class UsuarioService {
 	
 	public boolean removerUsuario(String cpf, Usuario solicitante) {
 		if(!(solicitante instanceof Administrador)) {
-			throw new SecurityException("Apenas ADMs podem buscar Usuarios");
+			throw new SecurityException("Apenas ADMs podem remover Usuarios");
 		}
 		return usuarioRepository.removerPorCpf(cpf);
 	}
@@ -147,7 +147,7 @@ public class UsuarioService {
 	
 	public boolean verificarOnline(String cpf) {
 		Usuario usuario = usuarioRepository.buscarPorCpf(cpf);
-		return usuario != null && usuario.getAtivo();
+		return usuario != null && usuario.getOnline();
 		}
 	
 }

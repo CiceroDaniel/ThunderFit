@@ -114,10 +114,10 @@ public abstract class Usuario{
 		}
 		
 		
-		public boolean getAtivo() {
+		public boolean getOnline() {
 			return online;
 		}
-		public void setAtivo(boolean online) {
+		public void setOnline(boolean online) {
 			this.online= online;
 		}
 

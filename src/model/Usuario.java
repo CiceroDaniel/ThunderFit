@@ -13,7 +13,7 @@ public abstract class Usuario{
 		
 		//protected LocalDate dataDeNascimento;
 		//protected Endereco endereco;
-		protected boolean status;	
+		protected boolean online;	
 		//protected LocalDate dataDeCadastro;
 		
 		
@@ -24,7 +24,7 @@ public abstract class Usuario{
 			this.setEmail(email);
 			this.setSenha(senha);
 			//this.dataDeCadastro = LocalDate.now();
-			this.status = true;
+			this.online = false;
 		}
 		
 		//**---------------METODOS ABSTRATOS--------------**//
@@ -32,20 +32,20 @@ public abstract class Usuario{
 		public abstract boolean temAcessoAdmin();
 		
 		//**--------------METODOS CONCRETOS-------------------**//
-		public void desativarUsuario() {
-			if(!this.status) {
+		/*public void desativarUsuario() {
+			if (!this.online) {
 				throw new IllegalArgumentException("Usuario ja está desativado");
 			}
-			this.status = false;
+			this.online = false;
 		}
 		
 		public void ativarUsuario() {
-			if(this.status) {
+			if(this.online) {
 				throw new IllegalArgumentException("Usuario ja está ativo");
 			}
-			this.status = true;
+			this.online = true;
 			
-		}
+		}*/
 		
 		public void atualizarEmail(String novoEmail) {
 			if(novoEmail != null && !novoEmail.isBlank()) {
@@ -115,7 +115,10 @@ public abstract class Usuario{
 		
 		
 		public boolean getAtivo() {
-			return status;
+			return online;
+		}
+		public void setAtivo(boolean online) {
+			this.online= online;
 		}
 
 		

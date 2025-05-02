@@ -97,6 +97,13 @@ public class UsuarioService {
 		    usuarioRepository.atualizarDados(aluno);
 	}
 	
+	public void atualizarStatusOnline(String cpf, boolean online) {
+		Usuario usuario = usuarioRepository.buscarPorCpf(cpf);
+		if(usuario != null) {			
+			usuario.setAtivo(online);
+		}
+	}
+	
 	//--------------------------- BUSCAR ---------------------------------
 	
 	public Usuario buscarPorCpf(String cpf, Usuario solicitante) {
@@ -126,5 +133,21 @@ public class UsuarioService {
 	public Usuario buscarPorEmail(String email) {
 		return usuarioRepository.buscarPorEmail(email);
 	}
+	
+	//---------------------- REMOVER -------------------------
+	
+	public boolean removerUsuario(String cpf, Usuario solicitante) {
+		if(!(solicitante instanceof Administrador)) {
+			throw new SecurityException("Apenas ADMs podem buscar Usuarios");
+		}
+		return usuarioRepository.removerPorCpf(cpf);
+	}
+	
+	//---------------------------------------------------------------------
+	
+	public boolean verificarOnline(String cpf) {
+		Usuario usuario = usuarioRepository.buscarPorCpf(cpf);
+		return usuario != null && usuario.getAtivo();
+		}
 	
 }

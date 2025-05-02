@@ -18,12 +18,13 @@ public abstract class Usuario{
 		
 		
 		//**--------------CONSTRUTOR----------------------**//
-		public Usuario(String nome, String email, String senha/*String cpf*/) {
+		public Usuario(String nome, String email, String senha,String cpf) {
 			this.setNome(nome);
 			this.setEmail(email);
 			this.setSenha(senha);
+			this.setCpf(cpf);
 			
-			//this.setCpf(cpf);//IMPLEMENTAR DEPOIS
+			
 			//this.dataDeCadastro = LocalDate.now();
 			
 			this.status = true;
@@ -103,7 +104,7 @@ public abstract class Usuario{
 			this.senha=senha;
 			
 		}
-		/*
+		
 		public String getCpf() {
 			return cpf;
 		}
@@ -119,7 +120,7 @@ public abstract class Usuario{
 		
 		public boolean getAtivo() {
 			return status;
-		}*/
+		}
 
 		public String gerarCredenciais() {
 			// TODO Auto-generated method stub

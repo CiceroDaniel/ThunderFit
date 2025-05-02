@@ -8,6 +8,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import model.Aluno;
+import model.Plano;
 
 import java.awt.Color;
 import java.awt.Panel;
@@ -88,26 +89,6 @@ public class Pacote extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblNewLabel_1.setBounds(48, 0, 140, 38);
 		panel_1.add(lblNewLabel_1);
-		
-		JButton btnNewButton_perfil = new JButton("");
-		btnNewButton_perfil.setIconTextGap(10);
-		btnNewButton_perfil.setHorizontalTextPosition(SwingConstants.RIGHT);
-		btnNewButton_perfil.setBounds(1030, 4, 30, 30);
-		panel_1.add(btnNewButton_perfil);
-		setImageBotao(btnNewButton_perfil,"/img/iconemenu.jpg",30,30);
-		btnNewButton_perfil.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				dispose();
-				
-				Principal principalScreen = new Principal(aluno);
-				principalScreen.setVisible(true);
-
-				btnNewButton_perfil.setBounds(1030, 4, 30, 30);
-				panel_1.add(btnNewButton_perfil);
-				
-			}
-		});
 	
 		
 		Panel panel_1_1 = new Panel();
@@ -142,7 +123,7 @@ public class Pacote extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(71, 71, 71));
-		panel.setBounds(43, 89, 319, 382);
+		panel.setBounds(45, 138, 319, 315);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -152,15 +133,9 @@ public class Pacote extends JFrame {
 		panel_3.setBounds(10, 11, 297, 40);
 		panel.add(panel_3);
 		
-		JLabel lblNewLabel_2 = new JLabel("MENSAL");
-		lblNewLabel_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_2.setBounds(111, 15, 116, 14);
-		panel_3.add(lblNewLabel_2);
-		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(71, 71, 71));
-		panel_2.setBounds(372, 89, 319, 382);
+		panel_2.setBounds(374, 138, 319, 315);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -170,15 +145,9 @@ public class Pacote extends JFrame {
 		panel_3_1.setBounds(10, 11, 297, 40);
 		panel_2.add(panel_3_1);
 		
-		JLabel lblNewLabel_2_2 = new JLabel("BIMESTRAL");
-		lblNewLabel_2_2.setForeground(Color.WHITE);
-		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_2_2.setBounds(92, 15, 150, 14);
-		panel_3_1.add(lblNewLabel_2_2);
-		
 		JPanel panel_2_1 = new JPanel();
 		panel_2_1.setBackground(new Color(71, 71, 71));
-		panel_2_1.setBounds(701, 89, 319, 382);
+		panel_2_1.setBounds(703, 138, 319, 315);
 		contentPane.add(panel_2_1);
 		panel_2_1.setLayout(null);
 		
@@ -188,26 +157,131 @@ public class Pacote extends JFrame {
 		panel_3_1_1.setBounds(10, 11, 297, 40);
 		panel_2_1.add(panel_3_1_1);
 		
-		JLabel lblNewLabel_2_2_1 = new JLabel("TRIMESTRAL");
+		
+		
+		
+		
+		
+		
+		JLabel lblNewLabel_2 = new JLabel("MENSAL");
+		lblNewLabel_2.setForeground(new Color(255, 255, 255));
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_2.setBounds(111, 15, 116, 14);
+		panel_3.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_2_2 = new JLabel("TRIMESTRAL");
+		lblNewLabel_2_2.setForeground(Color.WHITE);
+		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_2_2.setBounds(92, 15, 150, 14);
+		panel_3_1.add(lblNewLabel_2_2);
+		
+		JLabel lblNewLabel_2_2_1 = new JLabel("ANUAL");
 		lblNewLabel_2_2_1.setForeground(Color.WHITE);
 		lblNewLabel_2_2_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_2_2_1.setBounds(87, 15, 150, 14);
+		lblNewLabel_2_2_1.setBounds(121, 16, 150, 14);
 		panel_3_1_1.add(lblNewLabel_2_2_1);
-		
-		JButton btnPagamento = new JButton("PAGAMENTO");
-		btnPagamento.setBackground(new Color(204, 102, 204));
-		btnPagamento.setForeground(new Color(255, 255, 255));
-		btnPagamento.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnPagamento.setBounds(548, 590, 143, 23);
-		contentPane.add(btnPagamento);
-		
-		JButton btnEscolher = new JButton("ESCOLHER");
-		btnEscolher.setForeground(Color.WHITE);
-		btnEscolher.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnEscolher.setBackground(new Color(204, 102, 204));
-		btnEscolher.setBounds(372, 590, 143, 23);
-		contentPane.add(btnEscolher);
-		
 	
+	
+		
+		
+		
+		
+		JLabel lblNewLabel_3 = new JLabel("INFORMAÇÕES DOS PACOTES");
+		lblNewLabel_3.setForeground(new Color(255, 255, 255));
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_3.setBounds(56, 74, 308, 32);
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_5_2_1 = new JLabel("PACOTE:ANUAL");
+		lblNewLabel_5_2_1.setForeground(Color.WHITE);
+		lblNewLabel_5_2_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_5_2_1.setBounds(20, 75, 287, 27);
+		panel_2_1.add(lblNewLabel_5_2_1);
+		
+		JLabel lblNewLabel_5 = new JLabel("PACOTE:MENSAL");
+		lblNewLabel_5.setForeground(new Color(255, 255, 255));
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_5.setBounds(20, 75, 287, 27);
+		panel.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_5_2 = new JLabel("PACOTE:TRIMESTRAL");
+		lblNewLabel_5_2.setForeground(Color.WHITE);
+		lblNewLabel_5_2.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_5_2.setBounds(22, 73, 287, 27);
+		panel_2.add(lblNewLabel_5_2);
+		
+		
+		
+		
+		
+		
+		
+		JLabel VALOERMENSAL = new JLabel("VALOR:");
+		VALOERMENSAL.setForeground(Color.WHITE);
+		VALOERMENSAL.setFont(new Font("Tahoma", Font.BOLD, 15));
+		VALOERMENSAL.setBounds(20, 114, 287, 27);
+		panel.add(VALOERMENSAL);
+		
+		JLabel VALORTRIMESTRAL = new JLabel("VALOR:");
+		VALORTRIMESTRAL.setForeground(Color.WHITE);
+		VALORTRIMESTRAL.setFont(new Font("Tahoma", Font.BOLD, 15));
+		VALORTRIMESTRAL.setBounds(20, 110, 287, 27);
+		panel_2.add(VALORTRIMESTRAL);
+		
+		JLabel VALORANUAL = new JLabel("VALOR:");
+		VALORANUAL.setForeground(Color.WHITE);
+		VALORANUAL.setFont(new Font("Tahoma", Font.BOLD, 15));
+		VALORANUAL.setBounds(20, 112, 287, 27);
+		panel_2_1.add(VALORANUAL);
+	
+		
+		
+		
+		
+		
+		
+		JButton btnNewButton_perfil = new JButton("");
+		btnNewButton_perfil.setIconTextGap(10);
+		btnNewButton_perfil.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnNewButton_perfil.setBounds(1030, 4, 30, 30);
+		panel_1.add(btnNewButton_perfil);
+		setImageBotao(btnNewButton_perfil,"/img/iconemenu.jpg",30,30);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(new Color(71, 71, 71));
+		panel_4.setBounds(45, 502, 648, 88);
+		contentPane.add(panel_4);
+		panel_4.setLayout(null);
+		
+		JLabel NOME = new JLabel("NOME:"+aluno.getNome());
+		NOME.setForeground(Color.WHITE);
+		NOME.setFont(new Font("Tahoma", Font.BOLD, 15));
+		NOME.setBounds(10, 10, 287, 27);
+		panel_4.add(NOME);
+		
+		JLabel EMAIL = new JLabel("EMAIL:"+aluno.getEmail());
+		EMAIL.setForeground(Color.WHITE);
+		EMAIL.setFont(new Font("Tahoma", Font.BOLD, 15));
+		EMAIL.setBounds(10, 47, 287, 27);
+		panel_4.add(EMAIL);
+		
+		JLabel PACOTE = new JLabel("PACOTE:"+aluno.getPlano());
+		PACOTE.setForeground(Color.WHITE);
+		PACOTE.setFont(new Font("Tahoma", Font.BOLD, 15));
+		PACOTE.setBounds(327, 10, 287, 27);
+		panel_4.add(PACOTE);
+		btnNewButton_perfil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				dispose();
+				
+				Principal principalScreen = new Principal(aluno);
+				principalScreen.setVisible(true);
+
+				btnNewButton_perfil.setBounds(1030, 4, 30, 30);
+				panel_1.add(btnNewButton_perfil);
+				
+			}
+		});
 	}
 }

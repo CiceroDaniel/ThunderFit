@@ -493,8 +493,8 @@ public class Formulario extends JFrame {
 		
 		
 		
-		RoundedButtonSimples btnNewButton = new RoundedButtonSimples("CONTINUAR",20);
-		btnNewButton.addActionListener(new ActionListener() {
+		RoundedButtonSimples continuar = new RoundedButtonSimples("CONTINUAR",20);
+		continuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 
@@ -598,7 +598,7 @@ public class Formulario extends JFrame {
 				
 				Alunocontroller.adicionarAluno(aluno);
 				
-				JOptionPane.showMessageDialog(btnNewButton,aluno.gerarCredenciaisLogin());
+				JOptionPane.showMessageDialog(continuar,aluno.gerarCredenciaisLogin());
 				
 					
 				Altura.setText("");
@@ -614,14 +614,14 @@ public class Formulario extends JFrame {
 			
 		}
 	});
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBackground(new Color(255, 102, 153));
-		btnNewButton.setBounds(499, 527, 129, 25);
-		panel.add(btnNewButton);
+		continuar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		continuar.setForeground(new Color(255, 255, 255));
+		continuar.setBackground(new Color(255, 102, 153));
+		continuar.setBounds(550, 520, 130, 25);
+		panel.add(continuar);
 		
-		RoundedButtonSimples btnNewButton_1 = new RoundedButtonSimples("VOLTAR",20);
-		btnNewButton_1.addActionListener(new ActionListener() {
+		RoundedButtonSimples voltar = new RoundedButtonSimples("<--",30);
+		voltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				dispose();
@@ -630,11 +630,36 @@ public class Formulario extends JFrame {
 				cadScreen.setVisible(true);
 			}
 		});
-		btnNewButton_1.setForeground(new Color(255, 255, 255));
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton_1.setBackground(new Color(255, 102, 153));
-		btnNewButton_1.setBounds(360, 527, 129, 25);
-		panel.add(btnNewButton_1);
+		voltar.setForeground(new Color(255, 255, 255));
+		voltar.setFont(new Font("Tahoma", Font.BOLD, 9));
+		voltar.setBackground(new Color(255, 102, 153));
+		voltar.setBounds(965,11,50,50);
+		panel.add(voltar);
+		
+		
+	
+		RoundedButtonSimples Atualizar = new RoundedButtonSimples("ATUALIZAR",20);
+		voltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				//CONDIÇÃO PARA ATUALIZAR
+				
+				dispose();
+				
+				Cad cadScreen =  new Cad(aluno);
+				cadScreen.setVisible(true);
+			}
+		});
+		
+		Atualizar.setBounds(400, 520, 130, 25);
+		Atualizar.setFont(new Font("Tahoma",Font.BOLD,14));
+		Atualizar.setForeground(new Color(255, 255, 255));
+		Atualizar.setBackground(new Color(255, 102, 153));
+		panel.add(Atualizar);
+		
+
+		
 
 		
 		

@@ -176,60 +176,9 @@ public class Perfil extends JFrame {
 		lblNewLabel_1_1_1.setBounds(0, 25, 337, 20);
 		panel_2_1_2.add(lblNewLabel_1_1_1);
 		
-		JLabel lblNewLabel_2_2 = new JLabel("INFORMAÇÕES");
-		lblNewLabel_2_2.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_2_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblNewLabel_2_2.setBounds(92, 11, 145, 29);
-		panel_2_1_2.add(lblNewLabel_2_2);
+
+	
 		
-		JLabel lblNewLabel_2_2_1 = new JLabel("DATA DE INICIO");
-		lblNewLabel_2_2_1.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_2_2_1.setForeground(Color.WHITE);
-		lblNewLabel_2_2_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2_2_1.setBounds(10, 66, 145, 15);
-		panel_2_1.add(lblNewLabel_2_2_1);
-		
-		JLabel lblNewLabel_2_2_1_1 = new JLabel("PESO DE NASCIMENTO");
-		lblNewLabel_2_2_1_1.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_2_2_1_1.setForeground(Color.WHITE);
-		lblNewLabel_2_2_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2_2_1_1.setBounds(10, 118, 145, 15);
-		panel_2_1.add(lblNewLabel_2_2_1_1);
-		
-		JLabel lblNewLabel_2_2_1_1_1 = new JLabel("FREQUENCIA");
-		lblNewLabel_2_2_1_1_1.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_2_2_1_1_1.setForeground(Color.WHITE);
-		lblNewLabel_2_2_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2_2_1_1_1.setBounds(10, 172, 145, 15);
-		panel_2_1.add(lblNewLabel_2_2_1_1_1);
-		
-		JLabel lblNewLabel_2_2_1_2 = new JLabel("PACOTE");
-		lblNewLabel_2_2_1_2.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_2_2_1_2.setForeground(Color.WHITE);
-		lblNewLabel_2_2_1_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2_2_1_2.setBounds(165, 67, 145, 15);
-		panel_2_1.add(lblNewLabel_2_2_1_2);
-		
-		JLabel lblNewLabel_2_2_1_3 = new JLabel("VALOR");
-		lblNewLabel_2_2_1_3.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_2_2_1_3.setForeground(Color.WHITE);
-		lblNewLabel_2_2_1_3.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2_2_1_3.setBounds(165, 119, 145, 15);
-		panel_2_1.add(lblNewLabel_2_2_1_3);
-		
-		JLabel DATADEINICIO = new JLabel(""+aluno.getDatainicio());	
-		DATADEINICIO.setForeground(new Color(255, 255, 255));
-		
-		DATADEINICIO.setFont(new Font("Tahoma", Font.BOLD, 15));
-		DATADEINICIO.setBounds(10, 84, 103, 24);
-		panel_2_1.add(DATADEINICIO);
-		
-		JLabel DATADENASCIMENTO = new JLabel(""+aluno.getDatanascimento());
-		DATADENASCIMENTO.setForeground(Color.WHITE);
-		DATADENASCIMENTO.setFont(new Font("Tahoma", Font.BOLD, 15));
-		DATADENASCIMENTO.setBounds(10, 138, 103, 24);
-		panel_2_1.add(DATADENASCIMENTO);
 		
 		JPanel panel_2_1_1 = new JPanel();
 		panel_2_1_1.setBackground(new Color(79, 79, 79));
@@ -263,29 +212,26 @@ public class Perfil extends JFrame {
 		lblNewLabel_2_2_2_1.setBounds(37, 54, 196, 29);
 		panel_2_1_1.add(lblNewLabel_2_2_2_1);
 		
-		JLabel PESO = new JLabel(""+aluno.getPeso());
-		PESO.setForeground(Color.WHITE);
-		PESO.setFont(new Font("Tahoma", Font.BOLD, 15));
-		PESO.setBounds(43, 78, 38, 42);
-		panel_2_1_1.add(PESO);
-		
-		JLabel ALTURA = new JLabel(""+aluno.getAltura());
-		ALTURA.setForeground(Color.WHITE);
-		ALTURA.setFont(new Font("Tahoma", Font.BOLD, 15));
-		ALTURA.setBounds(120, 78, 38, 42);
-		panel_2_1_1.add(ALTURA);
-		
-		JLabel IMC = new JLabel("<dynamic>");
-		IMC.setForeground(Color.WHITE);
-		IMC.setFont(new Font("Tahoma", Font.BOLD, 15));
-		IMC.setBounds(176, 78, 57, 42);
-		panel_2_1_1.add(IMC);
 		
 		JPanel panel_2_1_1_1 = new JPanel();
 		panel_2_1_1_1.setBackground(new Color(79, 79, 79));
 		panel_2_1_1_1.setBounds(787, 240, 244, 249);
 		contentPane.add(panel_2_1_1_1);
 		panel_2_1_1_1.setLayout(null);
+
+		JLabel lblNewLabel_1_2 = new JLabel("___________");
+		lblNewLabel_1_2.setForeground(new Color(255, 255, 255));
+		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_1_2.setBounds(83, 185, 107, 20);
+		panel_2_1_1_1.add(lblNewLabel_1_2);
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		JLabel lblNewLabel_2_2_1_3_1 = new JLabel("PRODUTIVIDADE");
 		lblNewLabel_2_2_1_3_1.setVerticalAlignment(SwingConstants.TOP);
@@ -294,11 +240,112 @@ public class Perfil extends JFrame {
 		lblNewLabel_2_2_1_3_1.setBounds(71, 11, 119, 15);
 		panel_2_1_1_1.add(lblNewLabel_2_2_1_3_1);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("___________");
-		lblNewLabel_1_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_2.setBounds(83, 185, 107, 20);
-		panel_2_1_1_1.add(lblNewLabel_1_2);
+		JLabel lblNewLabel_2_2 = new JLabel("INFORMAÇÕES");
+		lblNewLabel_2_2.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_2_2.setForeground(new Color(255, 255, 255));
+		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel_2_2.setBounds(92, 11, 145, 29);
+		panel_2_1_2.add(lblNewLabel_2_2);
+		
+		JLabel lblNewLabel_2_2_1 = new JLabel("DATA DE INICIO");
+		lblNewLabel_2_2_1.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_2_2_1.setForeground(Color.WHITE);
+		lblNewLabel_2_2_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_2_2_1.setBounds(10, 66, 145, 15);
+		panel_2_1.add(lblNewLabel_2_2_1);
+		
+		JLabel lblNewLabel_2_2_1_1 = new JLabel("DATA DE NASCIMENTO");
+		lblNewLabel_2_2_1_1.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_2_2_1_1.setForeground(Color.WHITE);
+		lblNewLabel_2_2_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_2_2_1_1.setBounds(10, 118, 145, 15);
+		panel_2_1.add(lblNewLabel_2_2_1_1);
+		
+		JLabel lblNewLabel_2_2_1_1_1 = new JLabel("FREQUENCIA");
+		lblNewLabel_2_2_1_1_1.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_2_2_1_1_1.setForeground(Color.WHITE);
+		lblNewLabel_2_2_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_2_2_1_1_1.setBounds(10, 172, 145, 15);
+		panel_2_1.add(lblNewLabel_2_2_1_1_1);
+		
+		JLabel lblNewLabel_2_2_1_2 = new JLabel("PACOTE");
+		lblNewLabel_2_2_1_2.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_2_2_1_2.setForeground(Color.WHITE);
+		lblNewLabel_2_2_1_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_2_2_1_2.setBounds(165, 67, 145, 15);
+		panel_2_1.add(lblNewLabel_2_2_1_2);
+		
+		JLabel lblNewLabel_2_2_1_3 = new JLabel("VALOR");
+		lblNewLabel_2_2_1_3.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_2_2_1_3.setForeground(Color.WHITE);
+		lblNewLabel_2_2_1_3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_2_2_1_3.setBounds(165, 119, 145, 15);
+		panel_2_1.add(lblNewLabel_2_2_1_3);
+		
+		
+		
+		
+		
+		JLabel PRODUTIVIDADE = new JLabel("<dynamic>");
+		PRODUTIVIDADE.setForeground(Color.WHITE);
+		PRODUTIVIDADE.setFont(new Font("Tahoma", Font.BOLD, 15));
+		PRODUTIVIDADE.setBounds(86, 101, 57, 42);
+		panel_2_1_1_1.add(PRODUTIVIDADE);
+		
+		JLabel PESO = new JLabel(""+aluno.getPeso());
+		PESO.setForeground(Color.WHITE);
+		PESO.setFont(new Font("Tahoma", Font.BOLD, 15));
+		PESO.setBounds(37, 78, 44, 42);
+		panel_2_1_1.add(PESO);
+		
+		JLabel ALTURA = new JLabel(""+aluno.getAltura());
+		ALTURA.setForeground(Color.WHITE);
+		ALTURA.setFont(new Font("Tahoma", Font.BOLD, 15));
+		ALTURA.setBounds(109, 78, 57, 42);
+		panel_2_1_1.add(ALTURA);
+		
+		JLabel IMC = new JLabel("<dynamic>");
+		IMC.setForeground(Color.WHITE);
+		IMC.setFont(new Font("Tahoma", Font.BOLD, 15));
+		IMC.setBounds(176, 78, 57, 42);
+		panel_2_1_1.add(IMC);
+		
+		JLabel DATADEINICIO = new JLabel(""+aluno.getDatainicio());	
+		DATADEINICIO.setForeground(new Color(255, 255, 255));
+		
+		DATADEINICIO.setFont(new Font("Tahoma", Font.BOLD, 15));
+		DATADEINICIO.setBounds(10, 84, 103, 24);
+		panel_2_1.add(DATADEINICIO);
+		
+		JLabel DATADENASCIMENTO = new JLabel(""+aluno.getDatanascimento());
+		DATADENASCIMENTO.setForeground(Color.WHITE);
+		DATADENASCIMENTO.setFont(new Font("Tahoma", Font.BOLD, 15));
+		DATADENASCIMENTO.setBounds(10, 138, 103, 24);
+		panel_2_1.add(DATADENASCIMENTO);
+		
+		JLabel PACOTE = new JLabel(""+aluno.getPlano());
+		PACOTE.setForeground(Color.WHITE);
+		PACOTE.setFont(new Font("Tahoma", Font.BOLD, 15));
+		PACOTE.setBounds(165, 85, 103, 24);
+		panel_2_1.add(PACOTE);
+		
+		JLabel VALOR = new JLabel("<dynamic>");
+		VALOR.setForeground(Color.WHITE);
+		VALOR.setFont(new Font("Tahoma", Font.BOLD, 15));
+		VALOR.setBounds(165, 138, 103, 24);
+		panel_2_1.add(VALOR);
+		
+		JLabel FREQUENCIA = new JLabel("<dynamic>");
+		FREQUENCIA.setForeground(Color.WHITE);
+		FREQUENCIA.setFont(new Font("Tahoma", Font.BOLD, 15));
+		FREQUENCIA.setBounds(10, 197, 103, 24);
+		panel_2_1.add(FREQUENCIA);
+		
+		
+		
+		
+		
+		
 		
 		
 		JButton btnNewButtonMenu = new JButton("");

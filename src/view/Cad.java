@@ -122,6 +122,11 @@ public class Cad extends JFrame {
 	
 	
 	private Aluno aluno;
+	private JLabel lblNewLabel_6;
+	private JLabel lblNewLabel_7;
+	private JPasswordField campocpf;
+	private JLabel IMAGEMCPF;
+	private JTextField campoCpf;
 	
 	
 	
@@ -148,21 +153,26 @@ public class Cad extends JFrame {
 		
 		Campodenome = new JTextField();
 		Campodenome.setFont(new Font("Tahoma", Font.BOLD, 15));
-		Campodenome.setBounds(58, 217, 380, 33);
+		Campodenome.setBounds(58, 193, 380, 33);
 		contentPane.add(Campodenome);
 		Campodenome.setColumns(10);
 	
 		
 		Camposenha = new JPasswordField();
-		Camposenha.setBounds(58, 413, 380, 33);
+		Camposenha.setBounds(58, 348, 380, 33);
 		contentPane.add(Camposenha);
 		
 		Campoemail = new JTextField();
 		Campoemail.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Campoemail.setColumns(10);
-		Campoemail.setBounds(58, 313, 380, 33);
+		Campoemail.setBounds(58, 270, 380, 33);
 		contentPane.add(Campoemail);
-		
+
+		campoCpf = new JTextField();
+		campoCpf.setFont(new Font("Tahoma", Font.BOLD, 15));
+		campoCpf.setColumns(10);
+		campoCpf.setBounds(58, 421, 380, 33);
+		contentPane.add(campoCpf);
 		
 		
 		//================================================================//
@@ -183,7 +193,7 @@ public class Cad extends JFrame {
 		lblNome = new JLabel("EMAIL");
 		lblNome.setForeground(Color.WHITE);
 		lblNome.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNome.setBounds(58, 249, 51, 52);
+		lblNome.setBounds(58, 227, 51, 33);
 		contentPane.add(lblNome);
 		
 		lblNewLabel_1 = new JLabel("____________");
@@ -195,13 +205,13 @@ public class Cad extends JFrame {
 		lblNewLabel_2 = new JLabel("____");
 		lblNewLabel_2.setForeground(new Color(204, 102, 255));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_2.setBounds(58, 356, 166, 57);
+		lblNewLabel_2.setBounds(58, 160, 62, 25);
 		contentPane.add(lblNewLabel_2);
 		
 		lblSenha = new JLabel("SENHA");
 		lblSenha.setForeground(Color.WHITE);
 		lblSenha.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblSenha.setBounds(58, 351, 62, 52);
+		lblSenha.setBounds(58, 296, 62, 52);
 		contentPane.add(lblSenha);
 		
 		lblNewLabel_3 = new JLabel("____");
@@ -250,7 +260,7 @@ public class Cad extends JFrame {
 		lblNome_2 = new JLabel("NOME");
 		lblNome_2.setForeground(Color.WHITE);
 		lblNome_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNome_2.setBounds(58, 156, 51, 52);
+		lblNome_2.setBounds(58, 140, 51, 52);
 		contentPane.add(lblNome_2);
 		
 		lblNewLabel_linha = new JLabel("____");
@@ -288,10 +298,11 @@ public class Cad extends JFrame {
 				String nome=Campodenome.getText();
 				String email=Campoemail.getText();
 				String senha= new String(Camposenha.getPassword());
+				String cpf = campoCpf.getText();
 		
 				//Usuario usuario = new Usuario(nome,email,senha);
 				
-                if(nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
+                if(nome.isEmpty() || email.isEmpty() || senha.isEmpty() || cpf.isEmpty()) {
               	
                 	JOptionPane.showMessageDialog(btnCadastro,"Preencha todos os campos");
                 	
@@ -313,7 +324,7 @@ public class Cad extends JFrame {
 				}else{
 					
 				// Cria um objeto aluno com os dados fornecidos
-				Aluno aluno = new Aluno(nome,email,senha);			
+				Aluno aluno = new Aluno(nome,email,senha,cpf);			
 				Alunocontroller.adicionarAluno(aluno);//CHAMA O METODO DA CLASSE ALUNOCONTROLLER	
 					
 				 JOptionPane.showMessageDialog(null,aluno.gerarCredenciaisCadastro());
@@ -323,6 +334,7 @@ public class Cad extends JFrame {
 	                Campoemail.setText("");  
 	                Campodenome.setText("");    
 	                Camposenha.setText("");
+	                campoCpf.setText("");
 	                
 	                
 	                dispose();
@@ -365,7 +377,7 @@ public class Cad extends JFrame {
 		Image resizedImage2 = originalImage2.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 		ImageIcon resizedIcon2 = new ImageIcon(resizedImage2);
 		lblNewLabel_IconSenha.setIcon(resizedIcon2);
-		lblNewLabel_IconSenha.setBounds(10, 407, 45, 45);
+		lblNewLabel_IconSenha.setBounds(10, 342, 45, 45);
 		contentPane.add(lblNewLabel_IconSenha);
 		
 		lblNewLabel_IconEmail = new JLabel("New label");
@@ -374,7 +386,7 @@ public class Cad extends JFrame {
 		Image resizideImage3= originalImage3.getScaledInstance(40, 40,Image.SCALE_SMOOTH);
 		ImageIcon resizedIcon3 = new ImageIcon(resizideImage3);
 		lblNewLabel_IconEmail.setIcon(resizedIcon3);
-		lblNewLabel_IconEmail.setBounds(10, 305, 50, 50);
+		lblNewLabel_IconEmail.setBounds(10, 263, 50, 50);
 		contentPane.add(lblNewLabel_IconEmail);
 		
 		lblNewLabel_IconPerfil = new JLabel("");
@@ -383,7 +395,7 @@ public class Cad extends JFrame {
 		Image resizideImage4 = originalImage4.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 		ImageIcon resizideIcon4 = new ImageIcon(resizideImage4);
 		lblNewLabel_IconPerfil.setIcon(resizideIcon4);
-		lblNewLabel_IconPerfil.setBounds(15, 205, 35, 50);
+		lblNewLabel_IconPerfil.setBounds(15, 181, 35, 50);
 		contentPane.add(lblNewLabel_IconPerfil);
 		
 		//================================================================//
@@ -415,6 +427,35 @@ public class Cad extends JFrame {
 		linkParaLoginCadastroAdmInstrutor.setFont(new Font("Tahoma", Font.BOLD, 10));
 		linkParaLoginCadastroAdmInstrutor.setBounds(27, 619, 262, 33);
 		contentPane.add(linkParaLoginCadastroAdmInstrutor);
+		
+		lblNewLabel_6 = new JLabel("____");
+		lblNewLabel_6.setForeground(new Color(204, 102, 255));
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_6.setBounds(58, 313, 62, 25);
+		contentPane.add(lblNewLabel_6);
+		
+		lblNewLabel_7 = new JLabel("____");
+		lblNewLabel_7.setForeground(new Color(204, 102, 255));
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_7.setBounds(58, 236, 62, 25);
+		contentPane.add(lblNewLabel_7);
+		
+		JLabel CPF = new JLabel("CPF");
+		CPF.setForeground(Color.WHITE);
+		CPF.setFont(new Font("Tahoma", Font.BOLD, 15));
+		CPF.setBounds(58, 373, 62, 52);
+		contentPane.add(CPF);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("____");
+		lblNewLabel_2_1.setForeground(new Color(204, 102, 255));
+		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_2_1.setBounds(58, 391, 62, 25);
+		contentPane.add(lblNewLabel_2_1);
+		
+		IMAGEMCPF = new JLabel("New label");
+		IMAGEMCPF.setBounds(10, 408, 45, 45);
+		contentPane.add(IMAGEMCPF);
+		
 		
 		
 		linkParaLoginCadastroAdmInstrutor.addMouseListener(new MouseAdapter() {

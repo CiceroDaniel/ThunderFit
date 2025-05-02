@@ -26,8 +26,8 @@ public class Aluno extends Usuario {
 		
 		//**--------------CONSTRUTOR----------------------**//                                                                                                                                                                                                                                                                                                                                  
 			
-		public Aluno(String nome,String email,String senha) {
-			super(nome, email, senha/*null*/);
+		public Aluno(String nome,String email,String senha,String cpf) {
+			super(nome, email, senha,cpf);
 			this.altura=0;
 			this.peso=0;
 			this.metas=metas;
@@ -42,8 +42,8 @@ public class Aluno extends Usuario {
 
 
 
-		public Aluno(String nome, /*String cpf,*/ String email,String senha, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano,String datanascimento,String datainicio,Genero genero,double imc) {
-			super(nome,/*cpf,*/email,senha);
+		public Aluno(String nome,String cpf, String email,String senha, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano,String datanascimento,String datainicio,Genero genero,double imc) {
+			super(nome,cpf,email,senha);
 			this.setAltura(altura);
 			this.setPeso(peso);
 			this.setNivel(nivel);

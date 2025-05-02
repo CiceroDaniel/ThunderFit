@@ -20,6 +20,7 @@ import java.awt.Component;
 import javax.swing.JSplitPane;
 import java.awt.Panel;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 import model.Aluno;
@@ -248,11 +249,23 @@ public class Principal extends JFrame {
 		lblNewLabel.setForeground(new Color(255, 102, 204));
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
-		JLabel lblNewLabel_1 = new JLabel("THUNDERFIT");
-		lblNewLabel_1.setBounds(48, 0, 140, 38);
-		panel_1.add(lblNewLabel_1);
-		lblNewLabel_1.setForeground(new Color(255, 102, 204));
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		JLabel link = new JLabel("THUNDERFIT");
+		link.setBounds(48, 0, 140, 38);
+		panel_1.add(link);
+		link.setForeground(new Color(255, 102, 204));
+		link.setFont(new Font("Tahoma", Font.BOLD, 20));
+		contentPane.add(link);
+		/*
+		link.addMouseListener(new MouseAdapter() {	
+			@Override
+            public void mouseClicked(MouseEvent e) {
+				dispose();
+				
+				Login loginScreen = new Login(aluno);
+				loginScreen.setVisible(true);
+		}
+		});
+		*/
 		
 		//System.out.println(getClass().getResource("img/perfilicone.jpg"));
 		

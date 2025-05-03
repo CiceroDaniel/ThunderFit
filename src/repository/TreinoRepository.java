@@ -10,16 +10,40 @@ public class TreinoRepository {
 	
 	private final List<Treino> treinos = new ArrayList<>();
 	
+
+	  //--------------------CRIAR--------------------
+	
 	public void criarTreino(Treino treino) {
 		Objects.requireNonNull(treino,"Erro: O treino não pode ser nulo!");
 		treinos.add(treino);
 		System.out.println("Treino cadastrado com sucesso!");
 		}
 	
+
+	  //--------------------LISTAR--------------------
+	
 	public List<Treino> listarTodos(){
 		return new ArrayList<>(treinos);
 	}
+	
 
+	  //--------------------ATUALIZAR--------------------
+
+	public boolean atualizarTreino(Treino treinoUp){
+		Objects.requireNonNull(treinoUp,"Treino não pode ser nulo!");
+		 for (int i = 0; i < treinos.size(); i++) {
+	            Treino treino = treinos.get(i);
+	            if (treino.getNome().equalsIgnoreCase(treinoUp.getNome())) {
+	                treinos.set(i, treinoUp); // substitui antigo pelo novo
+	                return true;
+	            }
+	        }
+		 return false;
+	}
+	
+
+	  //--------------------BUSCAR--------------------
+	
 	public Treino buscarPorNome(String nome) {
 		for(Treino treino : treinos) {
 			if(treino.getNome().equalsIgnoreCase(nome)) {
@@ -29,28 +53,21 @@ public class TreinoRepository {
 		}
 		return null;
 	}
-		
-	  public boolean removerPorNome(String nome) {
-	        Treino treino = buscarPorNome(nome);
-	        if (treino != null) {
-	            treinos.remove(treino);
-	            System.out.println("Treino removido com sucesso!");
-	            return true;
-	        }
-	        System.out.println("Treino não encontrado.");
-	        return false;
-	    }
 	  
 	  
-	  public boolean adicionarExercicioNoTreino(String nomeTreino, Exercicio exercicio) {
-		  Treino treino = buscarPorNome(nomeTreino);
-		  if(treino != null) {
-			 treino.adicionarExercicio(exercicio);
-			 return true;
-		  }
-		  return false;
-	  }
-
+	  //--------------------REMOVER--------------------
+	
+	public boolean removerPorNome(String nome) {
+		Treino treino = buscarPorNome(nome);
+		if (treino != null) {
+			treinos.remove(treino);
+			System.out.println("Treino removido com sucesso!");
+			return true;
+		}
+		System.out.println("Treino não encontrado.");
+		return false;
+	}
+	
 	  public boolean removerExercicioNoTreino(String nomeTreino, Exercicio exercicio) {
 		  Treino treino = buscarPorNome(nomeTreino);
 		  if(treino != null) {
@@ -58,8 +75,16 @@ public class TreinoRepository {
 			 return true;
 		  }
 		  return false;
-		  
-		  
+	  }
+	  
+	  //------------------------------------------------
+	  public boolean adicionarExercicioNoTreino(String nomeTreino, Exercicio exercicio) {
+		  Treino treino = buscarPorNome(nomeTreino);
+		  if(treino != null) {
+			  treino.adicionarExercicio(exercicio);
+			  return true;
+		  }
+		  return false;
 	  }
 	  
 }

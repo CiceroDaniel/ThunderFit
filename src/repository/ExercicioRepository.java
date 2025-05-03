@@ -8,12 +8,15 @@ import java.util.Objects;
 public class ExercicioRepository {
 	private final List<Exercicio> exercicios = new ArrayList<>();
 	
+	//--------------------CRIAR--------------------
+	
 	public void cadastroExercicio(Exercicio exercicio) {
 		Objects.requireNonNull(exercicio,"Erro: O exercicio não pode ser nulo!");
 	exercicios.add(exercicio);
 	System.out.println("Exercicio cadastrado com sucesso!");
 	}
 	
+	//--------------------LISTAR--------------------
 	public List<Exercicio> listarTodos(){
 		return new ArrayList<>(exercicios);
 	}
@@ -29,6 +32,7 @@ public class ExercicioRepository {
 		return encontrados;
 	}
 	
+	//--------------------BUSCAR--------------------
 	
 	public Exercicio buscarPorNome(String nome) {
 		for(Exercicio exercicio : exercicios) {
@@ -39,6 +43,8 @@ public class ExercicioRepository {
 		}
 		return null;
 	}
+	
+	//--------------------REMOVER--------------------
 	
 	  public boolean removerPorNome(String nome) {
 	        Exercicio exercicio = buscarPorNome(nome);

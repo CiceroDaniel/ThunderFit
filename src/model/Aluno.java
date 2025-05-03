@@ -41,8 +41,14 @@ public class Aluno extends Usuario {
 			return false;
 		}
 		
-		protected void adicionarTreino(Treino treino) { // sera usado pelo tutor
-			Objects.requireNonNull(treino,"Erro: Treino não pode ser nulo");
+		public void adicionarTreino(Treino treino) { // sera usado pelo tutor
+			Objects.requireNonNull(treino," Treino não pode ser nulo");
+			 for (Treino t : treinos) {
+			        if (t.getNome().equalsIgnoreCase(treino.getNome())) {
+			            throw new IllegalArgumentException("Já existe um treino com o nome!");
+			        }
+			    }
+			
 			this.treinos.add(treino);
 		}
 		
@@ -106,5 +112,12 @@ public class Aluno extends Usuario {
 				throw new IllegalArgumentException("Erro: Nível invalido!");
 			}
 			this.nivel=nivel;
+		}
+		public Nivel getNivel() {
+			return nivel;
+		}
+		
+		public List<Treino> getTreinos(){
+			return new ArrayList<>(treinos);
 		}
 }

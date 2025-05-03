@@ -69,7 +69,7 @@ public class UsuarioService {
 	}
 	
 	public List<Aluno> listarAlunos(Usuario solicitante){
-		if(!(solicitante instanceof Tutor ||solicitante instanceof Administrador)) {
+		if(!solicitante.temAcessoAdmin()) {
 			throw new SecurityException("Apenas tutores e ADMs podem listar");
 		}
 		
@@ -85,14 +85,13 @@ public class UsuarioService {
 	
 	//--------------------------- ATUALIZAR ---------------------------------
 	
-	public void atualizarDados(String cpf, String novoEmail, double novoPeso, Metas novaMeta, Plano novoPlano) {
+	public void atualizarDados(String cpf, String novoEmail, double novoPeso, Metas novaMeta) {
 		Aluno aluno = (Aluno) usuarioRepository.buscarPorCpf(cpf);
 		if(aluno == null) throw new IllegalArgumentException("Erro: Aluno não encontrado!");
 		
 		 	if (novoEmail != null && !novoEmail.isBlank()) aluno.setEmail(novoEmail);
 		    if (novoPeso > 0) aluno.setPeso(novoPeso);
 		    if (novaMeta != null) aluno.setMetas(novaMeta);
-		    if (novoPlano != null) aluno.setPlano(novoPlano);
 		    
 		    usuarioRepository.atualizarDados(aluno);
 	}
@@ -102,6 +101,15 @@ public class UsuarioService {
 		if(usuario != null) {			
 			usuario.setOnline(online);
 		}
+	}
+	
+	public void atualizarPlanoAluno(String cpf, Plano novoPlano, Usuario solicitante) {
+		if(!solicitante.temAcessoAdmin()) {
+			throw new SecurityException("Apenas tutores e ADMs podem buscar Usuarios");
+		}
+		Aluno aluno = (Aluno) usuarioRepository.buscarPorCpf(cpf);
+		aluno.setPlano(novoPlano);
+		usuarioRepository.atualizarDados(aluno);
 	}
 	
 	//--------------------------- BUSCAR ---------------------------------
@@ -118,7 +126,7 @@ public class UsuarioService {
 	}
 	
 	public List<Usuario> buscarPorNome(String nome, Usuario solicitante){
-		if(!(solicitante instanceof Tutor ||solicitante instanceof Administrador)) {
+		if(!solicitante.temAcessoAdmin()) {
 			throw new SecurityException("Apenas tutores e ADMs podem buscar Usuarios");
 		}
 		

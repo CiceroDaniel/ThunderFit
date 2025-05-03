@@ -23,7 +23,7 @@ public class TreinoService {
 	//------------------------ CRIAR -----------------
 	
 	public void criarTreino(String nome, String nivel,Usuario solicitante) {
-		if(!(solicitante instanceof Administrador || solicitante instanceof Tutor)) {
+		if(!solicitante.temAcessoAdmin()) {
 			throw new SecurityException("Acesso apenas para ADMs e Tutores");
 		}
 		
@@ -82,7 +82,7 @@ public class TreinoService {
 	
 	//--------------------ATUALIZAR--------------------
 	public void adicionarExercicios(String nomeTreino, String nomeExercicio, Usuario solicitante) {
-		if(!(solicitante instanceof Administrador || solicitante instanceof Tutor)) {
+		if(!solicitante.temAcessoAdmin()) {
 			throw new SecurityException("Acesso apenas para ADMs e Tutores");
 		}
 		
@@ -99,7 +99,7 @@ public class TreinoService {
 	}
 	
 	public void removerExercicios(String nomeTreino, String nomeExercicio, Usuario solicitante) {
-		if(!(solicitante instanceof Administrador || solicitante instanceof Tutor)) {
+		if(!solicitante.temAcessoAdmin()) {
 			throw new SecurityException("Acesso apenas para ADMs e Tutores");
 		}
 		
@@ -119,7 +119,7 @@ public class TreinoService {
 	//--------------------REMOVER--------------------
 	
 	public void removerTreino(String nome, Usuario solicitante) {
-		if(!(solicitante instanceof Administrador || solicitante instanceof Tutor)) {
+		if(!solicitante.temAcessoAdmin()) {
 			throw new SecurityException("Acesso apenas para ADMs e Tutores");
 		}
 		
@@ -133,7 +133,7 @@ public class TreinoService {
 	
 	
 	public void associarTreinoAluno(String cpfAluno, String nomeTre, Usuario solicitante) {
-		if(!(solicitante instanceof Administrador || solicitante instanceof Tutor)) {
+		if(!solicitante.temAcessoAdmin()) {
 			throw new SecurityException("Acesso apenas para ADMs e Tutores");
 		}
 		

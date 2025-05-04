@@ -35,8 +35,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
-public class Login extends JFrame {
+public class Logintutor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -119,15 +120,25 @@ public class Login extends JFrame {
 			protected void paintBorder(Graphics g) {
 				Graphics2D g2 = (Graphics2D) g.create();
 				g2.setColor(getForeground());
-				g2.setStroke(new BasicStroke(1.5f));
+				g2.setStroke(new BasicStroke(0.0f));
 				g2.drawRoundRect(0,0,getWidth()-1,getHeight()-1,arc,arc);
 				g2.dispose();
 			}
 		}
 		
-		private Aluno aluno;
 		
-	public Login(Aluno aluno) {
+		//METODO ADICIONAR IMAGEM AO BOTÃO
+		public void setImageBotao(JButton botao,String caminho,int largura,int altura) {
+			ImageIcon icon = new ImageIcon(getClass().getResource(caminho));
+			Image img = icon.getImage().getScaledInstance(largura,altura,Image.SCALE_SMOOTH);
+			botao.setIcon(new ImageIcon(img));
+			botao.setHorizontalTextPosition(SwingConstants.RIGHT);
+			botao.setIconTextGap(10);
+		}
+		//private Aluno aluno;
+		private JButton btnNewButton_LOGOUT;
+		
+	public Logintutor() {
 		setResizable(false);
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -198,7 +209,7 @@ public class Login extends JFrame {
 	                    
 	                    
 	                    
-	                    Principal principalScreen = new Principal(aluno);
+	                    Principal principalScreen = new Principal();
 	                    principalScreen.setVisible(true);
 
 	                } else {
@@ -352,19 +363,19 @@ public class Login extends JFrame {
 		lblNewLabel_iconeEmail = new JLabel("");
 		ImageIcon originalIcon1 = new ImageIcon(getClass().getResource("/img/EMAIL.jpeg"));
 		Image originalImage1 = originalIcon1.getImage();
-		Image resizideImage1 = originalImage1.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		Image resizideImage1 = originalImage1.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 		ImageIcon resizideIcon1 = new ImageIcon(resizideImage1);
 		lblNewLabel_iconeEmail.setIcon(resizideIcon1);
-		lblNewLabel_iconeEmail.setBounds(5, 225, 50, 50);
+		lblNewLabel_iconeEmail.setBounds(10, 225, 50, 50);
 		contentPane.add(lblNewLabel_iconeEmail);
 		
 		lblNewLabel_iconeSenha = new JLabel("");
 		ImageIcon originalIcon2 = new ImageIcon(getClass().getResource("/img/SENHA.jpeg"));
 		Image originalImage2 = originalIcon2.getImage();
-		Image resizideImage2 = originalImage2.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		Image resizideImage2 = originalImage2.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 		ImageIcon resizideIcon2 = new ImageIcon(resizideImage2);
 		lblNewLabel_iconeSenha.setIcon(resizideIcon2);
-		lblNewLabel_iconeSenha.setBounds(5, 320, 50, 50);
+		lblNewLabel_iconeSenha.setBounds(10, 320, 50, 50);
 		contentPane.add(lblNewLabel_iconeSenha);
 		
 		lblNewLabel_walpaper2 = new JLabel("New label");
@@ -375,6 +386,23 @@ public class Login extends JFrame {
 		lblNewLabel_walpaper2.setIcon(resizideIcon3);
 		lblNewLabel_walpaper2.setBounds(460, -7, 625, 708);
 		contentPane.add(lblNewLabel_walpaper2);
+		
+		btnNewButton_LOGOUT = new JButton("");
+		setImageBotao(btnNewButton_LOGOUT,"/img/LOGOUT.jpeg",30,30);
+		btnNewButton_LOGOUT.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				dispose();
+				
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno);
+				escolhaScreen.setVisible(true);
+				
+			}
+		});
+		btnNewButton_LOGOUT.setIconTextGap(10);
+		btnNewButton_LOGOUT.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnNewButton_LOGOUT.setBounds(10, 10, 30, 30);
+		contentPane.add(btnNewButton_LOGOUT);
 		
 		// Adicionando o MouseListener para redirecionar para a tela de cadastro
 		

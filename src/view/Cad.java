@@ -41,6 +41,7 @@ import javax.swing.ImageIcon;
 
 import model.Aluno;//chama a classe aluno que esta no outro pacote
 import controller.Alunocontroller;
+import javax.swing.SwingConstants;
 
 public class Cad extends JFrame {
 
@@ -114,11 +115,21 @@ public class Cad extends JFrame {
 		protected void paintBorder(Graphics g) {
 			Graphics2D g2 = (Graphics2D) g.create();
 			g2.setColor(getForeground());
-			g2.setStroke(new BasicStroke(1.5f));
+			g2.setStroke(new BasicStroke(0.0f));
 			g2.drawRoundRect(0,0,getWidth()-1,getHeight()-1,arc,arc);
 			g2.dispose();
 		}
 	}
+	
+	//METODO ADICIONAR IMAGEM AO BOTÃO
+	public void setImageBotao(JButton botao,String caminho,int largura,int altura) {
+		ImageIcon icon = new ImageIcon(getClass().getResource(caminho));
+		Image img = icon.getImage().getScaledInstance(largura,altura,Image.SCALE_SMOOTH);
+		botao.setIcon(new ImageIcon(img));
+		botao.setHorizontalTextPosition(SwingConstants.RIGHT);
+		botao.setIconTextGap(10);
+	}
+	
 	
 	
 	private Aluno aluno;
@@ -127,6 +138,8 @@ public class Cad extends JFrame {
 	private JPasswordField campocpf;
 	private JLabel IMAGEMCPF;
 	private JTextField campoCpf;
+	private JLabel lblAdmnistrador;
+	private JButton btnNewButton_LOGOUT;
 	
 	
 	
@@ -417,16 +430,11 @@ public class Cad extends JFrame {
 				
 				dispose();
 				
-				Login loginScreen = new Login(aluno);
+				Loginaluno loginScreen = new Loginaluno(aluno);
 				loginScreen.setVisible(true);
 			}
 		});
-		
-		JLabel linkParaLoginCadastroAdmInstrutor = new JLabel("CADASTRO DE ADMNISTRADOR OU INSTRUTOR");
-		linkParaLoginCadastroAdmInstrutor.setForeground(Color.BLUE);
-		linkParaLoginCadastroAdmInstrutor.setFont(new Font("Tahoma", Font.BOLD, 10));
-		linkParaLoginCadastroAdmInstrutor.setBounds(27, 619, 262, 33);
-		contentPane.add(linkParaLoginCadastroAdmInstrutor);
+
 		
 		lblNewLabel_6 = new JLabel("____");
 		lblNewLabel_6.setForeground(new Color(204, 102, 255));
@@ -452,22 +460,62 @@ public class Cad extends JFrame {
 		lblNewLabel_2_1.setBounds(58, 391, 62, 25);
 		contentPane.add(lblNewLabel_2_1);
 		
-		IMAGEMCPF = new JLabel("New label");
-		IMAGEMCPF.setBounds(10, 408, 45, 45);
+		IMAGEMCPF = new JLabel("CPF");
+		IMAGEMCPF.setForeground(new Color(255, 128, 192));
+		IMAGEMCPF.setFont(new Font("Tahoma", Font.BOLD, 20));
+		IMAGEMCPF.setBounds(10, 413, 45, 45);
 		contentPane.add(IMAGEMCPF);
 		
+		lblAdmnistrador = new JLabel("ADMNISTRADOR");
+		lblAdmnistrador.setForeground(Color.BLUE);
+		lblAdmnistrador.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblAdmnistrador.setBounds(27, 640, 100, 33);
+		contentPane.add(lblAdmnistrador);
 		
 		
-		linkParaLoginCadastroAdmInstrutor.addMouseListener(new MouseAdapter() {
+		JLabel linkParaLoginCadastroTutor = new JLabel("CADASTRO DE TUTOR");
+		linkParaLoginCadastroTutor.setForeground(Color.BLUE);
+		linkParaLoginCadastroTutor.setFont(new Font("Tahoma", Font.BOLD, 10));
+		linkParaLoginCadastroTutor.setBounds(27, 619, 262, 33);
+		contentPane.add(linkParaLoginCadastroTutor);
+		
+		btnNewButton_LOGOUT = new JButton("");
+		setImageBotao(btnNewButton_LOGOUT,"/img/LOGOUT.jpeg",30,30);
+		btnNewButton_LOGOUT.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				dispose();
+				
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno);
+				escolhaScreen.setVisible(true);
+			}
+		});
+		btnNewButton_LOGOUT.setIconTextGap(10);
+		btnNewButton_LOGOUT.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnNewButton_LOGOUT.setBounds(10, 10, 30, 30);
+		contentPane.add(btnNewButton_LOGOUT);
+		
+		linkParaLoginCadastroTutor.addMouseListener(new MouseAdapter() {
 			@Override	
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				
-				CadAdmInstrutor cadAdmScreen = new CadAdmInstrutor();
+				Cadtutor cadAdmScreen = new Cadtutor();
 				cadAdmScreen.setVisible(true);
 			}
 		});
 		
+		/*
+		linkParaLoginCadastroAdm.addMouseListener(new MouseAdapter() {
+			@Override	
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				
+				Cadtutor cadAdmScreen = new Cadtutor();
+				cadAdmScreen.setVisible(true);
+			}
+		});
+		*/
 		
 	}
 }

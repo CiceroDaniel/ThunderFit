@@ -7,7 +7,7 @@ public class Tutor extends Usuario{
 	private boolean trabalhoAtivo;
 	
 	public Tutor(String nome, String cpf, String email,String senha,float salario) {
-		super(nome, /*cpf*/ email, senha);
+		super(nome, cpf, email, senha);
 		this.setSalario(salario);
 		this.trabalhoAtivo= true;
 	}

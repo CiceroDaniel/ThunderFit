@@ -8,13 +8,17 @@ import javax.swing.border.EmptyBorder;
 
 import model.Aluno;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -47,6 +51,41 @@ public class TelaEscolhaUsuario extends JFrame {
 	 * Create the frame.
 	 */
 	
+////ARREDONDAR BORDAS DO BOTÃO
+
+	public class RoundedButtonSimples extends JButton{
+		private int arc;
+		
+		public RoundedButtonSimples(String text,int arc) {
+			super(text);
+			this.arc=arc;
+			
+			setContentAreaFilled(false);
+			setFocusPainted(false);
+			setBorderPainted(false);
+			setOpaque(false);
+		}
+		@Override
+		protected void paintComponent(Graphics g) {
+			Graphics2D g2 = (Graphics2D) g.create();
+			
+			g2.setColor(getBackground());
+			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+			g2.fillRoundRect(0, 0, getWidth(),getHeight(), arc, arc);
+			super.paintComponent(g);
+			g2.dispose();
+	}
+		
+		@Override
+		protected void paintBorder(Graphics g) {
+			Graphics2D g2 = (Graphics2D) g.create();
+			g2.setColor(getForeground());
+			g2.setStroke(new BasicStroke(0.0f));
+			g2.drawRoundRect(0,0,getWidth()-1,getHeight()-1,arc,arc);
+			g2.dispose();
+		}
+	}
+	
 	private Aluno aluno;
 	
 	public TelaEscolhaUsuario(Aluno aluno) {
@@ -62,7 +101,7 @@ public class TelaEscolhaUsuario extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton_Cliente = new JButton("       ALUNO");
+		RoundedButtonSimples btnNewButton_Cliente = new RoundedButtonSimples("       ALUNO",20);
 		btnNewButton_Cliente.setBackground(new Color(204, 102, 255));
 		btnNewButton_Cliente.setForeground(new Color(255, 255, 255));
 		btnNewButton_Cliente.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -79,14 +118,14 @@ public class TelaEscolhaUsuario extends JFrame {
 				
 				dispose();
 				
-				Login LoginScreen = new Login(aluno);
+				Loginaluno LoginScreen = new Loginaluno(aluno);
 				LoginScreen.setVisible(true);
 			}
 		});
 		
 
 		//BOTÃO DE INSTRUTOR
-		JButton btnNewButton_Adm = new JButton("       ADM");
+		RoundedButtonSimples btnNewButton_Adm = new RoundedButtonSimples("       ADM",20);
 		btnNewButton_Adm.setForeground(new Color(255, 255, 255));
 		btnNewButton_Adm.setBackground(new Color(204, 102, 255));
 		btnNewButton_Adm.addActionListener(new ActionListener() {
@@ -105,14 +144,14 @@ public class TelaEscolhaUsuario extends JFrame {
 		contentPane.add(btnNewButton_Adm);
 		
 		//BOTÃO DO ADM
-		JButton btnNewButton_Instrutor = new JButton("       INSTRUTOR");
+		RoundedButtonSimples btnNewButton_Instrutor = new RoundedButtonSimples("       INSTRUTOR",20);
 		btnNewButton_Instrutor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				dispose();
 				
-				CadAdmInstrutor cadAdmInstrutorScreen = new  CadAdmInstrutor();
-				cadAdmInstrutorScreen.setVisible(true);
+				Logintutor logintutorscreen = new  Logintutor();
+				logintutorscreen.setVisible(true);
 				
 			}
 		});
@@ -184,12 +223,12 @@ public class TelaEscolhaUsuario extends JFrame {
 	
 		
 		JLabel logo = new JLabel("");
-		logo.setBounds(566, 143, 468, 440);
+		logo.setBounds(614, 162, 385, 343);
 		contentPane.add(logo);
 		
 		ImageIcon originalIcon = new ImageIcon(getClass().getResource("/img/LOGOthunderfit.jpg"));
 		Image originalImage = originalIcon.getImage();
-		Image resizideImage = originalImage.getScaledInstance(500,590,Image.SCALE_SMOOTH);
+		Image resizideImage = originalImage.getScaledInstance(400,400,Image.SCALE_SMOOTH);
 		ImageIcon resizideIcon = new ImageIcon(resizideImage);
 		logo.setIcon(resizideIcon);
 		

@@ -8,17 +8,22 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.JMenuItem;
+
+import java.awt.BasicStroke;
 import java.awt.Canvas;
 //import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import javax.swing.JSplitPane;
 import java.awt.Panel;
+import java.awt.RenderingHints;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
@@ -30,10 +35,42 @@ public class Principal extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Aluno aluno;
+	
+	
+////ARREDONDAR BORDAS DO BOTÃO
 
-	/**
-	 * Create the frame.
-	 */
+	public class RoundedButtonSimples extends JButton{
+		private int arc;
+		
+		public RoundedButtonSimples(String text,int arc) {
+			super(text);
+			this.arc=arc;
+			
+			setContentAreaFilled(false);
+			setFocusPainted(false);
+			setBorderPainted(false);
+			setOpaque(false);
+		}
+		@Override
+		protected void paintComponent(Graphics g) {
+			Graphics2D g2 = (Graphics2D) g.create();
+			
+			g2.setColor(getBackground());
+			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+			g2.fillRoundRect(0, 0, getWidth(),getHeight(), arc, arc);
+			super.paintComponent(g);
+			g2.dispose();
+	}
+		
+		@Override
+		protected void paintBorder(Graphics g) {
+			Graphics2D g2 = (Graphics2D) g.create();
+			g2.setColor(getForeground());
+			g2.setStroke(new BasicStroke(0.0f));
+			g2.drawRoundRect(0,0,getWidth()-1,getHeight()-1,arc,arc);
+			g2.dispose();
+		}
+	}
 	
 	//METODO ADICIONAR IMAGEM AO BOTÃO
 	public void setImageBotao(JButton botao,String caminho,int largura,int altura) {
@@ -72,7 +109,7 @@ public class Principal extends JFrame {
 		
 		
 		
-		JButton btnMetas = new JButton("METAS");
+		RoundedButtonSimples btnMetas = new RoundedButtonSimples("METAS",20);
 		btnMetas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -90,7 +127,7 @@ public class Principal extends JFrame {
 		btnMetas.setBounds(382, 51, 310, 109);
 		panel.add(btnMetas);
 		
-		JButton btnNewButton_CRONOGRAMA = new JButton("CRONOGRAMA");
+		RoundedButtonSimples btnNewButton_CRONOGRAMA = new RoundedButtonSimples("CRONOGRAMA",20);
 		btnNewButton_CRONOGRAMA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -108,7 +145,7 @@ public class Principal extends JFrame {
 		btnNewButton_CRONOGRAMA.setBounds(382, 191, 310, 109);
 		panel.add(btnNewButton_CRONOGRAMA);
 		
-		JButton btnPacote = new JButton("PACOTE");
+		RoundedButtonSimples btnPacote = new RoundedButtonSimples("PACOTE",20);
 		btnPacote.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -254,7 +291,7 @@ public class Principal extends JFrame {
 		panel_1.add(link);
 		link.setForeground(new Color(255, 102, 204));
 		link.setFont(new Font("Tahoma", Font.BOLD, 20));
-		contentPane.add(link);
+		//contentPane.add(link);
 		/*
 		link.addMouseListener(new MouseAdapter() {	
 			@Override
@@ -317,16 +354,6 @@ public class Principal extends JFrame {
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_4.setBounds(0, 617, 1079, 32);
 		contentPane.add(lblNewLabel_4);
-		
-		
-		JButton btnNewButton_notificação = new JButton("");
-		//setImageBotao(btnNewButton_notificação,"img/EMAIL.jpeg",30,30);
-		btnNewButton_notificação.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_notificação.setBounds(1005, 59, 30, 30);
-		contentPane.add(btnNewButton_notificação);
 		
 		
 	}

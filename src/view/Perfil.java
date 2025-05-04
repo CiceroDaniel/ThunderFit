@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 import controller.Alunocontroller;
 
 import java.awt.Color;
+import java.awt.Container;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
@@ -157,6 +159,11 @@ public class Perfil extends JFrame {
 		lblNewLabel_2_2_1_3_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_2_2_1_3_1_1_1.setBounds(140, 80, 256, 15);
 		panel_2.add(lblNewLabel_2_2_1_3_1_1_1);
+		
+		
+
+		
+		
 		
 		JPanel panel_2_1 = new JPanel();
 		panel_2_1.setBackground(new Color(79, 79, 79));
@@ -365,8 +372,14 @@ public class Perfil extends JFrame {
 		panel.add(btnNewButtonMenu);
 		
 		JButton btnNewButton_LOGOUT = new JButton("");
+		setImageBotao(btnNewButton_LOGOUT,"/img/LOGOUT.jpeg",30,30);
 		btnNewButton_LOGOUT.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dispose();
+				
+				Loginaluno loginScreen = new Loginaluno(aluno);
+				loginScreen.setVisible(true);
 			}
 		});
 		btnNewButton_LOGOUT.setBounds(1024, 605, 30, 30);

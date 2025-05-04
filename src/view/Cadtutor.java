@@ -1,5 +1,7 @@
 package view;
 
+//FALTA CONFIGURAR PARA CADASTRAR TUTOR AO INVES DE ALUNO
+
 import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
@@ -25,9 +27,10 @@ import java.awt.event.ActionListener;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 
-public class CadAdmInstrutor extends JFrame {
+public class Cadtutor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -62,7 +65,7 @@ public class CadAdmInstrutor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadAdmInstrutor frame = new CadAdmInstrutor();
+					Cadtutor frame = new Cadtutor();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,6 +73,15 @@ public class CadAdmInstrutor extends JFrame {
 			}
 		});
 	}
+	
+	//METODO ADICIONAR IMAGEM AO BOTÃO
+		public void setImageBotao(JButton botao,String caminho,int largura,int altura) {
+			ImageIcon icon = new ImageIcon(getClass().getResource(caminho));
+			Image img = icon.getImage().getScaledInstance(largura,altura,Image.SCALE_SMOOTH);
+			botao.setIcon(new ImageIcon(img));
+			botao.setHorizontalTextPosition(SwingConstants.RIGHT);
+			botao.setIconTextGap(10);
+		}
 	
 	public class RoundedButtonSimples extends JButton{
 		private int arc;
@@ -98,7 +110,7 @@ public class CadAdmInstrutor extends JFrame {
 		protected void paintBorder(Graphics g) {
 			Graphics2D g2 = (Graphics2D) g.create();
 			g2.setColor(getForeground());
-			g2.setStroke(new BasicStroke(1.5f));
+			g2.setStroke(new BasicStroke(0.0f));
 			g2.drawRoundRect(0,0,getWidth()-1,getHeight()-1,arc,arc);
 			g2.dispose();
 		}
@@ -107,7 +119,9 @@ public class CadAdmInstrutor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadAdmInstrutor() {
+	
+	
+	public Cadtutor() {
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1080,720);
@@ -118,10 +132,10 @@ public class CadAdmInstrutor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("CADASTRO ADM/INSTRUTOR");
+		JLabel lblNewLabel = new JLabel("CADASTRO TUTOR");
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel.setBounds(87, 48, 310, 66);
+		lblNewLabel.setBounds(146, 50, 195, 66);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("____________");
@@ -288,9 +302,25 @@ public class CadAdmInstrutor extends JFrame {
 				lblNome_2_1.setBounds(51, 357, 51, 52);
 				contentPane.add(lblNome_2_1);
 				
-				JLabel lblNewLabel_6 = new JLabel("New label");
+				JLabel lblNewLabel_6 = new JLabel("CPF");
+				lblNewLabel_6.setForeground(new Color(255, 128, 192));
+				lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 20));
 				lblNewLabel_6.setBounds(10, 402, 45, 45);
 				contentPane.add(lblNewLabel_6);
+				
+				JButton btnNewButton_LOGOUT = new JButton("");
+				setImageBotao(btnNewButton_LOGOUT,"/img/LOGOUT.jpeg",30,30);
+				btnNewButton_LOGOUT.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						dispose();
+						
+						TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(null);
+						escolhaScreen.setVisible(true);
+					}
+				});
+				btnNewButton_LOGOUT.setBounds(13, 10, 30, 30);
+				contentPane.add(btnNewButton_LOGOUT);
 				
 				
 				
@@ -306,7 +336,7 @@ public class CadAdmInstrutor extends JFrame {
 						String nome=textFieldNomeAdmInstrutor.getText();
 						String email=textFieldEmailAdmInstrutor.getText();
 						String senha= new String(passwordFieldAdmInstrutor.getPassword());
-						String cpf = null;
+						String cpf = Campocpf.getText();
 				
 						
 		                if(nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
@@ -334,12 +364,12 @@ public class CadAdmInstrutor extends JFrame {
 			                textFieldEmailAdmInstrutor.setText("");  
 			                textFieldNomeAdmInstrutor.setText("");    
 			                passwordFieldAdmInstrutor.setText("");
-			                
+			                Campocpf.setText("");
 			                
 			                dispose();
 			                //ta pegando as informações do aluno nome,email e senha e mandando para a subtela
-			                Formulario subtelaScreen = new Formulario(aluno);
-			                subtelaScreen.setVisible(true);
+			                TabeladeCadastrosAdm tabelaScreen = new TabeladeCadastrosAdm();
+			                tabelaScreen.setVisible(true);
 			                
 						
 					}
@@ -352,5 +382,4 @@ public class CadAdmInstrutor extends JFrame {
 				//================================================================//
 				//================================================================//
 	}
-
 }

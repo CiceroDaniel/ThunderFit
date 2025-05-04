@@ -81,8 +81,8 @@ public class Aluno extends Usuario {
 
 		@Override
 		public String gerarCredenciaisCadastro() {
-			return String.format("Nome: %s\nEmail: %s\nSenha:%s",
-					this.getNome(),/*this.getCpf()*/this.getEmail(),this.getSenha());
+			return String.format("Nome:%s\nEmail:%s\nSenha:%s\nCPF: %s",
+					this.getNome(),this.getEmail(),this.getSenha(),this.getCpf());
 			}
 		
 		//@Override
@@ -185,6 +185,8 @@ public class Aluno extends Usuario {
 			}
 			this.genero=genero;
 		}
+		
+		
 
 		//TESTE
 

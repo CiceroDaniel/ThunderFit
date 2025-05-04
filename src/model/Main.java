@@ -2,6 +2,7 @@ package model;
 
 import view.TelaEscolhaUsuario;
 import view.Formulario;
+import view.Perfil;
 
 public class Main {
 	
@@ -9,6 +10,8 @@ public class Main {
 		
 		Aluno aluno = null;
 		
+		
+		//new Perfil(aluno).setVisible(true);
 		new TelaEscolhaUsuario(aluno).setVisible(true);
 		//new Formulario(aluno).setVisible(true);
 		

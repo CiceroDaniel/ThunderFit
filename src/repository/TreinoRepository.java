@@ -6,14 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TreinoRepository {
+public class TreinoRepository implements InterfaceRepository<Treino>{
 	
 	private final List<Treino> treinos = new ArrayList<>();
 	
 
 	  //--------------------CRIAR--------------------
 	
-	public void criarTreino(Treino treino) {
+	@Override
+	public void cadastro(Treino treino) {
 		Objects.requireNonNull(treino,"Erro: O treino não pode ser nulo!");
 		treinos.add(treino);
 		System.out.println("Treino cadastrado com sucesso!");
@@ -22,6 +23,7 @@ public class TreinoRepository {
 
 	  //--------------------LISTAR--------------------
 	
+	@Override
 	public List<Treino> listarTodos(){
 		return new ArrayList<>(treinos);
 	}
@@ -44,6 +46,7 @@ public class TreinoRepository {
 
 	  //--------------------BUSCAR--------------------
 	
+	@Override
 	public Treino buscarPorNome(String nome) {
 		for(Treino treino : treinos) {
 			if(treino.getNome().equalsIgnoreCase(nome)) {
@@ -53,7 +56,11 @@ public class TreinoRepository {
 		}
 		return null;
 	}
-	  
+	
+	@Override
+	public List<Treino> buscarPorNomeLista(String nome){
+		 throw new UnsupportedOperationException("Funcionalidade não implementada!");//Nao necessaria para esta classe
+	}
 	  
 	  //--------------------REMOVER--------------------
 	

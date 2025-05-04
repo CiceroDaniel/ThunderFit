@@ -18,5 +18,13 @@ public class PlanoService {
 		
 		plano.setValor(novoValor, administrador);
 	}
+	
+	public Plano buscarPlanoPorNome(String nome) {
+		try {
+			return Plano.valueOf(nome);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Plano invalido!");
+		}
+	}
 
 }

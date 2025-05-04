@@ -28,7 +28,7 @@ public class TreinoService {
 		}
 		
 		Treino treinoNovo = new Treino(nome,nivel);
-		treinoRepository.criarTreino(treinoNovo);
+		treinoRepository.cadastro(treinoNovo);
 		
 	}
 	

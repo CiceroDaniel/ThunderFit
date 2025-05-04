@@ -134,7 +134,7 @@ public class UsuarioService {
 		        throw new IllegalArgumentException("Erro: Nome não pode ser vazio!");
 		    }
 		  
-		  return usuarioRepository.buscarPorNome(nome);
+		  return usuarioRepository.buscarPorNomeLista(nome);
 		
 	}
 	

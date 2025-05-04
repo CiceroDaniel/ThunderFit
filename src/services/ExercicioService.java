@@ -31,7 +31,7 @@ public class ExercicioService {
 			throw new IllegalArgumentException("Exercicio já cadastrado");
 		}
 		
-		exercicioRepository.cadastroExercicio(exercicio);
+		exercicioRepository.cadastro(exercicio);
 	}
 	
 	

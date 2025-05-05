@@ -1,33 +1,48 @@
 package model;
 
-/*import java.time.format.DateTimeFormatter;*/
+
+import java.time.LocalDate;
+import java.time.Period;
 
 public abstract class Usuario{
 	//**----------------VARIÀVEIS-------------------**//
-		
 		protected String nome;
 		protected String email;
 		private String senha;
 		protected String cpf;
+		
+		
 		protected boolean status;
+        protected boolean online;
 
-
-		//protected LocalDate dataDeNascimento;
-				//protected Endereco endereco;
-				//protected LocalDate dataDeCadastro;
+		protected LocalDate dataDeNascimento;
+		protected LocalDate dataDeCadastro;
 		
 		
 		//**--------------CONSTRUTOR----------------------**//
 		public Usuario(String nome, String email, String senha,String cpf) {
+
+		
+		LocalDate dataDeNascimento;//protected
+		boolean online;//protected	
+		LocalDate dataDeCadastro;//protected
+		
+		}
+		//**--------------CONSTRUTOR----------------------**//
+		public Usuario(String nome, String cpf, String email, String senha, LocalDate dataDeNascimento) {
+
 			this.setNome(nome);
 			this.setEmail(email);
 			this.setSenha(senha);
 			this.setCpf(cpf);
 			
-			
+
 			//this.dataDeCadastro = LocalDate.now();
-			
 			this.status = true;
+			this.setDataDeNascimento(dataDeNascimento);
+			this.dataDeCadastro = LocalDate.now();
+			this.online = false;
+
 		}
 		
 		//**---------------METODOS ABSTRATOS--------------**//
@@ -36,20 +51,20 @@ public abstract class Usuario{
 		public abstract boolean temAcessoAdmin();
 		
 		//**--------------METODOS CONCRETOS-------------------**//
-		public void desativarUsuario() {
-			if(!this.status) {
+		/*public void desativarUsuario() {
+			if (!this.online) {
 				throw new IllegalArgumentException("Usuario ja está desativado");
 			}
-			this.status = false;
+			this.online = false;
 		}
 		
 		public void ativarUsuario() {
-			if(this.status) {
+			if(this.online) {
 				throw new IllegalArgumentException("Usuario ja está ativo");
 			}
-			this.status = true;
+			this.online = true;
 			
-		}
+		}*/
 		
 		public void atualizarEmail(String novoEmail) {
 			if(novoEmail != null && !novoEmail.isBlank()) {
@@ -61,12 +76,12 @@ public abstract class Usuario{
 			return !cpf.matches("(\\d)\\1{10}");
 		}
 		
-		/*public int calcularIdade() {
-			if(dataDeNascimento == null) {
-				System.out.println("data de nascimento nao foi definida");
+		public Period calcularIdade() {
+			if(dataDeNascimento == null ) {
+			throw new IllegalStateException("data de nascimento nao foi definida");
 			}
-			return LocalDate.now().getYear() - dataDeNascimento.getYear();
-		}*/
+			return Period.between(dataDeNascimento, LocalDate.now());
+		}
 		
 		
 		//**---------------GETTERS E SETTERS------------------**//
@@ -118,14 +133,36 @@ public abstract class Usuario{
 		}
 		
 		
-		public boolean getAtivo() {
-			return status;
+		public boolean getOnline() {
+			return online;
 		}
+
 
 		public String gerarCredenciais() {
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+
+		public void setOnline(boolean online) {
+			this.online= online;
+		}
+		
+		public LocalDate getDataDeCadastro() {
+			return dataDeCadastro;
+		}
+		
+		
+		public LocalDate getDataDeNascimento() {
+			return dataDeNascimento;
+		}
+		public void setDataDeNascimento(LocalDate dataDeNascimento) {
+	        if (dataDeNascimento != null && dataDeNascimento.isAfter(LocalDate.now())) {
+	            throw new IllegalArgumentException("Data de nascimento não pode ser no futuro");
+	        }
+	        this.dataDeNascimento = dataDeNascimento;
+		}
+		
 
 		
 	}

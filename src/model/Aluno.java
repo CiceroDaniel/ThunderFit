@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 import java.util.Objects;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Aluno extends Usuario {
@@ -21,6 +22,7 @@ public class Aluno extends Usuario {
 		
 		private Genero genero;//genero do tipo Genero
 		
+
 		private double imc;
 		
 		
@@ -44,6 +46,10 @@ public class Aluno extends Usuario {
 
 		public Aluno(String nome,String cpf, String email,String senha, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano,String datanascimento,String datainicio,Genero genero,double imc) {
 			super(nome,cpf,email,senha);
+		}
+		public Aluno(String nome, String cpf, String email,String senha,LocalDate dataDeNascimento ,double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano) {
+			super(nome,cpf,email,senha,dataDeNascimento);
+
 			this.setAltura(altura);
 			this.setPeso(peso);
 			this.setNivel(nivel);
@@ -102,9 +108,21 @@ public class Aluno extends Usuario {
 		public boolean temAcessoAdmin() {
 			return false;
 		}
+
 		//REVER
-		protected void adicionarTreino(Treino treino) { // sera usado pelo tutor
+		/*protected void adicionarTreino(Treino treino) { // sera usado pelo tutor
 			Objects.requireNonNull(treino,"Erro: Treino não pode ser nulo");
+
+		}*/
+		
+		public void adicionarTreino(Treino treino) { // sera usado pelo tutor
+			Objects.requireNonNull(treino," Treino não pode ser nulo");
+			 for (Treino t : treinos) {
+			        if (t.getNome().equalsIgnoreCase(treino.getNome())) {
+			            throw new IllegalArgumentException("Já existe um treino com o nome!");
+			        }
+			    }
+
 			this.treinos.add(treino);
 		}
 		
@@ -169,6 +187,7 @@ public class Aluno extends Usuario {
 			}
 			this.nivel=nivel;
 		}
+
 		
        //TESTE DE ENUM PARA VALORES DEFINIDOS E IMUTAVEIS
 		public enum Genero {
@@ -220,4 +239,13 @@ public class Aluno extends Usuario {
 		
 		
 		
+
+		public Nivel getNivel() {
+			return nivel;
+		}
+		
+		public List<Treino> getTreinos(){
+			return new ArrayList<>(treinos);
+		}
+
 }

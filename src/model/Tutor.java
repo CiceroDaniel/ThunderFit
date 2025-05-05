@@ -1,13 +1,14 @@
 package model;
 
+import java.time.LocalDate;
 
 public class Tutor extends Usuario{
 
 	protected float salario;
 	private boolean trabalhoAtivo;
 	
-	public Tutor(String nome, String cpf, String email,String senha,float salario) {
-		super(nome, cpf, email, senha);
+	public Tutor(String nome, String cpf, String email,String senha,LocalDate dataDeNascimento,float salario) {
+		super(nome, cpf, email, senha, dataDeNascimento);
 		this.setSalario(salario);
 		this.trabalhoAtivo= true;
 	}

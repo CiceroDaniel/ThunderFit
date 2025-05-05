@@ -25,7 +25,7 @@ public enum Plano {
 	}
 	public void setValor(double valor, Usuario usuario) {
 	    if(usuario == null || !usuario.temAcessoAdmin()) {
-	        throw new IllegalArgumentException("Acesso negado: apenas administradores podem alterar valores");
+	        throw new SecurityException("Acesso negado: apenas administradores podem alterar valores");
 	    }
 	    this.valor = valor;
 	}

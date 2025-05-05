@@ -1,11 +1,13 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Administrador extends Usuario{
 	
 	
 
-	public Administrador(String nome, String cpf, String email, String senha) {
-		super(nome, cpf, email, senha);
+	public Administrador(String nome, String cpf, String email, String senha, LocalDate dataDeNascimento) {
+		super(nome, cpf, email, senha,dataDeNascimento);
 	}
 
 	@Override

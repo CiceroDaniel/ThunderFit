@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 import java.util.Objects;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Aluno extends Usuario {
@@ -17,8 +18,8 @@ public class Aluno extends Usuario {
 		
 		//**--------------CONSTRUTOR----------------------**//
 		
-		public Aluno(String nome, String cpf, String email,String senha, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano) {
-			super(nome,cpf,email,senha);
+		public Aluno(String nome, String cpf, String email,String senha,LocalDate dataDeNascimento ,double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano) {
+			super(nome,cpf,email,senha,dataDeNascimento);
 			this.setAltura(altura);
 			this.setPeso(peso);
 			this.setNivel(nivel);

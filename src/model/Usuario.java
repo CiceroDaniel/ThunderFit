@@ -1,8 +1,8 @@
 package model;
 
-import java.util.UUID;
 
-/*import java.time.format.DateTimeFormatter;*/
+import java.time.LocalDate;
+import java.time.Period;
 
 public abstract class Usuario{
 	//**----------------VARIÀVEIS-------------------**//
@@ -11,19 +11,19 @@ public abstract class Usuario{
 		protected String email;
 		private String senha;
 		
-		//protected LocalDate dataDeNascimento;
-		//protected Endereco endereco;
+		protected LocalDate dataDeNascimento;
 		protected boolean online;	
-		//protected LocalDate dataDeCadastro;
+		protected LocalDate dataDeCadastro;
 		
 		
 		//**--------------CONSTRUTOR----------------------**//
-		public Usuario(String nome, String cpf, String email, String senha) {
+		public Usuario(String nome, String cpf, String email, String senha, LocalDate dataDeNascimento) {
 			this.setNome(nome);
 			this.setCpf(cpf);
 			this.setEmail(email);
 			this.setSenha(senha);
-			//this.dataDeCadastro = LocalDate.now();
+			this.setDataDeNascimento(dataDeNascimento);
+			this.dataDeCadastro = LocalDate.now();
 			this.online = false;
 		}
 		
@@ -57,12 +57,12 @@ public abstract class Usuario{
 			return !cpf.matches("(\\d)\\1{10}");
 		}
 		
-		/*public int calcularIdade() {
-			if(dataDeNascimento == null) {
-				System.out.println("data de nascimento nao foi definida");
+		public Period calcularIdade() {
+			if(dataDeNascimento == null ) {
+			throw new IllegalStateException("data de nascimento nao foi definida");
 			}
-			return LocalDate.now().getYear() - dataDeNascimento.getYear();
-		}*/
+			return Period.between(dataDeNascimento, LocalDate.now());
+		}
 		
 		
 		//**---------------GETTERS E SETTERS------------------**//
@@ -120,6 +120,21 @@ public abstract class Usuario{
 		public void setOnline(boolean online) {
 			this.online= online;
 		}
-
+		
+		public LocalDate getDataDeCadastro() {
+			return dataDeCadastro;
+		}
+		
+		
+		public LocalDate getDataDeNascimento() {
+			return dataDeNascimento;
+		}
+		public void setDataDeNascimento(LocalDate dataDeNascimento) {
+	        if (dataDeNascimento != null && dataDeNascimento.isAfter(LocalDate.now())) {
+	            throw new IllegalArgumentException("Data de nascimento não pode ser no futuro");
+	        }
+	        this.dataDeNascimento = dataDeNascimento;
+		}
+		
 		
 	}

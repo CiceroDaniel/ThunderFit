@@ -3,6 +3,7 @@ package services;
 import model.*;
 import repository.UsuarioRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class UsuarioService {
 	
 	//--------------------------- CADASTRO ---------------------------------
 	
-	public void cadastroAluno(String nome,String cpf,String email, String senha,double altura,
+	public void cadastroAluno(String nome,String cpf,String email, String senha,LocalDate dataDeNascimento,double altura,
 			double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano ) {
 		
 		if(usuarioRepository.buscarPorCpf(cpf)!= null) {
@@ -27,13 +28,13 @@ public class UsuarioService {
 			throw new IllegalArgumentException(" Erro: Email já cadastrado!");
 		}
 		
-		Aluno aluno = new Aluno(nome, cpf, email, senha, altura, peso, 
+		Aluno aluno = new Aluno(nome, cpf, email, senha, dataDeNascimento,altura, peso, 
                 nivel, metas, metaPersonalizada, plano);
 		
 		usuarioRepository.cadastro(aluno);
 	}
 	
-	public void cadastroTutor(String nome,String cpf,String email, String senha, float salario ) {
+	public void cadastroTutor(String nome,String cpf,String email, String senha,LocalDate dataDeNascimento ,float salario ) {
 		
 		if(usuarioRepository.buscarPorCpf(cpf)!= null) {
 			throw new IllegalArgumentException(" Erro: CPF já cadastrado!");
@@ -42,18 +43,18 @@ public class UsuarioService {
 			throw new IllegalArgumentException(" Erro: Email já cadastrado!");
 		}
 		
-		Tutor tutor = new Tutor(nome, cpf, email, senha, salario);
+		Tutor tutor = new Tutor(nome, cpf, email, senha, dataDeNascimento, salario);
 		
 		usuarioRepository.cadastro(tutor);
 	}
 	
-	public void cadastroAdministrador(String nome, String cpf, String email, String senha) {
+	public void cadastroAdministrador(String nome, String cpf, String email, String senha,LocalDate dataDeNascimento) {
         
 		if (admCadastrado) {
             throw new IllegalStateException("Apenas um administrador pode ser cadastrado!");
         }
         
-        Administrador adm = new Administrador(nome, cpf, email, senha);
+        Administrador adm = new Administrador(nome, cpf, email, senha, dataDeNascimento);
         
         usuarioRepository.cadastro(adm);
         admCadastrado = true;

@@ -1,5 +1,6 @@
 package app;
 
+import app.*;
 import java.util.Scanner;
 
 public class consoleMenu {
@@ -7,6 +8,9 @@ public class consoleMenu {
 	usuarioConsole userConsole = new usuarioConsole();
 	admConsole admConsole = new admConsole();
 	tutorConsole  tutorConsole = new tutorConsole();
+	toolbox tools = new toolbox();
+	
+	
 	// YSABELLE PASSE LONGE DESSE ARQUIVO PELO AMOR DE SAMARA!
 	public void init() {
 		
@@ -21,25 +25,41 @@ public class consoleMenu {
 			scan.nextLine();
 			//testando pra victor hugo
 			switch(op) {
-				case 1 :  userConsole.cadastroMenu(); ;
+				case 1 :  Cadastro();
 					break;
 				case 2 :  //AQUI CHAMA O METODO DE LOGIN ;
 					break;
-				case 3 :System.out.println("SAINDO DO SISTEMA");
+				case 3 :System.out.println("SAINDO DO SISTEMA.......");
 				System.exit(0);
 				default: System.out.println("OPÇÃO INVALIDA!");
 			}
 		}while(op!=0);
-		espacoMenu();
+		
 	}
-	public void espacoMenu() {
-		for(int i = 0; i <= 15;i++) {
-			System.out.println("  ");
-		}
+	
+	public void Cadastro() {
+		int op;
+		do {
+			tools.espacoMenu();
+			System.out.println("============CADASTRAR============"
+					+ "\n1 - CLIENTE"
+					+ "\n2 - TUTOR"
+					+ "\n3 - VOLTAR"
+					+ "\nESCOLHA UMA OPÇÃO: ");
+			op = scan.nextInt();
+			scan.nextLine();
+			
+			switch(op) {
+			case 1: userConsole.cadastroMenu();
+			break;
+			case 2: tutorConsole.cadastroMenu();
+			break;
+			case 3: init();
+			}
+			
+		}while(op!=0);
 	}
-	public void cadTutor() {
-		tutorConsole.cadastroMenu();
-	}
+	
 	/*public void mostarAdm() {
 		admConsole.cdAdm();
 	}*/

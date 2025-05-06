@@ -10,6 +10,8 @@ public class usuarioConsole {
 	UsuarioRepository uRepo = new UsuarioRepository();
 	UsuarioService services = new UsuarioService(uRepo);
 	Scanner scanner = new Scanner(System.in);
+	toolbox tools = new toolbox();
+
 	Nivel nivel;
 	Metas metas;
 	Plano plano;
@@ -17,6 +19,7 @@ public class usuarioConsole {
 	String descricao = null;
 	
 	public void cadastroMenu() {
+		tools.espacoMenu();
 		System.out.println("==============CADASTRO=================");
 		System.out.println("1. NOME DE USUÁRIO");
 		
@@ -41,20 +44,17 @@ public class usuarioConsole {
 		System.out.println("6. PESO DE USUÁRIO");
 		double peso = scanner.nextDouble();
 		
-		System.out.println("======NIVEL DO ALUNO=============");
 		nivelMenu();
 		
-		System.out.println("======METAS DO ALUNO=============");
 		metasMenu();
 		
-		System.out.println("======PLANO CONTRATADO=============");
 		planoMenu();
 		
 
 		
 		services.cadastroAluno(nome, cpf, email, senha, dataDeNascimento, altura, peso, nivel, metas, descricao, plano);
 	}
-	
+	/////////////////////////////
 	
 	
 	
@@ -62,6 +62,8 @@ public class usuarioConsole {
 	public void nivelMenu() {
 		
 		int op;
+		tools.espacoMenu();
+		System.out.println("======NIVEL DO ALUNO=============");
 		System.out.println("\n1- iniciante"
 				+ "\n2- intermediario"
 				+ "\n3 - avançado"
@@ -83,6 +85,8 @@ public class usuarioConsole {
 	
 	public void metasMenu() {
 		int op;
+		tools.espacoMenu();
+		System.out.println("======METAS DO ALUNO=============");
 		System.out.println("\n1- Ganhar Massa"
 				+ "\n2- Perder peso"
 				+ "\n3 -Personalizada"
@@ -104,6 +108,8 @@ public class usuarioConsole {
 	}
 	public void planoMenu() {
 		int op;
+		tools.espacoMenu();
+		System.out.println("======PLANO CONTRATADO=============");
 		System.out.println("\n1- Mensal"
 				+ "\n2- Trimestral"
 				+ "\n3 -Anual"

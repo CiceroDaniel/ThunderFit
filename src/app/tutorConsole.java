@@ -1,5 +1,5 @@
 package app;
-
+import app.consoleMenu;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -10,8 +10,13 @@ public class tutorConsole {
 	UsuarioRepository uRepo = new UsuarioRepository();
 	UsuarioService services = new UsuarioService(uRepo);
 	Scanner scanner = new Scanner(System.in);
+	toolbox tools = new toolbox();
+
+	
 	
 	public void cadastroMenu() {
+		tools.espacoMenu();
+		
 		System.out.println("==============CADASTRO=================");
 		System.out.println("1. NOME DE USUÁRIO");
 		

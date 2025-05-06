@@ -9,6 +9,8 @@ public class admConsole {
 	UsuarioRepository uRepo = new UsuarioRepository();
 	UsuarioService services = new UsuarioService(uRepo);
 	Scanner scanner = new Scanner(System.in);
+	toolbox tools = new toolbox();
+
 	
 	public void cdAdm() {
 		String dataScn = "2006-10-23";

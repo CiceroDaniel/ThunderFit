@@ -12,7 +12,7 @@ import java.util.Objects;
 
 
 public class UsuarioRepository implements InterfaceRepository<Usuario>{
-	private final List<Usuario> usuarios = new ArrayList<>();
+	private final List<Usuario> usuarios = new ArrayList<>(1);
 	
 	//--------------------CRIAR--------------------
 	

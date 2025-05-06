@@ -72,12 +72,15 @@ public class UsuarioService {
 	
 	//--------------------------- LISTAR ---------------------------------
 	
+	
 	public List<Usuario> listarUsuarios(Usuario solicitante){
 		if(!(solicitante instanceof Administrador)) {
 			throw new SecurityException("Apenas ADMs podem listar");
 		}
 		return usuarioRepository.listarTodos();
 	}
+	
+	
 	
 	public List<Aluno> listarAlunos(Usuario solicitante){
 		
@@ -86,9 +89,12 @@ public class UsuarioService {
 	}
 
 	public List<Tutor> listarTutores(Usuario solicitante){
+		
+		//------TA DANDO ERRO NO LOGIN DO TUTOR
+		/*
 		if(!(solicitante instanceof Administrador)) {
 			throw new SecurityException(" Apenas ADMs podem listar");
-		}
+		}*/
 		return usuarioRepository.listarTutores();
 	}
 	

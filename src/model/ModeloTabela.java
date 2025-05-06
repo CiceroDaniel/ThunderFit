@@ -1,5 +1,7 @@
 package model;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.table.AbstractTableModel;
 
 import controller.Alunocontroller;
@@ -12,9 +14,12 @@ public class ModeloTabela extends AbstractTableModel{
 			
 	};
 	
-	ArrayList<Aluno>alunos = new ArrayList<>(Alunocontroller.getAlunosCadastrados());
-	//ModeloTabela modelo = new ModeloTabela(alunos);
-	//suatabela.setModel(modelo);
+    private List<Aluno>alunos;//LISTA DE ALUNOS QUESERÃO EXIBIDOS
+	
+    //CONSTRUTOR QUE RECEBE A LISTA DE ALUNOS
+    public ModeloTabela(List<Aluno>alunos) {
+    	this.alunos=alunos;
+    }
 	
 	@Override
 	public int getRowCount() {
@@ -50,7 +55,11 @@ public class ModeloTabela extends AbstractTableModel{
 	    if(columnIndex == 5){
 		return aluno.getPlano().getValor();
 	    }else {
+	    if(columnIndex == 5){
+	    return aluno.getPlano().getValor();
+	    }else {
 	    return null;
+	    }
 	    }
 	   
 	}

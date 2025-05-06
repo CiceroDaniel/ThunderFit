@@ -20,9 +20,9 @@ public class Tutorcontroller {
 	private static UsuarioService usuarioservice = new UsuarioService(new UsuarioRepository()); 
 	
 	//METODOS CHAMAM O SERVICE
-	public static void cadastroTutoresController(Aluno aluno) {
+	public static void cadastroTutoresController(Tutor tutor) {
 	//cadastroAluno
-		usuarioservice.cadastroAluno(aluno.getNome(),aluno.getEmail(),aluno.getSenha(),aluno.getCpf(),aluno.getDataDeNascimento(),aluno.getAltura(),aluno.getPeso(),aluno.getNivel(),aluno.getMetas(),aluno.getMetaPersonalizada(),aluno.getPlano(), aluno.getGenero(),aluno.getImc());
+		usuarioservice.cadastroTutor(tutor.getNome(),tutor.getEmail(),tutor.getSenha(),tutor.getCpf(), null, 0);
 	
 }
 	public static Tutor loginTutorController(String email,String senha) {
@@ -52,7 +52,7 @@ public class Tutorcontroller {
 	//removerUsuario;
 	}
 	
-	 public static boolean verificarAlunoExistente(Tutor tutor) {
+	 public static boolean verificarTutorExistente(Tutor tutor) {
 	
 	  return usuarioservice.buscarPorCpf(tutor.getCpf(), tutor) != null || 
 			  usuarioservice.buscarPorEmail(tutor.getEmail())!= null;

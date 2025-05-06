@@ -12,6 +12,8 @@ import javax.swing.border.EmptyBorder;
 import controller.Alunocontroller;
 
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -39,6 +41,7 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import model.Administrador;
 import model.Aluno;//chama a classe aluno que esta no outro pacote
 import model.Tutor;
 import controller.Alunocontroller;
@@ -81,12 +84,13 @@ public class Cad extends JFrame {
 	private JPasswordField campocpf;
 	private JLabel IMAGEMCPF;
 	private JTextField campoCpf;
-	private JLabel lblAdmnistrador;
 	private JButton btnNewButton_LOGOUT;
 
 	
 	private Aluno aluno;
 	private Tutor tutor;
+	private Administrador adm;
+	private JLabel linkParaLoginAdm;
 
 	public class RoundedButtonSimples extends JButton{
 		private int arc;
@@ -456,12 +460,6 @@ public class Cad extends JFrame {
 		IMAGEMCPF.setBounds(10, 413, 45, 45);
 		contentPane.add(IMAGEMCPF);
 		
-		lblAdmnistrador = new JLabel("ADMNISTRADOR");
-		lblAdmnistrador.setForeground(Color.BLUE);
-		lblAdmnistrador.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblAdmnistrador.setBounds(27, 640, 100, 33);
-		contentPane.add(lblAdmnistrador);
-		
 		
 		JLabel linkParaLoginCadastroTutor = new JLabel("CADASTRO DE TUTOR");
 		linkParaLoginCadastroTutor.setForeground(Color.BLUE);
@@ -485,9 +483,8 @@ public class Cad extends JFrame {
 		btnNewButton_LOGOUT.setBounds(10, 10, 30, 30);
 		contentPane.add(btnNewButton_LOGOUT);
 	
+	
 		//CONCERTE O CADTUTOR
-		
-		
 		
 		linkParaLoginCadastroTutor.addMouseListener(new MouseAdapter() {
 			@Override	
@@ -500,20 +497,21 @@ public class Cad extends JFrame {
 		});
 		
 		
+		JLabel linkParaLoginAdm = new JLabel("ADMNISTRADOR");
+		linkParaLoginAdm.setForeground(Color.BLUE);
+		linkParaLoginAdm.setFont(new Font("Tahoma", Font.BOLD, 10));
+		linkParaLoginAdm.setBounds(27, 640, 262, 33);
+		contentPane.add(linkParaLoginAdm);
 		
-		
-		
-		/*
-		linkParaLoginCadastroAdm.addMouseListener(new MouseAdapter() {
+		linkParaLoginAdm.addMouseListener(new MouseAdapter() {
 			@Override	
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				
-				Cadtutor cadAdmScreen = new Cadtutor();
-				cadAdmScreen.setVisible(true);
+				LoginAdm loginScreen = new LoginAdm(aluno, tutor, adm);
+				loginScreen.setVisible(true);
 			}
 		});
-		*/
 		
 	}
 }

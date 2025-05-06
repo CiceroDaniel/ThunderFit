@@ -17,8 +17,8 @@ public class Tutor extends Usuario{
 				
 			}
 	
-	public Tutor(String nome, String cpf, String email,String senha,LocalDate dataDeNascimento,float salario) {
-		super(nome, cpf, email, senha, dataDeNascimento);
+	public Tutor(String nome,String email,String senha,String cpf,LocalDate dataDeNascimento,float salario) {
+		super(nome,email,senha ,cpf, dataDeNascimento);
 		this.setSalario(salario);
 		this.trabalhoAtivo= true;
 	}

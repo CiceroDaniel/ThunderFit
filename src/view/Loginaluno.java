@@ -123,6 +123,9 @@ public class Loginaluno extends JFrame {
 		private JButton btnNewButton_LOGOUT;
 		
 	public Loginaluno(Aluno aluno) {
+		
+		this.aluno=aluno;
+		
 		setResizable(false);
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -124,6 +124,9 @@ public class Logintutor extends JFrame {
 		private JButton btnNewButton_LOGOUT;
 		
 	public Logintutor(Tutor tutor) {
+		
+		this.tutor=tutor;
+		
 		setResizable(false);
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -194,7 +197,7 @@ public class Logintutor extends JFrame {
 	                    
 	                    
 	                    
-	                    TabelaCadastrosTutor ttScreen = new TabelaCadastrosTutor();
+	                    TabelaCadastrosTutor ttScreen = new TabelaCadastrosTutor(tutor, aluno);
 	                    ttScreen.setVisible(true);
 
 	                } else {
@@ -228,7 +231,7 @@ public class Logintutor extends JFrame {
 		//=============================TEXTOS=============================//
 		//================================================================//
 		
-		JLabel lblNewLabel = new JLabel("LOGIN USER");
+		JLabel lblNewLabel = new JLabel("LOGIN TUTOR");
 		lblNewLabel.setBounds(179, 60, 134, 66);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblNewLabel.setForeground(new Color(255, 255, 255));

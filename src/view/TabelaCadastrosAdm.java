@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 import controller.Alunocontroller;
 import model.Aluno;
 import model.ModeloTabela;
-import model.Tutor;
 
 import javax.swing.JTree;
 import java.awt.Color;
@@ -26,7 +25,7 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class TabelaCadastrosTutor extends JFrame {
+public class TabelaCadastrosAdm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -58,12 +57,10 @@ public class TabelaCadastrosTutor extends JFrame {
 		});
 	}
 
-	private Tutor tutor;
-	private Aluno aluno;
-	
-	public TabelaCadastrosTutor(Tutor tutor,Aluno aluno) {
-		this.tutor=tutor;
-		this.aluno=aluno;
+	/**
+	 * Create the frame.
+	 */
+	public TabelaCadastrosAdm() {
          ArrayList<Aluno> alunos;
          ModeloTabela modelotabela;
 		//alunos.add();

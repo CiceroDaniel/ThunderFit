@@ -2,6 +2,9 @@ package view;
 
 import java.time.LocalDate;
 
+import controller.Alunocontroller;
+import controller.Tutorcontroller;
+import model.Administrador;
 import model.Aluno;
 import model.Metas;
 import model.Nivel;
@@ -13,16 +16,31 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		Alunocontroller controller = new Alunocontroller();
+		//Tutorcontroller controller = new Tutorcontroller();
+		
 		Aluno aluno = null;
 		Tutor tutor = null;
+		Administrador adm = null;
+		
+		Administrador adm1 = new Administrador("Victor","Victor@gmail.com","12345678","11122233344", null);
+		Tutor tutor1 = new Tutor("Naruto","naruto@gmail.com","99999999","99999999999");
 		
 		Aluno a1 = new Aluno("ysa","ysa@gmail.com","123123123","12312312312", LocalDate.of(2025, 01, 19),80, 1.80, Nivel.AVANCADO, Metas.ganharMassa, null, Plano.planoMensal, Genero.FEMININO, 123);
-		//não tá adicionando o aluno ao array
+		Aluno a2 = new Aluno("Bell","bell@gmail.com","123123123","32132132132", LocalDate.of(2025, 01, 19),80, 1.80, Nivel.AVANCADO, Metas.ganharMassa, null, Plano.planoMensal, Genero.FEMININO, 123);
+		controller.cadastroalunoController(a1);
+		controller.cadastroalunoController(a2);
+		/*
+		Tutor t1 = new Tutor("Daniel","daniel@gmail.com","321321321","32132132132");
+		controller.cadastroTutoresController(t1);
+		*/
+		
+		
 		
 		//new Perfil(aluno).setVisible(true);
-		new TelaEscolhaUsuario(aluno, tutor).setVisible(true);
+	    new TelaEscolhaUsuario(aluno, tutor).setVisible(true);
 		//new Formulario(aluno).setVisible(true);
-		
+		//new TabelaCadastrosAdm().setVisible(true);
 		
 		
 	}

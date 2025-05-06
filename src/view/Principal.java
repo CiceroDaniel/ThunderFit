@@ -84,6 +84,9 @@ public class Principal extends JFrame {
 	
 	
 	public Principal(Aluno aluno) {
+		
+		this.aluno=aluno;
+		
 		setResizable(false);
 		setBackground(new Color(224, 188, 233));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

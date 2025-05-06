@@ -6,8 +6,8 @@ public class Administrador extends Usuario{
 	
 	
 
-	public Administrador(String nome, String cpf, String email, String senha, LocalDate dataDeNascimento) {
-		super(nome, cpf, email, senha,dataDeNascimento);
+	public Administrador(String nome, String email,String cpf, String senha, LocalDate dataDeNascimento) {
+		super(nome,email,cpf, senha,dataDeNascimento);
 	}
 
 	@Override
@@ -17,8 +17,8 @@ public class Administrador extends Usuario{
 
 	@Override
 	public String gerarCredenciaisCadastro() {
-		return String.format("Nome: %s\nCPF: %s\nEmail: %s",
-				this.getNome(),/*this.getCpf(),*/this.getEmail());
+		return String.format("Nome: %s\nEmail: %s\nCPF:%s",
+				this.getNome(),this.getEmail(),this.getCpf());
 	}
 
 	@Override

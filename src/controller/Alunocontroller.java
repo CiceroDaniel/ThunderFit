@@ -49,6 +49,9 @@ public class Alunocontroller {
 	
 	public static void removeralunoController(Aluno aluno) {
 	//removerUsuario;
+		
+		
+		
 	}
 	
 	 public static boolean verificarAlunoExistente(Aluno aluno) {

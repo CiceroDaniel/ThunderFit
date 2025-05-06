@@ -31,24 +31,6 @@ public class Perfil extends JFrame {
 	
 	private Aluno aluno;//importando aluno e suas informações compartilha a mesma referencia em quase todas as tela
 	
-	
-	/*
-
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Perfil frame = new Perfil(aluno);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
-	
 	//METODO ADICIONAR IMAGEM AO BOTÃO
 		public void setImageBotao(JButton botao,String caminho,int largura,int altura) {
 			ImageIcon icon = new ImageIcon(getClass().getResource(caminho));
@@ -161,10 +143,6 @@ public class Perfil extends JFrame {
 		panel_2.add(lblNewLabel_2_2_1_3_1_1_1);
 		
 		
-
-		
-		
-		
 		JPanel panel_2_1 = new JPanel();
 		panel_2_1.setBackground(new Color(79, 79, 79));
 		panel_2_1.setBounds(29, 240, 320, 300);
@@ -182,10 +160,6 @@ public class Perfil extends JFrame {
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_1_1_1.setBounds(0, 25, 337, 20);
 		panel_2_1_2.add(lblNewLabel_1_1_1);
-		
-
-	
-		
 		
 		JPanel panel_2_1_1 = new JPanel();
 		panel_2_1_1.setBackground(new Color(79, 79, 79));

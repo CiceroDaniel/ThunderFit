@@ -32,6 +32,8 @@ public class UsuarioService {
                 nivel, metas, metaPersonalizada, plano);
 		
 		usuarioRepository.cadastro(aluno);
+		
+		System.out.println(aluno.gerarCredenciais());
 	}
 	
 	public void cadastroTutor(String nome,String cpf,String email, String senha,LocalDate dataDeNascimento ,float salario ) {

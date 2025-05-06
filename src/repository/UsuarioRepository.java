@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Objects;
 
 
+
+
 public class UsuarioRepository implements InterfaceRepository<Usuario>{
 	private final List<Usuario> usuarios = new ArrayList<>();
 	
@@ -26,7 +28,7 @@ public class UsuarioRepository implements InterfaceRepository<Usuario>{
 			throw new IllegalArgumentException("Erro: CPF já cadastrado!");
 		}
 		if(buscarPorEmail(usuario.getEmail()) != null) {
-			throw new IllegalArgumentException("Erro: Email já cadastrado!");
+			throw new IllegalArgumentException("Erro: Email já cadastrado!\n");
 		}
 		
 		

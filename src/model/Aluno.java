@@ -33,22 +33,11 @@ public class Aluno extends Usuario {
 			super(nome, email, senha,cpf);
 			this.altura=0;
 			this.peso=0;
-			this.metas=metas;
-			this.metaPersonalizada=metaPersonalizada;
-			this.nivel=nivel;
-			this.genero=genero;
-			this.plano=plano;
-			this.imc=imc;
-		
 			
 		}
 
-		public Aluno(String nome,String cpf, String email,String senha, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano,String datanascimento,String datainicio,Genero genero,double imc) {
-			super(nome,cpf,email,senha);
-		}
-		public Aluno(String nome, String cpf, String email,String senha,LocalDate dataDeNascimento ,double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano) {
-			super(nome,cpf,email,senha,dataDeNascimento);
-
+		public Aluno(String nome,String email, String senha,String cpf,LocalDate dataDeNascimento, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano,Genero genero,double imc) {
+		super(nome,email,senha,cpf,dataDeNascimento);
 			this.setAltura(altura);
 			this.setPeso(peso);
 			this.setNivel(nivel);
@@ -56,8 +45,6 @@ public class Aluno extends Usuario {
 			this.setMetaPersonalizada(metaPersonalizada); 
 			this.setPlano(plano);
 			this.treinos = new ArrayList<>();
-			this.datanascimento=datanascimento;
-			this.datainicio=datainicio;
 			this.genero = genero;
 			this.imc=imc;
 			}

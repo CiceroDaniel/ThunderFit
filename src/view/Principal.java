@@ -29,6 +29,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 import model.Aluno;
+import model.Tutor;
 
 public class Principal extends JFrame {
 

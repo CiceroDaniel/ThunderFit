@@ -625,7 +625,7 @@ public class Formulario extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen =  new Cad(aluno);
+				Cad cadScreen =  new Cad(aluno,tutor);
 				cadScreen.setVisible(true);
 			}
 		});
@@ -646,7 +646,7 @@ public class Formulario extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen =  new Cad(aluno);
+				Cad cadScreen =  new Cad(aluno,tutor);
 				cadScreen.setVisible(true);
 			}
 		});

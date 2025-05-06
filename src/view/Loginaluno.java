@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.Alunocontroller;
 import model.Aluno;
+import model.Tutor;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -118,6 +119,7 @@ public class Loginaluno extends JFrame {
 			botao.setIconTextGap(10);
 		}
 		private Aluno aluno;
+		private Tutor tutor;
 		private JButton btnNewButton_LOGOUT;
 		
 	public Loginaluno(Aluno aluno) {
@@ -376,7 +378,7 @@ public class Loginaluno extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, null);
 				escolhaScreen.setVisible(true);
 				
 			}
@@ -393,7 +395,7 @@ public class Loginaluno extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen = new Cad(aluno);
+				Cad cadScreen = new Cad(aluno,tutor);
 				cadScreen.setVisible(true);
 		}
 	});

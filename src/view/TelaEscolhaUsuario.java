@@ -31,26 +31,6 @@ public class TelaEscolhaUsuario extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-
-	
-	/*
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaEscolhaUsuario frame = new TelaEscolhaUsuario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
-	/**
-	 * Create the frame.
-	 */
 	
 ////ARREDONDAR BORDAS DO BOTÃO
 
@@ -144,15 +124,14 @@ public class TelaEscolhaUsuario extends JFrame {
 		btnNewButton_Adm.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton_Adm.setBounds(113, 303, 418, 132);
 		contentPane.add(btnNewButton_Adm);
-		/*
-		//BOTÃO DO ADM
+	
 		RoundedButtonSimples btnNewButton_Instrutor = new RoundedButtonSimples("       INSTRUTOR",20);
 		btnNewButton_Instrutor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				dispose();
 				
-				Logintutor logintutorscreen = new  Logintutor();
+				Logintutor logintutorscreen = new  Logintutor(tutor);
 				logintutorscreen.setVisible(true);
 				
 			}
@@ -163,7 +142,7 @@ public class TelaEscolhaUsuario extends JFrame {
 		btnNewButton_Instrutor.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton_Instrutor.setBounds(113, 459, 418, 132);
 		contentPane.add(btnNewButton_Instrutor);
-		*/
+		
 		JLabel lblNewLabel = new JLabel("ESCOLHA DE USUARIO");
 		lblNewLabel.setBackground(new Color(204, 102, 255));
 		lblNewLabel.setForeground(new Color(255, 255, 255));

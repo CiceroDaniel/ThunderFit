@@ -30,8 +30,8 @@ public class Tutor extends Usuario{
 	
 	@Override
 	public String gerarCredenciais() {
-		return String.format("Nome: %s\nCPF: %s\nEmail: %s\nSalario: R$%.2f",
-		this.getNome(),this.getCpf(),this.getEmail(),this.getSalario());
+		return String.format("Nome: %s\nCPF: %s\nEmail: %s\nCPF:%s",
+		this.getNome(),this.getEmail(),this.getSenha(),this.getCpf());
 	}
 
 	@Override

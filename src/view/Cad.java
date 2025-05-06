@@ -338,6 +338,7 @@ public class Cad extends JFrame {
 	                Camposenha.setText("");
 	                campoCpf.setText("");
 	                
+	                System.out.println("INFO"+aluno.gerarCredenciaisCadastro());
 	                
 	                dispose();
 	                //ta pegando as informações do aluno nome,email e senha e mandando para a subtela

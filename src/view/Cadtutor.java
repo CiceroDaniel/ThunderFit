@@ -337,6 +337,9 @@ public class Cadtutor extends JFrame {
 	                
 	                
 	                dispose();
+	                
+	                TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(null, tutor);
+	                escolhaScreen.setVisible(true);
 	                //ta pegando as informações do aluno nome,email e senha e mandando para a subtela
 	               // Formulario formularioScreen = new Formulario(tutor);
 	               // formularioScreen.setVisible(true);

@@ -1,6 +1,7 @@
 package services;
 
 import model.*;
+import model.Aluno.Genero;
 import repository.UsuarioRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class UsuarioService {
 	//--------------------------- CADASTRO ---------------------------------
 	
 	public void cadastroAluno(String nome,String email, String senha,String cpf,LocalDate dataDeNascimento,double altura,
-			double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano ) {
+			double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano, Genero genero, double imc) {
 		
 		if(usuarioRepository.buscarPorCpf(cpf)!= null) {
 			throw new IllegalArgumentException(" Erro: CPF já cadastrado!");
@@ -35,13 +36,14 @@ public class UsuarioService {
 		}
 		
 		
-		Aluno aluno = new Aluno(nome, email, senha,cpf, dataDeNascimento,altura, peso, 
-                nivel, metas, metaPersonalizada, plano);
+		Aluno aluno = new Aluno(nome, email,senha,cpf, dataDeNascimento, altura, peso, nivel,
+				metas, metaPersonalizada, plano, genero, imc);
+			
 		
 		usuarioRepository.cadastro(aluno);
 	}
 	
-	public void cadastroTutor(String nome,String cpf,String email, String senha,LocalDate dataDeNascimento ,float salario ) {
+	public void cadastroTutor(String nome,String email,String senha, String cpf,LocalDate dataDeNascimento ,float salario ) {
 		
 		if(usuarioRepository.buscarPorCpf(cpf)!= null) {
 			throw new IllegalArgumentException(" Erro: CPF já cadastrado!");
@@ -50,18 +52,18 @@ public class UsuarioService {
 			throw new IllegalArgumentException(" Erro: Email já cadastrado!");
 		}
 		
-		Tutor tutor = new Tutor(nome, cpf, email, senha, dataDeNascimento, salario);
+		Tutor tutor = new Tutor(nome, email, senha,cpf, dataDeNascimento, salario);
 		
 		usuarioRepository.cadastro(tutor);
 	}
 	
-	public void cadastroAdministrador(String nome, String cpf, String email, String senha,LocalDate dataDeNascimento) {
+	public void cadastroAdministrador(String nome, String email, String senha, String cpf,LocalDate dataDeNascimento) {
         
 		if (admCadastrado) {
             throw new IllegalStateException("Apenas um administrador pode ser cadastrado!");
         }
         
-        Administrador adm = new Administrador(nome, cpf, email, senha, dataDeNascimento);
+        Administrador adm = new Administrador(nome, email, senha,cpf, dataDeNascimento);
         
         usuarioRepository.cadastro(adm);
         admCadastrado = true;
@@ -78,9 +80,7 @@ public class UsuarioService {
 	}
 	
 	public List<Aluno> listarAlunos(Usuario solicitante){
-		if(!solicitante.temAcessoAdmin()) {
-			throw new SecurityException("Apenas tutores e ADMs podem listar");
-		}
+		
 		
 		return usuarioRepository.listarAlunos();
 	}
@@ -113,7 +113,7 @@ public class UsuarioService {
 	}
 	
 	public void atualizarPlanoAluno(String cpf, Plano novoPlano, Usuario solicitante) {
-		if(!solicitante.temAcessoAdmin()) {
+		if(!solicitante.temAcessoAdmin()) {//talvez erro
 			throw new SecurityException("Apenas tutores e ADMs podem buscar Usuarios");
 		}
 		Aluno aluno = (Aluno) usuarioRepository.buscarPorCpf(cpf);
@@ -135,7 +135,7 @@ public class UsuarioService {
 	}
 	
 	public List<Usuario> buscarPorNome(String nome, Usuario solicitante){
-		if(!solicitante.temAcessoAdmin()) {
+		if(!solicitante.temAcessoAdmin()) {// talvez erro
 			throw new SecurityException("Apenas tutores e ADMs podem buscar Usuarios");
 		}
 		

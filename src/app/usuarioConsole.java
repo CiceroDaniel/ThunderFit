@@ -67,6 +67,7 @@ public class usuarioConsole {
 		String senhaLogin = scanner.nextLine();
 		
 		auth.login(emailLogin, senhaLogin);
+		System.out.println(auth.getUsuarioLogado());
 	}
 	
 	

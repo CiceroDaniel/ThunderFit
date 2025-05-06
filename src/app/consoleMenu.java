@@ -76,7 +76,7 @@ public class consoleMenu {
 			switch(op) {
 			case 1: userConsole.loginMenu();
 			break;
-			case 2: //tutorConsole.cadastroMenu();
+			case 2: tutorConsole.loginMenu();;
 			break;
 			case 3: //login do adm
 			case 4: init();

@@ -43,8 +43,13 @@ public class tutorConsole {
 		services.cadastroTutor(nome, cpf, email, senha, dataDeNascimento, salario);
 	}
 	
-	/*public void loginMenu() {
+	public void loginMenu() {
 		tools.espacoMenu();
+		
+		String dataScn = "2006-10-23";
+		LocalDate dataDeNascimento = LocalDate.parse(dataScn);
+		
+		services.cadastroTutor("daniel", "07937126450", "daniel@gmail.com", "123456789", dataDeNascimento, 152);
 		System.out.println("==============LOGIN===============");
 		System.out.println("E-MAIL: ");
 		String emailLogin = scanner.nextLine();
@@ -53,6 +58,19 @@ public class tutorConsole {
 		String senhaLogin = scanner.nextLine();
 		
 		auth.login(emailLogin, senhaLogin);
-	}*/
+		System.out.println(auth.getUsuarioLogado());
+		
+		if(auth.getUsuarioLogado() == true) {
+			System.out.println("logaaaaaaaaaaaaaaaaaaaado");
+			tutorMenu();
+		}
+		
+	}
+	
+	public void tutorMenu() {
+		System.out.println("================== TUTOR ===================");
+	}
+	
+	
 	
 }

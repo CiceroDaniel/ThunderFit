@@ -8,12 +8,20 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import controller.Alunocontroller;
+import model.Aluno;
+import model.ModeloTabela;
+
 import javax.swing.JTree;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
 public class TabelaCadastrosTutor extends JFrame {
 
@@ -22,6 +30,8 @@ public class TabelaCadastrosTutor extends JFrame {
 	private JTextField textField;
 	private JButton btnNewButton_1;
 	private JTable table;
+	
+	private ArrayList<Aluno> alunos;
 
 	/**
 	 * Launch the application.
@@ -43,6 +53,10 @@ public class TabelaCadastrosTutor extends JFrame {
 	 * Create the frame.
 	 */
 	public TabelaCadastrosTutor() {
+
+		alunos = new ArrayList<>();
+		//alunos.add();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1080,720);
 		contentPane = new JPanel();
@@ -62,6 +76,10 @@ public class TabelaCadastrosTutor extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		btnNewButton_1 = new JButton("SAIR");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton_1.setBounds(3, 18, 30, 30);
 		contentPane.add(btnNewButton_1);
 		
@@ -69,15 +87,13 @@ public class TabelaCadastrosTutor extends JFrame {
 		scrollPane.setBounds(37, 70, 991, 545);
 		contentPane.add(scrollPane);
 		
+		
+		ModeloTabela modelotabela = new ModeloTabela(alunos);
+		
 		table = new JTable();
+		table.setModel(modelotabela);
 		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"NOME", "EMAIL", "SENHA", "CPF", "PLANO", "VALOR"
-			}
-		));
+  
 		
 		JButton ATUALIZAR = new JButton("ATUALIZAR");
 		ATUALIZAR.setBounds(39, 639, 90, 25);

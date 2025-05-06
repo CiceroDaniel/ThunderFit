@@ -30,6 +30,8 @@ import model.Aluno;
 import model.Aluno.Genero;
 import model.Metas;
 import model.Plano;
+import model.Tutor;
+
 import javax.swing.border.BevelBorder;
 
 public class Formulario extends JFrame {
@@ -138,12 +140,13 @@ public class Formulario extends JFrame {
 	}
 	
 	private Aluno aluno;
+	private Tutor tutor;
 	
-	
-	public Formulario(Aluno aluno) {
+	public Formulario(Aluno aluno,Tutor tutor) {
 		
 		this.aluno = aluno;//AQUI É PRA GUARDAR O ALUNO QUE A GENTE CRIOU
-	
+	    this.tutor=tutor;
+		
 		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -604,7 +607,7 @@ public class Formulario extends JFrame {
 				
 					dispose();
 					
-					TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno);
+					TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, tutor);
 					escolhaScreen.setVisible(true);
 				
 			

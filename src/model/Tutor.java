@@ -7,6 +7,16 @@ public class Tutor extends Usuario{
 	protected float salario;
 	private boolean trabalhoAtivo;
 	
+	  //TELA DE CADASTRO ALUNO
+			public Tutor(String nome,String email,String senha,String cpf) {
+				super(nome, email, senha,cpf);
+				
+	            this.salario=salario;
+	            this.trabalhoAtivo=trabalhoAtivo;
+			
+				
+			}
+	
 	public Tutor(String nome, String cpf, String email,String senha,LocalDate dataDeNascimento,float salario) {
 		super(nome, cpf, email, senha, dataDeNascimento);
 		this.setSalario(salario);
@@ -21,7 +31,7 @@ public class Tutor extends Usuario{
 	@Override
 	public String gerarCredenciais() {
 		return String.format("Nome: %s\nCPF: %s\nEmail: %s\nSalario: R$%.2f",
-		this.getNome(),/*this.getCpf(),*/this.getEmail(),this.getSalario());
+		this.getNome(),this.getCpf(),this.getEmail(),this.getSalario());
 	}
 
 	@Override
@@ -66,6 +76,9 @@ public class Tutor extends Usuario{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
 	
 	
 	

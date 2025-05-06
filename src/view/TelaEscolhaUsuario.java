@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.Aluno;
+import model.Tutor;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -87,8 +88,9 @@ public class TelaEscolhaUsuario extends JFrame {
 	}
 	
 	private Aluno aluno;
+	private Tutor tutor;
 	
-	public TelaEscolhaUsuario(Aluno aluno) {
+	public TelaEscolhaUsuario(Aluno aluno,Tutor tutor) {
 		setResizable(false);
 		
 		this.aluno=aluno;
@@ -133,7 +135,7 @@ public class TelaEscolhaUsuario extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen = new Cad(aluno);
+				Cad cadScreen = new Cad(aluno, tutor);
 				cadScreen.setVisible(true);
 				
 			}
@@ -142,7 +144,7 @@ public class TelaEscolhaUsuario extends JFrame {
 		btnNewButton_Adm.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton_Adm.setBounds(113, 303, 418, 132);
 		contentPane.add(btnNewButton_Adm);
-		
+		/*
 		//BOTÃO DO ADM
 		RoundedButtonSimples btnNewButton_Instrutor = new RoundedButtonSimples("       INSTRUTOR",20);
 		btnNewButton_Instrutor.addActionListener(new ActionListener() {
@@ -161,7 +163,7 @@ public class TelaEscolhaUsuario extends JFrame {
 		btnNewButton_Instrutor.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton_Instrutor.setBounds(113, 459, 418, 132);
 		contentPane.add(btnNewButton_Instrutor);
-		
+		*/
 		JLabel lblNewLabel = new JLabel("ESCOLHA DE USUARIO");
 		lblNewLabel.setBackground(new Color(204, 102, 255));
 		lblNewLabel.setForeground(new Color(255, 255, 255));

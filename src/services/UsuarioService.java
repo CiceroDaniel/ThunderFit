@@ -18,13 +18,7 @@ public class UsuarioService {
 	}
 
 	
-	
-	
-	
-	UsuarioRepository repositorio = new UsuarioRepository();
-	
-	
-	
+	//UsuarioRepository repositorio = new UsuarioRepository();
 	
 	
 	
@@ -72,18 +66,6 @@ public class UsuarioService {
         usuarioRepository.cadastro(adm);
         admCadastrado = true;
     }
-	
-	
-	//-----------------------------LOGIN-----------------------------------
-	
-	public Aluno loginAluno(String email,String senha) {
-		
-		Aluno aluno = (Aluno) repositorio.buscarPorEmail(email);
-		
-		return null;
-	}
-	
-	
 	
 	
 	//--------------------------- LISTAR ---------------------------------

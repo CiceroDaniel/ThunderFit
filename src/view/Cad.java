@@ -40,6 +40,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import model.Aluno;//chama a classe aluno que esta no outro pacote
+import model.Tutor;
 import controller.Alunocontroller;
 import javax.swing.SwingConstants;
 
@@ -74,7 +75,7 @@ public class Cad extends JFrame {
 	private JLabel linkParaLoginCadastroInstrutor;
 	
 
-	private Aluno aluno;
+
 	private JLabel lblNewLabel_6;
 	private JLabel lblNewLabel_7;
 	private JPasswordField campocpf;
@@ -83,6 +84,9 @@ public class Cad extends JFrame {
 	private JLabel lblAdmnistrador;
 	private JButton btnNewButton_LOGOUT;
 
+	
+	private Aluno aluno;
+	private Tutor tutor;
 
 	public class RoundedButtonSimples extends JButton{
 		private int arc;
@@ -128,9 +132,10 @@ public class Cad extends JFrame {
 	
 
 	
-	public Cad(Aluno aluno) {
+	public Cad(Aluno aluno,Tutor tutor) {
 		
 		this.aluno=aluno;
+		this.tutor = tutor;
 		
 		setResizable(false);
 		setBackground(new Color(224, 188, 233));
@@ -336,7 +341,7 @@ public class Cad extends JFrame {
 	                
 	                dispose();
 	                //ta pegando as informações do aluno nome,email e senha e mandando para a subtela
-	                Formulario formularioScreen = new Formulario(aluno);
+	                Formulario formularioScreen = new Formulario(aluno,tutor);
 	                formularioScreen.setVisible(true);
 	                
 				
@@ -470,7 +475,7 @@ public class Cad extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor);
 				escolhaScreen.setVisible(true);
 			}
 		});
@@ -482,17 +487,17 @@ public class Cad extends JFrame {
 		//CONCERTE O CADTUTOR
 		
 		
-		/*
+		
 		linkParaLoginCadastroTutor.addMouseListener(new MouseAdapter() {
 			@Override	
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				
-				Cadtutor cadAdmScreen = new Cadtutor();
+				Cadtutor cadAdmScreen = new Cadtutor(tutor);
 				cadAdmScreen.setVisible(true);
 			}
 		});
-		*/
+		
 		
 		
 		

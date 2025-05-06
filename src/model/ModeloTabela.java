@@ -1,7 +1,10 @@
 package model;
+import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
-public class Modelotabela extends AbstractTableModel{
+import controller.Alunocontroller;
+
+public class ModeloTabela extends AbstractTableModel{
 
 	private static final String[] colunas = {
 			
@@ -9,25 +12,26 @@ public class Modelotabela extends AbstractTableModel{
 			
 	};
 	
+	ArrayList<Aluno>alunos = new ArrayList<>(Alunocontroller.getAlunosCadastrados());
+	//ModeloTabela modelo = new ModeloTabela(alunos);
+	//suatabela.setModel(modelo);
+	
 	@Override
 	public int getRowCount() {
 		
 		return alunos.size();
-		
-		return 0;
 	}
 
 	@Override
 	public int getColumnCount() {
 	
-		colunas.lenght;
-		
-		return 0;
+		return colunas.length;
+	
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Aluno aluno = aluno.get(rowIndex);
+		Aluno aluno = alunos.get(rowIndex);
 		if(columnIndex == 0){
 		return aluno.getNome();
 	    }else 
@@ -49,7 +53,11 @@ public class Modelotabela extends AbstractTableModel{
 	    return null;
 	    }
 	   
-		return null;
+	}
+	
+	@Override 
+	public String getColumnName(int column) {
+		return colunas[column];
 	}
 
 }

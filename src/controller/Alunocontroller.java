@@ -15,6 +15,7 @@ public class Alunocontroller {
 		return usuarioservice.listarAlunos(null);
 	}
 
+	private static AuthService authservice = new AuthService(new UsuarioRepository());
 	private static UsuarioService usuarioservice = new UsuarioService(new UsuarioRepository()); 
 	
 	//METODOS CHAMAM O SERVICE
@@ -24,7 +25,9 @@ public class Alunocontroller {
 	
 }
 	public static Aluno loginAlunoController(String email,String senha) {
-		return usuarioservice.loginAluno(email,senha);
+		
+		//verificar
+		return (Aluno) authservice.login(email, senha);
 	}
 	
 	public static void listaralunoController(Aluno aluno) {

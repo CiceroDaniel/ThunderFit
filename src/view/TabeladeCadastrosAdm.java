@@ -1,5 +1,5 @@
 package view;
-
+//TELA DA CADASTROS
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -32,7 +32,7 @@ public class TabeladeCadastrosAdm extends JFrame {
 	 */
 	public TabeladeCadastrosAdm() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 1080,720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

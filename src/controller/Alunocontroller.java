@@ -1,11 +1,70 @@
 package controller;
-
 import model.Aluno;
+import model.Usuario;
+import repository.UsuarioRepository;
+
 import java.util.ArrayList;
 import java.util.List;
+import services.*;
+
+//METODOS PRINCIPAIS DO ALUNO
 
 public class Alunocontroller {
 	
+	public static List<Aluno>getAlunosCadastrados(){
+		return usuarioservice.listarAlunos(null);
+	}
+
+	private static UsuarioService usuarioservice = new UsuarioService(new UsuarioRepository()); 
+	
+	//METODOS CHAMAM O SERVICE
+	public static void cadastroalunoController(Aluno aluno) {
+	//cadastroAluno
+	usuarioservice.cadastroAluno(aluno.getNome(),aluno.getEmail(),aluno.getSenha(),aluno.getCpf(),aluno.getDataDeNascimento(),aluno.getAltura(),aluno.getPeso(),aluno.getNivel(),aluno.getMetas(),aluno.getMetaPersonalizada(),aluno.getPlano());
+	
+}
+	public static Aluno loginAlunoController(String email,String senha) {
+		return usuarioservice.loginAluno(email,senha);
+	}
+	
+	public static void listaralunoController(Aluno aluno) {
+	//listarAlunos
+	//usuarioservice.listarAlunos(aluno.getNome(),aluno.getEmail(),aluno.getSenha(),aluno.getCpf(),aluno.getDataDeNascimento(),aluno.getAltura(),aluno.getPeso(),aluno.getNivel(),aluno.getMetas(),aluno.getMetaPersonalizada(),aluno.getPlano());
+	}
+
+	public static void atualizaralunoController(Aluno aluno) {
+	//atualizarDados
+	//atualizarStatusOnline
+	//atualizarPlanoAluno
+		
+	}
+	public static void buscaralunoController(Aluno aluno) {
+	//buscarPorCpf
+    //buscarPorNome
+	//buscarPorEmail
+	}
+	
+	public static void removeralunoController(Aluno aluno) {
+	//removerUsuario;
+	}
+	
+	 public static boolean verificarAlunoExistente(Aluno aluno) {
+	
+	  return usuarioservice.buscarPorCpf(aluno.getCpf(), aluno) != null || 
+			  usuarioservice.buscarPorEmail(aluno.getEmail())!= null;
+	    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
 	//Metodos staticos que são compartilhados por todas as instancias da classe
 
     // Lista de alunos
@@ -29,7 +88,7 @@ public class Alunocontroller {
             }
         }
         return false;
-    }
+    }*/
     
     /*
      * METODOS

@@ -69,27 +69,9 @@ public class Loginaluno extends JFrame {
 
 	 // Lista de alunos cadastrados
 	
-    private ArrayList<Aluno> alunos = (ArrayList<Aluno>) Alunocontroller.getAlunos();
+	
+   // private ArrayList<Aluno> alunos = (ArrayList<Aluno>) Alunocontroller.getAlunos();
 
-	/**
-	 * Launch the application.
-	 *//*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
-	/**
-	 * Create the frame.
-	 */
 	
 	//===========================ARREDONDAR BORDAS DOS BOTÕES===============================//
 	
@@ -194,7 +176,7 @@ public class Loginaluno extends JFrame {
 	                boolean loginValido = false;
 	                
                 // Verifica se algum cliente cadastrado tem o email e senha corretos
-	                for (Aluno aluno : Alunocontroller.getAlunos()) {//VERIFICA A LISTA DE PESSOAS CADASTRADAs
+	                for (Aluno aluno : Alunocontroller.getAlunosCadastrados()) {//VERIFICA A LISTA DE PESSOAS CADASTRADAs
 	                if (aluno.getEmail().equals(email) && aluno.getSenha().equals(senha)) {
 						
 	                        loginValido = true;

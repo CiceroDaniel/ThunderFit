@@ -44,20 +44,6 @@ public class Formulario extends JFrame {
 	Genero generoSelecionado;
 	Plano planoSelecionado;
 	Metas metaSelecionada;
-/*
- public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Formulario frame = new Formulario(aluno);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
 
 	
 	//===========================ARREDONDAR BORDAS DOS BOTÕES===============================//
@@ -503,53 +489,23 @@ public class Formulario extends JFrame {
 					JOptionPane.showMessageDialog(null,"Selecione uma das opções de metas");
 					
 					return;
-				}else if(!homem.isSelected()&&!mulher.isSelected()){
-					JOptionPane.showMessageDialog(null,"Selecione um dos generos");
-					
-					if(homem.isSelected()) {
-						
-						//CONECTADO AO ENUM
-						generoSelecionado = Genero.MASCULINO;
-						
-						
-					}else if(mulher.isSelected()) {
-						generoSelecionado = Genero.FEMININO;
-					
-						
-					}else {
-						generoSelecionado = Genero.OUTRO;
-					}
+				}
 				
-					return ;
-				}else if(!planoMensal.isSelected() && !planoTrimestral.isSelected() && !planoAnual.isSelected()) {
-					JOptionPane.showMessageDialog(null,"Selecione um plano");
+                   if(!ganharMassa.isSelected() && !perderPeso.isSelected() && !personalizada.isSelected()) {
 					
-					if(planoMensal.isSelected()) {
-						
-						planoSelecionado = Plano.planoMensal;
-						
-					}else if(planoTrimestral.isSelected()) {
-						
-						planoSelecionado = Plano.planoTrimestral;
-						
-					}else {
-						
-						planoSelecionado = Plano.planoAnual;
-						
+					return;
 					}
-					
-					return;		
-				}else if(!ganharMassa.isSelected() && !perderPeso.isSelected() && !personalizada.isSelected()) {
-					
-					
+				 
 					if(ganharMassa.isSelected()) {
 						
 						metaSelecionada = Metas.ganharMassa;
+						aluno.setMetas(metaSelecionada);
 			
 						
 					}else if(perderPeso.isSelected()) {
 						
 						metaSelecionada = Metas.perderPeso;
+						aluno.setMetas(metaSelecionada);
 						
 					}else {
 						
@@ -557,8 +513,53 @@ public class Formulario extends JFrame {
 						
 					}
 					
-					
+				
+				 if(!homem.isSelected()&&!mulher.isSelected()){
+					JOptionPane.showMessageDialog(null,"Selecione um dos generos");
+					return;
 				}
+					if(homem.isSelected()) {
+						
+						//CONECTADO AO ENUM
+						generoSelecionado = Genero.MASCULINO;
+						aluno.setGenero(generoSelecionado);
+						
+						
+					}else if(mulher.isSelected()) {
+						generoSelecionado = Genero.FEMININO;
+						aluno.setGenero(generoSelecionado);
+						
+					}else {
+						generoSelecionado = Genero.OUTRO;
+						aluno.setGenero(generoSelecionado);
+					}
+				
+				
+				
+				if(!planoMensal.isSelected() && !planoTrimestral.isSelected() && !planoAnual.isSelected()) {
+					JOptionPane.showMessageDialog(null,"Selecione um plano");
+					return;
+				}
+					if(planoMensal.isSelected()) {
+						
+						planoSelecionado = Plano.planoMensal;
+						aluno.setPlano(planoSelecionado);
+						
+					}else if(planoTrimestral.isSelected()) {
+						
+						planoSelecionado = Plano.planoTrimestral;
+						aluno.setPlano(planoSelecionado);
+						
+					}else {
+						
+						planoSelecionado = Plano.planoAnual;
+						aluno.setPlano(planoSelecionado);
+						
+					}
+						
+			
+					
+				
 				if(Peso.getText().trim().isEmpty()||
 				   Altura.getText().trim().isEmpty()||
 				   Datanascimento.getText().trim().isEmpty()||
@@ -587,16 +588,11 @@ public class Formulario extends JFrame {
 				aluno.setDatainicio(datainicio);
 				aluno.setAltura(altura);
 				aluno.setPeso(peso);
-				
-		
-			/*
 				aluno.setPlano(planoSelecionado);
 				aluno.setGenero(generoSelecionado);
 				aluno.setMetas(metaSelecionada);
-			*/
 				
-				
-				Alunocontroller.adicionarAluno(aluno);
+				Alunocontroller.cadastroalunoController(aluno);
 				
 				JOptionPane.showMessageDialog(continuar,aluno.gerarCredenciaisLogin());
 				

@@ -28,6 +28,7 @@ public class Aluno extends Usuario {
 		
 		//**--------------CONSTRUTOR----------------------**//                                                                                                                                                                                                                                                                                                                                  
 			
+	   //TELA DE CADASTRO ALUNO
 		public Aluno(String nome,String email,String senha,String cpf) {
 			super(nome, email, senha,cpf);
 			this.altura=0;
@@ -41,8 +42,6 @@ public class Aluno extends Usuario {
 		
 			
 		}
-
-
 
 		public Aluno(String nome,String cpf, String email,String senha, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano,String datanascimento,String datainicio,Genero genero,double imc) {
 			super(nome,cpf,email,senha);
@@ -87,7 +86,7 @@ public class Aluno extends Usuario {
 
 		@Override
 		public String gerarCredenciaisCadastro() {
-			return String.format("Nome:%s\nEmail:%s\nSenha:%s\nCPF: %s",
+			return String.format("Nome:%s\nEmail:%s\nSenha:%s\nCPF:%s",
 					this.getNome(),this.getEmail(),this.getSenha(),this.getCpf());
 			}
 		
@@ -134,7 +133,7 @@ public class Aluno extends Usuario {
 		}
 		public void setAltura(double altura) {
 			if(altura<=0) {
-				throw new IllegalArgumentException("Erro: Altura invalido!");
+				throw new IllegalArgumentException("Erro: Altura invalido! "+altura);
 				}
 			this.altura = altura;
 			}
@@ -144,7 +143,7 @@ public class Aluno extends Usuario {
 		}
 		public void setPeso(double peso) {
 			if(peso<=0) {
-				throw new IllegalArgumentException("Erro: Peso invalido!");
+				throw new IllegalArgumentException("Erro: Peso invalido! "+peso);
 			}
 			this.peso = peso;
 		}
@@ -153,7 +152,7 @@ public class Aluno extends Usuario {
 		}
 		public void setPlano(Plano plano) {
 			if(plano == null) {
-				throw new IllegalArgumentException("Erro: Plano não pode ficar vazio!");
+				throw new IllegalArgumentException("Erro: Plano não pode ficar vazio! "+plano);
 			}
 			this.plano = plano;
 			}
@@ -163,7 +162,7 @@ public class Aluno extends Usuario {
 		}
 		public void setMetas(Metas metas) {
 			if(metas == null) {
-				throw new IllegalArgumentException("Erro: Metas não pode ficar vazio!");
+				throw new IllegalArgumentException("Erro: Metas não pode ficar vazio! "+metas);
 			}
 			this.metas = metas;
 			}
@@ -175,17 +174,19 @@ public class Aluno extends Usuario {
 		public void setMetaPersonalizada(String metaPersonalizada) {
 			if(metas == metas.personalizada) {
 				if(metaPersonalizada == null || metaPersonalizada.isBlank()) {
-					throw new IllegalArgumentException("Erro: Descrição invalida!");
+					throw new IllegalArgumentException("Erro: Descrição invalida! "+metaPersonalizada);
 				}
 			}
 			this.metaPersonalizada=metaPersonalizada;
 		}
 		
 		public void setNivel(Nivel nivel) {
+		//NÃO CONSIGO IMPLEMENTAR ISSO
+			/*
 			if(nivel == null) {
-				throw new IllegalArgumentException("Erro: Nível invalido!");
-			}
-			this.nivel=nivel;
+				throw new IllegalArgumentException("Erro: Nível invalido! "+nivel);
+			}*/
+		 this.nivel=nivel;
 		}
 
 		
@@ -200,7 +201,7 @@ public class Aluno extends Usuario {
 
 		public void setGenero(Genero genero) {
 			if(genero == null) {
-				throw new IllegalArgumentException("Erro");
+				throw new IllegalArgumentException("Erro:Genero invalido"+genero);
 			}
 			this.genero=genero;
 		}

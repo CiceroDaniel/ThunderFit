@@ -2,10 +2,12 @@ package services;
 
 import model.*;
 import repository.UsuarioRepository;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+
+
 
 public class UsuarioService {
 	private final UsuarioRepository usuarioRepository;
@@ -14,11 +16,21 @@ public class UsuarioService {
 	public UsuarioService(UsuarioRepository usuarioRepository) {
 		this.usuarioRepository = usuarioRepository;
 	}
+
+	
+	
+	
+	
+	UsuarioRepository repositorio = new UsuarioRepository();
+	
+	
+	
+	
 	
 	
 	//--------------------------- CADASTRO ---------------------------------
 	
-	public void cadastroAluno(String nome,String cpf,String email, String senha,LocalDate dataDeNascimento,double altura,
+	public void cadastroAluno(String nome,String email, String senha,String cpf,LocalDate dataDeNascimento,double altura,
 			double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano ) {
 		
 		if(usuarioRepository.buscarPorCpf(cpf)!= null) {
@@ -28,7 +40,8 @@ public class UsuarioService {
 			throw new IllegalArgumentException(" Erro: Email já cadastrado!");
 		}
 		
-		Aluno aluno = new Aluno(nome, cpf, email, senha, dataDeNascimento,altura, peso, 
+		
+		Aluno aluno = new Aluno(nome, email, senha,cpf, dataDeNascimento,altura, peso, 
                 nivel, metas, metaPersonalizada, plano);
 		
 		usuarioRepository.cadastro(aluno);
@@ -59,6 +72,19 @@ public class UsuarioService {
         usuarioRepository.cadastro(adm);
         admCadastrado = true;
     }
+	
+	
+	//-----------------------------LOGIN-----------------------------------
+	
+	public Aluno loginAluno(String email,String senha) {
+		
+		Aluno aluno = (Aluno) repositorio.buscarPorEmail(email);
+		
+		return null;
+	}
+	
+	
+	
 	
 	//--------------------------- LISTAR ---------------------------------
 	

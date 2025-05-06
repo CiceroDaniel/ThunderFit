@@ -43,6 +43,8 @@ import model.Aluno;//chama a classe aluno que esta no outro pacote
 import controller.Alunocontroller;
 import javax.swing.SwingConstants;
 
+import services.*;
+
 public class Cad extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -70,23 +72,17 @@ public class Cad extends JFrame {
 	private JLabel lblNewLabel_11;
 	private JLabel lblNewLabel_IconPerfil;
 	private JLabel linkParaLoginCadastroInstrutor;
+	
 
-	/**
-	 * Launch the application.
-	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Cad frame = new Cad();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
+	private Aluno aluno;
+	private JLabel lblNewLabel_6;
+	private JLabel lblNewLabel_7;
+	private JPasswordField campocpf;
+	private JLabel IMAGEMCPF;
+	private JTextField campoCpf;
+	private JLabel lblAdmnistrador;
+	private JButton btnNewButton_LOGOUT;
+
 
 	public class RoundedButtonSimples extends JButton{
 		private int arc;
@@ -130,19 +126,7 @@ public class Cad extends JFrame {
 		botao.setIconTextGap(10);
 	}
 	
-	
-	
-	private Aluno aluno;
-	private JLabel lblNewLabel_6;
-	private JLabel lblNewLabel_7;
-	private JPasswordField campocpf;
-	private JLabel IMAGEMCPF;
-	private JTextField campoCpf;
-	private JLabel lblAdmnistrador;
-	private JButton btnNewButton_LOGOUT;
-	
-	
-	
+
 	
 	public Cad(Aluno aluno) {
 		
@@ -312,8 +296,9 @@ public class Cad extends JFrame {
 				String email=Campoemail.getText();
 				String senha= new String(Camposenha.getPassword());
 				String cpf = campoCpf.getText();
-		
-				//Usuario usuario = new Usuario(nome,email,senha);
+				
+				
+
 				
                 if(nome.isEmpty() || email.isEmpty() || senha.isEmpty() || cpf.isEmpty()) {
               	
@@ -331,17 +316,16 @@ public class Cad extends JFrame {
                 	}
                 
 					
-                if(Alunocontroller.verificarAlunoExistente(email)){//ele chama o alunocontroller
+             /*   if(Alunocontroller.verificarAlunoExistente(email)){//ele chama o alunocontroller
                 	JOptionPane.showMessageDialog(btnCadastro,"	Já existe um usuario com esse email");	
                	
 				}else{
-					
+					}*/
+                	
+                	
 				// Cria um objeto aluno com os dados fornecidos
-				Aluno aluno = new Aluno(nome,email,senha,cpf);			
-				Alunocontroller.adicionarAluno(aluno);//CHAMA O METODO DA CLASSE ALUNOCONTROLLER	
-					
+				Aluno aluno = new Aluno(nome, email, senha, cpf);		
 				 JOptionPane.showMessageDialog(null,aluno.gerarCredenciaisCadastro());
-				 //JOptionPane.showMessageDialog(null, "Nome:"+aluno.getNome()+"Email:"+aluno.getEmail()+"Senha:"+aluno.getSenha());
 	                
 	                // Limpa os campos
 	                Campoemail.setText("");  
@@ -358,7 +342,7 @@ public class Cad extends JFrame {
 				
 			}
 		}
-	}
+	
 });
 			
 		
@@ -494,7 +478,11 @@ public class Cad extends JFrame {
 		btnNewButton_LOGOUT.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnNewButton_LOGOUT.setBounds(10, 10, 30, 30);
 		contentPane.add(btnNewButton_LOGOUT);
+	
+		//CONCERTE O CADTUTOR
 		
+		
+		/*
 		linkParaLoginCadastroTutor.addMouseListener(new MouseAdapter() {
 			@Override	
 			public void mouseClicked(MouseEvent e) {
@@ -504,6 +492,10 @@ public class Cad extends JFrame {
 				cadAdmScreen.setVisible(true);
 			}
 		});
+		*/
+		
+		
+		
 		
 		/*
 		linkParaLoginCadastroAdm.addMouseListener(new MouseAdapter() {

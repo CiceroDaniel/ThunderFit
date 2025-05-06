@@ -1,5 +1,7 @@
 package repository;
 
+//CLASSE RESPONSAVEL POR ARMAZENAR,RECUPEARAR,ATUALIZAR E REMOVER OS USUARIOS DO SISTEMA EM MEMORIA
+//SIMULA UM BANCO DE DADOS
 
 import model.Tutor;
 import model.Aluno;
@@ -16,8 +18,11 @@ public class UsuarioRepository implements InterfaceRepository<Usuario>{
 	
 	@Override
 	public void cadastro(Usuario usuario) {
-		Objects.requireNonNull(usuario,"Erro: Usuario não pode ser nulo!");
-		Objects.requireNonNull(usuario.getDataDeNascimento(),"Data de nascimento obrigatoria");
+		
+		//NÃO TO CONSEGUINDO IMPLEMENTAR ISSO 
+		
+		//Objects.requireNonNull(usuario,"Erro: Usuario não pode ser nulo!");
+		//Objects.requireNonNull(usuario.getDataDeNascimento(),"Data de nascimento obrigatoria");
 		
 		if(usuario.getNome()==null || usuario.getNome().isBlank()) {
 			throw new IllegalArgumentException("Erro: Nome invalido!");

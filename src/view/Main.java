@@ -1,8 +1,6 @@
-package model;
+package view;
 
-import view.TelaEscolhaUsuario;
-import view.Formulario;
-import view.Perfil;
+import model.Aluno;
 
 public class Main {
 	

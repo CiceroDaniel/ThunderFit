@@ -1,5 +1,7 @@
 package model;
 
+//CLASSE PAI
+
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -14,14 +16,20 @@ public abstract class Usuario{
 		
 		protected boolean status;
         protected boolean online;
-
 		protected LocalDate dataDeNascimento;
 		protected LocalDate dataDeCadastro;
 		
 		
 		//**--------------CONSTRUTOR----------------------**//
+		
 		public Usuario(String nome, String email, String senha,String cpf) {
-
+			
+		this.nome=nome;
+		this.email=email;
+		this.senha=senha;
+		this.cpf=cpf;
+		
+		
 		
 		LocalDate dataDeNascimento;//protected
 		boolean online;//protected	
@@ -29,7 +37,7 @@ public abstract class Usuario{
 		
 		}
 		//**--------------CONSTRUTOR----------------------**//
-		public Usuario(String nome, String cpf, String email, String senha, LocalDate dataDeNascimento) {
+		public Usuario(String nome, String email, String senha,String cpf, LocalDate dataDeNascimento) {
 
 			this.setNome(nome);
 			this.setEmail(email);
@@ -51,7 +59,7 @@ public abstract class Usuario{
 		public abstract boolean temAcessoAdmin();
 		
 		//**--------------METODOS CONCRETOS-------------------**//
-		/*public void desativarUsuario() {
+		public void desativarUsuario() {
 			if (!this.online) {
 				throw new IllegalArgumentException("Usuario ja está desativado");
 			}
@@ -64,7 +72,7 @@ public abstract class Usuario{
 			}
 			this.online = true;
 			
-		}*/
+		}
 		
 		public void atualizarEmail(String novoEmail) {
 			if(novoEmail != null && !novoEmail.isBlank()) {
@@ -92,7 +100,7 @@ public abstract class Usuario{
 		
 		public final void setNome(String nome) {
 			if(nome == null || nome.trim().isEmpty() || nome.length() < 3) {
-				throw new IllegalArgumentException("Erro: Nome invalido!");
+				throw new IllegalArgumentException("Erro: Nome invalido! "+nome);
 			}
 			this.nome = nome.trim();
 		}
@@ -103,7 +111,7 @@ public abstract class Usuario{
 
 		public final void setEmail(String email) {
 			if(email == null || !email.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")) {
-				throw new IllegalArgumentException("Erro: Email invalido!");
+				throw new IllegalArgumentException("Erro: Email invalido! "+email);
 			}
 			this.email = email.toLowerCase();
 		}
@@ -114,7 +122,7 @@ public abstract class Usuario{
 		}
 		public void setSenha(String senha) {
 			if(senha == null || senha.length() < 8) {
-				throw new IllegalArgumentException("Erro: Senha deve ter no minimo 8 caracteres!");
+				throw new IllegalArgumentException("Erro: Senha deve ter no minimo 8 caracteres! "+senha);
 			}
 			this.senha=senha;
 			
@@ -127,7 +135,7 @@ public abstract class Usuario{
 		public final void setCpf(String cpf) {
 			String limpaCpf = cpf.replaceAll("[^0-9]", "");
 			if(limpaCpf.length() != 11 || !validarCpf(cpf)) {
-				throw new IllegalArgumentException("Erro: CPF invalido!");
+				throw new IllegalArgumentException("Erro: CPF invalido! "+cpf);
 			}
 			this.cpf = limpaCpf;
 		}

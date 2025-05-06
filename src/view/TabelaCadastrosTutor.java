@@ -12,14 +12,16 @@ import javax.swing.JTree;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 public class TabelaCadastrosTutor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable table;
 	private JTextField textField;
 	private JButton btnNewButton_1;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -50,28 +52,43 @@ public class TabelaCadastrosTutor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"NOME", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
-			}
-		));
-		table.setBounds(38, 66, 986, 563);
-		contentPane.add(table);
-		
 		textField = new JTextField();
 		textField.setBounds(37, 18, 868, 30);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JButton btnNewButton = new JButton("PAGAMENTO");
+		JButton btnNewButton = new JButton("PESQUISAR");
 		btnNewButton.setBounds(916, 19, 112, 27);
 		contentPane.add(btnNewButton);
 		
 		btnNewButton_1 = new JButton("SAIR");
-		btnNewButton_1.setBounds(515, 649, 85, 21);
+		btnNewButton_1.setBounds(3, 18, 30, 30);
 		contentPane.add(btnNewButton_1);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(37, 70, 991, 545);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"NOME", "EMAIL", "SENHA", "CPF", "PLANO", "VALOR"
+			}
+		));
+		
+		JButton ATUALIZAR = new JButton("ATUALIZAR");
+		ATUALIZAR.setBounds(39, 639, 90, 25);
+		contentPane.add(ATUALIZAR);
+		
+		JButton EXCLUIR = new JButton("EXCLUIR");
+		EXCLUIR.setBounds(161, 639, 90, 25);
+		contentPane.add(EXCLUIR);
+		
+		JButton PAGAMENTO = new JButton("PAGAMENTO");
+		PAGAMENTO.setBounds(938, 639, 90, 25);
+		contentPane.add(PAGAMENTO);
 	}
 }

@@ -53,12 +53,20 @@ public class PagamentoService {
 	        
 	        return pagamentoRepository.listarTodos().stream().filter(p -> !p.getPago()).toList();
 	    }
-		 
-	    
-	
+	 
+	 public List<Pagamento> listarPagamentoVencidos(Usuario solicitante){
+	        if (!solicitante.temAcessoAdmin()) {
+	            throw new SecurityException("Apenas administradores podem ver pagamentos pendentes!");
+	        }
+	        
+	        return pagamentoRepository.listarTodos().stream().filter(p -> !p.getPago()&& p.getDataVencimento().isBefore(LocalDate.now())).toList();
+	    }
 	//--------------------ATUALIZAR---------------------
 	
-	
+	public void atualizarDataDePagamento(int idPagamento, LocalDate data) {
+		
+		
+	}
 	
 	
 	public void marcarComoPago(int idPagamento, Usuario solicitante) {
@@ -71,8 +79,11 @@ public class PagamentoService {
 			throw new IllegalArgumentException("Pagamento não encontrado!");
 		}
 		
+		
+		
 		Pagamento pagamento = pagamentoOpt.get();
 		pagamento.setPago(true);
+		pagamento.setDataPagamento(LocalDate.now());
 		pagamentoRepository.atualizar(pagamento);
 		
 	}

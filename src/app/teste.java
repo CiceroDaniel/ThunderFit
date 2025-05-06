@@ -10,8 +10,9 @@ public class teste {
 		
 		Scanner scan = new Scanner(System.in);
 		consoleMenu menu = new consoleMenu();
-		menu.init();
-		//menu.espacoMenu();
+		//menu.init();
+		//menu.mostarAdm();
+		menu.cadTutor();
 	}
 	
 }

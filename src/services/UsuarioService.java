@@ -48,6 +48,7 @@ public class UsuarioService {
 		Tutor tutor = new Tutor(nome, cpf, email, senha, dataDeNascimento, salario);
 		
 		usuarioRepository.cadastro(tutor);
+		System.out.println(tutor.gerarCredenciais());
 	}
 	
 	public void cadastroAdministrador(String nome, String cpf, String email, String senha,LocalDate dataDeNascimento) {
@@ -60,6 +61,7 @@ public class UsuarioService {
         
         usuarioRepository.cadastro(adm);
         admCadastrado = true;
+        System.out.println(adm.gerarCredenciais());
     }
 	
 	//--------------------------- LISTAR ---------------------------------

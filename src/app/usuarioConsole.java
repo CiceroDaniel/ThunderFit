@@ -50,14 +50,15 @@ public class usuarioConsole {
 		System.out.println("======PLANO CONTRATADO=============");
 		planoMenu();
 		
-		
-		
-		
-			
+
 		
 		services.cadastroAluno(nome, cpf, email, senha, dataDeNascimento, altura, peso, nivel, metas, descricao, plano);
 	}
 	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////
 	public void nivelMenu() {
 		
 		int op;

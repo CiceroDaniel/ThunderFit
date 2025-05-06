@@ -1,0 +1,39 @@
+package app;
+
+import java.time.LocalDate;
+import java.util.*;
+
+import repository.UsuarioRepository;
+import services.UsuarioService;
+
+public class tutorConsole {
+	UsuarioRepository uRepo = new UsuarioRepository();
+	UsuarioService services = new UsuarioService(uRepo);
+	Scanner scanner = new Scanner(System.in);
+	
+	public void cadastroMenu() {
+		System.out.println("==============CADASTRO=================");
+		System.out.println("1. NOME DE USUÁRIO");
+		
+		String nome = scanner.nextLine();
+		
+		System.out.println("2. CPF DO USUÁRIO");
+		String cpf = scanner.nextLine();
+		
+		System.out.println("3. E-MAIL DO USUÁRIO");
+		String email = scanner.nextLine();
+		
+		System.out.println("4. SENHA DO USUÁRIO");
+		String senha = scanner.nextLine();
+		
+		System.out.println("5. DATA DE NASCIMENTO (AAAA-MM-DD");
+		String dataScn = scanner.nextLine();
+		LocalDate dataDeNascimento = LocalDate.parse(dataScn);
+		
+		System.out.println("6. QUAL O SALÁRIO DO TUTOR?");
+		float salario = scanner.nextFloat();
+		
+		services.cadastroTutor(nome, cpf, email, senha, dataDeNascimento, salario);
+	}
+	
+}

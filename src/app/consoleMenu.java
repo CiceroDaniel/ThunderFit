@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class consoleMenu {
 	Scanner scan = new Scanner(System.in);
 	usuarioConsole userConsole = new usuarioConsole();
+	admConsole admConsole = new admConsole();
+	tutorConsole  tutorConsole = new tutorConsole();
 	// YSABELLE PASSE LONGE DESSE ARQUIVO PELO AMOR DE SAMARA!
 	public void init() {
 		
@@ -35,4 +37,10 @@ public class consoleMenu {
 			System.out.println("  ");
 		}
 	}
+	public void cadTutor() {
+		tutorConsole.cadastroMenu();
+	}
+	/*public void mostarAdm() {
+		admConsole.cdAdm();
+	}*/
 }

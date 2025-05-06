@@ -33,7 +33,7 @@ public class UsuarioService {
 		
 		usuarioRepository.cadastro(aluno);
 		
-		System.out.println(aluno.gerarCredenciais());
+		//System.out.println(aluno.gerarCredenciais());
 	}
 	
 	public void cadastroTutor(String nome,String cpf,String email, String senha,LocalDate dataDeNascimento ,float salario ) {
@@ -48,7 +48,7 @@ public class UsuarioService {
 		Tutor tutor = new Tutor(nome, cpf, email, senha, dataDeNascimento, salario);
 		
 		usuarioRepository.cadastro(tutor);
-		System.out.println(tutor.gerarCredenciais());
+		//System.out.println(tutor.gerarCredenciais());
 	}
 	
 	public void cadastroAdministrador(String nome, String cpf, String email, String senha,LocalDate dataDeNascimento) {

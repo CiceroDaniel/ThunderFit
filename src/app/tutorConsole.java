@@ -4,12 +4,14 @@ import java.time.LocalDate;
 import java.util.*;
 
 import repository.UsuarioRepository;
+import services.AuthService;
 import services.UsuarioService;
 
 public class tutorConsole {
 	UsuarioRepository uRepo = new UsuarioRepository();
 	UsuarioService services = new UsuarioService(uRepo);
 	Scanner scanner = new Scanner(System.in);
+	AuthService auth = new AuthService(uRepo);
 	toolbox tools = new toolbox();
 
 	
@@ -40,5 +42,17 @@ public class tutorConsole {
 		
 		services.cadastroTutor(nome, cpf, email, senha, dataDeNascimento, salario);
 	}
+	
+	/*public void loginMenu() {
+		tools.espacoMenu();
+		System.out.println("==============LOGIN===============");
+		System.out.println("E-MAIL: ");
+		String emailLogin = scanner.nextLine();
+		
+		System.out.println("SENHA: ");
+		String senhaLogin = scanner.nextLine();
+		
+		auth.login(emailLogin, senhaLogin);
+	}*/
 	
 }

@@ -4,11 +4,13 @@ import java.util.*;
 import java.time.*;
 import model.*;
 import repository.UsuarioRepository;
+import services.AuthService;
 import services.UsuarioService;
 
 public class usuarioConsole {
 	UsuarioRepository uRepo = new UsuarioRepository();
 	UsuarioService services = new UsuarioService(uRepo);
+	AuthService auth = new AuthService(uRepo);
 	Scanner scanner = new Scanner(System.in);
 	toolbox tools = new toolbox();
 
@@ -54,7 +56,18 @@ public class usuarioConsole {
 		
 		services.cadastroAluno(nome, cpf, email, senha, dataDeNascimento, altura, peso, nivel, metas, descricao, plano);
 	}
-	/////////////////////////////
+	/////////////////////////////////////////////////////////////////////////
+	public void loginMenu() {
+		tools.espacoMenu();
+		System.out.println("==============LOGIN===============");
+		System.out.println("E-MAIL: ");
+		String emailLogin = scanner.nextLine();
+		
+		System.out.println("SENHA: ");
+		String senhaLogin = scanner.nextLine();
+		
+		auth.login(emailLogin, senhaLogin);
+	}
 	
 	
 	

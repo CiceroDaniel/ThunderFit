@@ -27,7 +27,7 @@ public class consoleMenu {
 			switch(op) {
 				case 1 :  Cadastro();
 					break;
-				case 2 :  //AQUI CHAMA O METODO DE LOGIN ;
+				case 2 :  login();
 					break;
 				case 3 :System.out.println("SAINDO DO SISTEMA.......");
 				System.exit(0);
@@ -55,6 +55,31 @@ public class consoleMenu {
 			case 2: tutorConsole.cadastroMenu();
 			break;
 			case 3: init();
+			}
+			
+		}while(op!=0);
+	}
+	
+	public void login() {
+		int op;
+		do {
+			tools.espacoMenu();
+			System.out.println("============LOGIN============"
+					+ "\n1 - CLIENTE"
+					+ "\n2 - TUTOR"
+					+ "\n3 - ADIMINISTRADOR"
+					+ "\n4 - VOLTAR"
+					+ "\nESCOLHA UMA OPÇÃO: ");
+			op = scan.nextInt();
+			scan.nextLine();
+			
+			switch(op) {
+			case 1: userConsole.loginMenu();
+			break;
+			case 2: //tutorConsole.cadastroMenu();
+			break;
+			case 3: //login do adm
+			case 4: init();
 			}
 			
 		}while(op!=0);

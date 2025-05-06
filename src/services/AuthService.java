@@ -25,6 +25,7 @@ public class AuthService {
 		}
 		
 		this.usuarioLogado = usuario;
+		System.out.println("logado com sucesso");
 		return usuario;
 		
 	}

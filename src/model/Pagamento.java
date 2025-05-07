@@ -8,12 +8,14 @@ public class Pagamento {
 	
 	private int id;
 	private Aluno aluno;
+	private double valorPago;
 	private LocalDate dataPagamento;
 	private LocalDate dataVencimento;
 	private boolean pago;
 	
-	public Pagamento(Aluno aluno,LocalDate datapagamento, boolean pago) {
+	public Pagamento(Aluno aluno,double valorPago,LocalDate datapagamento, boolean pago) {
 		this.setAluno(aluno);
+		this.setValorPago(valorPago);
 		this.setDataPagamento(datapagamento);
 		this.pago=pago;
 	}
@@ -46,7 +48,7 @@ public class Pagamento {
 	
 	@Override
 	public String toString() {
-		return "Pagamento em " + dataPagamento + "-Valor: "+getValor()+ "- Situação: " + (pago ? "Pago" : "Inadimplente");
+		return "Pagamento em " + dataPagamento + "-Valor: "+getValorDoPlano()+ "-Valor Pago: "+getValorPago()+ "- Situação: " + (pago ? "Pago" : "Inadimplente");
 	}
 	
 	//----------------------GETTERS AND SETTERS--------------
@@ -92,9 +94,22 @@ public class Pagamento {
 		this.pago= pago;
 	}
 	
-	public double getValor() {
+	public double getValorDoPlano() {
 		return aluno.getPlano().getValor();
 	}
+
+
+	public double getValorPago() {
+		return valorPago;
+	}
+
+
+	public void setValorPago(double valorPago) {
+		if(valorPago <= 0) {
+			throw new IllegalArgumentException("Valor invalido!");
+		}
+		this.valorPago = valorPago;
+		}
 	
 
 

@@ -73,7 +73,7 @@ public class Aluno extends Usuario {
 
 		@Override
 		public String gerarCredenciaisCadastro() {
-			return String.format("Nome:%s\nEmail:%s\nSenha:%s\nCPF:%s",
+			return String.format("Nome:%s\nEmail:%s\nSenha:%s\nCPF:%s\n",
 					this.getNome(),this.getEmail(),this.getSenha(),this.getCpf());
 			}
 		
@@ -213,21 +213,15 @@ public class Aluno extends Usuario {
 			this.datanascimento = datanascimento;
 		}
 
-
-
 		public String getDatainicio() {
 			return datainicio;
 		}
-
-
 
 		public void setDatainicio(String datainicio) {
 			this.datainicio = datainicio;
 		}
 		
 		
-		
-
 		public Nivel getNivel() {
 			return nivel;
 		}

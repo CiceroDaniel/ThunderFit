@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import controller.Alunocontroller;
 import model.Aluno;
 import model.Tutor;
+import services.AuthService;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -121,8 +122,11 @@ public class Loginaluno extends JFrame {
 		private Aluno aluno;
 		private Tutor tutor;
 		private JButton btnNewButton_LOGOUT;
+
 		
 	public Loginaluno(Aluno aluno) {
+		
+		AuthService service = new AuthService(null);
 		
 		this.aluno=aluno;
 		
@@ -171,6 +175,14 @@ public class Loginaluno extends JFrame {
 	           
 	                String email = textFieldEmail.getText().trim();//trim remove os espaços extras
 	                String senha = new String(passwordField.getPassword()).trim();
+	                
+	               // service.login(email, senha);
+	                
+	          
+	                
+	                
+	                
+	            
 	                
 	            	if(!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")) {
                 		JOptionPane.showMessageDialog(btnLogin,"Verifique seus dados");	

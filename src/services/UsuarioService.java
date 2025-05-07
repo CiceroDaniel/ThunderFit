@@ -96,9 +96,9 @@ public class UsuarioService {
 		
 		//------TA DANDO ERRO NO LOGIN DO TUTOR
 		
-		if(!(solicitante instanceof Administrador)) {
-			throw new SecurityException(" Apenas ADMs podem listar");
-		}
+		/*if(!(solicitante instanceof Administrador)) {
+			throw new SecurityException("Apenas ADMs podem listar,tutores não podem");
+		}*/
 		return usuarioRepository.listarTutores();
 	}
 	

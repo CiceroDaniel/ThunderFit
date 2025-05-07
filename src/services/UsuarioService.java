@@ -41,6 +41,8 @@ public class UsuarioService {
 			
 		
 		usuarioRepository.cadastro(aluno);
+		
+		System.out.println(aluno.gerarCredenciais());
 	}
 	
 	public void cadastroTutor(String nome,String email,String senha, String cpf,LocalDate dataDeNascimento ,float salario ) {
@@ -55,6 +57,7 @@ public class UsuarioService {
 		Tutor tutor = new Tutor(nome, email, senha,cpf, dataDeNascimento, salario);
 		
 		usuarioRepository.cadastro(tutor);
+		System.out.println(tutor.gerarCredenciais());
 	}
 	
 	public void cadastroAdministrador(String nome, String email, String senha, String cpf,LocalDate dataDeNascimento) {
@@ -67,6 +70,7 @@ public class UsuarioService {
         
         usuarioRepository.cadastro(adm);
         admCadastrado = true;
+        System.out.println(adm.gerarCredenciais());
     }
 	
 	
@@ -91,10 +95,10 @@ public class UsuarioService {
 	public List<Tutor> listarTutores(Usuario solicitante){
 		
 		//------TA DANDO ERRO NO LOGIN DO TUTOR
-		/*
+		
 		if(!(solicitante instanceof Administrador)) {
 			throw new SecurityException(" Apenas ADMs podem listar");
-		}*/
+		}
 		return usuarioRepository.listarTutores();
 	}
 	

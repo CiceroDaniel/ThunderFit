@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import model.Pagamento;
 
 public class PagamentoRepository implements InterfaceRepository<Pagamento>{
-	private List<Pagamento> pagamentos= new ArrayList<>();
+	private final List<Pagamento> pagamentos= new ArrayList<>();
 	private int proxId=1;
 
 	//----------------CRIAR----------------
@@ -50,7 +50,12 @@ public class PagamentoRepository implements InterfaceRepository<Pagamento>{
 	//-----------------ATUALIZAR--------------
 	
 	public void atualizar(Pagamento pagamentoAtualizado) {
+		Objects.requireNonNull(pagamentoAtualizado);
+		if(pagamentos.stream().noneMatch(p -> p.getId() == pagamentoAtualizado.getId())) {
+			throw new IllegalArgumentException("Pagamento não encontrado!");
+		}
 		pagamentos.replaceAll(p -> p.getId() == pagamentoAtualizado.getId() ? pagamentoAtualizado : p);
+		
 	}
 	
 	

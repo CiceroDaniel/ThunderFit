@@ -20,19 +20,22 @@ public class Alunocontroller {
 	
 	//METODOS CHAMAM O SERVICE
 	public static void cadastroalunoController(Aluno aluno) {
-	//cadastroAluno
-		usuarioservice.cadastroAluno(aluno.getNome(),aluno.getEmail(),aluno.getSenha(),aluno.getCpf(),aluno.getDataDeNascimento(),aluno.getAltura(),aluno.getPeso(),aluno.getNivel(),aluno.getMetas(),aluno.getMetaPersonalizada(),aluno.getPlano(), aluno.getGenero(),aluno.getImc());
+
+	usuarioservice.cadastroAluno(aluno.getNome(),aluno.getEmail(),aluno.getSenha(),aluno.getCpf(),aluno.getDataDeNascimento(),aluno.getAltura(),aluno.getPeso(),aluno.getNivel(),aluno.getMetas(),aluno.getMetaPersonalizada(),aluno.getPlano(), aluno.getGenero(),aluno.getImc());
 	
 }
 	public static Aluno loginAlunoController(String email,String senha) {
 		
-		//verificar
-		return (Aluno) authservice.login(email, senha);
+	return (Aluno) authservice.login(email, senha);
+	
 	}
 	
-	public static void listaralunoController(Aluno aluno) {
-	//listarAlunos
-	//usuarioservice.listarAlunos(aluno.getNome(),aluno.getEmail(),aluno.getSenha(),aluno.getCpf(),aluno.getDataDeNascimento(),aluno.getAltura(),aluno.getPeso(),aluno.getNivel(),aluno.getMetas(),aluno.getMetaPersonalizada(),aluno.getPlano());
+	public static List<Aluno> listaralunoController(Aluno aluno) {
+		
+	List<Aluno> todosAluno = usuarioservice.listarAlunos(aluno);
+	return todosAluno;
+	
+	
 	}
 
 	public static void atualizaralunoController(Aluno aluno) {
@@ -41,24 +44,52 @@ public class Alunocontroller {
 	//atualizarPlanoAluno
 		
 	}
-	public static void buscaralunoController(Aluno aluno) {
-	//buscarPorCpf
-    //buscarPorNome
-	//buscarPorEmail
-	}
 	
-	public static void removeralunoController(Aluno aluno) {
-	//removerUsuario;
+	//RETORNA LIST DE ALUNOS
+	//RECEBE PARAMETROS NOME,EMAIL,SENHA
+	public static List<Aluno> buscaralunoController(String nome,String email,String cpf) {
+	
+    //CHAMA TODOS OS ALUNOS CADASTRADOS NO SISTEMA
+	List<Aluno> todosAlunos = usuarioservice.listarAlunos(null);
+	
+	//CRIEI UMA LISTA FAZIA CHAMADA RESULTADO,AI AQUI DA PRA VERIFICAR OS ALUNOS
+	//E VER SE OS PARAMETROS CONDIZEM COM OS DOS CAMPOS DE TEXTO
+	List<Aluno> resultado = new ArrayList<>();
+	
+	//VERIFICA TODOS OS ALUNOS DA LISTA
+	for(Aluno a: todosAlunos) {
+		
+		boolean igual = true;
 		
 		
+	   if(!nome.isEmpty() && !a.getNome().contains(nome)) {
+       igual = false;
+	   }
+	   if(!email.isEmpty() && !a.getEmail().contains(email)) {
+	   igual = false;
+	   }
+	   if(!cpf.isEmpty() && !a.getCpf().contains(cpf)) {
+	   igual = false;
+	   }
+	   if(igual) {
+		   resultado.add(a);
+	   }
+	}
+	return resultado;
 		
 	}
 	
 	 public static boolean verificarAlunoExistente(Aluno aluno) {
 	
 	  return usuarioservice.buscarPorCpf(aluno.getCpf(), aluno) != null || 
-			  usuarioservice.buscarPorEmail(aluno.getEmail())!= null;
+			  usuarioservice.buscarPorEmail(aluno.getEmail(), aluno)!= null;
 	    }
+	 
+	 //ESSE METODO É CHAMADO PELO TUTOR NA TABELA
+	 //APÓS SELECIONAR O ALUNO ELE APLICA O PAGAMENTO CHAMANDO ESSE METODO
+	 public static boolean confirmarAlunoPagament(Aluno aluno) {
+		 return true;
+	 }
 	
 	
 	

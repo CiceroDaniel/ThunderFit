@@ -125,6 +125,13 @@ public class Logintutor extends JFrame {
 		
 	public Logintutor(Tutor tutor) {
 		
+		//SO PRA VERIFICAR SE O TUTOR FOI PASSADO CORRETAMENTE
+				if(tutor == null) {
+					JOptionPane.showMessageDialog(null,"Não foi possivel carregar o tutor");
+			        dispose();
+			        return;
+				}
+		
 		this.tutor=tutor;
 		
 		setResizable(false);
@@ -197,7 +204,7 @@ public class Logintutor extends JFrame {
 	                    
 	                    
 	                    
-	                    TabelaCadastrosTutor ttScreen = new TabelaCadastrosTutor(tutor, aluno);
+	                    Tabelacadastrosdotutor ttScreen = new Tabelacadastrosdotutor(tutor, aluno);
 	                    ttScreen.setVisible(true);
 
 	                } else {

@@ -176,13 +176,6 @@ public class Loginaluno extends JFrame {
 	                String email = textFieldEmail.getText().trim();//trim remove os espaços extras
 	                String senha = new String(passwordField.getPassword()).trim();
 	                
-	               // service.login(email, senha);
-	                
-	          
-	                
-	                
-	                
-	            
 	                
 	            	if(!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")) {
                 		JOptionPane.showMessageDialog(btnLogin,"Verifique seus dados");	
@@ -208,7 +201,7 @@ public class Loginaluno extends JFrame {
 	                    
 	                    
 	                    
-	                    Principal principalScreen = new Principal(aluno);
+	                    Principal principalScreen = new Principal(aluno, tutor);
 	                    principalScreen.setVisible(true);
 
 	                } else {
@@ -393,7 +386,7 @@ public class Loginaluno extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, null);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor);
 				escolhaScreen.setVisible(true);
 				
 			}

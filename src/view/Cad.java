@@ -324,13 +324,6 @@ public class Cad extends JFrame {
                 		return;
                 	}
                 
-					
-             /*   if(Alunocontroller.verificarAlunoExistente(email)){//ele chama o alunocontroller
-                	JOptionPane.showMessageDialog(btnCadastro,"	Já existe um usuario com esse email");	
-               	
-				}else{
-					}*/
-                	
                 	
 				// Cria um objeto aluno com os dados fornecidos
 				Aluno aluno = new Aluno(nome, email, senha, cpf);		
@@ -346,7 +339,7 @@ public class Cad extends JFrame {
 	                
 	                dispose();
 	                //ta pegando as informações do aluno nome,email e senha e mandando para a subtela
-	                Formulario formularioScreen = new Formulario(aluno,tutor);
+	                Formulario formularioScreen = new Formulario(aluno, tutor);
 	                formularioScreen.setVisible(true);
 	                
 				

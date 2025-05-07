@@ -2,6 +2,7 @@ package view;
 
 import java.time.LocalDate;
 
+//import controller.Admcontroller;
 import controller.Alunocontroller;
 import controller.Tutorcontroller;
 import model.Administrador;
@@ -16,8 +17,11 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		//FALTA CADASTRAR ADM E LOGIN ADM
+		
 		Alunocontroller controller = new Alunocontroller();
 		Tutorcontroller Tcontroller = new Tutorcontroller();
+		//Admcontroller Admcontroller = new Admcontroller();
 		
 		Aluno aluno = null;
 		Tutor tutor = null;
@@ -30,17 +34,14 @@ public class Main {
 		
 		tutor1.setSalario(1000);
 		
-		Aluno a1 = new Aluno("ysa","ysa@gmail.com","123123123","12312312312", LocalDate.of(2000, 01, 19),80, 1.80, Nivel.AVANCADO, Metas.ganharMassa, null, Plano.planoMensal, Genero.FEMININO, 123);
-		Aluno a2 = new Aluno("Bell","bell@gmail.com","123123123","32132132132", LocalDate.of(2000, 01, 19),80, 1.80, Nivel.AVANCADO, Metas.ganharMassa, null, Plano.planoMensal, Genero.FEMININO, 123);
-		
+		Aluno a1 = new Aluno("ysa","ysa@gmail.com","123123123","12312312312", LocalDate.of(2000, 01, 19),80, 1.80, Nivel.AVANCADO, Metas.ganharMassa,"", Plano.planoMensal, Genero.FEMININO, 123);
+		Aluno a2 = new Aluno("Bell","bell@gmail.com","123123123","32132132132", LocalDate.of(2000, 01, 19),80, 1.80, Nivel.AVANCADO, Metas.ganharMassa,"", Plano.planoMensal, Genero.FEMININO, 123);
 		
 		
 		Tcontroller.cadastroTutoresController(tutor1);
 		
 		controller.cadastroalunoController(a1);
 		controller.cadastroalunoController(a2);
-	
-		
 		
 		
 		//new Perfil(aluno).setVisible(true);

@@ -57,6 +57,9 @@ public class Meta extends JFrame {
 	private static Aluno aluno;
 	
 	public Meta(Aluno aluno) {
+		
+		this.aluno = aluno;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100,1080,720);
 		contentPane = new JPanel();
@@ -91,7 +94,7 @@ public class Meta extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				dispose();
-				Principal principalScreen = new Principal(aluno);
+				Principal principalScreen = new Principal(aluno, null);
 			    principalScreen.setVisible(true);
 				
 			}
@@ -135,8 +138,8 @@ public class Meta extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel_Nome = new JLabel("NOME:");
-		lblNewLabel_Nome.setBounds(10, 57, 67, 25);
+		JLabel lblNewLabel_Nome = new JLabel("NOME:"+aluno.getNome());
+		lblNewLabel_Nome.setBounds(10, 57, 313, 25);
 		panel.add(lblNewLabel_Nome);
 		lblNewLabel_Nome.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel_Nome.setForeground(new Color(255, 255, 255));
@@ -159,13 +162,13 @@ public class Meta extends JFrame {
 		lblNewLabel_Nome_2.setBounds(80, 5, 193, 25);
 		panel_2.add(lblNewLabel_Nome_2);
 		
-		JLabel lblNewLabel_Nome_3 = new JLabel("DATA DE INICIO:");
+		JLabel lblNewLabel_Nome_3 = new JLabel("DATA DE INICIO:"+aluno.getDatainicio());
 		lblNewLabel_Nome_3.setForeground(Color.WHITE);
 		lblNewLabel_Nome_3.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_Nome_3.setBounds(10, 181, 169, 25);
+		lblNewLabel_Nome_3.setBounds(10, 181, 313, 25);
 		panel.add(lblNewLabel_Nome_3);
 		
-		JLabel lblNewLabel_Nome_3_1 = new JLabel("PESO INCIAL:");
+		JLabel lblNewLabel_Nome_3_1 = new JLabel("PESO INCIAL:"+aluno.getPeso());
 		lblNewLabel_Nome_3_1.setForeground(Color.WHITE);
 		lblNewLabel_Nome_3_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel_Nome_3_1.setBounds(10, 258, 169, 25);
@@ -174,7 +177,7 @@ public class Meta extends JFrame {
 		JLabel lblNewLabel_Nome_4 = new JLabel("IDADE INICIAL:");
 		lblNewLabel_Nome_4.setForeground(Color.WHITE);
 		lblNewLabel_Nome_4.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_Nome_4.setBounds(10, 116, 169, 25);
+		lblNewLabel_Nome_4.setBounds(10, 116, 313, 25);
 		panel.add(lblNewLabel_Nome_4);
 		
 		JPanel panel_3 = new JPanel();
@@ -201,7 +204,7 @@ public class Meta extends JFrame {
 		lblNewLabel_Nome_2_1.setBounds(120, 5, 67, 25);
 		panel_2_1.add(lblNewLabel_Nome_2_1);
 		
-		JLabel lblNewLabel_Nome_4_1 = new JLabel("META:");
+		JLabel lblNewLabel_Nome_4_1 = new JLabel("META:"+aluno.getMetas());
 		lblNewLabel_Nome_4_1.setForeground(Color.WHITE);
 		lblNewLabel_Nome_4_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel_Nome_4_1.setBounds(10, 59, 169, 25);
@@ -212,12 +215,5 @@ public class Meta extends JFrame {
 		lblNewLabel_Nome_4_1_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel_Nome_4_1_1.setBounds(10, 108, 169, 25);
 		panel_3.add(lblNewLabel_Nome_4_1_1);
-		
-		JButton btnNewButton = new JButton("ATUALIZAR");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton.setBackground(new Color(204, 102, 255));
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBounds(498, 580, 133, 27);
-		contentPane.add(btnNewButton);
 	}
 }

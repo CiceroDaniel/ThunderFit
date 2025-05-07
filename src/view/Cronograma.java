@@ -77,13 +77,24 @@ public class Cronograma extends JFrame {
 		panel_1.setForeground(new Color(255, 255, 255));
 		panel_1.setBackground(SystemColor.activeCaptionBorder);
 		panel_1.setToolTipText("SEGUNDA");
+		
+		
+		
 		panel_1.setBounds(38, 74, 291, 197);
 		panel.add(panel_1);
+		panel_1.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("SEGUNDA");
+		lblNewLabel.setBounds(96, 5, 98, 25);
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel_1.add(lblNewLabel);
+		
+		JLabel lblTreinoDo = new JLabel("TREINO:");
+		lblTreinoDo.setForeground(Color.WHITE);
+		lblTreinoDo.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblTreinoDo.setBounds(10, 28, 271, 25);
+		panel_1.add(lblTreinoDo);
 		
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setToolTipText("SEGUNDA");
@@ -91,11 +102,19 @@ public class Cronograma extends JFrame {
 		panel_1_1.setBackground(SystemColor.activeCaptionBorder);
 		panel_1_1.setBounds(38, 319, 291, 197);
 		panel.add(panel_1_1);
+		panel_1_1.setLayout(null);
 		
 		JLabel lblTera = new JLabel("TERÇA");
+		lblTera.setBounds(112, 5, 66, 25);
 		lblTera.setForeground(Color.WHITE);
 		lblTera.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel_1_1.add(lblTera);
+		
+		JLabel lblTreinoPerna = new JLabel("TREINO:");
+		lblTreinoPerna.setForeground(Color.WHITE);
+		lblTreinoPerna.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblTreinoPerna.setBounds(10, 27, 271, 25);
+		panel_1_1.add(lblTreinoPerna);
 		
 		JPanel panel_1_2 = new JPanel();
 		panel_1_2.setToolTipText("SEGUNDA");
@@ -103,11 +122,19 @@ public class Cronograma extends JFrame {
 		panel_1_2.setBackground(SystemColor.activeCaptionBorder);
 		panel_1_2.setBounds(355, 74, 291, 197);
 		panel.add(panel_1_2);
+		panel_1_2.setLayout(null);
 		
 		JLabel lblQuarta = new JLabel("QUARTA");
+		lblQuarta.setBounds(104, 5, 83, 25);
 		lblQuarta.setForeground(Color.WHITE);
 		lblQuarta.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel_1_2.add(lblQuarta);
+		
+		JLabel lblTreinoDeAbdomen = new JLabel("TREINO:");
+		lblTreinoDeAbdomen.setForeground(Color.WHITE);
+		lblTreinoDeAbdomen.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblTreinoDeAbdomen.setBounds(10, 30, 271, 25);
+		panel_1_2.add(lblTreinoDeAbdomen);
 		
 		JLabel lblCronograma = new JLabel("CRONOGRAMA");
 		lblCronograma.setForeground(Color.WHITE);
@@ -121,11 +148,19 @@ public class Cronograma extends JFrame {
 		panel_1_2_1.setBackground(SystemColor.activeCaptionBorder);
 		panel_1_2_1.setBounds(355, 319, 291, 197);
 		panel.add(panel_1_2_1);
+		panel_1_2_1.setLayout(null);
 		
 		JLabel lblQuinta = new JLabel("QUINTA");
+		lblQuinta.setBounds(105, 5, 80, 25);
 		lblQuinta.setForeground(Color.WHITE);
 		lblQuinta.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel_1_2_1.add(lblQuinta);
+		
+		JLabel lblTreinoDeAbdomen_1 = new JLabel("TREINO:");
+		lblTreinoDeAbdomen_1.setForeground(Color.WHITE);
+		lblTreinoDeAbdomen_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblTreinoDeAbdomen_1.setBounds(10, 27, 271, 25);
+		panel_1_2_1.add(lblTreinoDeAbdomen_1);
 		
 		JPanel panel_1_2_1_1 = new JPanel();
 		panel_1_2_1_1.setToolTipText("SEGUNDA");
@@ -133,11 +168,19 @@ public class Cronograma extends JFrame {
 		panel_1_2_1_1.setBackground(SystemColor.activeCaptionBorder);
 		panel_1_2_1_1.setBounds(668, 74, 291, 197);
 		panel.add(panel_1_2_1_1);
+		panel_1_2_1_1.setLayout(null);
 		
 		JLabel lblSexta = new JLabel("SEXTA");
+		lblSexta.setBounds(113, 5, 64, 25);
 		lblSexta.setForeground(Color.WHITE);
 		lblSexta.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel_1_2_1_1.add(lblSexta);
+		
+		JLabel lblTreinoDeAbdomen_2 = new JLabel("TREINO:");
+		lblTreinoDeAbdomen_2.setForeground(Color.WHITE);
+		lblTreinoDeAbdomen_2.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblTreinoDeAbdomen_2.setBounds(10, 28, 271, 25);
+		panel_1_2_1_1.add(lblTreinoDeAbdomen_2);
 		
 		JPanel panel_1_2_1_1_1 = new JPanel();
 		panel_1_2_1_1_1.setToolTipText("SEGUNDA");
@@ -145,11 +188,19 @@ public class Cronograma extends JFrame {
 		panel_1_2_1_1_1.setBackground(SystemColor.activeCaptionBorder);
 		panel_1_2_1_1_1.setBounds(668, 319, 291, 197);
 		panel.add(panel_1_2_1_1_1);
+		panel_1_2_1_1_1.setLayout(null);
 		
 		JLabel lblSabado = new JLabel("SABADO");
+		lblSabado.setBounds(103, 5, 84, 25);
 		lblSabado.setForeground(Color.WHITE);
 		lblSabado.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel_1_2_1_1_1.add(lblSabado);
+		
+		JLabel lblTreinoDeAbdomen_2_1 = new JLabel("TREINO:");
+		lblTreinoDeAbdomen_2_1.setForeground(Color.WHITE);
+		lblTreinoDeAbdomen_2_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblTreinoDeAbdomen_2_1.setBounds(10, 27, 271, 25);
+		panel_1_2_1_1_1.add(lblTreinoDeAbdomen_2_1);
 		
 		Panel panel_1_3 = new Panel();
 		panel_1_3.setLayout(null);
@@ -208,7 +259,7 @@ public class Cronograma extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				
-				Principal principalScreen = new Principal(aluno);
+				Principal principalScreen = new Principal(aluno, null);
 				principalScreen.setVisible(true);
 			}
 		});

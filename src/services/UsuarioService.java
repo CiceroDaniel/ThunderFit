@@ -157,7 +157,7 @@ public class UsuarioService {
 		
 	}
 	
-	public Usuario buscarPorEmail(String email) {
+	public Usuario buscarPorEmail(String email,Usuario solicitante) {
 		return usuarioRepository.buscarPorEmail(email);
 	}
 	

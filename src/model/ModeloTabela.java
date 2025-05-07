@@ -68,5 +68,9 @@ public class ModeloTabela extends AbstractTableModel{
 	public String getColumnName(int column) {
 		return colunas[column];
 	}
+	
+	public Aluno getAlunotAt(int linha) {
+		return alunos.get(linha);
+	}
 
 }

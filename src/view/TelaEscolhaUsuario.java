@@ -73,7 +73,10 @@ public class TelaEscolhaUsuario extends JFrame {
 	public TelaEscolhaUsuario(Aluno aluno,Tutor tutor) {
 		setResizable(false);
 		
+		
 		this.aluno=aluno;
+		this.tutor=tutor;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1080,720);
 		contentPane = new JPanel();

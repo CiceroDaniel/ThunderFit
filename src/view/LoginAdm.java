@@ -201,7 +201,7 @@ public class LoginAdm extends JFrame {
 	                    
 	                    
 	                    
-	                    TabelaCadastrosTutor ttScreen = new TabelaCadastrosTutor(tutor, aluno);
+	                    Tabelacadastrosdotutor ttScreen = new Tabelacadastrosdotutor(tutor, aluno);
 	                    ttScreen.setVisible(true);
 
 	                } else {

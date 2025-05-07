@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.Container;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 
@@ -42,7 +44,14 @@ public class Perfil extends JFrame {
 	
 	
 	public Perfil(Aluno aluno) {//chamando aluno
-
+//SO PRA VERIFICAR SE O ALUNO FOI PASSADO CORRETAMENTE
+		if(aluno == null) {
+			JOptionPane.showMessageDialog(null,"Não foi possivel carregar o aluno");
+	        dispose();
+	        return;
+		}
+		
+		
 		this.aluno=aluno;
 		
 		
@@ -193,7 +202,6 @@ public class Perfil extends JFrame {
 		lblNewLabel_2_2_2_1.setBounds(37, 54, 196, 29);
 		panel_2_1_1.add(lblNewLabel_2_2_2_1);
 		
-		
 		JPanel panel_2_1_1_1 = new JPanel();
 		panel_2_1_1_1.setBackground(new Color(79, 79, 79));
 		panel_2_1_1_1.setBounds(787, 240, 244, 249);
@@ -205,14 +213,6 @@ public class Perfil extends JFrame {
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_1_2.setBounds(83, 185, 107, 20);
 		panel_2_1_1_1.add(lblNewLabel_1_2);
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		JLabel lblNewLabel_2_2_1_3_1 = new JLabel("PRODUTIVIDADE");
 		lblNewLabel_2_2_1_3_1.setVerticalAlignment(SwingConstants.TOP);
@@ -262,11 +262,7 @@ public class Perfil extends JFrame {
 		lblNewLabel_2_2_1_3.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_2_2_1_3.setBounds(165, 119, 145, 15);
 		panel_2_1.add(lblNewLabel_2_2_1_3);
-		
-		
-		
-		
-		
+	
 		JLabel PRODUTIVIDADE = new JLabel("<dynamic>");
 		PRODUTIVIDADE.setForeground(Color.WHITE);
 		PRODUTIVIDADE.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -310,7 +306,7 @@ public class Perfil extends JFrame {
 		PACOTE.setBounds(165, 85, 103, 24);
 		panel_2_1.add(PACOTE);
 		
-		JLabel VALOR = new JLabel("<dynamic>");
+		JLabel VALOR = new JLabel(""+aluno.getPlano().getValor());
 		VALOR.setForeground(Color.WHITE);
 		VALOR.setFont(new Font("Tahoma", Font.BOLD, 15));
 		VALOR.setBounds(165, 138, 103, 24);
@@ -321,14 +317,7 @@ public class Perfil extends JFrame {
 		FREQUENCIA.setFont(new Font("Tahoma", Font.BOLD, 15));
 		FREQUENCIA.setBounds(10, 197, 103, 24);
 		panel_2_1.add(FREQUENCIA);
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		JButton btnNewButtonMenu = new JButton("");
 		setImageBotao(btnNewButtonMenu,"/img/iconemenu.jpg",30,30);	
 		btnNewButtonMenu.addActionListener(new ActionListener() {
@@ -337,7 +326,7 @@ public class Perfil extends JFrame {
 				
 				dispose();
 				
-				Principal principalScreen = new Principal(aluno);
+				Principal principalScreen = new Principal(aluno, null);
 				principalScreen.setVisible(true);
 				
 			}

@@ -216,19 +216,19 @@ public class Pacote extends JFrame {
 		
 		
 		
-		JLabel VALOERMENSAL = new JLabel("VALOR:");
+		JLabel VALOERMENSAL = new JLabel("VALOR:"+Plano.planoMensal.getValor());
 		VALOERMENSAL.setForeground(Color.WHITE);
 		VALOERMENSAL.setFont(new Font("Tahoma", Font.BOLD, 15));
 		VALOERMENSAL.setBounds(20, 114, 287, 27);
 		panel.add(VALOERMENSAL);
 		
-		JLabel VALORTRIMESTRAL = new JLabel("VALOR:");
+		JLabel VALORTRIMESTRAL = new JLabel("VALOR:"+Plano.planoTrimestral.getValor());
 		VALORTRIMESTRAL.setForeground(Color.WHITE);
 		VALORTRIMESTRAL.setFont(new Font("Tahoma", Font.BOLD, 15));
 		VALORTRIMESTRAL.setBounds(20, 110, 287, 27);
 		panel_2.add(VALORTRIMESTRAL);
 		
-		JLabel VALORANUAL = new JLabel("VALOR:");
+		JLabel VALORANUAL = new JLabel("VALOR:"+Plano.planoAnual.getValor());
 		VALORANUAL.setForeground(Color.WHITE);
 		VALORANUAL.setFont(new Font("Tahoma", Font.BOLD, 15));
 		VALORANUAL.setBounds(20, 112, 287, 27);
@@ -275,7 +275,7 @@ public class Pacote extends JFrame {
 				
 				dispose();
 				
-				Principal principalScreen = new Principal(aluno);
+				Principal principalScreen = new Principal(aluno, null);
 				principalScreen.setVisible(true);
 
 				btnNewButton_perfil.setBounds(1030, 4, 30, 30);

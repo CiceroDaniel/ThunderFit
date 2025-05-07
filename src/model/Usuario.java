@@ -19,6 +19,9 @@ public abstract class Usuario{
 		protected LocalDate dataDeNascimento;
 		protected LocalDate dataDeCadastro;
 		
+		//teste de adm unico
+		private boolean isAdmin;
+		
 		
 		//**--------------CONSTRUTOR----------------------**//
 		

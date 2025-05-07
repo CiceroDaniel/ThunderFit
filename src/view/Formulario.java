@@ -106,10 +106,10 @@ public class Formulario extends JFrame {
 	}
 	
 	//===========================ARREDONDAR BORDAS DOS BOTÕES RADIO===============================//
-	public class RoundedButtonRadios extends JRadioButton{
+	public class JButtonRadius extends JRadioButton{
 		private int arc;
 		
-		public RoundedButtonRadios(String text,int arc) {
+		public JButtonRadius(String text,int arc) {
 			super(text);
 			this.arc=arc;
 			
@@ -358,7 +358,7 @@ public class Formulario extends JFrame {
 		//==============================================//
 		
 		//==================OP_GANHARPESO====================//
-		RoundedButtonRadios ganharMassa = new RoundedButtonRadios("",30);
+		JButtonRadius ganharMassa = new JButtonRadius("",30);
 		
 		ganharMassa.setBounds(6, 183, 127, 21);
 		ganharMassa.setBackground(new Color(92, 92, 92));
@@ -366,14 +366,14 @@ public class Formulario extends JFrame {
 		ganharMassa.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
 		//==================OP_PERDERPESO====================//
-		RoundedButtonRadios perderPeso = new RoundedButtonRadios("",30);
+		JButtonRadius perderPeso = new JButtonRadius("",30);
 		perderPeso.setBounds(6, 183, 127, 21);
 		perderPeso.setFont(new Font("Tahoma", Font.BOLD, 12));
 		perderPeso.setBackground(new Color(92, 92, 92));
 		panel_1_1.add(perderPeso);
 		
 		//==================OP_OUTRO====================//
-		RoundedButtonRadios personalizada = new RoundedButtonRadios("",30);
+		JButtonRadius personalizada = new JButtonRadius("",30);
 		personalizada.setBounds(6, 183, 127, 21);
 		personalizada.setFont(new Font("Tahoma", Font.BOLD, 12));
 		personalizada.setBackground(new Color(92, 92, 92));
@@ -391,7 +391,7 @@ public class Formulario extends JFrame {
 		//==============================================//
 		
 		//==================OP_MENSAL====================//
-		RoundedButtonRadios planoMensal = new RoundedButtonRadios("MENSAL",30);
+		JButtonRadius planoMensal = new JButtonRadius("MENSAL",30);
 		planoMensal.setForeground(Color.WHITE);
 		planoMensal.setFont(new Font("Tahoma", Font.BOLD, 12));
 		planoMensal.setBackground(new Color(92, 92, 92));
@@ -399,7 +399,7 @@ public class Formulario extends JFrame {
 		panel_3_2_1.add(planoMensal);
 		
 		//==================OP_BIMESTRAL====================//
-		RoundedButtonRadios planoTrimestral = new RoundedButtonRadios("TRIMENSTRAL",30);
+		JButtonRadius planoTrimestral = new JButtonRadius("TRIMENSTRAL",30);
 		planoTrimestral.setForeground(Color.WHITE);
 		planoTrimestral.setFont(new Font("Tahoma", Font.BOLD, 12));
 		planoTrimestral.setBackground(new Color(92, 92, 92));
@@ -407,7 +407,7 @@ public class Formulario extends JFrame {
 		panel_3_2_1.add(planoTrimestral);
 		
 		//==================OP_BIMESTRAL====================//
-		RoundedButtonRadios planoAnual = new RoundedButtonRadios("ANUAL",30);
+		JButtonRadius planoAnual = new JButtonRadius("ANUAL",30);
 		planoAnual.setForeground(Color.WHITE);
 		planoAnual.setFont(new Font("Tahoma", Font.BOLD, 12));
 		planoAnual.setBackground(new Color(92, 92, 92));
@@ -426,7 +426,7 @@ public class Formulario extends JFrame {
 		//==============================================//
 		
 		//==================OP_MULHER====================//
-		RoundedButtonRadios mulher = new RoundedButtonRadios("MULHER",30);
+		JButtonRadius mulher = new JButtonRadius("MULHER",30);
 		
 		mulher.setFont(new Font("Tahoma", Font.BOLD, 13));
 		mulher.setForeground(new Color(255, 255, 255));
@@ -435,7 +435,7 @@ public class Formulario extends JFrame {
 		panel_3.add(mulher);
 		
 		//==================OP_HOMEM====================//
-		RoundedButtonRadios homem = new RoundedButtonRadios("HOMEM",30);
+		JButtonRadius homem = new JButtonRadius("HOMEM",30);
 		homem.setForeground(new Color(255, 255, 255));
 		homem.setFont(new Font("Tahoma", Font.BOLD, 13));
 		homem.setBackground(new Color(88, 88, 88));

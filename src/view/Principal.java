@@ -35,7 +35,7 @@ public class Principal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Aluno aluno;
+	
 	
 	
 ////ARREDONDAR BORDAS DO BOTÃO
@@ -82,10 +82,13 @@ public class Principal extends JFrame {
 		botao.setIconTextGap(10);
 	}
 	
+	private Aluno aluno;
+	private Tutor tutor;
 	
-	public Principal(Aluno aluno) {
+	public Principal(Aluno aluno,Tutor tutor) {
 		
 		this.aluno=aluno;
+		this.tutor=tutor;
 		
 		setResizable(false);
 		setBackground(new Color(224, 188, 233));
@@ -183,8 +186,8 @@ public class Principal extends JFrame {
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel lblNewLabel_6 = new JLabel("NOME:");
-		lblNewLabel_6.setBounds(121, 11, 78, 14);
+		JLabel lblNewLabel_6 = new JLabel("NOME:"/*+tutor.getNome()*/);
+		lblNewLabel_6.setBounds(121, 11, 192, 14);
 		panel_2.add(lblNewLabel_6);
 		lblNewLabel_6.setForeground(new Color(255, 255, 255));
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -217,10 +220,10 @@ public class Principal extends JFrame {
 		panel_2_1.setBounds(22, 191, 323, 109);
 		panel.add(panel_2_1);
 		
-		JLabel lblNewLabel_6_2 = new JLabel("NOME:");
+		JLabel lblNewLabel_6_2 = new JLabel("NOME:"/*+tutor.getNome()*/);
 		lblNewLabel_6_2.setForeground(Color.WHITE);
 		lblNewLabel_6_2.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_6_2.setBounds(121, 11, 78, 14);
+		lblNewLabel_6_2.setBounds(121, 11, 192, 14);
 		panel_2_1.add(lblNewLabel_6_2);
 		
 		JLabel lblNewLabel_6_1_2 = new JLabel("HORARIO:");
@@ -251,7 +254,7 @@ public class Principal extends JFrame {
 		panel_2_1_1.setBounds(22, 331, 323, 109);
 		panel.add(panel_2_1_1);
 		
-		JLabel lblNewLabel_6_2_1 = new JLabel("NOME:");
+		JLabel lblNewLabel_6_2_1 = new JLabel("NOME:"/*+tutor.getNome()*/);
 		lblNewLabel_6_2_1.setForeground(Color.WHITE);
 		lblNewLabel_6_2_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_6_2_1.setBounds(121, 11, 78, 14);

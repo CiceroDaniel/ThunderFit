@@ -22,7 +22,7 @@ public class Tutorcontroller {
 	//METODOS CHAMAM O SERVICE
 	public static void cadastroTutoresController(Tutor tutor) {
 	//cadastroAluno
-		usuarioservice.cadastroTutor(tutor.getNome(),tutor.getEmail(),tutor.getSenha(),tutor.getCpf(), null, 0);
+    usuarioservice.cadastroTutor(tutor.getNome(),tutor.getEmail(),tutor.getSenha(),tutor.getCpf(), null, 0);
 	
 }
 	public static Tutor loginTutorController(String email,String senha) {
@@ -55,7 +55,7 @@ public class Tutorcontroller {
 	 public static boolean verificarTutorExistente(Tutor tutor) {
 	
 	  return usuarioservice.buscarPorCpf(tutor.getCpf(), tutor) != null || 
-			  usuarioservice.buscarPorEmail(tutor.getEmail())!= null;
+			  usuarioservice.buscarPorEmail(tutor.getEmail(), tutor)!= null;
 	    }
 	
 	

@@ -26,7 +26,7 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class TabelaCadastrosTutor extends JFrame {
+public class Tabelacadastrosdotutor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -61,7 +61,7 @@ public class TabelaCadastrosTutor extends JFrame {
 	private Tutor tutor;
 	private Aluno aluno;
 	
-	public TabelaCadastrosTutor(Tutor tutor,Aluno aluno) {
+	public Tabelacadastrosdotutor(Tutor tutor,Aluno aluno) {
 		this.tutor=tutor;
 		this.aluno=aluno;
          ArrayList<Aluno> alunos;
@@ -80,6 +80,12 @@ public class TabelaCadastrosTutor extends JFrame {
 		btnNewButton_1 = new JButton("SAIR");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				dispose();
+				
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, tutor);
+				escolhaScreen.setVisible(true);
+				
 			}
 		});
 		btnNewButton_1.setBounds(3, 18, 30, 30);
@@ -102,7 +108,8 @@ public class TabelaCadastrosTutor extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		panel = new JPanel();
-		panel.setBounds(799, 47, 247, 276);
+		panel.setBackground(new Color(85, 85, 85));
+		panel.setBounds(799, 49, 247, 260);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -117,11 +124,15 @@ public class TabelaCadastrosTutor extends JFrame {
 		panel.add(campoemail);
 		
 		lblNewLabel = new JLabel("EMAIL");
-		lblNewLabel.setBounds(10, 85, 45, 13);
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel.setBounds(10, 85, 76, 13);
 		panel.add(lblNewLabel);
 		
 		lblNome = new JLabel("NOME");
-		lblNome.setBounds(10, 12, 45, 13);
+		lblNome.setForeground(new Color(255, 255, 255));
+		lblNome.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNome.setBounds(10, 12, 76, 13);
 		panel.add(lblNome);
 		
 		campocpf = new JTextField();
@@ -130,40 +141,64 @@ public class TabelaCadastrosTutor extends JFrame {
 		panel.add(campocpf);
 		
 		lblCpf = new JLabel("CPF");
+		lblCpf.setForeground(new Color(255, 255, 255));
+		lblCpf.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblCpf.setBounds(10, 156, 45, 13);
 		panel.add(lblCpf);	
 		
 		JButton btnNewButton = new JButton("PESQUISAR");
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(204, 102, 204));
+		btnNewButton.setBounds(137, 225, 100, 27);
+		panel.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				
+				String nome = camponome.getText();
+				String email = campoemail.getText();
+				String cpf = campocpf.getText();
 				
+				List<Aluno> resultado = Alunocontroller.buscaralunoController(nome,email,cpf);
 				
+				//ATUALIZA A TABELA
+				table.setModel(new ModeloTabela(resultado));
 			}
 			
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 7));
-		btnNewButton.setBounds(10, 239, 100, 27);
-		panel.add(btnNewButton);
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 10));
 		
-		JButton PAGAMENTO = new JButton("PAGAMENTO");
-		PAGAMENTO.setFont(new Font("Tahoma", Font.PLAIN, 7));
-		PAGAMENTO.setBounds(130, 240, 107, 25);
-		panel.add(PAGAMENTO);
+		JButton btnListar = new JButton("LISTAR");
+		btnListar.setForeground(new Color(255, 255, 255));
+		btnListar.setBackground(new Color(204, 102, 204));
+		btnListar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				List<Aluno> todos = Alunocontroller.listaralunoController(aluno);
+				
+				//ATUALIZA A TABELA
+				table.setModel(new ModeloTabela(todos));
+			}
+		});
+		btnListar.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnListar.setBounds(10, 227, 100, 27);
+		panel.add(btnListar);
 		
-		JButton btnExcluir = new JButton("EXCLUIR");
-		btnExcluir.setFont(new Font("Tahoma", Font.PLAIN, 7));
-		btnExcluir.setBounds(870, 352, 107, 25);
-		contentPane.add(btnExcluir);
-		/*
-		public void filtrarTabela() {
-			String nomeFiltro = camponome.getText();
-			String emailFiltro = campoemail.getText();
-			String cpfFiltro = campocpf.getText();
-			
-			List<Aluno>filtrador = new ArrayList<>();
-			
-		}*/
+		table.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				if(evt.getClickCount()==2) {
+					int linha = table.getSelectedRow();
+					if(linha >= 0) {
+						Aluno alunoSelecionado = ((ModeloTabela) table.getModel()).getAlunotAt(linha);
+						
+						
+						//ABRE A TELA DE EDIÇÃO E PASSA O ALUNO
+						
+						Selecionartreinos crud = new Selecionartreinos(alunoSelecionado, tutor);
+						crud.setVisible(true);
+					}
+				}
+			}
+        });
 	}
 }

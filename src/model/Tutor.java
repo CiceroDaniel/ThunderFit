@@ -7,21 +7,32 @@ public class Tutor extends Usuario{
 	protected float salario;
 	private boolean trabalhoAtivo;
 	
-	public Tutor(String nome, String cpf, String email,String senha,LocalDate dataDeNascimento,float salario) {
-		super(nome, cpf, email, senha, dataDeNascimento);
-		this.setSalario(salario);
+	  //TELA DE CADASTRO ALUNO
+	public Tutor(String nome,String email,String senha,String cpf) {
+	super(nome, email, senha,cpf);		
+
+	
+	}
+	
+	public Tutor(String nome,String email,String senha,String cpf,LocalDate dataDeNascimento,float salario) {
+		super(nome,email,senha ,cpf,dataDeNascimento);
+		//this.setSalario(salario);
+		this.salario=salario;
 		this.trabalhoAtivo= true;
 	}
 
-	
-	
+
+
+
 	//------------------------ Metodos ---------------------------
 	
 	
+
+
 	@Override
 	public String gerarCredenciais() {
-		return String.format("Nome: %s\nCPF: %s\nEmail: %s\nSalario: R$%.2f",
-		this.getNome(),this.getCpf(),this.getEmail(),this.getSalario());
+		return String.format("Nome: %s\nEmail: %s\nSenha: %s\nCPF:%s\n",
+		this.getNome(),this.getEmail(),this.getSenha(),this.getCpf());
 	}
 
 	@Override
@@ -44,12 +55,34 @@ public class Tutor extends Usuario{
 	public float getSalario() {
 		return salario;
 	}
+	
+	//PRECISA CRIAR UM PAGAMENTO
 	public void setSalario(float salario) {
-		if(salario<=0) {
-			throw new IllegalArgumentException("Erro: Salario invalido!");
+		if(salario<=0.0) {
+			throw new IllegalArgumentException("Erro: Salario invalido!"+salario);
 		}
 		this.salario=salario;
+		
 	}
+
+
+
+	@Override
+	public String gerarCredenciaisCadastro() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public String gerarCredenciaisLogin() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 	
 	
 	

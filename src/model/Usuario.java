@@ -1,5 +1,7 @@
 package model;
 
+//CLASSE PAI
+
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -7,32 +9,60 @@ import java.time.Period;
 public abstract class Usuario{
 	//**----------------VARIÀVEIS-------------------**//
 		protected String nome;
-		protected String cpf;
 		protected String email;
 		private String senha;
+		protected String cpf;
 		
+		
+		protected boolean status;
+        protected boolean online;
 		protected LocalDate dataDeNascimento;
-		protected boolean online;	
 		protected LocalDate dataDeCadastro;
+		
+		//teste de adm unico
+		private boolean isAdmin;
 		
 		
 		//**--------------CONSTRUTOR----------------------**//
-		public Usuario(String nome, String cpf, String email, String senha, LocalDate dataDeNascimento) {
+		
+		public Usuario(String nome, String email, String senha,String cpf) {
+			
+		this.nome=nome;
+		this.email=email;
+		this.senha=senha;
+		this.cpf=cpf;
+		
+		
+		
+		LocalDate dataDeNascimento;//protected
+		boolean online;//protected	
+		LocalDate dataDeCadastro;//protected
+		
+		}
+		//**--------------CONSTRUTOR----------------------**//
+		public Usuario(String nome, String email, String senha,String cpf, LocalDate dataDeNascimento) {
+
 			this.setNome(nome);
-			this.setCpf(cpf);
 			this.setEmail(email);
 			this.setSenha(senha);
+			this.setCpf(cpf);
+			
+
+			//this.dataDeCadastro = LocalDate.now();
+			this.status = true;
 			this.setDataDeNascimento(dataDeNascimento);
 			this.dataDeCadastro = LocalDate.now();
 			this.online = false;
+
 		}
 		
 		//**---------------METODOS ABSTRATOS--------------**//
-		public abstract String gerarCredenciais();
+		public abstract String gerarCredenciaisCadastro();
+		public abstract String gerarCredenciaisLogin();
 		public abstract boolean temAcessoAdmin();
 		
 		//**--------------METODOS CONCRETOS-------------------**//
-		/*public void desativarUsuario() {
+		public void desativarUsuario() {
 			if (!this.online) {
 				throw new IllegalArgumentException("Usuario ja está desativado");
 			}
@@ -45,7 +75,7 @@ public abstract class Usuario{
 			}
 			this.online = true;
 			
-		}*/
+		}
 		
 		public void atualizarEmail(String novoEmail) {
 			if(novoEmail != null && !novoEmail.isBlank()) {
@@ -73,21 +103,9 @@ public abstract class Usuario{
 		
 		public final void setNome(String nome) {
 			if(nome == null || nome.trim().isEmpty() || nome.length() < 3) {
-				throw new IllegalArgumentException("Erro: Nome invalido!");
+				throw new IllegalArgumentException("Erro: Nome invalido! "+nome);
 			}
 			this.nome = nome.trim();
-		}
-
-		public String getCpf() {
-			return cpf;
-		}
-		
-		public final void setCpf(String cpf) {
-			String limpaCpf = cpf.replaceAll("[^0-9]", "");
-			if(limpaCpf.length() != 11 || !validarCpf(cpf)) {
-				throw new IllegalArgumentException("Erro: CPF invalido!");
-			}
-			this.cpf = limpaCpf;
 		}
 
 		public String getEmail() {
@@ -96,7 +114,7 @@ public abstract class Usuario{
 
 		public final void setEmail(String email) {
 			if(email == null || !email.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")) {
-				throw new IllegalArgumentException("Erro: Email invalido!");
+				throw new IllegalArgumentException("Erro: Email invalido! "+email);
 			}
 			this.email = email.toLowerCase();
 		}
@@ -107,16 +125,36 @@ public abstract class Usuario{
 		}
 		public void setSenha(String senha) {
 			if(senha == null || senha.length() < 8) {
-				throw new IllegalArgumentException("Erro: Senha deve ter no minimo 8 caracteres!");
+				throw new IllegalArgumentException("Erro: Senha deve ter no minimo 8 caracteres! "+senha);
 			}
 			this.senha=senha;
 			
+		}
+		
+		public String getCpf() {
+			return cpf;
+		}
+		
+		public final void setCpf(String cpf) {
+			String limpaCpf = cpf.replaceAll("[^0-9]", "");
+			if(limpaCpf.length() != 11 || !validarCpf(cpf)) {
+				throw new IllegalArgumentException("Erro: CPF invalido! "+cpf);
+			}
+			this.cpf = limpaCpf;
 		}
 		
 		
 		public boolean getOnline() {
 			return online;
 		}
+
+
+		public String gerarCredenciais() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
 		public void setOnline(boolean online) {
 			this.online= online;
 		}
@@ -136,5 +174,6 @@ public abstract class Usuario{
 	        this.dataDeNascimento = dataDeNascimento;
 		}
 		
+
 		
 	}

@@ -10,16 +10,34 @@ public class Aluno extends Usuario {
 		private double altura;
 		private double peso;
 		private Metas metas;
+		
 		private String metaPersonalizada;
+		
 		private Plano plano;
 		private Nivel nivel;
 		private List<Treino> treinos;
 		
+		private String datanascimento;
+		private String datainicio;
 		
-		//**--------------CONSTRUTOR----------------------**//
+		private Genero genero;//genero do tipo Genero
 		
-		public Aluno(String nome, String cpf, String email,String senha,LocalDate dataDeNascimento ,double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano) {
-			super(nome,cpf,email,senha,dataDeNascimento);
+
+		private double imc;
+		
+		
+		//**--------------CONSTRUTOR----------------------**//                                                                                                                                                                                                                                                                                                                                  
+			
+	   //TELA DE CADASTRO ALUNO
+		public Aluno(String nome,String email,String senha,String cpf) {
+			super(nome, email, senha,cpf);
+			this.altura=0;
+			this.peso=0;
+			
+		}
+
+		public Aluno(String nome,String email, String senha,String cpf,LocalDate dataDeNascimento, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano,Genero genero,double imc) {
+		super(nome,email,senha,cpf,dataDeNascimento);
 			this.setAltura(altura);
 			this.setPeso(peso);
 			this.setNivel(nivel);
@@ -27,20 +45,61 @@ public class Aluno extends Usuario {
 			this.setMetaPersonalizada(metaPersonalizada); 
 			this.setPlano(plano);
 			this.treinos = new ArrayList<>();
-		}
+			this.genero = genero;
+			this.imc=imc;
+			}
 		
 		//*----------------METODOS--------------
+		/*
+		 * 
+		 * 
+		 *METODOS QUE PRECISAM SER IMPLEMENTADOS 
+		 * 
+		 * 
+		public double calcularImc() {
+		return imc;
+		}
 		
+		public boolean alunoPresente() {
+			return false;
+		}
+		
+		public int alunoFrequenecia(){
+		
+		}
+		
+		*/
+		
+
 		@Override
-		public String gerarCredenciais() {
-			return String.format("Nome: %s\nCPF: %s\nEmail: %s\nAltura: %.2fm \nPeso: %.2fkg\nNivel: %s\nMetas:  %s, Descrição: %s\nInformaçoes do Plano\n%s \nValor: R$%.2f ",
-					this.getNome(),this.getCpf(),this.getEmail(),this.getAltura(),this.getPeso(),this.nivel.name(),this.metas.name(),this.metaPersonalizada,this.plano.getNome(),this.plano.getValor());
+		public String gerarCredenciaisCadastro() {
+			return String.format("Nome:%s\nEmail:%s\nSenha:%s\nCPF:%s\n",
+					this.getNome(),this.getEmail(),this.getSenha(),this.getCpf());
 			}
+		
+		//@Override
+		public String gerarCredenciaisLogin() {
+			return String.format("\nAltura: %.2f \nPeso: %.2f\nGenero:%s\nMetas:%s\nPlano:%s\nData de inicio:%s\nData de Nascimento:%s",
+					this.getAltura(),this.getPeso(),this.getGenero(),this.getMetas(),this.getPlano(),this.getDatainicio(),this.getDatanascimento());
+			}
+		
+		//@Override
+		//public String gerarCredenciaisLogin() {
+			//return String.format("%s\nAltura: %.2fm \nPeso: %.2fkg\nNivel: %s\nMetas:  %s, Descrição: %s\nInformaçoes do Plano:%s \nValor: R$%.2f ",
+				//	this.getNome(),/*this.getCpf()*/this.getEmail(),this.getAltura(),this.getPeso(),this.nivel.name(),this.metas.name(),this.metaPersonalizada,this.plano.getNome(),this.plano.getValor());
+			//}
+		
 		
 		@Override
 		public boolean temAcessoAdmin() {
 			return false;
 		}
+
+		//REVER
+		/*protected void adicionarTreino(Treino treino) { // sera usado pelo tutor
+			Objects.requireNonNull(treino,"Erro: Treino não pode ser nulo");
+
+		}*/
 		
 		public void adicionarTreino(Treino treino) { // sera usado pelo tutor
 			Objects.requireNonNull(treino," Treino não pode ser nulo");
@@ -49,7 +108,7 @@ public class Aluno extends Usuario {
 			            throw new IllegalArgumentException("Já existe um treino com o nome!");
 			        }
 			    }
-			
+
 			this.treinos.add(treino);
 		}
 		
@@ -61,7 +120,7 @@ public class Aluno extends Usuario {
 		}
 		public void setAltura(double altura) {
 			if(altura<=0) {
-				throw new IllegalArgumentException("Erro: Altura invalido!");
+				throw new IllegalArgumentException("Erro: Altura invalido! "+altura);
 				}
 			this.altura = altura;
 			}
@@ -71,7 +130,7 @@ public class Aluno extends Usuario {
 		}
 		public void setPeso(double peso) {
 			if(peso<=0) {
-				throw new IllegalArgumentException("Erro: Peso invalido!");
+				throw new IllegalArgumentException("Erro: Peso invalido! "+peso);
 			}
 			this.peso = peso;
 		}
@@ -80,7 +139,7 @@ public class Aluno extends Usuario {
 		}
 		public void setPlano(Plano plano) {
 			if(plano == null) {
-				throw new IllegalArgumentException("Erro: Plano não pode ficar vazio!");
+				throw new IllegalArgumentException("Erro: Plano não pode ficar vazio! "+plano);
 			}
 			this.plano = plano;
 			}
@@ -90,7 +149,7 @@ public class Aluno extends Usuario {
 		}
 		public void setMetas(Metas metas) {
 			if(metas == null) {
-				throw new IllegalArgumentException("Erro: Metas não pode ficar vazio!");
+				throw new IllegalArgumentException("Erro: Metas não pode ficar vazio! "+metas);
 			}
 			this.metas = metas;
 			}
@@ -102,18 +161,67 @@ public class Aluno extends Usuario {
 		public void setMetaPersonalizada(String metaPersonalizada) {
 			if(metas == metas.personalizada) {
 				if(metaPersonalizada == null || metaPersonalizada.isBlank()) {
-					throw new IllegalArgumentException("Erro: Descrição invalida!");
+					throw new IllegalArgumentException("Erro: Descrição invalida! "+metaPersonalizada);
 				}
 			}
 			this.metaPersonalizada=metaPersonalizada;
 		}
 		
 		public void setNivel(Nivel nivel) {
+		//NÃO CONSIGO IMPLEMENTAR ISSO
+			/*
 			if(nivel == null) {
-				throw new IllegalArgumentException("Erro: Nível invalido!");
-			}
-			this.nivel=nivel;
+				throw new IllegalArgumentException("Erro: Nível invalido! "+nivel);
+			}*/
+		 this.nivel=nivel;
 		}
+
+		
+       //TESTE DE ENUM PARA VALORES DEFINIDOS E IMUTAVEIS
+		public enum Genero {
+		  MASCULINO,FEMININO,OUTRO	
+		}
+		
+		public Genero getGenero() {
+			return genero;
+		}
+
+		public void setGenero(Genero genero) {
+			if(genero == null) {
+				throw new IllegalArgumentException("Erro:Genero invalido"+genero);
+			}
+			this.genero=genero;
+		}
+		
+		
+
+		//TESTE
+
+		public double getImc() {
+			return imc;
+		}
+
+		public void setImc(double imc) {
+			this.imc = imc;
+		}
+
+		public String getDatanascimento() {
+			return datanascimento;
+		}
+
+		public void setDatanascimento(String datanascimento) {
+			this.datanascimento = datanascimento;
+		}
+
+		public String getDatainicio() {
+			return datainicio;
+		}
+
+		public void setDatainicio(String datainicio) {
+			this.datainicio = datainicio;
+		}
+		
+		
 		public Nivel getNivel() {
 			return nivel;
 		}
@@ -121,4 +229,5 @@ public class Aluno extends Usuario {
 		public List<Treino> getTreinos(){
 			return new ArrayList<>(treinos);
 		}
+
 }

@@ -36,8 +36,9 @@ public class UsuarioService {
 		
 		
 		Aluno aluno = new Aluno(nome, email,senha,cpf, dataDeNascimento, altura, peso, nivel,
-				metas, metaPersonalizada, plano, genero);
+				metas, metaPersonalizada, plano, genero,0);
 			
+		
 		
 		usuarioRepository.cadastro(aluno);
 		
@@ -95,9 +96,9 @@ public class UsuarioService {
 		
 		//------TA DANDO ERRO NO LOGIN DO TUTOR
 		
-		/*if(!(solicitante instanceof Administrador)) {
+		if(!(solicitante instanceof Administrador)) {
 			throw new SecurityException("Apenas ADMs podem listar,tutores não podem");
-		}*/
+		}
 		return usuarioRepository.listarTutores();
 	}
 	

@@ -12,9 +12,6 @@ public class tutorConsole {
 	UsuarioService services = new UsuarioService(uRepo);
 	Scanner scanner = new Scanner(System.in);
 	AuthService auth = new AuthService(uRepo);
-	//
-
-	
 	
 	public void cadastroMenu() {
 		toolbox.espacoMenu();
@@ -69,16 +66,16 @@ public class tutorConsole {
 	}
 	
 	public void cdTutor() {
-	///////tutor 1//////////
+	        ///////tutor 1//////////
 			String dataScn = "2006-10-23";
 			LocalDate dataDeNascimento = LocalDate.parse(dataScn);
-			services.cadastroTutor("daniel", "14725836910", "daniel@gmail.com", "123456789", dataDeNascimento, 1520);
+			services.cadastroTutor("daniel", "daniel@gmail.com","14725836910","10987654321", dataDeNascimento, 1520);
 			
 			///////tutor 2//////////
 			
 			dataScn = "2005-06-18";
 			LocalDate dataDeNascimento1 = LocalDate.parse(dataScn);
-			services.cadastroTutor("Ysabelle", "96385274101", "bell@gmail.com", "ysabelle01", dataDeNascimento, 1900);
+			services.cadastroTutor("Ysabelle", "bell@gmail.com","ysabelle01 ", "96385274101", dataDeNascimento, 1900);
 			
 	}
 	

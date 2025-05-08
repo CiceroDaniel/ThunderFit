@@ -13,8 +13,7 @@ public class teste {
 		consoleMenu menu = new consoleMenu(repo);
 		
 		Scanner scan = new Scanner(System.in);
-		//consoleMenu menu = new consoleMenu();
-		//toolbox tools = new toolbox();
+		menu.tools.preCad();
 		toolbox.espacoMenu();
 		
 		

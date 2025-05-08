@@ -22,11 +22,11 @@ public class usuarioConsole {
 	String descricao = null;
 	
 	public usuarioConsole(UsuarioRepository repo) {
-		// TODO Auto-generated constructor stub
+		this.uRepo = repo;
+		this.services = new UsuarioService(repo);
+		this.auth = new AuthService(repo);
 	}
-	public usuarioConsole() {
-		// TODO Auto-generated constructor stub
-	}
+	
 	public void cadastroMenu() {
 		toolbox.espacoMenu();
 		System.out.println("==============CADASTRO=================");

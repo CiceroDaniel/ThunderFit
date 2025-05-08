@@ -5,12 +5,14 @@ import app.usuarioConsole;
 import app.admConsole;
 
 public class toolbox {
-	tutorConsole tutor = new tutorConsole();
-	usuarioConsole user = new usuarioConsole();
-	admConsole adm = new admConsole();
+	tutorConsole tutor;
+	usuarioConsole user;
+	admConsole adm;
 	
-	public toolbox(usuarioConsole userConsole, admConsole admConsole, tutorConsole tutorConsole) {
-		// TODO Auto-generated constructor stub
+	public toolbox(usuarioConsole user, admConsole adm, tutorConsole tutor) {
+		this.user = user;
+		this.adm = adm;
+		this.tutor = tutor;
 	}
 
 	public void preCad() {

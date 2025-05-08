@@ -16,11 +16,9 @@ public class admConsole {
 	AuthService auth = new AuthService(uRepo);
 	
 	public admConsole(UsuarioRepository repo) {
-		// TODO Auto-generated constructor stub
-	}
-
-	public admConsole() {
-		// TODO Auto-generated constructor stub
+		this.uRepo = repo;
+		this.services = new UsuarioService(repo);
+		this.auth = new AuthService(repo);
 	}
 
 	public void cdAdm() {

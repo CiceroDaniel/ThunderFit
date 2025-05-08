@@ -21,6 +21,12 @@ public class usuarioConsole {
 
 	String descricao = null;
 	
+	public usuarioConsole(UsuarioRepository repo) {
+		// TODO Auto-generated constructor stub
+	}
+	public usuarioConsole() {
+		// TODO Auto-generated constructor stub
+	}
 	public void cadastroMenu() {
 		toolbox.espacoMenu();
 		System.out.println("==============CADASTRO=================");
@@ -53,9 +59,8 @@ public class usuarioConsole {
 		
 		planoMenu();
 		
+		services.cadastroAluno(nome, email, senha, cpf, dataDeNascimento, altura, peso, nivel, metas, descricao, plano, genero,0);
 
-		
-		services.cadastroAluno(nome, email, senha, cpf, dataDeNascimento, altura, peso, nivel, metas, descricao, plano, genero, imc);
 	}
 	/////////////////////////////////////////////////////////////////////////
 	public void loginMenu() {
@@ -174,7 +179,9 @@ public class usuarioConsole {
 	public void cdUser() {
 		String dataScn = "2006-02-28";
 		LocalDate dataDeNascimento = LocalDate.parse(dataScn);
-		services.cadastroAluno("Victor Hugo", "vh@gmail.com","10023256396", "10987654321", dataDeNascimento, 1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO);
+
+		services.cadastroAluno("Victor Hugo", "vh@gmail.com","10023256396", "10987654321", dataDeNascimento, 1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO, 0);
+
 	}
 	
 }

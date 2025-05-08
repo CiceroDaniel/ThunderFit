@@ -15,10 +15,19 @@ public class admConsole {
 	toolbox tools = new toolbox();
 	AuthService auth = new AuthService(uRepo);
 	
+	public admConsole(UsuarioRepository repo) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public admConsole() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void cdAdm() {
 		String dataScn = "2006-10-23";
 		LocalDate dataDeNascimento = LocalDate.parse(dataScn);
 		services.cadastroAdministrador("daniel", "daniel@gmail.com","123123123", "12314563610", dataDeNascimento);
+		
 	}
 	
 	public void loginMenu() {

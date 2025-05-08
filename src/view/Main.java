@@ -11,7 +11,6 @@ import model.Metas;
 import model.Nivel;
 import model.Plano;
 import model.Tutor;
-import model.Aluno.Genero;
 
 public class Main {
 	

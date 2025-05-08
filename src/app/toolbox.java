@@ -9,6 +9,10 @@ public class toolbox {
 	usuarioConsole user = new usuarioConsole();
 	admConsole adm = new admConsole();
 	
+	public toolbox(usuarioConsole userConsole, admConsole admConsole, tutorConsole tutorConsole) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void preCad() {
 		adm.cdAdm();
 		tutor.cdTutor();

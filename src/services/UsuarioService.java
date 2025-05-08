@@ -70,7 +70,7 @@ public class UsuarioService {
         
         usuarioRepository.cadastro(adm);
         admCadastrado = true;
-        System.out.println(adm.gerarCredenciais());
+        //System.out.println(adm.gerarCredenciais());
     }
 	
 	

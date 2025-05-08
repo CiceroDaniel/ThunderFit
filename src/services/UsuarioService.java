@@ -35,8 +35,7 @@ public class UsuarioService {
 		}
 		
 		
-		Aluno aluno = new Aluno(nome, email,senha,cpf, dataDeNascimento, altura, peso, nivel,
-				metas, metaPersonalizada, plano, genero, imc);
+		Aluno aluno = new Aluno(nome, email,senha,cpf, dataDeNascimento, altura, peso, nivel, metas, metaPersonalizada, plano, genero);
 			
 		
 		usuarioRepository.cadastro(aluno);

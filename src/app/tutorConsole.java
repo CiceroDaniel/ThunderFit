@@ -16,6 +16,12 @@ public class tutorConsole {
 
 	
 	
+	public tutorConsole(UsuarioRepository repo) {
+		this.uRepo = repo;
+		this.services = new UsuarioService(repo);
+		this.auth = new AuthService(repo);
+	}
+
 	public void cadastroMenu() {
 		toolbox.espacoMenu();
 		
@@ -69,17 +75,23 @@ public class tutorConsole {
 	}
 	
 	public void cdTutor() {
-	///////tutor 1//////////
-			String dataScn = "2006-10-23";
-			LocalDate dataDeNascimento = LocalDate.parse(dataScn);
-			services.cadastroTutor("daniel", "daniel@gmail.com", "123456789", "14725836910", dataDeNascimento, 1520);
-			
-			///////tutor 2//////////
-			
-			dataScn = "2005-06-18";
-			LocalDate dataDeNascimento1 = LocalDate.parse(dataScn);
-			services.cadastroTutor("Ysabelle", "bell@gmail.com", "ysabelle01", "96385274101", dataDeNascimento, 1900);
-			
+	    String dataScn = "2006-10-23";
+	    LocalDate dataDeNascimento = LocalDate.parse(dataScn);
+
+	    try {
+	        services.cadastroTutor("daniel", "daniel@gmail.com", "123456789", "14725836910", dataDeNascimento, 1520);
+	    } catch (IllegalArgumentException e) {
+	        System.out.println(e.getMessage());
+	    }
+
+	    dataScn = "2005-06-18";
+	    LocalDate dataDeNascimento1 = LocalDate.parse(dataScn);
+	    try {
+	        services.cadastroTutor("Ysabelle", "bell@gmail.com", "ysabelle01", "96385274101", dataDeNascimento1, 1900);
+	    } catch (IllegalArgumentException e) {
+	        System.out.println(e.getMessage());
+	    }
 	}
+
 	
 }

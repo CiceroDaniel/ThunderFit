@@ -13,6 +13,8 @@ public class consoleMenu {
 	//tutorConsole  tutorConsole = new tutorConsole();
 	//toolbox tools = new toolbox();
 	
+	
+	
 	UsuarioRepository repo;
 	usuarioConsole userConsole;
 	admConsole admConsole;
@@ -22,7 +24,10 @@ public class consoleMenu {
 	
 	
 	public consoleMenu(UsuarioRepository repo) {
-		// TODO Auto-generated constructor stub
+		this.userConsole = new usuarioConsole(repo);
+		this.admConsole = new admConsole(repo);
+		this.tutorConsole = new tutorConsole(repo);
+		this.tools = new toolbox(userConsole, admConsole, tutorConsole);
 	}
 
 	// YSABELLE PASSE LONGE DESSE ARQUIVO PELO AMOR DE SAMARA!

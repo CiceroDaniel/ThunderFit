@@ -36,7 +36,7 @@ public class Aluno extends Usuario {
 			
 		}
 
-		public Aluno(String nome,String email, String senha,String cpf,LocalDate dataDeNascimento, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano,Genero genero,double imc) {
+		public Aluno(String nome,String email, String senha,String cpf,LocalDate dataDeNascimento, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano,Genero genero) {
 		super(nome,email,senha,cpf,dataDeNascimento);
 			this.setAltura(altura);
 			this.setPeso(peso);

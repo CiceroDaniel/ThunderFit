@@ -1,7 +1,6 @@
 package services;
 
 import model.*;
-import model.Aluno.Genero;
 import repository.UsuarioRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;

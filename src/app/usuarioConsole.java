@@ -17,6 +17,7 @@ public class usuarioConsole {
 	Nivel nivel;
 	Metas metas;
 	Plano plano;
+	Genero genero;
 
 	String descricao = null;
 	
@@ -54,7 +55,7 @@ public class usuarioConsole {
 		
 
 		
-		services.cadastroAluno(nome, email, senha, cpf, dataDeNascimento, altura, peso, nivel, metas, descricao, plano, genero, imc);
+		services.cadastroAluno(nome, email, senha, cpf, dataDeNascimento, altura, peso, nivel, metas, descricao, plano, genero);
 	}
 	/////////////////////////////////////////////////////////////////////////
 	public void loginMenu() {
@@ -142,6 +143,29 @@ public class usuarioConsole {
 		break;
 		}
 	}
+	public void Genero() {
+		int op;
+		toolbox.espacoMenu();
+		System.out.println("======GENERO DO USUSÁRIO==========");
+		System.out.println("\n1- Masculino"
+				+ "\n2- Feminino"
+				+ "\n3 -Outro"
+				+ "\n ESCOLHA UMA OPÇÃO: ");
+		op = scanner.nextInt();
+		scanner.nextLine();
+		
+		switch (op) {
+		case 1: genero = genero.MASCULINO;
+		break;
+		case 2: genero = genero.FEMININO;
+		break;
+		case 3: genero = genero.OUTRO;
+		break;
+		default: System.out.println("opção invalida!");
+		break;
+		}
+	}
+	
 	public void descricaoMenu() {
 		System.out.println("DESCRIÇÃO: ");
 		descricao = scanner.nextLine();	
@@ -150,7 +174,7 @@ public class usuarioConsole {
 	public void cdUser() {
 		String dataScn = "2006-02-28";
 		LocalDate dataDeNascimento = LocalDate.parse(dataScn);
-		services.cadastroAluno("Victor Hugo", "10023256396", "vh@gmail.com", "vh123456789", dataDeNascimento, 1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual);
+		services.cadastroAluno("Victor Hugo", "10023256396", "vh@gmail.com", "vh123456789", dataDeNascimento, 1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO);
 	}
 	
 }

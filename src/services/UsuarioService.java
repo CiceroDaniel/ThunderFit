@@ -40,6 +40,7 @@ public class UsuarioService {
 				metas, metaPersonalizada, plano, genero, imc);
 			
 		
+		
 		usuarioRepository.cadastro(aluno);
 		
 		System.out.println(aluno.gerarCredenciais());
@@ -96,9 +97,9 @@ public class UsuarioService {
 		
 		//------TA DANDO ERRO NO LOGIN DO TUTOR
 		
-		/*if(!(solicitante instanceof Administrador)) {
+		if(!(solicitante instanceof Administrador)) {
 			throw new SecurityException("Apenas ADMs podem listar,tutores não podem");
-		}*/
+		}
 		return usuarioRepository.listarTutores();
 	}
 	

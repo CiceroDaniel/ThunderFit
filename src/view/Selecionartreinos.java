@@ -29,6 +29,7 @@ public class Selecionartreinos extends JFrame {
 	private JLabel lblNewLabel;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
+	private JLabel lblListaDeTreinos;
 
 	/**
 	 * Launch the application.
@@ -62,7 +63,7 @@ public class Selecionartreinos extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(49, 52, 970, 565);
+		scrollPane.setBounds(49, 52, 494, 565);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -75,7 +76,7 @@ public class Selecionartreinos extends JFrame {
 			}
 		));
 		
-		lblNewLabel = new JLabel("SELECIONAR TREINO");
+		lblNewLabel = new JLabel("EDITOR DE TREINOS");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblNewLabel.setBounds(49, 10, 270, 32);
@@ -88,5 +89,11 @@ public class Selecionartreinos extends JFrame {
 		btnNewButton_1 = new JButton("SALVAR");
 		btnNewButton_1.setBounds(49, 627, 85, 21);
 		contentPane.add(btnNewButton_1);
+		
+		lblListaDeTreinos = new JLabel("LISTA DE TREINOS");
+		lblListaDeTreinos.setForeground(Color.WHITE);
+		lblListaDeTreinos.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblListaDeTreinos.setBounds(719, 10, 207, 32);
+		contentPane.add(lblListaDeTreinos);
 	}
 }

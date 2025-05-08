@@ -1,16 +1,30 @@
 package app;
 
 import app.*;
+import repository.UsuarioRepository;
+
 import java.util.Scanner;
+
 
 public class consoleMenu {
 	Scanner scan = new Scanner(System.in);
-	usuarioConsole userConsole = new usuarioConsole();
-	admConsole admConsole = new admConsole();
-	tutorConsole  tutorConsole = new tutorConsole();
-	toolbox tools = new toolbox();
+	//usuarioConsole userConsole = new usuarioConsole();
+	//admConsole admConsole = new admConsole();
+	//tutorConsole  tutorConsole = new tutorConsole();
+	//toolbox tools = new toolbox();
+	
+	UsuarioRepository repo;
+	usuarioConsole userConsole;
+	admConsole admConsole;
+	tutorConsole tutorConsole;
+	toolbox tools;
+
 	
 	
+	public consoleMenu(UsuarioRepository repo) {
+		// TODO Auto-generated constructor stub
+	}
+
 	// YSABELLE PASSE LONGE DESSE ARQUIVO PELO AMOR DE SAMARA!
 	public void init() {
 		

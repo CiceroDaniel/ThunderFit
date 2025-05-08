@@ -25,7 +25,7 @@ public class UsuarioService {
 	//--------------------------- CADASTRO ---------------------------------
 	
 	public void cadastroAluno(String nome,String email, String senha,String cpf,LocalDate dataDeNascimento,double altura,
-			double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano, Genero genero) {
+			double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano, Genero genero, double imc) {
 		
 		if(usuarioRepository.buscarPorCpf(cpf)!= null) {
 			throw new IllegalArgumentException(" Erro: CPF já cadastrado!");
@@ -36,7 +36,7 @@ public class UsuarioService {
 		
 		
 		Aluno aluno = new Aluno(nome, email,senha,cpf, dataDeNascimento, altura, peso, nivel,
-				metas, metaPersonalizada, plano, genero);
+				metas, metaPersonalizada, plano, genero, imc);
 			
 		
 		usuarioRepository.cadastro(aluno);

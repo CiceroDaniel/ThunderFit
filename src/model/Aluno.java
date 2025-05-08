@@ -198,6 +198,11 @@ public class Aluno extends Usuario {
 		}
 
 
+		
+		public void setImc(double imc) {
+			this.imc = imc;
+		}
+
 		public String getDatanascimento() {
 			return datanascimento;
 		}

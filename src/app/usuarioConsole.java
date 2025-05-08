@@ -12,7 +12,7 @@ public class usuarioConsole {
 	UsuarioService services = new UsuarioService(uRepo);
 	AuthService auth = new AuthService(uRepo);
 	Scanner scanner = new Scanner(System.in);
-	toolbox tools = new toolbox();
+	//toolbox tools = new toolbox();
 
 	Nivel nivel;
 	Metas metas;
@@ -21,7 +21,7 @@ public class usuarioConsole {
 	String descricao = null;
 	
 	public void cadastroMenu() {
-		tools.espacoMenu();
+		toolbox.espacoMenu();
 		System.out.println("==============CADASTRO=================");
 		System.out.println("1. NOME DE USUÁRIO");
 		
@@ -58,7 +58,7 @@ public class usuarioConsole {
 	}
 	/////////////////////////////////////////////////////////////////////////
 	public void loginMenu() {
-		tools.espacoMenu();
+		toolbox.espacoMenu();
 		System.out.println("==============LOGIN===============");
 		System.out.println("E-MAIL: ");
 		String emailLogin = scanner.nextLine();
@@ -76,7 +76,7 @@ public class usuarioConsole {
 	public void nivelMenu() {
 		
 		int op;
-		tools.espacoMenu();
+		toolbox.espacoMenu();
 		System.out.println("======NIVEL DO ALUNO=============");
 		System.out.println("\n1- iniciante"
 				+ "\n2- intermediario"
@@ -99,7 +99,7 @@ public class usuarioConsole {
 	
 	public void metasMenu() {
 		int op;
-		tools.espacoMenu();
+		toolbox.espacoMenu();
 		System.out.println("======METAS DO ALUNO=============");
 		System.out.println("\n1- Ganhar Massa"
 				+ "\n2- Perder peso"
@@ -122,7 +122,7 @@ public class usuarioConsole {
 	}
 	public void planoMenu() {
 		int op;
-		tools.espacoMenu();
+		toolbox.espacoMenu();
 		System.out.println("======PLANO CONTRATADO=============");
 		System.out.println("\n1- Mensal"
 				+ "\n2- Trimestral"
@@ -145,6 +145,12 @@ public class usuarioConsole {
 	public void descricaoMenu() {
 		System.out.println("DESCRIÇÃO: ");
 		descricao = scanner.nextLine();	
+	}
+	
+	public void cdUser() {
+		String dataScn = "2006-02-28";
+		LocalDate dataDeNascimento = LocalDate.parse(dataScn);
+		services.cadastroAluno("Victor Hugo", "10023256396", "vh@gmail.com", "vh123456789", dataDeNascimento, 1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual);
 	}
 	
 }

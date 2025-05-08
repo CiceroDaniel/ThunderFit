@@ -12,12 +12,12 @@ public class tutorConsole {
 	UsuarioService services = new UsuarioService(uRepo);
 	Scanner scanner = new Scanner(System.in);
 	AuthService auth = new AuthService(uRepo);
-	toolbox tools = new toolbox();
+	//
 
 	
 	
 	public void cadastroMenu() {
-		tools.espacoMenu();
+		toolbox.espacoMenu();
 		
 		System.out.println("==============CADASTRO=================");
 		System.out.println("1. NOME DE USUÁRIO");
@@ -44,17 +44,7 @@ public class tutorConsole {
 	}
 	
 	public void loginMenu() {
-		tools.espacoMenu();
-		///////tutor 1//////////
-		String dataScn = "2006-10-23";
-		LocalDate dataDeNascimento = LocalDate.parse(dataScn);
-		services.cadastroTutor("daniel", "14725836910", "daniel@gmail.com", "123456789", dataDeNascimento, 1520);
-		
-		///////tutor 2//////////
-		
-		dataScn = "2005-06-18";
-		LocalDate dataDeNascimento1 = LocalDate.parse(dataScn);
-		services.cadastroTutor("Ysabelle", "96385274101", "bell@gmail.com", "ysabelle01", dataDeNascimento, 1900);
+		toolbox.espacoMenu();
 		
 		System.out.println("==============LOGIN===============");
 		System.out.println("E-MAIL: ");
@@ -74,10 +64,22 @@ public class tutorConsole {
 	}
 	
 	public void tutorMenu() {
-		tools.espacoMenu();
+		toolbox.espacoMenu();
 		System.out.println("================== TUTOR ===================");
 	}
 	
-	
+	public void cdTutor() {
+	///////tutor 1//////////
+			String dataScn = "2006-10-23";
+			LocalDate dataDeNascimento = LocalDate.parse(dataScn);
+			services.cadastroTutor("daniel", "14725836910", "daniel@gmail.com", "123456789", dataDeNascimento, 1520);
+			
+			///////tutor 2//////////
+			
+			dataScn = "2005-06-18";
+			LocalDate dataDeNascimento1 = LocalDate.parse(dataScn);
+			services.cadastroTutor("Ysabelle", "96385274101", "bell@gmail.com", "ysabelle01", dataDeNascimento, 1900);
+			
+	}
 	
 }

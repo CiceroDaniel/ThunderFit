@@ -12,96 +12,36 @@ import services.*;
 
 public class Tutorcontroller {
 	
-	public static List<Tutor>getTutoresCadastrados(){
+
+	private  AuthService authservice = new AuthService(new UsuarioRepository());
+	private  UsuarioService usuarioservice = new UsuarioService(new UsuarioRepository()); 
+	
+	public List<Tutor>getTutoresCadastrados(){
 		return usuarioservice.listarTutores(null);
 	}
-
-	private static AuthService authservice = new AuthService(new UsuarioRepository());
-	private static UsuarioService usuarioservice = new UsuarioService(new UsuarioRepository()); 
-	
 	//METODOS CHAMAM O SERVICE
-	public static void cadastroTutoresController(Tutor tutor) {
+	public void cadastroTutoresController(Tutor tutor) {
 	//cadastroAluno
     usuarioservice.cadastroTutor(tutor.getNome(),tutor.getEmail(),tutor.getSenha(),tutor.getCpf(), null, 0);
 	
 }
-	public static Tutor loginTutorController(String email,String senha) {
+	public Tutor loginTutorController(String email,String senha) {
 		
 		//verificar
 		return (Tutor) authservice.login(email, senha);
 	}
 	
-	public static void listaralunoController(Aluno aluno) {
-	//listarAlunos
-	//usuarioservice.listarAlunos(aluno.getNome(),aluno.getEmail(),aluno.getSenha(),aluno.getCpf(),aluno.getDataDeNascimento(),aluno.getAltura(),aluno.getPeso(),aluno.getNivel(),aluno.getMetas(),aluno.getMetaPersonalizada(),aluno.getPlano());
-	}
-
-	public static void atualizaralunoController(Aluno aluno) {
-	//atualizarDados
-	//atualizarStatusOnline
-	//atualizarPlanoAluno
+	
 		
-	}
-	public static void buscaralunoController(Aluno aluno) {
-	//buscarPorCpf
-    //buscarPorNome
-	//buscarPorEmail
-	}
-	
-	public static void removeralunoController(Aluno aluno) {
-	//removerUsuario;
-	}
-	
-	 public static boolean verificarTutorExistente(Tutor tutor) {
-	
-	  return usuarioservice.buscarPorCpf(tutor.getCpf(), tutor) != null || 
-			  usuarioservice.buscarPorEmail(tutor.getEmail(), tutor)!= null;
-	    }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	//Metodos staticos que são compartilhados por todas as instancias da classe
-
-    // Lista de alunos
-    private static List<Aluno> alunos = new ArrayList<>();
-
-    // Método para obter a lista de alunos
-    public static List<Aluno> getAlunos() {
-        return alunos;
-    }
-
-    // Método para adicionar um aluno à lista
-    public static void adicionarAluno(Aluno aluno) {
-        alunos.add(aluno);
-    }
-
-    // Método para verificar se um aluno com o mesmo e-mail já existe
-    public static boolean verificarAlunoExistente(String email) {
-        for (Aluno aluno : alunos) {
-            if (aluno.getEmail().equals(email)) {
-                return true;
-            }
-        }
-        return false;
-    }*/
-    
-    /*
-     * METODOS
-     * 
-     * VERIFICAR SE O ALUNO ESTÁ NA ACADEMIA E CONTAR PRESENÇA
-     * FAZER UMA MEDIA DESSA PRESENÇA
-     * 
-     * 
-     * */
-    
-
+		 public boolean verificarAlunoExistente(Aluno aluno) {
+		
+		  return usuarioservice.buscarPorCpf(aluno.getCpf(), aluno) != null || 
+				  usuarioservice.buscarPorEmail(aluno.getEmail(), aluno)!= null;
+		    }
+		 
+		 //ESSE METODO É CHAMADO PELO TUTOR NA TABELA
+		 //APÓS SELECIONAR O ALUNO ELE APLICA O PAGAMENTO CHAMANDO ESSE METODO
+		 public boolean confirmarAlunoPagament(Aluno aluno) {
+			 return true;
+		 }
 }

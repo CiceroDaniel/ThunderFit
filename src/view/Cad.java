@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.Admcontroller;
 import controller.Alunocontroller;
 
 import java.awt.Color;
@@ -90,6 +91,7 @@ public class Cad extends JFrame {
 	private Aluno aluno;
 	private Tutor tutor;
 	private Administrador adm;
+	private final Admcontroller admController;
 	private JLabel linkParaLoginAdm;
 
 	public class RoundedButtonSimples extends JButton{
@@ -136,10 +138,11 @@ public class Cad extends JFrame {
 	
 
 	
-	public Cad(Aluno aluno,Tutor tutor) {
+	public Cad(Aluno aluno,Tutor tutor, Admcontroller admController) {
 		
 		this.aluno=aluno;
 		this.tutor = tutor;
+		this.admController= admController;
 		
 		setResizable(false);
 		setBackground(new Color(224, 188, 233));
@@ -306,14 +309,9 @@ public class Cad extends JFrame {
 				String senha= new String(Camposenha.getPassword());
 				String cpf = campoCpf.getText();
 				
-				
-
-				
                 if(nome.isEmpty() || email.isEmpty() || senha.isEmpty() || cpf.isEmpty()) {
               	
-                	JOptionPane.showMessageDialog(btnCadastro,"Preencha todos os campos");
-                	
-                	
+                	JOptionPane.showMessageDialog(btnCadastro,"Preencha todos os campos");                            	
                 	
                 }else{
                 	
@@ -339,7 +337,7 @@ public class Cad extends JFrame {
 	                
 	                dispose();
 	                //ta pegando as informações do aluno nome,email e senha e mandando para a subtela
-	                Formulario formularioScreen = new Formulario(aluno, tutor);
+	                Formulario formularioScreen = new Formulario(aluno, tutor, admController);
 	                formularioScreen.setVisible(true);
 	                
 				
@@ -467,7 +465,7 @@ public class Cad extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor, admController);
 				escolhaScreen.setVisible(true);
 			}
 		});
@@ -484,12 +482,12 @@ public class Cad extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				
-				Cadtutor cadAdmScreen = new Cadtutor(tutor);
+				Cadtutor cadAdmScreen = new Cadtutor(tutor,admController);
 				cadAdmScreen.setVisible(true);
 			}
 		});
 		
-		
+		/*
 		JLabel linkParaLoginAdm = new JLabel("ADMNISTRADOR");
 		linkParaLoginAdm.setForeground(Color.BLUE);
 		linkParaLoginAdm.setFont(new Font("Tahoma", Font.BOLD, 10));
@@ -501,10 +499,10 @@ public class Cad extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				
-				LoginAdm loginScreen = new LoginAdm(aluno, tutor, adm);
+				LoginAdm loginScreen = new LoginAdm(aluno, tutor, adm, alunoController);
 				loginScreen.setVisible(true);
 			}
-		});
+		});*/
 		
 	}
 }

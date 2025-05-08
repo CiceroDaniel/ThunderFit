@@ -123,13 +123,15 @@ public class LoginAdm extends JFrame {
 		private Aluno aluno;
 		private Tutor tutor;
 		private Administrador adm;
+		private final Alunocontroller alunoController;
 		private JButton btnNewButton_LOGOUT;
 		
-	public LoginAdm(Aluno aluno,Tutor tutor,Administrador adm) {
+	public LoginAdm(Aluno aluno,Tutor tutor,Administrador adm, Alunocontroller alunoController) {
 		
 		this.adm=adm;
 		this.tutor=tutor;
 		this.aluno=aluno;
+		this.alunoController=alunoController;
 		
 		setResizable(false);
 		setBackground(new Color(255, 255, 255));

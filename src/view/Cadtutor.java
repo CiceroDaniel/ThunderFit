@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.Admcontroller;
 import controller.Alunocontroller;
 
 import java.awt.Color;
@@ -84,6 +85,7 @@ public class Cadtutor extends JFrame {
 	private JButton btnNewButton_LOGOUT;
 	
 	private Tutor tutor;
+	private final Alunocontroller alunoController;
 
 
 	public class RoundedButtonSimples extends JButton{
@@ -129,10 +131,13 @@ public class Cadtutor extends JFrame {
 	}
 	
 
+	private Admcontroller admController;
 	
-	public Cadtutor(Tutor tutor) {
+	public Cadtutor(Tutor tutor, Admcontroller admController) {
 		
 		this.tutor=tutor;
+		this.admController=admController;
+		this.alunoController = null;
 		
 		setResizable(false);
 		setBackground(new Color(224, 188, 233));
@@ -338,7 +343,7 @@ public class Cadtutor extends JFrame {
 	                
 	                dispose();
 	                
-	                TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(null, tutor);
+	                TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(null, tutor, admController);
 	                escolhaScreen.setVisible(true);
 	                //ta pegando as informações do aluno nome,email e senha e mandando para a subtela
 	               // Formulario formularioScreen = new Formulario(tutor);
@@ -475,7 +480,7 @@ public class Cadtutor extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(null, tutor);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(null, tutor, admController);
 				escolhaScreen.setVisible(true);
 			}
 		});
@@ -493,7 +498,7 @@ public class Cadtutor extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				
-				Cad cadAlunoScreen = new Cad(null, tutor);
+				Cad cadAlunoScreen = new Cad(null, tutor,admController);
 				cadAlunoScreen.setVisible(true);
 			}
 		});

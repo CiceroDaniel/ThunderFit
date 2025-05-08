@@ -25,9 +25,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.SoftBevelBorder;
 
+import controller.Admcontroller;
 import controller.Alunocontroller;
 import model.Aluno;
-import model.Aluno.Genero;
+import model.Genero;
 import model.Metas;
 import model.Plano;
 import model.Tutor;
@@ -141,11 +142,13 @@ public class Formulario extends JFrame {
 	
 	private Aluno aluno;
 	private Tutor tutor;
+	private final Admcontroller admController;
 	
-	public Formulario(Aluno aluno,Tutor tutor) {
+	public Formulario(Aluno aluno,Tutor tutor,Admcontroller admController) {
 		
-		this.aluno = aluno;//AQUI É PRA GUARDAR O ALUNO QUE A GENTE CRIOU
+		this.aluno = aluno;
 	    this.tutor=tutor;
+		this.admController = admController;
 		
 		
 		setResizable(false);
@@ -595,7 +598,7 @@ public class Formulario extends JFrame {
 				aluno.setGenero(generoSelecionado);
 				aluno.setMetas(metaSelecionada);
 				
-				Alunocontroller.cadastroalunoController(aluno);
+				admController.cadastroAlunoController(aluno);
 				
 				JOptionPane.showMessageDialog(continuar,aluno.gerarCredenciaisLogin());
 				
@@ -607,7 +610,7 @@ public class Formulario extends JFrame {
 				
 					dispose();
 					
-					TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, tutor);
+					TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, tutor, admController);
 					escolhaScreen.setVisible(true);
 				
 			
@@ -625,7 +628,7 @@ public class Formulario extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen =  new Cad(aluno,tutor);
+				Cad cadScreen =  new Cad(aluno,tutor, admController);
 				cadScreen.setVisible(true);
 			}
 		});
@@ -646,7 +649,7 @@ public class Formulario extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen =  new Cad(aluno,tutor);
+				Cad cadScreen =  new Cad(aluno,tutor, admController);
 				cadScreen.setVisible(true);
 			}
 		});

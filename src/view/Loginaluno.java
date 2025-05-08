@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.Admcontroller;
 import controller.Alunocontroller;
 import model.Aluno;
 import model.Tutor;
@@ -122,12 +123,13 @@ public class Loginaluno extends JFrame {
 		private Aluno aluno;
 		private Tutor tutor;
 		private JButton btnNewButton_LOGOUT;
-
+        private Alunocontroller alunocontroller;
 		
-	public Loginaluno(Aluno aluno) {
+	public Loginaluno(Aluno aluno,Alunocontroller alunocontroller) {
 		
 		AuthService service = new AuthService(null);
 		
+		this.alunocontroller=alunocontroller;
 		this.aluno=aluno;
 		
 		setResizable(false);
@@ -186,8 +188,10 @@ public class Loginaluno extends JFrame {
 	                boolean loginValido = false;
 	                
                 // Verifica se algum cliente cadastrado tem o email e senha corretos
-	                for (Aluno aluno : Alunocontroller.getAlunosCadastrados()) {//VERIFICA A LISTA DE PESSOAS CADASTRADAs
-	                if (aluno.getEmail().equals(email) && aluno.getSenha().equals(senha)) {
+	                for (Aluno aluno : alunocontroller.loginAlunoController(email, senha)) {//VERIFICA A LISTA DE PESSOAS CADASTRADAs
+	               
+	                	
+	                	if (aluno.getEmail().equals(email) && aluno.getSenha().equals(senha)) {
 						
 	                        loginValido = true;
 	                        break;
@@ -403,7 +407,7 @@ public class Loginaluno extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen = new Cad(aluno,tutor);
+				Cad cadScreen = new Cad(aluno,tutor, null);
 				cadScreen.setVisible(true);
 		}
 	});

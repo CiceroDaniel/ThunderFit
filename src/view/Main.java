@@ -7,6 +7,7 @@ import controller.Alunocontroller;
 import controller.Tutorcontroller;
 import model.Administrador;
 import model.Aluno;
+import model.Genero;
 import model.Metas;
 import model.Nivel;
 import model.Plano;
@@ -18,13 +19,14 @@ public class Main {
 		
 		//FALTA CADASTRAR ADM E LOGIN ADM
 		
-		Alunocontroller controller = new Alunocontroller();
+		Alunocontroller controller = new Alunocontroller(null, null);
 		Tutorcontroller Tcontroller = new Tutorcontroller();
 		//Admcontroller Admcontroller = new Admcontroller();
 		
 		Aluno aluno = null;
 		Tutor tutor = null;
 		Administrador adm = null;
+		
 		
 		Administrador adm1 = new Administrador("Victor","Victor@gmail.com","12345678","11122233344", null);
 		
@@ -33,18 +35,16 @@ public class Main {
 		
 		tutor1.setSalario(1000);
 		
-		Aluno a1 = new Aluno("ysa","ysa@gmail.com","123123123","12312312312", LocalDate.of(2000, 01, 19),80, 1.80, Nivel.AVANCADO, Metas.ganharMassa,"", Plano.planoMensal, Genero.FEMININO, 123);
-		Aluno a2 = new Aluno("Bell","bell@gmail.com","123123123","32132132132", LocalDate.of(2000, 01, 19),80, 1.80, Nivel.AVANCADO, Metas.ganharMassa,"", Plano.planoMensal, Genero.FEMININO, 123);
+		Aluno a1 = new Aluno("ysa","ysa@gmail.com","123123123","12312312312", LocalDate.of(2000, 01, 19),80, 1.80, Nivel.AVANCADO, Metas.ganharMassa,"", Plano.planoMensal, Genero.FEMININO);
+		Aluno a2 = new Aluno("Bell","bell@gmail.com","123123123","32132132132", LocalDate.of(2000, 01, 19),80, 1.80, Nivel.AVANCADO, Metas.ganharMassa,"", Plano.planoMensal, Genero.FEMININO);
 		
 		
 		Tcontroller.cadastroTutoresController(tutor1);
 		
-		controller.cadastroalunoController(a1);
-		controller.cadastroalunoController(a2);
 		
 		
 		//new Perfil(aluno).setVisible(true);
-	    new TelaEscolhaUsuario(aluno, tutor).setVisible(true);
+	    new TelaEscolhaUsuario(aluno, tutor, null).setVisible(true);
 		//new Formulario(aluno).setVisible(true);
 		//new TabelaCadastrosAdm().setVisible(true);
 		//new Loginaluno(aluno).setVisible(true);

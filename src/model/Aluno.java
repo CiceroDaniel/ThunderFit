@@ -178,10 +178,6 @@ public class Aluno extends Usuario {
 
 		
        //TESTE DE ENUM PARA VALORES DEFINIDOS E IMUTAVEIS
-		public enum Genero {
-		  MASCULINO,FEMININO,OUTRO	
-		}
-		
 		public Genero getGenero() {
 			return genero;
 		}

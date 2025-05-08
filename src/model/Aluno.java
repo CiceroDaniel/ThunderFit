@@ -46,7 +46,7 @@ public class Aluno extends Usuario {
 			this.setPlano(plano);
 			this.treinos = new ArrayList<>();
 			this.genero = genero;
-			this.imc=imc;
+			this.imc= peso/(altura * altura);
 			}
 		
 		//*----------------METODOS--------------
@@ -79,8 +79,8 @@ public class Aluno extends Usuario {
 		
 		//@Override
 		public String gerarCredenciaisLogin() {
-			return String.format("\nAltura: %.2f \nPeso: %.2f\nGenero:%s\nMetas:%s\nPlano:%s\nData de inicio:%s\nData de Nascimento:%s",
-					this.getAltura(),this.getPeso(),this.getGenero(),this.getMetas(),this.getPlano(),this.getDatainicio(),this.getDatanascimento());
+			return String.format("\nAltura: %.2f \nPeso: %.2f\nGenero:%s\nMetas:%s\nPlano:%s\nData de inicio:%s\nData de Nascimento:%s\nIMC: %.2f",
+					this.getAltura(),this.getPeso(),this.getGenero(),this.getMetas(),this.getPlano(),this.getDatainicio(),this.getDatanascimento(),this.getImc());
 			}
 		
 		//@Override
@@ -201,9 +201,6 @@ public class Aluno extends Usuario {
 			return imc;
 		}
 
-		public void setImc(double imc) {
-			this.imc = imc;
-		}
 
 		public String getDatanascimento() {
 			return datanascimento;

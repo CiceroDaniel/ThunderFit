@@ -54,7 +54,7 @@ public class usuarioConsole {
 		
 
 		
-		services.cadastroAluno(nome, cpf, email, senha, dataDeNascimento, altura, peso, nivel, metas, descricao, plano);
+		services.cadastroAluno(nome, email, senha, cpf, dataDeNascimento, altura, peso, nivel, metas, descricao, plano, genero, imc);
 	}
 	/////////////////////////////////////////////////////////////////////////
 	public void loginMenu() {

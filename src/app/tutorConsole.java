@@ -12,6 +12,9 @@ public class tutorConsole {
 	UsuarioService services = new UsuarioService(uRepo);
 	Scanner scanner = new Scanner(System.in);
 	AuthService auth = new AuthService(uRepo);
+	//
+
+	
 	
 	public tutorConsole(UsuarioRepository repo) {
 		this.uRepo = repo;
@@ -72,19 +75,6 @@ public class tutorConsole {
 	}
 	
 	public void cdTutor() {
-<<<<<<< HEAD
-	        ///////tutor 1//////////
-			String dataScn = "2006-10-23";
-			LocalDate dataDeNascimento = LocalDate.parse(dataScn);
-			services.cadastroTutor("daniel", "daniel@gmail.com","14725836910","10987654321", dataDeNascimento, 1520);
-			
-			///////tutor 2//////////
-			
-			dataScn = "2005-06-18";
-			LocalDate dataDeNascimento1 = LocalDate.parse(dataScn);
-			services.cadastroTutor("Ysabelle", "bell@gmail.com","ysabelle01 ", "96385274101", dataDeNascimento, 1900);
-			
-=======
 	    String dataScn = "2006-10-23";
 	    LocalDate dataDeNascimento = LocalDate.parse(dataScn);
 
@@ -101,7 +91,6 @@ public class tutorConsole {
 	    } catch (IllegalArgumentException e) {
 	        System.out.println(e.getMessage());
 	    }
->>>>>>> d80d83dffe4345269187a35da304675ad4942512
 	}
 
 	

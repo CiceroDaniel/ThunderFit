@@ -59,7 +59,7 @@ public class usuarioConsole {
 		
 		planoMenu();
 		
-		services.cadastroAluno(nome, email, senha, cpf, dataDeNascimento, altura, peso, nivel, metas, descricao, plano, genero,0);
+		services.cadastroAluno(nome, email, senha, cpf, dataDeNascimento, altura, peso, nivel, metas, descricao, plano, genero);
 
 	}
 	/////////////////////////////////////////////////////////////////////////
@@ -180,7 +180,7 @@ public class usuarioConsole {
 		String dataScn = "2006-02-28";
 		LocalDate dataDeNascimento = LocalDate.parse(dataScn);
 
-		services.cadastroAluno("Victor Hugo", "vh@gmail.com","10023256396", "10987654321", dataDeNascimento, 1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO, 0);
+		services.cadastroAluno("Victor Hugo", "vh@gmail.com","10023256396", "10987654321", dataDeNascimento, 1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO);
 
 	}
 	

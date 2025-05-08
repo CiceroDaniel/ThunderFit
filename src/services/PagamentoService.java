@@ -84,6 +84,18 @@ public class PagamentoService {
 				 filter(p-> !p.getDataPagamento().isAfter(fim)).mapToDouble(p-> p.getValorPago()).sum();
 	}
 
+	//-------------------BUSCAR-----------------------
+	 
+	 public Pagamento buscarPorId(int idPagamento, Usuario solicitante) {
+		 if(!(solicitante instanceof Administrador)) {
+			 throw new SecurityException("Acesso negado");
+		 }
+		 Pagamento pagamento = pagamentoRepository.buscarPorId(idPagamento).orElseThrow(() -> new IllegalArgumentException("Pagamento não encontrado"));
+		 
+	
+		 return pagamento;
+		 
+	 }
 	 
 	//--------------------ATUALIZAR---------------------
 	
@@ -130,11 +142,11 @@ public class PagamentoService {
 	    if (!(solicitante instanceof Administrador)) {
 	        throw new SecurityException("Apenas administradores podem remover pagamentos!");
 	    }
+	    
 	    return pagamentoRepository.remover(idPagamento);
 	}
 	
 	
-	//-----------------------------------------------
 	
 	
 }

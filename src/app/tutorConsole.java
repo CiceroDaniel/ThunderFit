@@ -8,21 +8,21 @@ import services.AuthService;
 import services.UsuarioService;
 
 public class tutorConsole {
-	UsuarioRepository uRepo = new UsuarioRepository();
-	UsuarioService services = new UsuarioService(uRepo);
-	Scanner scanner = new Scanner(System.in);
-	AuthService auth = new AuthService(uRepo);
-	//
+private UsuarioRepository uRepo;
+private Scanner scanner;
+private UsuarioService services;
+private AuthService auth;
 
 	
 	
-	public tutorConsole(UsuarioRepository repo) {
-		this.uRepo = repo;
-		this.services = new UsuarioService(repo);
-		this.auth = new AuthService(repo);
+	public tutorConsole(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
+		this.scanner = scanner;
+	    this.uRepo = repo;  // Usa o repositório injetado
+	    this.auth = auth;   // Usa o auth injetado
+	    this.services = services; // Usa o service injetado
 	}
 
-	public void cadastroMenu() {
+	public void cadastroMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		
 		System.out.println("==============CADASTRO=================");
@@ -49,7 +49,7 @@ public class tutorConsole {
 		services.cadastroTutor(nome, cpf, email, senha, dataDeNascimento, salario);
 	}
 	
-	public void loginMenu() {
+	public void loginMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		
 		System.out.println("==============LOGIN===============");
@@ -64,12 +64,12 @@ public class tutorConsole {
 		
 		if(auth.getUsuarioLogado() == true) {
 			System.out.println("logaaaaaaaaaaaaaaaaaaaado");
-			tutorMenu();
+			tutorMenu(scanner, repo, auth, services);
 		}
 		
 	}
 	
-	public void tutorMenu() {
+	public void tutorMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		System.out.println("================== TUTOR ===================");
 	}

@@ -46,7 +46,7 @@ public class tutorConsole {
 		System.out.println("6. QUAL O SALÁRIO DO TUTOR?");
 		float salario = scanner.nextFloat();
 		
-		services.cadastroTutor(nome, cpf, email, senha, dataDeNascimento, salario);
+		services.cadastroTutor(nome, email, senha, cpf, dataDeNascimento, salario);
 	}
 	
 	public void loginMenu() {

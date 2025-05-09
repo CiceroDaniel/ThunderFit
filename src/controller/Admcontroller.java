@@ -15,7 +15,7 @@ public class Admcontroller {
 	private final AuthService authservice;
 	private final UsuarioService usuarioservice;
 	
-	public Admcontroller(AuthService authservice,UsuarioService usuarioservice) {
+	public Admcontroller(AuthService authservice, UsuarioService usuarioservice) {
 		this.authservice=authservice;
 		this.usuarioservice=usuarioservice;
 	}

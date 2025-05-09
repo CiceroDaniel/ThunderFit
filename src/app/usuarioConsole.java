@@ -74,9 +74,61 @@ public class usuarioConsole {
 		
 		auth.login(emailLogin, senhaLogin);
 		System.out.println(auth.getUsuarioLogado());
+		
+		if(auth.getUsuarioLogado() == true) {
+			alunoMenu();
+		}
 	}
 	
 	
+	////////////////////////////////////////////////////////////////////////
+	public final void alunoMenu() {
+		int op;
+		do {
+			System.out.println("========= MENU ALUNO =========="
+					+ "\n1 - PERFIL"
+					+ "\n2 - INSTRUTORES"
+					+ "\n3 - CRONOGRAMA"
+					+ "\n4 - PACOTES");
+			op = scanner.nextInt();
+			scanner.nextLine();
+			
+			switch(op) {
+			case 1 :  //chama o perfil;
+				break;
+			case 2 :  listarTutor();
+				break;
+			case 3: //cronograma
+				break;
+			case 4: System.out.println(Plano.mostrarPlanos());
+				break;
+			case 5 :System.out.println("SAINDO DO SISTEMA.......");
+			System.exit(0);
+			default: System.out.println("OPÇÃO INVALIDA!");
+		}
+			
+		}while(op!=0);
+		
+	}
+	////////////////////////////////////////////////////////////////////////
+	
+	/*public void Perfil() {
+		toolbox.espacoMenu();
+		
+		 if (!auth.getUsuarioLogado()) {
+		        System.out.println("Nenhum usuário logado.");
+		        return;
+		    }
+		
+		 Usuario usuario = auth.getUsuario();
+		 
+		 
+			
+	}*/
+	
+	public void listarTutor() {
+		services.listarTutores();
+	}
 	
 	////////////////////////////////////////////////////////////////////////
 	public void nivelMenu() {

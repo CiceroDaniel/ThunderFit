@@ -13,8 +13,20 @@ public enum Plano {
 		this.nome=nome;
 		this.valor=valor;
 	}
+
+	//---------------METODOS------------------------------
 	
-	
+	public static String mostrarPlanos() {
+        return String.format(
+                "\n Informações dos Planos:" +
+                "\n %s ------ Valor: R$%.2f" +
+                "\n %s ------ Valor: R$%.2f" +
+                "\n %s ------ Valor: R$%.2f",
+                planoMensal.nome, planoMensal.valor,
+                planoTrimestral.nome, planoTrimestral.valor,
+                planoAnual.nome, planoAnual.valor
+            );
+	}
 	
 	//----------------Getters and Setters-----------------
 	public String getNome() {

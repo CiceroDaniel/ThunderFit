@@ -91,13 +91,11 @@ public class UsuarioService {
 		return usuarioRepository.listarAlunos();
 	}
 
-	public List<Tutor> listarTutores(Usuario solicitante){
+	public List<Tutor> listarTutores(){
 		
 		//------TA DANDO ERRO NO LOGIN DO TUTOR
 		
-		if(!(solicitante instanceof Administrador)) {
-			throw new SecurityException("Apenas ADMs podem listar,tutores não podem");
-		}
+		
 		return usuarioRepository.listarTutores();
 	}
 	
@@ -121,7 +119,7 @@ public class UsuarioService {
 		}
 	}
 	
-	public void atualizarPlanoAluno(String cpf, Plano novoPlano, Usuario solicitante) {
+	public void atualizarPlanoAluno(String cpf, Plano novoPlano, Usuario solicitante) throws SecurityException {
 		if(!solicitante.temAcessoAdmin()) {//talvez erro
 			throw new SecurityException("Apenas tutores e ADMs podem buscar Usuarios");
 		}

@@ -8,10 +8,6 @@ import java.util.Scanner;
 
 public class consoleMenu {
 	Scanner scan = new Scanner(System.in);
-	//usuarioConsole userConsole = new usuarioConsole();
-	//admConsole admConsole = new admConsole();
-	//tutorConsole  tutorConsole = new tutorConsole();
-	//toolbox tools = new toolbox();
 	
 	
 	
@@ -98,7 +94,7 @@ public class consoleMenu {
 			break;
 			case 2: tutorConsole.loginMenu();;
 			break;
-			case 3: //login do adm
+			case 3: admConsole.loginMenu();
 			case 4: init();
 			}
 			

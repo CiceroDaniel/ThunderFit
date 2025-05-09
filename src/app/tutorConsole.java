@@ -8,10 +8,16 @@ import services.AuthService;
 import services.UsuarioService;
 
 public class tutorConsole {
-private UsuarioRepository uRepo;
-private Scanner scanner;
-private UsuarioService services;
-private AuthService auth;
+	usuarioConsole user;
+	admConsole adm;
+	tutorConsole tutor;
+	
+	
+	
+	private UsuarioRepository uRepo;
+	private Scanner scanner;
+	private UsuarioService services;
+	private AuthService auth;
 
 	
 	
@@ -72,6 +78,35 @@ private AuthService auth;
 	public void tutorMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		System.out.println("================== TUTOR ===================");
+		int op; 
+		do {
+			System.out.println("======= CRUD DOS TUTORES ======="
+					+ "\n1 - CADASTRAR"
+					+ "\n2 - ATUALIZAR"
+					+ "\n3 - PESQUISAR"
+					+ "\n4 - DELETAR"
+					+ "\n5 - LISTAR"
+					+ "\n6 - VOLTAR");
+			op = scanner.nextInt();
+			scanner.nextLine();
+			
+			//
+			switch(op) {
+			case 1 : tutor.cadastroMenu(scanner, repo, auth, services); ;
+				break;
+			case 2 :  //atualizar um tutor
+				break;
+			case 3: //cronograma
+				break;
+			case 4: //System.out.println(Plano.mostrarPlanos());
+				break;
+			case 5: services.listarTutores();
+			break;
+			case 6: adm.admMenu();
+			default: System.out.println("OPÇÃO INVALIDA!");
+		}
+			
+		}while(op!=0);
 	}
 	
 	public void cdTutor() {

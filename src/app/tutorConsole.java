@@ -8,21 +8,27 @@ import services.AuthService;
 import services.UsuarioService;
 
 public class tutorConsole {
-	UsuarioRepository uRepo = new UsuarioRepository();
-	UsuarioService services = new UsuarioService(uRepo);
-	Scanner scanner = new Scanner(System.in);
-	AuthService auth = new AuthService(uRepo);
-	//
+	usuarioConsole user;
+	admConsole adm;
+	tutorConsole tutor;
+	
+	
+	
+	private UsuarioRepository uRepo;
+	private Scanner scanner;
+	private UsuarioService services;
+	private AuthService auth;
 
 	
 	
-	public tutorConsole(UsuarioRepository repo) {
-		this.uRepo = repo;
-		this.services = new UsuarioService(repo);
-		this.auth = new AuthService(repo);
+	public tutorConsole(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
+		this.scanner = scanner;
+	    this.uRepo = repo;  // Usa o repositório injetado
+	    this.auth = auth;   // Usa o auth injetado
+	    this.services = services; // Usa o service injetado
 	}
 
-	public void cadastroMenu() {
+	public void cadastroMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		
 		System.out.println("==============CADASTRO=================");
@@ -46,10 +52,10 @@ public class tutorConsole {
 		System.out.println("6. QUAL O SALÁRIO DO TUTOR?");
 		float salario = scanner.nextFloat();
 		
-		services.cadastroTutor(nome, cpf, email, senha, dataDeNascimento, salario);
+		services.cadastroTutor(nome, email, senha, cpf, dataDeNascimento, salario);
 	}
 	
-	public void loginMenu() {
+	public void loginMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		
 		System.out.println("==============LOGIN===============");
@@ -64,14 +70,43 @@ public class tutorConsole {
 		
 		if(auth.getUsuarioLogado() == true) {
 			System.out.println("logaaaaaaaaaaaaaaaaaaaado");
-			tutorMenu();
+			tutorMenu(scanner, repo, auth, services);
 		}
 		
 	}
 	
-	public void tutorMenu() {
+	public void tutorMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		System.out.println("================== TUTOR ===================");
+		int op; 
+		do {
+			System.out.println("======= CRUD DOS TUTORES ======="
+					+ "\n1 - CADASTRAR"
+					+ "\n2 - ATUALIZAR"
+					+ "\n3 - PESQUISAR"
+					+ "\n4 - DELETAR"
+					+ "\n5 - LISTAR"
+					+ "\n6 - VOLTAR");
+			op = scanner.nextInt();
+			scanner.nextLine();
+			
+			//
+			switch(op) {
+			case 1 : tutor.cadastroMenu(scanner, repo, auth, services); ;
+				break;
+			case 2 :  //atualizar um tutor
+				break;
+			case 3: //cronograma
+				break;
+			case 4: //System.out.println(Plano.mostrarPlanos());
+				break;
+			case 5: services.listarTutores();
+			break;
+			case 6: adm.admMenu();
+			default: System.out.println("OPÇÃO INVALIDA!");
+		}
+			
+		}while(op!=0);
 	}
 	
 	public void cdTutor() {

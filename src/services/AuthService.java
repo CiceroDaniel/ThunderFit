@@ -11,7 +11,7 @@ public class AuthService {
 	
 	//modifiquei
 	
-	public AuthService(UsuarioRepository usuarioRepository) {
+	public AuthService(UsuarioRepository usuarioRepository,UsuarioService usuarioService) {
 		this.usuarioService = usuarioService;
 		this.usuarioRepository = usuarioRepository;
 		this.usuarioLogado= null;

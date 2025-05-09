@@ -619,7 +619,7 @@ public class Formulario extends JFrame {
 				
 					dispose();
 					
-					TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, tutor,alunocontroller, admController);
+					TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, tutor,null, alunocontroller, null, admController);
 					escolhaScreen.setVisible(true);
 				
 			
@@ -637,7 +637,7 @@ public class Formulario extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen =  new Cad(aluno,tutor,alunocontroller, admController);
+				CadAluno cadScreen =  new CadAluno(aluno,tutor,null, alunocontroller, null, admController);
 				cadScreen.setVisible(true);
 			}
 		});

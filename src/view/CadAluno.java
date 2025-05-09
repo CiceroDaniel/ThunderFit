@@ -1,8 +1,6 @@
 package view;
 
 
-//FAZER UMA CAIXA DE TEXTO PARA CPF
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.Admcontroller;
 import controller.Alunocontroller;
+import controller.Tutorcontroller;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -50,7 +49,7 @@ import javax.swing.SwingConstants;
 
 import services.*;
 
-public class Cad extends JFrame {
+public class CadAluno extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -134,16 +133,20 @@ public class Cad extends JFrame {
 	
 	private Aluno aluno;
 	private Tutor tutor;
+	private Administrador adm;
 	private final Admcontroller admcontroller;
+	private final Tutorcontroller tutorcontroller;
 	private final Alunocontroller alunocontroller;
 	private JLabel linkParaLoginAdm;
 	
-	public Cad(Aluno aluno,Tutor tutor,Alunocontroller alunocontroller, Admcontroller admcontroller) {
+	public CadAluno(Aluno aluno,Tutor tutor,Administrador adm,Alunocontroller alunocontroller,Tutorcontroller tutorcontroller, Admcontroller admcontroller) {
 		
 	
 		this.aluno=aluno;
 		this.tutor = tutor;
+		this.adm=adm;
 		this.admcontroller= admcontroller;
+		this.tutorcontroller=tutorcontroller;
 		this.alunocontroller = alunocontroller;
 		
 		setResizable(false);
@@ -418,7 +421,7 @@ public class Cad extends JFrame {
 				
 				dispose();
 				
-				Loginaluno loginScreen = new Loginaluno(aluno, null, admcontroller);
+				Loginaluno loginScreen = new Loginaluno(aluno, null, alunocontroller, tutorcontroller, admcontroller);
 				loginScreen.setVisible(true);
 			}
 		});
@@ -468,7 +471,7 @@ public class Cad extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor, alunocontroller, admcontroller);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor, adm, alunocontroller, tutorcontroller, admcontroller);
 				escolhaScreen.setVisible(true);
 			}
 		});
@@ -485,12 +488,12 @@ public class Cad extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				
-				Cadtutor cadAdmScreen = new Cadtutor(tutor,admcontroller);
+				Cadtutor cadAdmScreen = new Cadtutor(aluno, tutor,alunocontroller, tutorcontroller, admcontroller);
 				cadAdmScreen.setVisible(true);
 			}
 		});
 		
-		/*
+		
 		JLabel linkParaLoginAdm = new JLabel("ADMNISTRADOR");
 		linkParaLoginAdm.setForeground(Color.BLUE);
 		linkParaLoginAdm.setFont(new Font("Tahoma", Font.BOLD, 10));
@@ -502,10 +505,10 @@ public class Cad extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				
-				LoginAdm loginScreen = new LoginAdm(aluno, tutor, adm, alunoController);
+				LoginAdm loginScreen = new LoginAdm(aluno, tutor, adm, alunocontroller, tutorcontroller, admcontroller);
 				loginScreen.setVisible(true);
 			}
-		});*/
+		});
 		
 	}
 }

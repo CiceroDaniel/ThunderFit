@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.Admcontroller;
 import controller.Alunocontroller;
+import controller.Tutorcontroller;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -32,6 +33,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
+import model.Administrador;
 import model.Aluno;
 import model.Tutor;
 
@@ -88,16 +90,19 @@ public class Principal extends JFrame {
 	
 	private Aluno aluno;
 	private Tutor tutor;
+	private Administrador adm;
 	private final Alunocontroller alunocontroller;
+	private final Tutorcontroller tutorcontroller;
 	private final Admcontroller admcontroller;
 	
-	public Principal(Aluno aluno,Alunocontroller alunocontroller,Admcontroller admcontroller) {
+	public Principal(Aluno aluno,Tutor tutor,Administrador adm,Alunocontroller alunocontroller,Tutorcontroller tutorcontroller,Admcontroller admcontroller) {
 		
 		this.aluno=aluno;
-		this.alunocontroller=alunocontroller;
-		this.admcontroller=admcontroller;
-		
 		this.tutor=tutor;
+		this.adm=adm;
+		this.alunocontroller=alunocontroller;
+		this.tutorcontroller=tutorcontroller;
+		this.admcontroller=admcontroller;
 		
 		setResizable(false);
 		setBackground(new Color(224, 188, 233));

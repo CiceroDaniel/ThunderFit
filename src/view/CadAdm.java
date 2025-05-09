@@ -1,8 +1,6 @@
 package view;
 
 
-//FAZER UMA CAIXA DE TEXTO PARA CPF
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,6 +12,8 @@ import controller.Alunocontroller;
 import controller.Tutorcontroller;
 
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import model.Administrador;
 import model.Aluno;//chama a classe aluno que esta no outro pacote
 import model.Tutor;
 import controller.Alunocontroller;
@@ -49,7 +50,7 @@ import javax.swing.SwingConstants;
 
 import services.*;
 
-public class Cadtutor extends JFrame {
+public class CadAdm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -78,13 +79,14 @@ public class Cadtutor extends JFrame {
 	private JLabel linkParaLoginCadastroInstrutor;
 	
 
+
 	private JLabel lblNewLabel_6;
 	private JLabel lblNewLabel_7;
 	private JPasswordField campocpf;
 	private JLabel IMAGEMCPF;
 	private JTextField campoCpf;
-	private JLabel lblAdmnistrador;
 	private JButton btnNewButton_LOGOUT;
+
 
 
 	public class RoundedButtonSimples extends JButton{
@@ -129,20 +131,24 @@ public class Cadtutor extends JFrame {
 		botao.setIconTextGap(10);
 	}
 	
-
-	private Tutor tutor;
-	private Aluno aluno;
-	private final Alunocontroller alunocontroller;
-	private final Tutorcontroller tutorcontroller;
-	private final Admcontroller admController;
 	
-	public Cadtutor(Aluno aluno,Tutor tutor,Alunocontroller alunocontroller,Tutorcontroller tutorcontroller,Admcontroller admController) {
+	private Aluno aluno;
+	private Tutor tutor;
+	private Administrador adm;
+	private final Admcontroller admcontroller;
+	private final Tutorcontroller tutorcontroller;
+	private final Alunocontroller alunocontroller;
+	private JLabel linkParaLoginAdm;
+	
+	public CadAdm(Aluno aluno,Tutor tutor,Administrador adm,Alunocontroller alunocontroller,Tutorcontroller tutorcontroller, Admcontroller admcontroller) {
+		
 	
 		this.aluno=aluno;
-		this.tutor=tutor;
-		this.alunocontroller=alunocontroller;
+		this.tutor = tutor;
+		this.adm=adm;
+		this.admcontroller= admcontroller;
 		this.tutorcontroller=tutorcontroller;
-		this.admController=admController;
+		this.alunocontroller = alunocontroller;
 		
 		setResizable(false);
 		setBackground(new Color(224, 188, 233));
@@ -193,10 +199,10 @@ public class Cadtutor extends JFrame {
 		//================================================================//
 				
 		
-		JLabel lblNewLabel = new JLabel("CADASTRO TUTOR");
+		JLabel lblNewLabel = new JLabel("CADASTRO ADM");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setBounds(154, 53, 198, 66);
+		lblNewLabel.setBounds(187, 56, 134, 66);
 		contentPane.add(lblNewLabel);
 		
 		lblNome = new JLabel("EMAIL");
@@ -308,14 +314,10 @@ public class Cadtutor extends JFrame {
 				String email=Campoemail.getText();
 				String senha= new String(Camposenha.getPassword());
 				String cpf = campoCpf.getText();
-				//LocalDate dataDeNascimento = campoNascimento.getText();
-				//float salario = 0;
 				
                 if(nome.isEmpty() || email.isEmpty() || senha.isEmpty() || cpf.isEmpty()) {
               	
-                	JOptionPane.showMessageDialog(btnCadastro,"Preencha todos os campos");
-                	
-                	
+                	JOptionPane.showMessageDialog(btnCadastro,"Preencha todos os campos");                            	
                 	
                 }else{
                 	
@@ -326,27 +328,24 @@ public class Cadtutor extends JFrame {
                 		return;
                 	}
                 
-                	
+
 				// Cria um objeto aluno com os dados fornecidos
-				Tutor tutor = new Tutor(nome, email, senha, cpf,null,0);		
-				JOptionPane.showMessageDialog(null,tutor.gerarCredenciais());
-	                
+				Administrador adm = new Administrador(nome, email, senha, cpf);
+				JOptionPane.showMessageDialog(null,adm.gerarCredenciaisCadastro());
+				 
 	                // Limpa os campos
 	                Campoemail.setText("");  
 	                Campodenome.setText("");    
 	                Camposenha.setText("");
 	                campoCpf.setText("");
 	                
-	          
-	                admController.Cadastrotutor(tutor);
-	               
+	       
+	                admcontroller.cadastroAdmController(adm);
 	                
 	                dispose();
 	                
-	                TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, tutor, null, alunocontroller, tutorcontroller, admController);
-	                escolhaScreen.setVisible(true);
-	          
-	                
+	                LoginAdm admScreen = new LoginAdm(aluno, tutor, adm, alunocontroller, tutorcontroller, admcontroller);
+	                admScreen.setVisible(true);
 				
 			}
 		}
@@ -414,7 +413,7 @@ public class Cadtutor extends JFrame {
 		contentPane.add(linkParaLoginCadastro);
 		
 		
-	/*	 // Ação do link (redireciona para a tela de login)
+		 // Ação do link (redireciona para a tela de login)
 		linkParaLoginCadastro.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -422,12 +421,12 @@ public class Cadtutor extends JFrame {
 				
 				dispose();
 				
-				
-				Logintutor loginScreen = new Logintutor(tutor);
+				Loginaluno loginScreen = new Loginaluno(aluno, null, alunocontroller, tutorcontroller, admcontroller);
 				loginScreen.setVisible(true);
+			}
 		});
-               
-		*/
+
+		
 		lblNewLabel_6 = new JLabel("____");
 		lblNewLabel_6.setForeground(new Color(204, 102, 255));
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -458,18 +457,12 @@ public class Cadtutor extends JFrame {
 		IMAGEMCPF.setBounds(10, 413, 45, 45);
 		contentPane.add(IMAGEMCPF);
 		
-		lblAdmnistrador = new JLabel("ADMNISTRADOR");
-		lblAdmnistrador.setForeground(Color.BLUE);
-		lblAdmnistrador.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblAdmnistrador.setBounds(27, 640, 100, 33);
-		contentPane.add(lblAdmnistrador);
 		
-		
-		JLabel linkParaLoginCadastroAluno = new JLabel("CADASTRO DE ALUNO");
-		linkParaLoginCadastroAluno.setForeground(Color.BLUE);
-		linkParaLoginCadastroAluno.setFont(new Font("Tahoma", Font.BOLD, 10));
-		linkParaLoginCadastroAluno.setBounds(27, 619, 262, 33);
-		contentPane.add(linkParaLoginCadastroAluno);
+		JLabel linkParaLoginCadastroTutor = new JLabel("CADASTRO DE TUTOR");
+		linkParaLoginCadastroTutor.setForeground(Color.BLUE);
+		linkParaLoginCadastroTutor.setFont(new Font("Tahoma", Font.BOLD, 10));
+		linkParaLoginCadastroTutor.setBounds(27, 619, 262, 33);
+		contentPane.add(linkParaLoginCadastroTutor);
 		
 		btnNewButton_LOGOUT = new JButton("");
 		setImageBotao(btnNewButton_LOGOUT,"/img/LOGOUT.jpeg",30,30);
@@ -478,7 +471,7 @@ public class Cadtutor extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, tutor, null, alunocontroller, tutorcontroller, admController);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor, alunocontroller, tutorcontroller, admcontroller);
 				escolhaScreen.setVisible(true);
 			}
 		});
@@ -487,36 +480,35 @@ public class Cadtutor extends JFrame {
 		btnNewButton_LOGOUT.setBounds(10, 10, 30, 30);
 		contentPane.add(btnNewButton_LOGOUT);
 	
+	
 		//CONCERTE O CADTUTOR
 		
-		
-		
-		linkParaLoginCadastroAluno.addMouseListener(new MouseAdapter() {
+		linkParaLoginCadastroTutor.addMouseListener(new MouseAdapter() {
 			@Override	
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				
-				CadAluno cadAlunoScreen = new CadAluno(aluno, tutor,null, alunocontroller, tutorcontroller, admController);
-				cadAlunoScreen.setVisible(true);
-			}
-		});
-		
-		
-		
-		
-		
-		/*
-		linkParaLoginCadastroAdm.addMouseListener(new MouseAdapter() {
-			@Override	
-			public void mouseClicked(MouseEvent e) {
-				dispose();
-				
-				Cadtutor cadAdmScreen = new Cadtutor();
+				Cadtutor cadAdmScreen = new Cadtutor(aluno, tutor,alunocontroller, tutorcontroller, admcontroller);
 				cadAdmScreen.setVisible(true);
 			}
 		});
-		*/
+		
+		/*
+		JLabel linkParaLoginAdm = new JLabel("ADMNISTRADOR");
+		linkParaLoginAdm.setForeground(Color.BLUE);
+		linkParaLoginAdm.setFont(new Font("Tahoma", Font.BOLD, 10));
+		linkParaLoginAdm.setBounds(27, 640, 262, 33);
+		contentPane.add(linkParaLoginAdm);
+		
+		linkParaLoginAdm.addMouseListener(new MouseAdapter() {
+			@Override	
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				
+				LoginAdm loginScreen = new LoginAdm(aluno, tutor, adm, alunoController);
+				loginScreen.setVisible(true);
+			}
+		});*/
 		
 	}
 }
-		

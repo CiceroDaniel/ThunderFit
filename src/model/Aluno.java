@@ -31,8 +31,7 @@ public class Aluno extends Usuario {
 	   //TELA DE CADASTRO ALUNO
 		public Aluno(String nome,String email,String senha,String cpf) {
 			super(nome, email, senha,cpf);
-			this.altura=0;
-			this.peso=0;
+			
 			
 		}
 
@@ -49,27 +48,6 @@ public class Aluno extends Usuario {
 			this.imc= peso/(altura * altura);
 			}
 		
-		//*----------------METODOS--------------
-		/*
-		 * 
-		 * 
-		 *METODOS QUE PRECISAM SER IMPLEMENTADOS 
-		 * 
-		 * 
-		public double calcularImc() {
-		return imc;
-		}
-		
-		public boolean alunoPresente() {
-			return false;
-		}
-		
-		public int alunoFrequenecia(){
-		
-		}
-		
-		*/
-		
 
 		@Override
 		public String gerarCredenciaisCadastro() {
@@ -79,7 +57,7 @@ public class Aluno extends Usuario {
 		
 		//@Override
 		public String gerarCredenciaisLogin() {
-			return String.format("\nAltura: %.2f \nPeso: %.2f\nGenero:%s\nMetas:%s\nPlano:%s\nData de inicio:%s\nData de Nascimento:%s\nIMC: %.2f",
+			return String.format("\nAltura: %.2f \nPeso: %.2f\nGenero:%s\nMetas:%s\nPlano:%s\nData de inicio:%s\nData de Nascimento:%s\nIMC: %.f",
 					this.getAltura(),this.getPeso(),this.getGenero(),this.getMetas(),this.getPlano(),this.getDatainicio(),this.getDatanascimento(),this.getImc());
 			}
 		

@@ -12,36 +12,23 @@ import services.*;
 
 public class Tutorcontroller {
 	
-
-	private  AuthService authservice = new AuthService(new UsuarioRepository());
-	private  UsuarioService usuarioservice = new UsuarioService(new UsuarioRepository()); 
+	private final AuthService authservice;
+	private final UsuarioService usuarioservice;
 	
-	public List<Tutor>getTutoresCadastrados(){
-		return usuarioservice.listarTutores(null);
+	public Tutorcontroller(AuthService authservice,UsuarioService usuarioservice) {
+		this.authservice=authservice;
+		this.usuarioservice=usuarioservice;
 	}
-	//METODOS CHAMAM O SERVICE
-	public void cadastroTutoresController(Tutor tutor) {
-	//cadastroAluno
-    usuarioservice.cadastroTutor(tutor.getNome(),tutor.getEmail(),tutor.getSenha(),tutor.getCpf(), null, 0);
-	
-}
 	public Tutor loginTutorController(String email,String senha) {
 		
-		//verificar
-		return (Tutor) authservice.login(email, senha);
+	Usuario usuario = authservice.login(email, senha);
+		
+	if(usuario instanceof Tutor) {
+		return (Tutor) usuario;
+	}else {
+		throw new IllegalArgumentException("O usuario não é um tutor");
 	}
 	
-	
-		
-		 public boolean verificarAlunoExistente(Aluno aluno) {
-		
-		  return usuarioservice.buscarPorCpf(aluno.getCpf(), aluno) != null || 
-				  usuarioservice.buscarPorEmail(aluno.getEmail(), aluno)!= null;
-		    }
-		 
-		 //ESSE METODO É CHAMADO PELO TUTOR NA TABELA
-		 //APÓS SELECIONAR O ALUNO ELE APLICA O PAGAMENTO CHAMANDO ESSE METODO
-		 public boolean confirmarAlunoPagament(Aluno aluno) {
-			 return true;
-		 }
+	}
+
 }

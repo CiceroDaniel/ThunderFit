@@ -277,25 +277,25 @@ public class Perfil extends JFrame {
 		JLabel PRODUTIVIDADE = new JLabel("<dynamic>");
 		PRODUTIVIDADE.setForeground(Color.WHITE);
 		PRODUTIVIDADE.setFont(new Font("Tahoma", Font.BOLD, 15));
-		PRODUTIVIDADE.setBounds(86, 101, 57, 42);
+		PRODUTIVIDADE.setBounds(71, 101, 119, 42);
 		panel_2_1_1_1.add(PRODUTIVIDADE);
 		
 		JLabel PESO = new JLabel(""+aluno.getPeso());
 		PESO.setForeground(Color.WHITE);
 		PESO.setFont(new Font("Tahoma", Font.BOLD, 15));
-		PESO.setBounds(37, 78, 44, 42);
+		PESO.setBounds(43, 78, 44, 42);
 		panel_2_1_1.add(PESO);
 		
 		JLabel ALTURA = new JLabel(""+aluno.getAltura());
 		ALTURA.setForeground(Color.WHITE);
 		ALTURA.setFont(new Font("Tahoma", Font.BOLD, 15));
-		ALTURA.setBounds(109, 78, 57, 42);
+		ALTURA.setBounds(115, 78, 57, 42);
 		panel_2_1_1.add(ALTURA);
 		
-		JLabel IMC = new JLabel("<dynamic>");
+		JLabel IMC = new JLabel(""+aluno.getImc());
 		IMC.setForeground(Color.WHITE);
 		IMC.setFont(new Font("Tahoma", Font.BOLD, 15));
-		IMC.setBounds(176, 78, 57, 42);
+		IMC.setBounds(188, 78, 57, 42);
 		panel_2_1_1.add(IMC);
 		
 		JLabel DATADEINICIO = new JLabel(""+aluno.getDatainicio());	
@@ -314,7 +314,7 @@ public class Perfil extends JFrame {
 		JLabel PACOTE = new JLabel(""+aluno.getPlano());
 		PACOTE.setForeground(Color.WHITE);
 		PACOTE.setFont(new Font("Tahoma", Font.BOLD, 15));
-		PACOTE.setBounds(165, 85, 103, 24);
+		PACOTE.setBounds(165, 85, 145, 24);
 		panel_2_1.add(PACOTE);
 		
 		JLabel VALOR = new JLabel(""+aluno.getPlano().getValor());
@@ -337,7 +337,7 @@ public class Perfil extends JFrame {
 				
 				dispose();
 				
-				Principal principalScreen = new Principal(aluno,alunocontroller, admcontroller);
+				Principal principalScreen = new Principal(aluno,null, null, alunocontroller, null, admcontroller);
 				principalScreen.setVisible(true);
 				
 			}
@@ -352,7 +352,7 @@ public class Perfil extends JFrame {
 				
 				dispose();
 				
-				Loginaluno loginScreen = new Loginaluno(aluno,alunocontroller,admcontroller);
+				Loginaluno loginScreen = new Loginaluno(aluno,null, alunocontroller,null, admcontroller);
 				loginScreen.setVisible(true);
 			}
 		});

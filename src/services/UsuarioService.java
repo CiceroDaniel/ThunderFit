@@ -50,7 +50,7 @@ public class UsuarioService {
 		Tutor tutor = new Tutor(nome, email, senha,cpf, dataDeNascimento, salario);
 		
 		usuarioRepository.cadastro(tutor);
-		//System.out.println(tutor.gerarCredenciais());
+	
 	}
 	
 	public void cadastroAdministrador(String nome, String email, String senha, String cpf,LocalDate dataDeNascimento) {
@@ -87,11 +87,10 @@ public class UsuarioService {
 
 	public List<Tutor> listarTutores(Usuario solicitante){
 		
-		//------TA DANDO ERRO NO LOGIN DO TUTOR
-		
 		if(!(solicitante instanceof Administrador)) {
-			throw new SecurityException("Apenas ADMs podem listar,tutores não podem");
+			throw new SecurityException("Apenas ADMs podem listar");
 		}
+		
 		return usuarioRepository.listarTutores();
 	}
 	
@@ -115,7 +114,7 @@ public class UsuarioService {
 		}
 	}
 	
-	public void atualizarPlanoAluno(String cpf, Plano novoPlano, Usuario solicitante) {
+	public void atualizarPlanoAluno(String cpf, Plano novoPlano, Usuario solicitante) throws SecurityException {
 		if(!solicitante.temAcessoAdmin()) {//talvez erro
 			throw new SecurityException("Apenas tutores e ADMs podem buscar Usuarios");
 		}

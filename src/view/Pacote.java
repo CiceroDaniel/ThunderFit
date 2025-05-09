@@ -275,7 +275,7 @@ public class Pacote extends JFrame {
 				
 				dispose();
 				
-				Principal principalScreen = new Principal(aluno, null, null);
+				Principal principalScreen = new Principal(aluno, null, null, null, null, null);
 				principalScreen.setVisible(true);
 
 				btnNewButton_perfil.setBounds(1030, 4, 30, 30);

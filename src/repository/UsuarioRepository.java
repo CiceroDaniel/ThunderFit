@@ -22,8 +22,9 @@ public class UsuarioRepository implements InterfaceRepository<Usuario>{
 	public void cadastro(Usuario usuario) {
 		
 		
-		//NÃO CONSIGO IMPLEMENTAR,MESMO INFORMANDO A DATA NO FORMULARIO 
-		//Objects.requireNonNull(usuario,"Erro: Usuario não pode ser nulo!");
+		Objects.requireNonNull(usuario,"Erro: Usuario não pode ser nulo!");
+		
+		//Não tá funcionano no front
 		//Objects.requireNonNull(usuario.getDataDeNascimento(),"Data de nascimento obrigatoria");
 		
 		if(usuario.getNome()==null || usuario.getNome().isBlank()) {

@@ -8,10 +8,10 @@ import services.AuthService;
 import services.UsuarioService;
 
 public class usuarioConsole {
-	UsuarioRepository uRepo = new UsuarioRepository();
-	UsuarioService services = new UsuarioService(uRepo);
-	AuthService auth = new AuthService(uRepo);
-	Scanner scanner = new Scanner(System.in);
+//	UsuarioRepository uRepo = new UsuarioRepository();
+//	UsuarioService services = new UsuarioService(uRepo);
+	//AuthService auth = new AuthService(Repo);
+	//Scanner scanner = new Scanner(System.in);
 	//toolbox tools = new toolbox();
 
 	Nivel nivel;
@@ -20,14 +20,17 @@ public class usuarioConsole {
 	Genero genero;
 
 	String descricao = null;
+	private Scanner scanner;
+	private UsuarioService services;
 	
-	public usuarioConsole(UsuarioRepository repo) {
-		this.uRepo = repo;
-		this.services = new UsuarioService(repo);
-		this.auth = new AuthService(repo);
+	
+	public usuarioConsole(Scanner scanner, UsuarioService services) {
+		this.scanner = scanner;
+	    this.services = services;
 	}
+
 	
-	public void cadastroMenu() {
+	public void cadastroMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		System.out.println("==============CADASTRO=================");
 		System.out.println("1. NOME DE USUÁRIO");
@@ -63,7 +66,7 @@ public class usuarioConsole {
 
 	}
 	/////////////////////////////////////////////////////////////////////////
-	public void loginMenu() {
+	public void loginMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		System.out.println("==============LOGIN===============");
 		System.out.println("E-MAIL: ");
@@ -74,9 +77,61 @@ public class usuarioConsole {
 		
 		auth.login(emailLogin, senhaLogin);
 		System.out.println(auth.getUsuarioLogado());
+		
+		if(auth.getUsuarioLogado() == true) {
+			alunoMenu();
+		}
 	}
 	
 	
+	////////////////////////////////////////////////////////////////////////
+	public final void alunoMenu() {
+		int op;
+		do {
+			System.out.println("========= MENU ALUNO =========="
+					+ "\n1 - PERFIL"
+					+ "\n2 - INSTRUTORES"
+					+ "\n3 - CRONOGRAMA"
+					+ "\n4 - PACOTES");
+			op = scanner.nextInt();
+			scanner.nextLine();
+			
+			switch(op) {
+			case 1 :  //chama o perfil;
+				break;
+			case 2 :  listarTutor();
+				break;
+			case 3: //cronograma
+				break;
+			case 4: System.out.println(Plano.mostrarPlanos());
+				break;
+			case 5 :System.out.println("SAINDO DO SISTEMA.......");
+			System.exit(0);
+			default: System.out.println("OPÇÃO INVALIDA!");
+		}
+			
+		}while(op!=0);
+		
+	}
+	////////////////////////////////////////////////////////////////////////
+	
+	/*public void Perfil() {
+		toolbox.espacoMenu();
+		
+		 if (!auth.getUsuarioLogado()) {
+		        System.out.println("Nenhum usuário logado.");
+		        return;
+		    }
+		
+		 Usuario usuario = auth.getUsuario();
+		 
+		 
+			
+	}*/
+	
+	public void listarTutor() {
+		services.listarTutores();
+	}
 	
 	////////////////////////////////////////////////////////////////////////
 	public void nivelMenu() {

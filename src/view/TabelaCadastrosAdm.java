@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import controller.Admcontroller;
 import controller.Alunocontroller;
 import model.Aluno;
 import model.ModeloTabela;
@@ -41,29 +42,14 @@ public class TabelaCadastrosAdm extends JFrame {
 	
 	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TabelaCadastrosAdm frame = new TabelaCadastrosAdm();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public TabelaCadastrosAdm() {
-         ArrayList<Aluno> alunos;
-         ModeloTabela modelotabela;
-		//alunos.add();
+	private final Admcontroller admcontroller;
+	
+	public TabelaCadastrosAdm(Admcontroller admcontroller) {
+		
+		this.admcontroller=admcontroller;
+		
+         List<Aluno> alunos = admcontroller.listaralunoController(null); 
+         ModeloTabela modelotabela = new ModeloTabela(alunos);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1080,720);
@@ -86,16 +72,11 @@ public class TabelaCadastrosAdm extends JFrame {
 		scrollPane.setBounds(37, 49, 752, 584);
 		contentPane.add(scrollPane);
 		
-		//-------------------------------------------------------------
+
+		List<Aluno> alunosFiltrados = admcontroller.filtrarAlunos(nomeFiltro,emailFiltro,cpfFiltro);
+		ModeloTabela modeloFiltrado = new ModeloTabela(alunosFiltrados);
+		table.setModel(modeloFiltrado);
 		
-        alunos = (ArrayList<Aluno>)Alunocontroller.getAlunosCadastrados();
-		modelotabela = new ModeloTabela(alunos);
-		
-		
-		//--------------------------------------------------------------
-		
-		table = new JTable();
-		table.setModel(modelotabela);
 		scrollPane.setViewportView(table);
 		
 		panel = new JPanel();
@@ -135,8 +116,13 @@ public class TabelaCadastrosAdm extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				
+				String nomeFiltro = camponome.getText();
+				String emailFiltro = campoemail.getText();
+				String cpfFiltro = campocpf.getText();
 				
-				
+				List<Aluno>alunosFiltrados = admcontroller.filtrarAlunos(nomeFiltro,emailFiltro,cpfFiltro)
+				ModeloTabela modelofiltrado = new ModeloTabela(alunosFiltrados);
+				table.setModel(modeloFiltrado);
 			}
 			
 		});
@@ -151,16 +137,35 @@ public class TabelaCadastrosAdm extends JFrame {
 		
 		JButton btnExcluir = new JButton("EXCLUIR");
 		btnExcluir.setFont(new Font("Tahoma", Font.PLAIN, 7));
-		btnExcluir.setBounds(870, 352, 107, 25);
+		btnExcluir.setBounds(939, 345, 107, 25);
 		contentPane.add(btnExcluir);
-		/*
-		public void filtrarTabela() {
-			String nomeFiltro = camponome.getText();
-			String emailFiltro = campoemail.getText();
-			String cpfFiltro = campocpf.getText();
-			
-			List<Aluno>filtrador = new ArrayList<>();
-			
-		}*/
+		
+		btnExcluir.addActionListener(new ActionListener()){
+			public void actionPerformed(ActionEvent e) {
+				if(selectedRow != -1) {
+					Aluno alunoSelecionado = alunos.get(selectedRow);
+					admcontroller.excluirAluno(alunoSelecionado);
+					modeloTabela.fireTableDataChanged();
+				}
+			}
+		});	
+		JButton EDITAR = new JButton("EDITAR");
+		EDITAR.setFont(new Font("Tahoma", Font.PLAIN, 7));
+		EDITAR.setBounds(799, 346, 107, 25);
+		contentPane.add(EDITAR);
+		
+		EDITAR.addActionListener(new ActionListener()){
+			public void actionPerformed(ActionEvent e) {
+				
+				int selectedRow = table.getSelectedRow();
+				
+				if(selectedRow != -1) {
+					Aluno alunoSelecionado = alunos.get(selectedRow);
+					
+				}
+			}
+		});	
+		
+
 	}
 }

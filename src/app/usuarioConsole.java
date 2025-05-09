@@ -8,10 +8,10 @@ import services.AuthService;
 import services.UsuarioService;
 
 public class usuarioConsole {
-	UsuarioRepository uRepo = new UsuarioRepository();
-	UsuarioService services = new UsuarioService(uRepo);
-	AuthService auth = new AuthService(uRepo);
-	Scanner scanner = new Scanner(System.in);
+//	UsuarioRepository uRepo = new UsuarioRepository();
+//	UsuarioService services = new UsuarioService(uRepo);
+	//AuthService auth = new AuthService(Repo);
+	//Scanner scanner = new Scanner(System.in);
 	//toolbox tools = new toolbox();
 
 	Nivel nivel;
@@ -20,14 +20,17 @@ public class usuarioConsole {
 	Genero genero;
 
 	String descricao = null;
+	private Scanner scanner;
+	private UsuarioService services;
 	
-	public usuarioConsole(UsuarioRepository repo) {
-		this.uRepo = repo;
-		this.services = new UsuarioService(repo);
-		this.auth = new AuthService(repo);
+	
+	public usuarioConsole(Scanner scanner, UsuarioService services) {
+		this.scanner = scanner;
+	    this.services = services;
 	}
+
 	
-	public void cadastroMenu() {
+	public void cadastroMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		System.out.println("==============CADASTRO=================");
 		System.out.println("1. NOME DE USUÁRIO");
@@ -63,7 +66,7 @@ public class usuarioConsole {
 
 	}
 	/////////////////////////////////////////////////////////////////////////
-	public void loginMenu() {
+	public void loginMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		System.out.println("==============LOGIN===============");
 		System.out.println("E-MAIL: ");

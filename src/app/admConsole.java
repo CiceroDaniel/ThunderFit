@@ -19,10 +19,20 @@ public class admConsole {
 	tutorConsole tutor = new tutorConsole(uRepo);
 	AuthService auth = new AuthService(uRepo);
 	
-	public admConsole(UsuarioRepository repo) {
-		this.uRepo = repo;
-		this.services = new UsuarioService(repo);
-		this.auth = new AuthService(repo);
+	private UsuarioRepository repo;
+	usuarioConsole userConsole;
+	admConsole admConsole;
+	tutorConsole tutorConsole;
+	private Scanner scanner;
+	private toolbox tools;
+	private AuthService auth;
+	private UsuarioService services;
+	
+	public admConsole(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
+		this.scanner = scanner;
+	    this.repo = repo;
+	    this.auth = auth;
+	    this.services = services;
 	}
 
 	

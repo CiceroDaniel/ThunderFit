@@ -5,6 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.Admcontroller;
+import controller.Alunocontroller;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -84,10 +88,15 @@ public class Principal extends JFrame {
 	
 	private Aluno aluno;
 	private Tutor tutor;
+	private final Alunocontroller alunocontroller;
+	private final Admcontroller admcontroller;
 	
-	public Principal(Aluno aluno,Tutor tutor) {
+	public Principal(Aluno aluno,Alunocontroller alunocontroller,Admcontroller admcontroller) {
 		
 		this.aluno=aluno;
+		this.alunocontroller=alunocontroller;
+		this.admcontroller=admcontroller;
+		
 		this.tutor=tutor;
 		
 		setResizable(false);
@@ -324,7 +333,7 @@ public class Principal extends JFrame {
 				
 				dispose();
 				
-				Perfil perfilScreen = new Perfil(aluno);
+				Perfil perfilScreen = new Perfil(aluno, alunocontroller, admcontroller);
 				perfilScreen.setVisible(true);
 				
 			}

@@ -69,12 +69,6 @@ public class Loginaluno extends JFrame {
 	private JLabel lblNewLabel_iconeSenha;
 	private JLabel lblNewLabel_walpaper2;
 	
-
-	 // Lista de alunos cadastrados
-	
-	
-   // private ArrayList<Aluno> alunos = (ArrayList<Aluno>) Alunocontroller.getAlunos();
-
 	
 	//===========================ARREDONDAR BORDAS DOS BOTÕES===============================//
 	
@@ -124,12 +118,12 @@ public class Loginaluno extends JFrame {
 		private Tutor tutor;
 		private JButton btnNewButton_LOGOUT;
         private Alunocontroller alunocontroller;
+        private final Admcontroller admcontroller;
 		
-	public Loginaluno(Aluno aluno,Alunocontroller alunocontroller) {
-		
-		AuthService service = new AuthService(null);
+	public Loginaluno(Aluno aluno,Alunocontroller alunocontroller,Admcontroller admcontroller) {
 		
 		this.alunocontroller=alunocontroller;
+		this.admcontroller=admcontroller;
 		this.aluno=aluno;
 		
 		setResizable(false);
@@ -184,28 +178,17 @@ public class Loginaluno extends JFrame {
                 		return;
                 	}
                 	
-	             //TESTAR SE O LOGIN É VALIDO
-	                boolean loginValido = false;
-	                
+	    
                 // Verifica se algum cliente cadastrado tem o email e senha corretos
-	                for (Aluno aluno : alunocontroller.loginAlunoController(email, senha)) {//VERIFICA A LISTA DE PESSOAS CADASTRADAs
+	                Aluno alunoLogado = alunocontroller.loginAlunoController(email, senha);
 	               
 	                	
-	                	if (aluno.getEmail().equals(email) && aluno.getSenha().equals(senha)) {
+	                	if (alunoLogado != null) {
 						
-	                        loginValido = true;
-	                        break;
-	                }
-	              }
-	                if (loginValido) {
-	                    JOptionPane.showMessageDialog(btnLogin, "Bem vindo!");
-	               
-		                // Direciona para a tela principal após o login
-	                    dispose();
+	                		JOptionPane.showMessageDialog(btnLogin,"Bem vindo"+alunoLogado.getNome()+"!");
+	                        
 	                    
-	                    
-	                    
-	                    Principal principalScreen = new Principal(aluno, tutor);
+	                    Principal principalScreen = new Principal(alunoLogado, alunocontroller, admcontroller);
 	                    principalScreen.setVisible(true);
 
 	                } else {
@@ -390,7 +373,7 @@ public class Loginaluno extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor,alunocontroller, admcontroller);
 				escolhaScreen.setVisible(true);
 				
 			}
@@ -407,7 +390,7 @@ public class Loginaluno extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen = new Cad(aluno,tutor, null);
+				Cad cadScreen = new Cad(aluno,tutor,alunocontroller, admcontroller);
 				cadScreen.setVisible(true);
 		}
 	});

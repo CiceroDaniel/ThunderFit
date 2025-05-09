@@ -259,7 +259,7 @@ public class Cronograma extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				
-				Principal principalScreen = new Principal(aluno, null);
+				Principal principalScreen = new Principal(aluno, null, null);
 				principalScreen.setVisible(true);
 			}
 		});

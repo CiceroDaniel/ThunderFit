@@ -83,9 +83,6 @@ public class Cadtutor extends JFrame {
 	private JTextField campoCpf;
 	private JLabel lblAdmnistrador;
 	private JButton btnNewButton_LOGOUT;
-	
-	private Tutor tutor;
-	private final Alunocontroller alunoController;
 
 
 	public class RoundedButtonSimples extends JButton{
@@ -131,13 +128,13 @@ public class Cadtutor extends JFrame {
 	}
 	
 
-	private Admcontroller admController;
+	private Tutor tutor;
+	private final Admcontroller admController;
 	
 	public Cadtutor(Tutor tutor, Admcontroller admController) {
 		
 		this.tutor=tutor;
 		this.admController=admController;
-		this.alunoController = null;
 		
 		setResizable(false);
 		setBackground(new Color(224, 188, 233));

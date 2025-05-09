@@ -16,10 +16,6 @@ public class UsuarioService {
 	public UsuarioService(UsuarioRepository usuarioRepository) {
 		this.usuarioRepository = usuarioRepository;
 	}
-
-	
-	//UsuarioRepository repositorio = new UsuarioRepository();
-	
 	
 	
 	//--------------------------- CADASTRO ---------------------------------
@@ -37,11 +33,9 @@ public class UsuarioService {
 		
 		Aluno aluno = new Aluno(nome, email,senha,cpf,dataDeNascimento,altura, peso,nivel,metas,metaPersonalizada, plano, genero);			
 		
-		//Aluno aluno = new Aluno(nome, email,senha,cpf, dataDeNascimento, altura, peso, nivel, metas, metaPersonalizada, plano, genero);
 		
 		usuarioRepository.cadastro(aluno);
 		
-		//System.out.println(aluno.gerarCredenciais());
 	}
 	
 	public void cadastroTutor(String nome,String email,String senha, String cpf,LocalDate dataDeNascimento ,float salario ) {

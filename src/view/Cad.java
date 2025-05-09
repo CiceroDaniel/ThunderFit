@@ -87,12 +87,7 @@ public class Cad extends JFrame {
 	private JTextField campoCpf;
 	private JButton btnNewButton_LOGOUT;
 
-	
-	private Aluno aluno;
-	private Tutor tutor;
-	private Administrador adm;
-	private final Admcontroller admController;
-	private JLabel linkParaLoginAdm;
+
 
 	public class RoundedButtonSimples extends JButton{
 		private int arc;
@@ -136,13 +131,20 @@ public class Cad extends JFrame {
 		botao.setIconTextGap(10);
 	}
 	
-
 	
-	public Cad(Aluno aluno,Tutor tutor, Admcontroller admController) {
+	private Aluno aluno;
+	private Tutor tutor;
+	private final Admcontroller admcontroller;
+	private final Alunocontroller alunocontroller;
+	private JLabel linkParaLoginAdm;
+	
+	public Cad(Aluno aluno,Tutor tutor,Alunocontroller alunocontroller, Admcontroller admcontroller) {
 		
+	
 		this.aluno=aluno;
 		this.tutor = tutor;
-		this.admController= admController;
+		this.admcontroller= admcontroller;
+		this.alunocontroller = alunocontroller;
 		
 		setResizable(false);
 		setBackground(new Color(224, 188, 233));
@@ -324,20 +326,21 @@ public class Cad extends JFrame {
                 
                 	
 				// Cria um objeto aluno com os dados fornecidos
-				Aluno aluno = new Aluno(nome, email, senha, cpf);		
-				 JOptionPane.showMessageDialog(null,aluno.gerarCredenciaisCadastro());
-	                
+				Aluno aluno = new Aluno(nome, email, senha, cpf);
+				JOptionPane.showMessageDialog(null,aluno.gerarCredenciaisCadastro());
+				  System.out.println("INFO:\n"+aluno.gerarCredenciaisCadastro());
 	                // Limpa os campos
 	                Campoemail.setText("");  
 	                Campodenome.setText("");    
 	                Camposenha.setText("");
 	                campoCpf.setText("");
 	                
-	                System.out.println("INFO"+aluno.gerarCredenciaisCadastro());
+	       
 	                
 	                dispose();
+	                
 	                //ta pegando as informações do aluno nome,email e senha e mandando para a subtela
-	                Formulario formularioScreen = new Formulario(aluno, tutor, admController);
+	                Formulario formularioScreen = new Formulario(aluno,tutor,alunocontroller, admcontroller);
 	                formularioScreen.setVisible(true);
 	                
 				
@@ -415,7 +418,7 @@ public class Cad extends JFrame {
 				
 				dispose();
 				
-				Loginaluno loginScreen = new Loginaluno(aluno);
+				Loginaluno loginScreen = new Loginaluno(aluno, null, admcontroller);
 				loginScreen.setVisible(true);
 			}
 		});
@@ -465,7 +468,7 @@ public class Cad extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor, admController);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor, alunocontroller, admcontroller);
 				escolhaScreen.setVisible(true);
 			}
 		});
@@ -482,7 +485,7 @@ public class Cad extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				
-				Cadtutor cadAdmScreen = new Cadtutor(tutor,admController);
+				Cadtutor cadAdmScreen = new Cadtutor(tutor,admcontroller);
 				cadAdmScreen.setVisible(true);
 			}
 		});

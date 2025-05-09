@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.Admcontroller;
 import controller.Alunocontroller;
 import controller.Tutorcontroller;
 import model.Aluno;
@@ -121,9 +122,12 @@ public class Logintutor extends JFrame {
 		}
 		private Aluno aluno;
 		private Tutor tutor;
+		private final Admcontroller admcontroller;
 		private JButton btnNewButton_LOGOUT;
 		
-	public Logintutor(Tutor tutor) {
+	public Logintutor(Tutor tutor,Admcontroller admcontroller) {
+		
+		this.admcontroller=admcontroller;
 		
 		//SO PRA VERIFICAR SE O TUTOR FOI PASSADO CORRETAMENTE
 				if(tutor == null) {
@@ -189,7 +193,7 @@ public class Logintutor extends JFrame {
 	                boolean loginValido = false;
 	                
                 // Verifica se algum cliente cadastrado tem o email e senha corretos
-	                for (Tutor tutor : Tutorcontroller.getTutoresCadastrados()) {//VERIFICA A LISTA DE PESSOAS CADASTRADAs
+	                for (Tutor tutor : admcontroller.Cadastrotutor(tutor)) {//VERIFICA A LISTA DE PESSOAS CADASTRADAs
 	                if (tutor.getEmail().equals(email) && tutor.getSenha().equals(senha)) {
 						
 	                        loginValido = true;
@@ -389,7 +393,7 @@ public class Logintutor extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor, admcontroller);
 				escolhaScreen.setVisible(true);
 				
 			}
@@ -406,7 +410,7 @@ public class Logintutor extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen = new Cad(aluno,tutor);
+				Cad cadScreen = new Cad(aluno,tutor, admcontroller);
 				cadScreen.setVisible(true);
 		}
 	});

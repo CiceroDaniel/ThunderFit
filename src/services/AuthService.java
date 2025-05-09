@@ -7,9 +7,14 @@ import repository.UsuarioRepository;
 public class AuthService {
 	private final UsuarioRepository usuarioRepository;
 	private Usuario usuarioLogado;
+	private UsuarioService usuarioService;
+	
+	//modifiquei
 	
 	public AuthService(UsuarioRepository usuarioRepository) {
-		this.usuarioRepository=usuarioRepository;
+		this.usuarioService = usuarioService;
+		this.usuarioRepository = usuarioRepository;
+		this.usuarioLogado= null;
 	}
 	
 	

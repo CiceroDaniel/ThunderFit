@@ -83,7 +83,7 @@ public class Tabelacadastrosdotutor extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, tutor);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, tutor, null);
 				escolhaScreen.setVisible(true);
 				
 			}
@@ -97,7 +97,7 @@ public class Tabelacadastrosdotutor extends JFrame {
 		
 		//-------------------------------------------------------------
 		
-        alunos = (ArrayList<Aluno>)Alunocontroller.getAlunosCadastrados();
+        alunos = (ArrayList<Aluno>)Admcontroller.getAlunosCadastrados();
 		modelotabela = new ModeloTabela(alunos);
 		
 		

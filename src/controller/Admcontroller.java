@@ -11,6 +11,8 @@ import services.*;
 //METODOS PRINCIPAIS DO ALUNO
 
 public class Admcontroller {
+
+	
 	
 	private final AuthService authservice;
 	private final UsuarioService usuarioservice;

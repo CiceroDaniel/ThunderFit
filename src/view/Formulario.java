@@ -27,6 +27,7 @@ import javax.swing.border.SoftBevelBorder;
 
 import controller.Admcontroller;
 import controller.Alunocontroller;
+import model.Administrador;
 import model.Aluno;
 import model.Genero;
 import model.Metas;
@@ -142,12 +143,15 @@ public class Formulario extends JFrame {
 	
 	private Aluno aluno;
 	private Tutor tutor;
+	private final Alunocontroller alunoController;
 	private final Admcontroller admController;
 	
-	public Formulario(Aluno aluno,Tutor tutor,Admcontroller admController) {
+	public Formulario(Aluno aluno,Tutor tutor,Alunocontroller alunocontroller,Admcontroller admController) {
+		
 		
 		this.aluno = aluno;
 	    this.tutor=tutor;
+		this.alunoController = alunocontroller;
 		this.admController = admController;
 		
 		
@@ -575,11 +579,6 @@ public class Formulario extends JFrame {
 				}
 				
 				
-				
-				
-				//System.out.println("imc"+aluno.calcularImc(0));
-				
-				
 				double peso = Double.parseDouble(Peso.getText());
 				double altura = Double.parseDouble(Altura.getText());
 				String datanascimento = Datanascimento.getText();
@@ -589,6 +588,8 @@ public class Formulario extends JFrame {
 				//TO USANDO OS SETTERS PORQUE DIVIDIMOS A TELA EM DUAS ETAPAS
 				//CADASTRO --> FORMULARIO
 				//AI NÃO PRECISO FICAR FAZENDO SEMPRE UM NOVO CONSTRUTOR
+			
+			
 				
 				aluno.setDatanascimento(datanascimento);
 				aluno.setDatainicio(datainicio);
@@ -597,6 +598,14 @@ public class Formulario extends JFrame {
 				aluno.setPlano(planoSelecionado);
 				aluno.setGenero(generoSelecionado);
 				aluno.setMetas(metaSelecionada);
+				
+	
+				System.out.println("Genero:"+aluno.getGenero());
+				System.out.println("Altura:"+aluno.getAltura());
+				System.out.println("Peso:"+aluno.getPeso());
+				System.out.println("Datanasciemnto:"+aluno.getDatanascimento());
+				System.out.println("Data inicio:"+aluno.getDatainicio());
+				System.out.println("Plano:"+aluno.getPlano());
 				
 				admController.cadastroAlunoController(aluno);
 				
@@ -610,7 +619,7 @@ public class Formulario extends JFrame {
 				
 					dispose();
 					
-					TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, tutor, admController);
+					TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, tutor,alunocontroller, admController);
 					escolhaScreen.setVisible(true);
 				
 			
@@ -619,7 +628,7 @@ public class Formulario extends JFrame {
 		continuar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		continuar.setForeground(new Color(255, 255, 255));
 		continuar.setBackground(new Color(255, 102, 153));
-		continuar.setBounds(550, 520, 130, 25);
+		continuar.setBounds(550, 500, 130, 25);
 		panel.add(continuar);
 		
 		RoundedButtonSimples voltar = new RoundedButtonSimples("<--",30);
@@ -628,7 +637,7 @@ public class Formulario extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen =  new Cad(aluno,tutor, admController);
+				Cad cadScreen =  new Cad(aluno,tutor,alunocontroller, admController);
 				cadScreen.setVisible(true);
 			}
 		});
@@ -638,29 +647,6 @@ public class Formulario extends JFrame {
 		voltar.setBounds(965,11,50,50);
 		panel.add(voltar);
 		
-		
-	
-		RoundedButtonSimples Atualizar = new RoundedButtonSimples("ATUALIZAR",20);
-		voltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				//CONDIÇÃO PARA ATUALIZAR
-				
-				dispose();
-				
-				Cad cadScreen =  new Cad(aluno,tutor, admController);
-				cadScreen.setVisible(true);
-			}
-		});
-		
-		Atualizar.setBounds(400, 520, 130, 25);
-		Atualizar.setFont(new Font("Tahoma",Font.BOLD,14));
-		Atualizar.setForeground(new Color(255, 255, 255));
-		Atualizar.setBackground(new Color(255, 102, 153));
-		panel.add(Atualizar);
-		
-
 		
 
 		

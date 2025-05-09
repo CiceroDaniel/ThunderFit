@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.Admcontroller;
 import controller.Alunocontroller;
 
 import java.awt.Color;
@@ -31,7 +32,7 @@ public class Perfil extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	
-	private Aluno aluno;//importando aluno e suas informações compartilha a mesma referencia em quase todas as tela
+	
 	
 	//METODO ADICIONAR IMAGEM AO BOTÃO
 		public void setImageBotao(JButton botao,String caminho,int largura,int altura) {
@@ -43,7 +44,18 @@ public class Perfil extends JFrame {
 		}
 	
 	
-	public Perfil(Aluno aluno) {//chamando aluno
+		
+	private final Alunocontroller alunocontroller;	
+	private final Admcontroller admcontroller;	
+
+    private Aluno aluno;//importando aluno e suas informações compartilha a mesma referencia em quase todas as tela
+	
+	public Perfil(Aluno aluno,Alunocontroller alunocontroller,Admcontroller admcontroller) {//chamando aluno
+
+		this.aluno=aluno;
+		this.alunocontroller = alunocontroller;
+		this.admcontroller=admcontroller;
+		
 //SO PRA VERIFICAR SE O ALUNO FOI PASSADO CORRETAMENTE
 		if(aluno == null) {
 			JOptionPane.showMessageDialog(null,"Não foi possivel carregar o aluno");
@@ -52,7 +64,6 @@ public class Perfil extends JFrame {
 		}
 		
 		
-		this.aluno=aluno;
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -326,7 +337,7 @@ public class Perfil extends JFrame {
 				
 				dispose();
 				
-				Principal principalScreen = new Principal(aluno, null);
+				Principal principalScreen = new Principal(aluno,alunocontroller, admcontroller);
 				principalScreen.setVisible(true);
 				
 			}
@@ -341,7 +352,7 @@ public class Perfil extends JFrame {
 				
 				dispose();
 				
-				Loginaluno loginScreen = new Loginaluno(aluno);
+				Loginaluno loginScreen = new Loginaluno(aluno,alunocontroller,admcontroller);
 				loginScreen.setVisible(true);
 			}
 		});

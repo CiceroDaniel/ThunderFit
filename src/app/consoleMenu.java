@@ -103,17 +103,17 @@ public class consoleMenu {
 			op = scanner.nextInt();
 			scanner.nextLine();
 			
+			//
 			switch(op) {
 			case 1: userConsole.loginMenu(scanner, repo, auth, services);
 			break;
 			case 2: tutorConsole.loginMenu(scanner, repo, auth, services);;
 			break;
 			case 3: admConsole.loginMenu();
-<<<<<<< HEAD
-			case 4: init();
-=======
+			break;
 			case 4: init(scanner, repo, auth, services);
->>>>>>> b383f777ce630c406c6d2a6f4695db1adfa2dace
+			break;
+			default: System.out.println("OPÇAÕ INVALIDA!");
 			}
 			
 		}while(op!=0);

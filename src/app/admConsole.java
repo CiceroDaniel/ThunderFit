@@ -11,18 +11,13 @@ import model.*;
 
 //FUNCIONANDO
 
-public class admConsole {
-	UsuarioRepository uRepo = new UsuarioRepository();
-	UsuarioService services = new UsuarioService(uRepo);
-	Scanner scanner = new Scanner(System.in);
-	toolbox tools;
-	tutorConsole tutor = new tutorConsole(uRepo);
-	AuthService auth = new AuthService(uRepo);
+public class admConsole {;
 	
 	private UsuarioRepository repo;
-	usuarioConsole userConsole;
-	admConsole admConsole;
-	tutorConsole tutorConsole;
+	usuarioConsole user;
+	admConsole adm;
+	tutorConsole tutor;
+	//
 	private Scanner scanner;
 	private toolbox tools;
 	private AuthService auth;
@@ -99,8 +94,9 @@ public class admConsole {
 			op = scanner.nextInt();
 			scanner.nextLine();
 			
+			//
 			switch(op) {
-			case 1 : tutor.cadastroMenu(); ;
+			case 1 : tutor.cadastroMenu(scanner, repo, auth, services); ;
 				break;
 			case 2 :  //atualizar um tutor
 				break;

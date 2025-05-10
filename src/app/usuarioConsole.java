@@ -130,7 +130,22 @@ public class usuarioConsole {
 	}*/
 	
 	public void listarTutor() {
-		services.listarTutores();
+		List <Tutor> tutores = services.listarTutores();
+		if(tutores.isEmpty()) {
+			System.out.println("Nenhum tutor cadastrado!");
+			return;
+		}
+		System.out.println("=============== LISTA DE TUTORES ==================");
+		int i=1;
+		for(Tutor tutor: tutores) {
+	        System.out.println("-------- Tutor " + i + " --------");
+	        System.out.println("Nome: " + tutor.getNome());
+	        System.out.println("Email: " + tutor.getEmail());
+	        System.out.println("---------------------------------\n");
+	        i++;
+		}
+		
+	
 	}
 	
 	////////////////////////////////////////////////////////////////////////
@@ -235,7 +250,7 @@ public class usuarioConsole {
 		String dataScn = "2006-02-28";
 		LocalDate dataDeNascimento = LocalDate.parse(dataScn);
 
-		services.cadastroAluno("Victor Hugo", "vh@gmail.com","10023256396", "10987654321", dataDeNascimento, 1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO);
+		services.cadastroAluno("Victor Hugo", "vh@gmail.com","123456789", "10987654321", dataDeNascimento, 1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO);
 
 	}
 	

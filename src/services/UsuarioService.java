@@ -85,11 +85,11 @@ public class UsuarioService {
 		return usuarioRepository.listarAlunos();
 	}
 
-	public List<Tutor> listarTutores(Usuario solicitante){
+	public List<Tutor> listarTutores(){
 		
-		if(!(solicitante instanceof Administrador)) {
+		/*if(!(solicitante instanceof Administrador)) { alunos vao poder ver os tutores agr
 			throw new SecurityException("Apenas ADMs podem listar");
-		}
+		}*/
 		
 		return usuarioRepository.listarTutores();
 	}

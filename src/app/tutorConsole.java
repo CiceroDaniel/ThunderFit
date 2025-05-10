@@ -114,7 +114,7 @@ public class tutorConsole {
 	    LocalDate dataDeNascimento = LocalDate.parse(dataScn);
 
 	    try {
-	        services.cadastroTutor("daniel", "daniel@gmail.com", "123456789", "14725836910", dataDeNascimento, 1520);
+	        services.cadastroTutor("yuri", "yuri@gmail.com", "123456789", "14725836910", dataDeNascimento, 1520);
 	    } catch (IllegalArgumentException e) {
 	        System.out.println(e.getMessage());
 	    }

@@ -18,7 +18,7 @@ public class consoleMenu {
 	admConsole admConsole;
 	tutorConsole tutorConsole;
 	private Scanner scanner;
-	private toolbox tools;
+	toolbox tools;
 	private AuthService auth;
 	private UsuarioService services;
 

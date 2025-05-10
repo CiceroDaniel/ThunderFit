@@ -6,7 +6,6 @@ import repository.UsuarioRepository;
 
 public class AuthService {
 	private final UsuarioRepository usuarioRepository;
-	private Usuario usuarioLogado;
 	private UsuarioService usuarioService;
 	
 	//modifiquei
@@ -14,7 +13,6 @@ public class AuthService {
 	public AuthService(UsuarioRepository usuarioRepository,UsuarioService usuarioService) {
 		this.usuarioService = usuarioService;
 		this.usuarioRepository = usuarioRepository;
-		this.usuarioLogado= null;
 	}
 	
 	
@@ -29,22 +27,17 @@ public class AuthService {
 			usuario.setOnline(true);			
 		}
 		
-		this.usuarioLogado = usuario;
 		//System.out.println("logado com sucesso");
 		return usuario;
 		
 	}
 	
-	public void logout() {
-		if(usuarioLogado != null) {
-			usuarioLogado.setOnline(false);
-			usuarioLogado = null;
+	public void logout(Usuario usuario) {
+		if(usuario != null) {
+			usuario.setOnline(false);
 		}
 		
 	}
-	
-	public boolean getUsuarioLogado(){
-		return usuarioLogado != null;
-	}
+
 	
 }

@@ -5,7 +5,6 @@ import model.Pagamento;
 import repository.PagamentoRepository;
 
 import java.util.List;
-import java.util.Objects;
 
 import model.Aluno;
 
@@ -26,9 +25,9 @@ public class CatracaService{
 		
 		if(pagamentosDoAluno.isEmpty())	return false;
 		
-		Pagamento ultimoPagamento = pagamentosDoAluno.stream()
-				.max((p1,p2)-> p1.getDataPagamento().compareTo(p2.getDataPagamento())).orElse(null);
-		
+		Pagamento ultimoPagamento = pagamentosDoAluno.stream()										//compara um par de datas para 
+				.max((p1,p2)-> p1.getDataPagamento().compareTo(p2.getDataPagamento())).orElse(null);//saber qual é a mais atual
+																		//e atual da antiga dupla se compara com outra ate haver apenas uma
 		if(ultimoPagamento == null || ultimoPagamento.estaVencido()) return false;
 		
 		

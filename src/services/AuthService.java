@@ -47,4 +47,11 @@ public class AuthService {
 		return usuarioLogado != null;
 	}
 	
+	public Usuario getUsuario() {
+		if(this.usuarioLogado == null) {
+			throw new IllegalArgumentException("Nenhuam usuario esta logado!");
+		}
+		return this.usuarioLogado;
+	}
+	
 }

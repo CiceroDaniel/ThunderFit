@@ -22,11 +22,13 @@ public class usuarioConsole {
 	String descricao = null;
 	private Scanner scanner;
 	private UsuarioService services;
+	private AuthService auth;
 	
 	
-	public usuarioConsole(Scanner scanner, UsuarioService services) {
+	public usuarioConsole(Scanner scanner, UsuarioService services,AuthService auth) {
 		this.scanner = scanner;
 	    this.services = services;
+	    this.auth=auth;
 	}
 
 	
@@ -115,7 +117,7 @@ public class usuarioConsole {
 	}
 	////////////////////////////////////////////////////////////////////////
 	
-	/*public void Perfil() {
+	public void Perfil() {
 		toolbox.espacoMenu();
 		
 		 if (!auth.getUsuarioLogado()) {
@@ -127,7 +129,7 @@ public class usuarioConsole {
 		 
 		 
 			
-	}*/
+	}
 	
 	public void listarTutor() {
 		List <Tutor> tutores = services.listarTutores();

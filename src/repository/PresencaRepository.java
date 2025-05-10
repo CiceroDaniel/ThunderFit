@@ -31,7 +31,7 @@ public class PresencaRepository implements InterfaceRepository<Presenca>{
 	
 	@Override
 	public List<Presenca> listarTodos() {
-		 throw new UnsupportedOperationException("Funcionalidade não implementada!");//Nao necessaria para esta classe
+		return new ArrayList<>(presencas);
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class PresencaRepository implements InterfaceRepository<Presenca>{
 	
 	
 	//ADICIONA PRESENÇA AO LIST
-	/*public void registrarEntrada(Aluno aluno) {
+	/*public void registrarEntrada(Aluno aluno) { devo implementar isso no service
 		RegistroPresenca registro = new RegistroPresenca(aluno);
 		registros.add(registro);
 		System.out.println("Nome:"+aluno.getNome()+"\nEmail:"+aluno.getEmail()+"\npresença registrada");

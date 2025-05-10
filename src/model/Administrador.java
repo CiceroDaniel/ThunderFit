@@ -32,12 +32,12 @@ public class Administrador extends Usuario{
 	
 	
 	
-	public void Acessaralunos(SistemadePresença sistema,Aluno aluno) {
+	/*public void Acessaralunos(SistemadePresença sistema,Aluno aluno) { RESPONSABILIDADE DO REPOSITORY
 		sistema.mostrarRegistros(aluno);
 	}
 	
 	public void ExcluirAluno(SistemadePresença sistema,Aluno aluno) {
 		
-	}
+	}*/
 
 }

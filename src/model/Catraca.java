@@ -34,7 +34,7 @@ public class Catraca {
 	
 	
 	//NESSA PARTE O ALUNO ESTÁ PASSANDO PELA CATRACA
-	public boolean passar(Aluno aluno/*,PresencaRepository presencaRepo*/) {// responsabilidade do service,devo APAGAR ~VICTOR
+	/*public boolean passar(Aluno aluno,PresencaRepository presencaRepo) {// responsabilidade do service,devo APAGAR ~VICTOR
 
 	if(liberada) {
         //ADICIONA A PRESENÇA DO ALUNO
@@ -50,6 +50,6 @@ public class Catraca {
 	}
 		
 		
-	}
+	}*/
 
 }

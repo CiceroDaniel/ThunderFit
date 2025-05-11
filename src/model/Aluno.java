@@ -16,6 +16,7 @@ public class Aluno extends Usuario {
 		private Plano plano;
 		private Nivel nivel;
 		private List<Treino> treinos;
+		private List<RegistroPeso> historicoPeso = new ArrayList<>();
 		
 		private String datanascimento;
 		private String datainicio;
@@ -89,6 +90,18 @@ public class Aluno extends Usuario {
 
 			this.treinos.add(treino);
 		}
+		
+		public void registrarPeso(double peso, LocalDate data) {
+			if (peso <= 0) {
+		        throw new IllegalArgumentException("Peso inválido: " + peso);
+		    }
+		    if (data.isAfter(LocalDate.now())) { // Não permitir datas futuras
+		        throw new IllegalArgumentException("Data não pode ser futura: " + data);
+		    }
+	        this.historicoPeso.add(new RegistroPeso(data, peso));
+	        this.peso = peso; // Atualiza o peso atual do aluno
+	        this.imc = peso / (altura * altura); // Atualiza o IMC
+	    }
 		
 		
 		//*-----------------------GETTERS AND SETTERS--------------------
@@ -204,6 +217,11 @@ public class Aluno extends Usuario {
 		
 		public List<Treino> getTreinos(){
 			return new ArrayList<>(treinos);
+		}
+		public List<RegistroPeso> getHistoricoPeso() {
+		    List<RegistroPeso> copia = new ArrayList<>(historicoPeso);
+		    copia.sort((r1, r2) -> r1.getData().compareTo(r2.getData())); // Ordena por data
+		    return copia;
 		}
 
 }

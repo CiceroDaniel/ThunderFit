@@ -38,6 +38,8 @@ public class PresencaService {
 		return presencaRepository.listarTodos();
 	}
 	
+	//--------------------------------------------------------
+	
 	public double calcularFrequenciaMensal(String cpfAluno, int mes, int ano) {
 		  if (mes < 1 || mes > 12) {
 		        throw new IllegalArgumentException("Mês inválido. Use valores entre 1 e 12.");

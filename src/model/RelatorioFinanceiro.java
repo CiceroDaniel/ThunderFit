@@ -1,30 +1,48 @@
 package model;
 
 import java.time.YearMonth;
-import java.util.List;
 
-public class RelatorioFinanceiro extends Relatorio {
-    private final List<Pagamento> pagamentos;
-    private final List<Tutor> tutores;
+public class RelatorioFinanceiro {
+	//-----------------ATRIBUTOS----------------
+    private YearMonth mesReferencia;
+    private double receitaTotal;  // SERA A SOMA DOS PAGAMENTOS
+    private double despesasTotal; // DEPESAS = SALARIOS DOS TUTORES
+    private double lucro;         // RECEITA - DESPESAS
+
+    // -----------------CONSTRUTOR---------------------
     
-    public RelatorioFinanceiro(YearMonth periodo, List<Pagamento> pagamentos, List<Tutor> tutores) {
-        super(periodo);
-        this.pagamentos = List.copyOf(pagamentos);//imutavel
-        this.tutores = List.copyOf(tutores);//imutavel
+    public RelatorioFinanceiro(YearMonth mesReferencia, double receitaTotal, double despesasTotal, double lucro) {
+        this.mesReferencia = mesReferencia;
+        this.receitaTotal = receitaTotal;
+        this.despesasTotal = despesasTotal;
+        this.lucro = lucro;
     }
 
-    public List<Pagamento> getPagamentos() {
-        return pagamentos;
-    }
-
-    public List<Tutor> getTutores() {
-        return tutores;
-    }
-
+    //---------------METODOS-------------------
+    
     @Override
-    public String getTitulo() {
-        return String.format("Relatório Financeiro - %02d/%d", 
-                getPeriodo().getMonthValue(), 
-                getPeriodo().getYear());
+    public String toString() {
+    	return String.format(
+    			"Relatório Financeiro (%s):\nReceita: R$%.2f\nDespesas (Salários): R$%.2f\nLucro: R$%.2f",
+    			mesReferencia, receitaTotal, despesasTotal, lucro);
     }
+    
+    //-------------------GETTERS AND SETTERS-----------------
+    
+    public YearMonth getMesReferencia() {
+        return mesReferencia;
+    }
+
+    public double getReceitaTotal() {
+        return receitaTotal;
+    }
+
+    public double getDespesasTotal() {
+        return despesasTotal;
+    }
+
+    public double getLucro() {
+        return lucro;
+    }
+
 }

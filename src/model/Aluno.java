@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 import java.util.Objects;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Aluno extends Usuario {
@@ -38,6 +39,7 @@ public class Aluno extends Usuario {
 
 		public Aluno(String nome,String email, String senha,String cpf,LocalDate dataDeNascimento, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano,Genero genero) {
 		super(nome,email,senha,cpf,dataDeNascimento);
+		    this.dataDeCadastro=LocalDate.now();
 			this.setAltura(altura);
 			this.setPeso(peso);
 			this.setNivel(nivel);
@@ -52,14 +54,20 @@ public class Aluno extends Usuario {
 
 		@Override
 		public String gerarCredenciaisCadastro() {
-			return String.format("Nome:%s\nEmail:%s\nSenha:%s\nCPF:%s\n",
+			return String.format("Nome: %s\nEmail: %s\nSenha: %s\nCPF: %s",
 					this.getNome(),this.getEmail(),this.getSenha(),this.getCpf());
 			}
 		
 		//@Override
 		public String gerarCredenciaisLogin() {
-			return String.format("\nAltura: %.2f \nPeso: %.2f\nGenero:%s\nMetas:%s\nPlano:%s\nData de inicio:%s\nData de Nascimento:%s\nIMC: %.f",
-					this.getAltura(),this.getPeso(),this.getGenero(),this.getMetas(),this.getPlano(),this.getDatainicio(),this.getDatanascimento(),this.getImc());
+			
+			DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		    String dataCadastroFormatada = this.getDataDeCadastro().format(dateFormatter);
+		    String dataNascimentoFormatada = this.getDataDeNascimento().format(dateFormatter);
+			
+			
+			return String.format("Altura: %.2f \nPeso: %.2f\nGenero: %s\nMetas: %s\nPlano: %s\nData de inicio: %s\nData de Nascimento: %s\nIMC: %.2f",
+					this.getAltura(),this.getPeso(),this.getGenero(),this.getMetas().name(),this.getPlano().getNome(),dataCadastroFormatada,dataNascimentoFormatada,this.getImc());
 			}
 		
 		//@Override
@@ -194,7 +202,8 @@ public class Aluno extends Usuario {
 			this.imc = imc;
 		}
 
-		public String getDatanascimento() {
+		
+		/*public String getDatanascimento() { Estamos usando dateLocal
 			return datanascimento;
 		}
 
@@ -208,7 +217,8 @@ public class Aluno extends Usuario {
 
 		public void setDatainicio(String datainicio) {
 			this.datainicio = datainicio;
-		}
+		}*/
+		
 		
 		
 		public Nivel getNivel() {

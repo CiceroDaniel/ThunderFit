@@ -126,8 +126,10 @@ public class usuarioConsole {
 		    }
 		
 		 Usuario usuario = auth.getUsuario();
-		 
-			
+		 System.out.println("========== PERFIL DO ALUNO ==========");
+		 System.out.println(usuario.gerarCredenciaisCadastro());
+		 System.out.println(usuario.gerarCredenciaisLogin()+"\n");
+		    
 	}
 	
 	public void listarTutor() {

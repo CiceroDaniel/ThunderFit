@@ -99,7 +99,7 @@ public class usuarioConsole {
 			scanner.nextLine();
 			
 			switch(op) {
-			case 1 :  //chama o perfil;
+			case 1 :  Perfil();
 				break;
 			case 2 :  listarTutor();
 				break;
@@ -126,7 +126,6 @@ public class usuarioConsole {
 		    }
 		
 		 Usuario usuario = auth.getUsuario();
-		 
 		 
 			
 	}

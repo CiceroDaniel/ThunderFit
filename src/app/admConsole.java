@@ -151,7 +151,7 @@ public class admConsole {;
 	public void pesquisar(boolean u){
         int op;
         boolean tipo;
-        this.u = tipo;
+        this.u = u;
         System.out.println("========= METODOS DE PESQUISA ========="
         + "\n PESQUISAT POR: "
         + "\n1 - NOME"

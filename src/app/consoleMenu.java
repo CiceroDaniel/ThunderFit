@@ -29,7 +29,7 @@ public class consoleMenu {
 	    this.services = services;
 	    
 	    this.tutorConsole = new tutorConsole(scanner, repo, auth, services);
-	    this.userConsole = new usuarioConsole(scanner, services);
+	    this.userConsole = new usuarioConsole(scanner, services, auth);
 	    this.admConsole = new admConsole(scanner, repo, auth, services);
 	    this.tools = new toolbox(userConsole, admConsole, tutorConsole);
 	}

@@ -93,8 +93,12 @@ public class usuarioConsole {
 			System.out.println("========= MENU ALUNO =========="
 					+ "\n1 - PERFIL"
 					+ "\n2 - INSTRUTORES"
-					+ "\n3 - CRONOGRAMA"
-					+ "\n4 - PACOTES");
+					+ "\n3 - MEUS TREINOS"
+					+ "\n4 - PACOTES"
+					+ "\n5 - ATUALIZAR DADOS"
+					+ "\n6 - ALTERAR SENHA"
+					+ "\n7 - MEUS PAGAMENTOS"
+					+ "\n8 - SAIR");
 			op = scanner.nextInt();
 			scanner.nextLine();
 			
@@ -103,7 +107,7 @@ public class usuarioConsole {
 				break;
 			case 2 :  listarTutor();
 				break;
-			case 3: //cronograma
+			case 3: listarTreinosDoAluno();
 				break;
 			case 4: System.out.println(Plano.mostrarPlanos());
 				break;
@@ -126,9 +130,16 @@ public class usuarioConsole {
 		    }
 		
 		 Usuario usuario = auth.getUsuario();
-		 System.out.println("========== PERFIL DO ALUNO ==========");
+		 
+		 if(usuario instanceof Aluno) {
+		 System.out.println("========== PERFIL DO ALUNO ==========\n");
 		 System.out.println(usuario.gerarCredenciaisCadastro());
 		 System.out.println(usuario.gerarCredenciaisLogin()+"\n");
+		 }
+		 /*if(usuario instanceof Tutor) {
+	    	System.out.println("========== PERFIL DO TUTOR ==========");
+		    System.out.println(usuario.gerarCredenciais()+"\n");
+			 }*/
 		    
 	}
 	
@@ -149,6 +160,34 @@ public class usuarioConsole {
 		}
 		
 	
+	}
+	
+	public void listarTreinosDoAluno() {
+		
+		 if (!auth.getUsuarioLogado()) {
+		        System.out.println("Nenhum usuário logado.");
+		        return;
+		    }
+		
+		 Usuario usuario = auth.getUsuario();
+		 Aluno aluno = (Aluno) usuario;
+		 List<Treino> treinos = aluno.getTreinos();
+		 
+		 System.out.println("========== MEUS TREINOS ==========\n");
+		  if (treinos.isEmpty()) {
+		        System.out.println("Você não possui treinos cadastrados.");
+		        System.out.println("Entre em contato com seu tutor para criar um treino personalizado.\n");
+		        return;
+		    }
+		  for (int i = 0; i < treinos.size(); i++) {
+		        Treino t = treinos.get(i);
+		        System.out.printf("%d. %s (Nível: %s) - %d exercícios%n",
+		            i + 1,
+		            t.getNome(),
+		            t.getNivelDif(),
+		            t.getExercicios().size());
+		    }
+		
 	}
 	
 	////////////////////////////////////////////////////////////////////////

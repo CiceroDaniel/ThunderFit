@@ -19,8 +19,8 @@ public class Aluno extends Usuario {
 		private List<Treino> treinos;
 		private List<RegistroPeso> historicoPeso = new ArrayList<>();
 		
-		private String datanascimento;
-		private String datainicio;
+		/*private String datanascimento;
+		private String datainicio;*/
 		
 		private Genero genero;//genero do tipo Genero
 		
@@ -39,7 +39,6 @@ public class Aluno extends Usuario {
 
 		public Aluno(String nome,String email, String senha,String cpf,LocalDate dataDeNascimento, double altura, double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano,Genero genero) {
 		super(nome,email,senha,cpf,dataDeNascimento);
-		    this.dataDeCadastro=LocalDate.now();
 			this.setAltura(altura);
 			this.setPeso(peso);
 			this.setNivel(nivel);
@@ -66,7 +65,7 @@ public class Aluno extends Usuario {
 		    String dataNascimentoFormatada = this.getDataDeNascimento().format(dateFormatter);
 			
 			
-			return String.format("Altura: %.2f \nPeso: %.2f\nGenero: %s\nMetas: %s\nPlano: %s\nData de inicio: %s\nData de Nascimento: %s\nIMC: %.2f",
+			return String.format("Altura: %.2fm \nPeso: %.2fKg\nGenero: %s\nMetas: %s\nPlano: %s\nData de inicio: %s\nData de Nascimento: %s\nIMC: %.2f",
 					this.getAltura(),this.getPeso(),this.getGenero(),this.getMetas().name(),this.getPlano().getNome(),dataCadastroFormatada,dataNascimentoFormatada,this.getImc());
 			}
 		
@@ -99,13 +98,11 @@ public class Aluno extends Usuario {
 			this.treinos.add(treino);
 		}
 		
-		public void registrarPeso(double peso, LocalDate data) {
+		public void registrarPeso(double peso) {
 			if (peso <= 0) {
 		        throw new IllegalArgumentException("Peso inválido: " + peso);
 		    }
-		    if (data.isAfter(LocalDate.now())) { // Não permitir datas futuras
-		        throw new IllegalArgumentException("Data não pode ser futura: " + data);
-		    }
+			LocalDate data = LocalDate.now();
 	        this.historicoPeso.add(new RegistroPeso(data, peso));
 	        this.peso = peso; // Atualiza o peso atual do aluno
 	        this.imc = peso / (altura * altura); // Atualiza o IMC
@@ -131,6 +128,7 @@ public class Aluno extends Usuario {
 			if(peso<=0) {
 				throw new IllegalArgumentException("Erro: Peso invalido! "+peso);
 			}
+			registrarPeso(peso);
 			this.peso = peso;
 		}
 		public Plano getPlano() {

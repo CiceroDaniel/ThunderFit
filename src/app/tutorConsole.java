@@ -3,8 +3,12 @@ import app.consoleMenu;
 import java.time.LocalDate;
 import java.util.*;
 
+import repository.ExercicioRepository;
+import repository.TreinoRepository;
 import repository.UsuarioRepository;
 import services.AuthService;
+import services.ExercicioService;
+import services.TreinoService;
 import services.UsuarioService;
 
 public class tutorConsole {
@@ -18,16 +22,45 @@ public class tutorConsole {
 	private Scanner scanner;
 	private UsuarioService services;
 	private AuthService auth;
+	private ExercicioRepository exRepo;
+	private ExercicioService exServi; 
+	private TreinoRepository treRepo;
+	private TreinoService treServi;
 
 	
 	
-	public tutorConsole(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
+	public tutorConsole(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services,
+			ExercicioRepository exRepo,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi) {
 		this.scanner = scanner;
 	    this.uRepo = repo;  // Usa o repositório injetado
 	    this.auth = auth;   // Usa o auth injetado
 	    this.services = services; // Usa o service injetado
+	    this.exRepo= exRepo;
+	    this.exServi= exServi;
+	    this.treRepo= treRepo;
+	    this.treServi=treServi;
 	}
 
+	//========================================================================
+	public void associarTreinoAluno() {
+	    System.out.println("\nDigite o CPF do aluno:");
+	    String cpf = scanner.nextLine();
+	    
+	    System.out.println("Digite o nome do treino:");
+	    String nomeTreino = scanner.nextLine();
+	    
+	    try {
+	        treServi.associarTreinoAluno(cpf, nomeTreino, auth.getUsuario());
+	        System.out.println("Treino associado com sucesso!");
+	    } catch (Exception e) {
+	        System.out.println("Erro: " + e.getMessage());
+	    }
+	}
+	
+	
+	
+	
+	//====================================MENUS=======================================
 	public void cadastroMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		
@@ -75,18 +108,44 @@ public class tutorConsole {
 		
 	}
 	
+	public void menuGerenciarTreinos() {
+	    int op;
+	    do {
+	        System.out.println("\n----- GERENCIAR TREINOS -----"
+	                + "\n1 - Criar novo treino"
+	                + "\n2 - Editar treino"
+	                + "\n3 - Listar treinos"
+	                + "\n4 - Associar a aluno"
+	                + "\n5 - Voltar");
+	        op = scanner.nextInt();
+	        scanner.nextLine();
+	        
+	        switch(op) {
+	            case 1: //criarNovoTreino();
+	                break;
+	            case 2: //editarTreino();
+	                break;
+	            case 3: //listarTreinos();
+	                break;
+	            case 4: associarTreinoAluno();
+	                break;
+	            case 5: return;
+	            default: System.out.println("Opção inválida!");
+	        }
+	    } while(true);
+	}
+	
+	
 	public void tutorMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		System.out.println("================== TUTOR ===================");
 		int op; 
 		do {
 			System.out.println("======= CRUD DOS TUTORES ======="
-					+ "\n1 - CADASTRAR"
-					+ "\n2 - ATUALIZAR"
-					+ "\n3 - PESQUISAR"
-					+ "\n4 - DELETAR"
-					+ "\n5 - LISTAR"
-					+ "\n6 - VOLTAR");
+					+ "\n1 - MEU PERFIL"
+					+ "\n2 - GERENCIAR TREINOS" // MENU DE TREINOS COM CRUD, PARA ADICIONAR TREINO ELE LISTA OS EXERCICIOS
+					+ "\n3 - GERENCIAR ALUNOS"  //MENU PARA LISTAR BUSCAR POR NOME, ATUALIZAR DADOS
+					+ "\n4 - SAIR");
 			op = scanner.nextInt();
 			scanner.nextLine();
 			

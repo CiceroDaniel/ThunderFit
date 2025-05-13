@@ -96,15 +96,23 @@ public class UsuarioService {
 	
 	//--------------------------- ATUALIZAR ---------------------------------
 	
-	public void atualizarDados(String cpf, String novoEmail, double novoPeso, Metas novaMeta) {
+	public void atualizarDados(String cpf, String novoEmail, double novoPeso,double novaAltura, Metas novaMeta) {
 		Aluno aluno = (Aluno) usuarioRepository.buscarPorCpf(cpf);
 		if(aluno == null) throw new IllegalArgumentException("Erro: Aluno não encontrado!");
 		
 		 	if (novoEmail != null && !novoEmail.isBlank()) aluno.setEmail(novoEmail);
+		    if (novaAltura > 0) aluno.setAltura(novaAltura);
 		    if (novoPeso > 0) aluno.setPeso(novoPeso);
 		    if (novaMeta != null) aluno.setMetas(novaMeta);
 		    
 		    usuarioRepository.atualizarDados(aluno);
+	}
+	public void alterarSenha(String cpf, String senhaNova) {
+		Usuario usuario = usuarioRepository.buscarPorCpf(cpf);
+		if(usuario == null) throw new IllegalArgumentException("Erro: Aluno não encontrado!");
+		
+		if(senhaNova != null) usuario.setSenha(senhaNova);
+		usuarioRepository.atualizarDados(usuario);
 	}
 	
 	public void atualizarStatusOnline(String cpf, boolean online) {

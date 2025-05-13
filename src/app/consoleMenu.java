@@ -77,10 +77,16 @@ public class consoleMenu {
 		
 		int op;
 		do {
-			System.out.println("==========MENU INICIAL=========== \n"
-			 		+ "1 - LOGIN \n"
-					+ "0 - SAIR \n"
-					+ "ESCOLHA A OPÇÃO: ");
+			System.out.println("\n╔════════════════════════════════════════╗");
+	        System.out.println("║         🏆 ACADEMIA THUNDER FIT         ║");
+	        System.out.println("║             MENU INICIAL               ║");
+	        System.out.println("╠════════════════════════════════════════╣");
+	        System.out.println("║                                        ║");
+	        System.out.println("║  1. 🔐 FAZER LOGIN                     ║");
+	        System.out.println("║  0. 🚪 SAIR DO SISTEMA                 ║");
+	        System.out.println("║                                        ║");
+	        System.out.println("╚════════════════════════════════════════╝");
+	        System.out.print("\n▸ ESCOLHA UMA OPÇÃO: ");
 			op = scanner.nextInt();
 			scanner.nextLine();
 			//testando pra victor hugo
@@ -99,11 +105,17 @@ public class consoleMenu {
 		int op;
 		do {
 			
-			System.out.println("============CADASTRAR============"
-					+ "\n1 - CLIENTE"
-					+ "\n2 - TUTOR"
-					+ "\n0 - VOLTAR"
-					+ "\nESCOLHA UMA OPÇÃO: ");
+			System.out.println("\n╔════════════════════════════════════════════════╗");
+	        System.out.println("║               🏋️ THUNDER FIT                 ║");
+	        System.out.println("║           SISTEMA DE CADASTRO               ║");
+	        System.out.println("╠════════════════════════════════════════════════╣");
+	        System.out.println("║                                                ║");
+	        System.out.println("║  1. 👥 CADASTRAR CLIENTE                      ║");
+	        System.out.println("║  2. 👨🏫 CADASTRAR TUTOR                       ║");
+	        System.out.println("║  0. ↩️ VOLTAR AO MENU ANTERIOR                ║");
+	        System.out.println("║                                                ║");
+	        System.out.println("╚════════════════════════════════════════════════╝");
+	        System.out.print("\n▸ DIGITE SUA OPÇÃO: ");
 			op = scanner.nextInt();
 			scanner.nextLine();
 			
@@ -123,12 +135,17 @@ public class consoleMenu {
 		do {
 			tools.espacoMenu();
 			
-			System.out.println("============LOGIN============"
-					+ "\n1 - CLIENTE"
-					+ "\n2 - TUTOR"
-					+ "\n3 - ADIMINISTRADOR"
-					+ "\n0 - VOLTAR"
-					+ "\nESCOLHA UMA OPÇÃO: ");
+			System.out.println("\n╔════════════════════════════════════════╗");
+			System.out.println("║              🔐 LOGIN                ║");
+			System.out.println("╠════════════════════════════════════════╣");
+			System.out.println("║                                        ║");
+			System.out.println("║  1. 👤 CLIENTE                        ║");
+			System.out.println("║  2. 🧑🏫 TUTOR                         ║");
+			System.out.println("║  3. 👔 ADMINISTRADOR                  ║");
+			System.out.println("║  0. ↩ VOLTAR                          ║");
+			System.out.println("║                                        ║");
+			System.out.println("╚════════════════════════════════════════╝");
+			System.out.print("\n▸ SELECIONE UMA OPÇÃO: ");
 			op = scanner.nextInt();
 			scanner.nextLine();
 			

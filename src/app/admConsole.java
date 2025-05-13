@@ -56,12 +56,17 @@ public class admConsole {
 	public void loginMenu() {
 		toolbox.espacoMenu();
 		
-		System.out.println("==============LOGIN===============");
-		System.out.println("E-MAIL: ");
+		System.out.println("\n╔════════════════════════════════════════╗");
+		System.out.println("║             🔐 ÁREA DE LOGIN          ║");
+		System.out.println("╠════════════════════════════════════════╣");
+		System.out.println("║                                        ║");
+		System.out.print  ("║  ✉ E-MAIL: ");
 		String emailLogin = scanner.nextLine();
-		
-		System.out.println("SENHA: ");
+		System.out.println("║                                        ║");
+		System.out.print  ("║  🔒 SENHA: ");
 		String senhaLogin = scanner.nextLine();
+		System.out.println("║                                        ║");
+		System.out.println("╚════════════════════════════════════════╝");
 		
 		auth.login(emailLogin, senhaLogin);
 		System.out.println(auth.getUsuarioLogado());
@@ -85,8 +90,13 @@ public class admConsole {
 		 
 		 
 		 if(usuario instanceof Administrador) {
-	   	System.out.println("========== PERFIL DO TUTOR ==========");
-		    System.out.println(usuario.gerarCredenciais()+"\n");
+			 System.out.println("\n╔════════════════════════════════════════╗");
+			 System.out.println("║           🧑🏫 PERFIL DO TUTOR         ║");
+			 System.out.println("╠════════════════════════════════════════╣");
+			 System.out.println("║                                        ║");
+			 System.out.println("║  " + usuario.gerarCredenciais().replace("\n", "\n║  "));
+			 System.out.println("║                                        ║");
+			 System.out.println("╚════════════════════════════════════════╝");
 			 }
 	}
 	
@@ -96,15 +106,21 @@ public class admConsole {
 		int op;
 		do {
 			
-			System.out.println("========= MENU ADMINISTRADOR =========="
-	                + "\n1 - PERFIL"
-	                + "\n2 - INSTRUTORES"
-	                + "\n3 - USUÁRIOS"
-	                + "\n4 - PACOTES"
-	                + "\n5 - RELATÓRIOS DE FREQUÊNCIA"
-	                + "\n6 - RELATÓRIOS FINANCEIROS"
-	                + "\n7 - GERENCIAR PLANOS"
-	                + "\n0 - SAIR");
+			System.out.println("\n╔════════════════════════════════════════╗");
+			System.out.println("║          👔 MENU ADMINISTRADOR         ║");
+			System.out.println("╠════════════════════════════════════════╣");
+			System.out.println("║                                        ║");
+			System.out.println("║  1. 👤 PERFIL                          ║");
+			System.out.println("║  2. 🏋️ INSTRUTORES                     ║");
+			System.out.println("║  3. 👥 USUÁRIOS                        ║");
+			System.out.println("║  4. 📦 PACOTES                         ║");
+			System.out.println("║  5. 📅 RELATÓRIOS DE FREQUÊNCIA        ║");
+			System.out.println("║  6. 💰 RELATÓRIOS FINANCEIROS          ║");
+			System.out.println("║  7. 📊 GERENCIAR PLANOS                ║");
+			System.out.println("║  0. 🚪 SAIR                            ║");
+			System.out.println("║                                        ║");
+			System.out.println("╚════════════════════════════════════════╝");
+			System.out.print("\n▸ SELECIONE UMA OPÇÃO: ");
 	        op = scanner.nextInt();
 	        scanner.nextLine();
 	        
@@ -229,13 +245,19 @@ public class admConsole {
 	public final void CrudTutor() {
 		int op; 
 		do {
-			System.out.println("======= CRUD DOS TUTORES ======="
-					+ "\n1 - CADASTRAR"
-					+ "\n2 - ATUALIZAR"
-					+ "\n3 - PESQUISAR"
-					+ "\n4 - DELETAR"
-					+ "\n5 - LISTAR"
-					+ "\n6 - VOLTAR");
+			System.out.println("\n╔════════════════════════════════════════╗");
+			System.out.println("║          🧑🏫 CRUD DE TUTORES         ║");
+			System.out.println("╠════════════════════════════════════════╣");
+			System.out.println("║                                        ║");
+			System.out.println("║  1. 📝 CADASTRAR TUTOR                ║");
+			System.out.println("║  2. 🔄 ATUALIZAR TUTOR               ║");
+			System.out.println("║  3. 🔍 PESQUISAR TUTOR              ║");
+			System.out.println("║  4. ❌ DELETAR TUTOR                 ║");
+			System.out.println("║  5. 📋 LISTAR TUTORES                ║");
+			System.out.println("║  6. ↩ VOLTAR                         ║");
+			System.out.println("║                                        ║");
+			System.out.println("╚════════════════════════════════════════╝");
+			System.out.print("\n▸ SELECIONE UMA OPÇÃO: ");
 			op = scanner.nextInt();
 			scanner.nextLine();
 			//
@@ -265,13 +287,19 @@ public class admConsole {
 	    }
 		int op; 
 		do {
-			System.out.println("======= CRUD DOS ALUNOS ======="
-					+ "\n1 - CADASTRAR"
-					+ "\n2 - ATUALIZAR"
-					+ "\n3 - PESQUISAR"
-					+ "\n4 - DELETAR"
-					+ "\n5 - LISTAR"
-					+ "\n6 - VOLTAR");
+			System.out.println("\n╔════════════════════════════════════════╗");
+			System.out.println("║           🧑🎓 CRUD DE ALUNOS          ║");
+			System.out.println("╠════════════════════════════════════════╣");
+			System.out.println("║                                        ║");
+			System.out.println("║  1. 📝 CADASTRAR ALUNO                ║");
+			System.out.println("║  2. 🔄 ATUALIZAR ALUNO               ║");
+			System.out.println("║  3. 🔍 PESQUISAR ALUNO              ║");
+			System.out.println("║  4. ❌ DELETAR ALUNO                 ║");
+			System.out.println("║  5. 📋 LISTAR ALUNOS                 ║");
+			System.out.println("║  6. ↩ VOLTAR                         ║");
+			System.out.println("║                                        ║");
+			System.out.println("╚════════════════════════════════════════╝");
+			System.out.print("\n▸ SELECIONE UMA OPÇÃO: ");
 			op = scanner.nextInt();
 			scanner.nextLine();
 			
@@ -296,14 +324,32 @@ public class admConsole {
 	
 	/////////////////////////////////////////////////////////
 	public void deletar(boolean u) {
-		System.out.println(services.listarTutores());
+		
 		if(!u) {
-			System.out.println("=====DELETAR USUÁRIO=======");
-			System.out.println("QUAL USUÁRIO DESEJA DELETAR?"
-					+ "\nCPF: ");
+			System.out.println("\n╔════════════════════════════════════════╗");
+			System.out.println("║          ❌ DELETAR USUÁRIO          ║");
+			System.out.println("╠════════════════════════════════════════╣");
+			System.out.println("║                                        ║");
+			System.out.println("║  QUAL USUÁRIO DESEJA DELETAR?          ║");
+			System.out.println("║                                        ║");
+			System.out.println("║  🆔 CPF:                               ║");
+			System.out.println("║  ▸ ");
+			String cpf = scanner.nextLine();
+			System.out.println("║                                        ║");
+			System.out.println("╚════════════════════════════════════════╝");
 			String cpf = scanner.nextLine();
 			
-			services.removerUsuario(cpf, auth.getUsuario());
+			
+			
+			try {
+			    if (services.removerUsuario(cpf, auth.getUsuario())) {
+			        System.out.println("✔ Usuário removido com sucesso!");
+			    } else {
+			        System.out.println("⚠ Não foi possível remover o usuário");
+			    }
+			} catch (Exception e) {
+			    System.out.println("❌ Erro: " + e.getMessage());
+			}
 			
 		}else {
 			System.out.println("=====DELETAR TUTOR=======");
@@ -311,7 +357,15 @@ public class admConsole {
 					+ "\nCPF: ");
 			String cpf = scanner.nextLine();
 			
-			services.removerUsuario(cpf, auth.getUsuario());
+			try {
+			    if (services.removerUsuario(cpf, auth.getUsuario())) {
+			        System.out.println("✔ Usuário removido com sucesso!");
+			    } else {
+			        System.out.println("⚠ Não foi possível remover o usuário");
+			    }
+			} catch (Exception e) {
+			    System.out.println("❌ Erro: " + e.getMessage());
+			}
 		}
 		
 		}
@@ -392,7 +446,7 @@ public class admConsole {
 	public void listarAlunos() {
 		List <Aluno> alunos = services.listarAlunos(auth.getUsuario());
 		if(alunos.isEmpty()) {
-			System.out.println("Nenhum tutor cadastrado!");
+			System.out.println("Nenhum aluno cadastrado!");
 			return;
 		}
 		System.out.println("=============== LISTA DE ALUNOS ==================");

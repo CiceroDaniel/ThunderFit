@@ -73,25 +73,29 @@ public class tutorConsole {
 	public void cadastroMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		
-		System.out.println("==============CADASTRO=================");
-		System.out.println("1. NOME DE USUÁRIO");
+		System.out.println("""
+		        ============== CADASTRO =================
+		        Preencha os dados abaixo:
+		        """);
+		
+		System.out.println("1. NOME COMPLETO: ");
 		
 		String nome = scanner.nextLine();
 		
-		System.out.println("2. CPF DO USUÁRIO");
+		System.out.println("2. CPF (apenas numeros): ");
 		String cpf = scanner.nextLine();
 		
-		System.out.println("3. E-MAIL DO USUÁRIO");
+		System.out.println("3. E-MAIL: ");
 		String email = scanner.nextLine();
 		
-		System.out.println("4. SENHA DO USUÁRIO");
+		System.out.println("4. SENHA: ");
 		String senha = scanner.nextLine();
 		
 		System.out.println("5. DATA DE NASCIMENTO (AAAA-MM-DD");
 		String dataScn = scanner.nextLine();
 		LocalDate dataDeNascimento = LocalDate.parse(dataScn);
 		
-		System.out.println("6. QUAL O SALÁRIO DO TUTOR?");
+		System.out.println("6. SALÁRIO: ");
 		float salario = scanner.nextFloat();
 		
 		services.cadastroTutor(nome, email, senha, cpf, dataDeNascimento, salario);
@@ -100,20 +104,32 @@ public class tutorConsole {
 	public void loginMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
 		
-		System.out.println("==============LOGIN===============");
-		System.out.println("E-MAIL: ");
+		System.out.println("\n╔════════════════════════╗");
+	    System.out.println("║       🔐 LOGIN        ║");
+	    System.out.println("╚════════════════════════╝");
+		System.out.println("\\n📧 Email: ");
 		String emailLogin = scanner.nextLine();
 		
-		System.out.println("SENHA: ");
+		System.out.println("\\n🔒 Senha: ");
 		String senhaLogin = scanner.nextLine();
 		
-		auth.login(emailLogin, senhaLogin);
-		System.out.println(auth.getUsuarioLogado());
+		System.out.println("\n╔════════════════════════╗");
+	    System.out.println("║   Aguarde...          ║");
+	    System.out.println("╚════════════════════════╝");
+	    
+	    try {
+	    	auth.login(emailLogin, senhaLogin);
+	    	System.out.println("\n✔ Login realizado com sucesso!");
+	    }catch(Exception e){
+	    	System.out.println("\n✖ Erro: " + e.getMessage());
+	    }
 		
-		if(auth.getUsuarioLogado() == true) {
-			System.out.println("logaaaaaaaaaaaaaaaaaaaado");
+		//System.out.println(auth.getUsuarioLogado());
+		
+		/*if(auth.getUsuarioLogado() == true) {
+			System.out.println("[SISTEMA] Tutor autenticado."); 
 			tutorMenu(scanner, repo, auth, services);
-		}
+		}*/
 		
 	}
 	
@@ -121,33 +137,52 @@ public void atualizarDados() {
 		
 		Usuario usuario = auth.getUsuario();
 		
+		 System.out.println("\n╔══════════════════════════════════╗");
+		    System.out.println("║          📝 ATUALIZAR DADOS      ║");
+		    System.out.println("╚══════════════════════════════════╝");
+		
+		    System.out.println("\n╔══════════════════════════════════╗");
+		    System.out.println("║          📝 DADOS ATUAIS     ║");
+		    System.out.println("╚══════════════════════════════════╝");    
+		    
 		System.out.println("==========DADOS ATUAIS============="
 				+"\n" + usuario.gerarCredenciaisCadastro() 
 				+ "\n" + usuario.gerarCredenciaisLogin()
 				);
 		toolbox.espacoMenu();
 		auth.getUsuario().getCpf();
-		System.out.println("==========Atualizar dados dos alunos============");
-		System.out.println("EMAIL: ");
+		System.out.println("\n╔══════════════════════════════╗");
+	    System.out.println("║    NOVOS DADOS                ║");
+	    System.out.println("╚══════════════════════════════╝");
+		System.out.println("\n📧 Email: ");
 		String email = scanner.nextLine();
 		
-		System.out.println("PESO: ");
+		System.out.println("\n⚖️ Peso atual ");
 		double peso = scanner.nextDouble();
 		scanner.nextLine();
 		
-		System.out.println("ALTURA: ");
+		System.out.println("\n📏 Altura atual: ");
 		double altura = scanner.nextDouble();
 		scanner.nextLine();
 		
-		
-		services.atualizarDados(auth.getUsuario().getCpf(), email, peso, altura, null);
+		try {
+			services.atualizarDados(auth.getUsuario().getCpf(), email, peso, altura, null);
+			System.out.println("\n╔══════════════════════════════╗");
+	        System.out.println("║    ✅ DADOS ATUALIZADOS!     ║");
+	        System.out.println("╚══════════════════════════════╝");
+			
+		}catch(Exception e) {
+			System.out.println("\n❌ Erro na atualização: " + e.getMessage());
+		}
 		
 		
 		
 	}
 
 public void AtualizarSenha() {
-	System.out.println("=======ATUALIZAR SENHA=====");
+	System.out.println("\n╔══════════════════════════════════╗");
+    System.out.println("║          📝 ATUALIZAR SENHA       ║");
+    System.out.println("╚══════════════════════════════════╝");
 	System.out.println("NOVA SENHA: ");
 	String senha = scanner.nextLine();
 	
@@ -158,12 +193,17 @@ public void AtualizarSenha() {
 	public void menuGerenciarTreinos() {
 	    int op;
 	    do {
-	        System.out.println("\n----- GERENCIAR TREINOS -----"
-	                + "\n1 - Criar novo treino"
-	                + "\n2 - Editar treino"
-	                + "\n3 - Listar treinos"
-	                + "\n4 - Associar a aluno"
-	                + "\n5 - Voltar");
+	    	 System.out.println("\n┌───────────────────────┐");
+	    	    System.out.println("│   🏋️ Gerenciar Treinos  │");
+	    	    System.out.println("├───────────────────────┤");
+	    	    System.out.println("│ 1. Criar novo         │");
+	    	    System.out.println("│ 2. Editar existente   │");
+	    	    System.out.println("│ 3. Listar todos       │");
+	    	    System.out.println("│ 4. Associar aluno     │");
+	    	    System.out.println("│                       │");
+	    	    System.out.println("│ 0. Voltar             │");
+	    	    System.out.println("└───────────────────────┘");
+	    	    System.out.print("Opção: ");
 	        op = scanner.nextInt();
 	        scanner.nextLine();
 	        
@@ -185,15 +225,19 @@ public void AtualizarSenha() {
 	
 	public void tutorMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
-		System.out.println("================== TUTOR ===================");
 		int op; 
 		do {
-			System.out.println("======= MENU DOS TUTORES ======="
-					+ "\n1 - MEU PERFIL"
-					+ "\n2 - GERENCIAR TREINOS" // MENU DE TREINOS COM CRUD, PARA ADICIONAR TREINO ELE LISTA OS EXERCICIOS
-					+ "\n3 - ATUALIZAR DADOS"
-					+ "\n4 - ALTERAR SENHA"  //MENU PARA LISTAR BUSCAR POR NOME, ATUALIZAR DADOS
-					+ "\n0 - VOLTAR");
+			 System.out.println("\n┌──────────────────────────┐");
+			    System.out.println("│   🧑🏫 Menu do Tutor      │");
+			    System.out.println("├──────────────────────────┤");
+			    System.out.println("│ 1. 👤 Meu perfil        │");
+			    System.out.println("│ 2. 🏋️ Gerenciar treinos │");
+			    System.out.println("│ 3. ✏️ Atualizar dados   │");
+			    System.out.println("│ 4. 🔒 Alterar senha     │");
+			    System.out.println("│                          │");
+			    System.out.println("│ 0. ↩️ Voltar             │");
+			    System.out.println("└──────────────────────────┘");
+			    System.out.print("Opção: ");
 			op = scanner.nextInt();
 			scanner.nextLine();
 			
@@ -216,13 +260,18 @@ public void AtualizarSenha() {
 	
 	
 	public void gerenciarTreinos() {
-		System.out.println("======GERENCIAR TREINOS=========");
 		int op;
 		do{
-			System.out.println("\n1 - CRIAR NOVO TREINO"
-					+ "\n2 - ASSOCIAR TREINO A ALUNO"
-					+ "\n3 - REMOVER TREINO"
-					+ "\n0 - VOLTAR");
+			 System.out.println("\n┌───────────────────────┐");
+			    System.out.println("│   🏋️ Gerenciar Treinos  │");
+			    System.out.println("├───────────────────────┤");
+			    System.out.println("│ 1. 🆕 Criar           │");
+			    System.out.println("│ 2. 🤝 Associar        │");
+			    System.out.println("│ 3. ❌ Remover         │");
+			    System.out.println("│                       │");
+			    System.out.println("│ 0. ↩️ Voltar          │");
+			    System.out.println("└───────────────────────┘");
+			    System.out.print("Opção: ");
 			op = scanner.nextInt();
 			scanner.nextLine();
 			
@@ -245,11 +294,18 @@ public void AtualizarSenha() {
 	
 	
 	public void criarTreino() {
-		System.out.println("=====CRIAR NOVOS TREINOS====="
-				+ "\nNOME: ");
-		String  nome = scanner.nextLine();
-		
-		System.out.println("NIVEL: ");
+		System.out.println("\n┌───────────────────────┐");
+	    System.out.println("│   🏋️ Criar Novo Treino │");
+	    System.out.println("├───────────────────────┤");
+	    
+	    System.out.print("│ Nome: ");
+	    String nome = scanner.nextLine();
+	    
+	    System.out.println("│ Nível:                │");
+	    System.out.println("│ 1. Iniciante          │");
+	    System.out.println("│ 2. Intermediário      │");
+	    System.out.println("│ 3. Avançado           │");
+	    System.out.print("│ Opção: ");
 		String nivel = scanner.nextLine();
 		
 		treServi.criarTreino(nome, nivel, auth.getUsuario());
@@ -257,11 +313,23 @@ public void AtualizarSenha() {
 	
 	
 	public void AssociarTreino() {
-		System.out.println("=====ASSOCIAR TREINO A ALUNO======");
-		System.out.println("DIGITE O CPF DO ALUNO");
-		String cpf = scanner.nextLine();
-		System.out.println("QUAL TREINO QUER ASSOCIAR?");
-		String treino = scanner.nextLine();
+		System.out.println("\n╔════════════════════════════════════════╗");
+        System.out.println("║        🏋️  ASSOCIAR TREINO A ALUNO     ║");
+        System.out.println("╚════════════════════════════════════════╝");
+        
+       
+        System.out.println("\n┌────────────────────────────────────────┐");
+        System.out.println("│   🔍 DIGITE O CPF DO ALUNO:            │");
+        System.out.println("└────────────────────────────────────────┘");
+        System.out.print("│▸ ");
+        String cpf = scanner.nextLine();
+        
+        
+        System.out.println("\n┌────────────────────────────────────────┐");
+        System.out.println("│   🏋️  QUAL TREINO QUER ASSOCIAR?       │");
+        System.out.println("└────────────────────────────────────────┘");
+        System.out.print("│▸ ");
+        String treino = scanner.nextLine();
 		
 		treServi.associarTreinoAluno(cpf, treino, auth.getUsuario());
 		

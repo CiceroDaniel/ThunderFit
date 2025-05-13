@@ -10,11 +10,7 @@ import services.PagamentoService;
 import services.UsuarioService;
 
 public class usuarioConsole {
-//	UsuarioRepository uRepo = new UsuarioRepository();
-//	UsuarioService services = new UsuarioService(uRepo);
-	//AuthService auth = new AuthService(Repo);
-	//Scanner scanner = new Scanner(System.in);
-	//toolbox tools = new toolbox();
+
 
 	Nivel nivel;
 	Metas metas;
@@ -87,7 +83,7 @@ public class usuarioConsole {
 		String senhaLogin = scanner.nextLine();
 		
 		auth.login(emailLogin, senhaLogin);
-		System.out.println(auth.getUsuarioLogado());
+		//System.out.println(auth.getUsuarioLogado());
 		
 		if(auth.getUsuarioLogado() == true) {
 			alunoMenu();

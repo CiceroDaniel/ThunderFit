@@ -34,6 +34,9 @@ public class teste {
 		menu.init(scan, repo, auth, services);
 		//menu.mostarAdm();
 		//menu.cadTutor();
+		
+		
+		scan.close();
 	}
 	
 }

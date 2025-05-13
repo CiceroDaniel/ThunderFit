@@ -98,7 +98,7 @@ public class usuarioConsole {
 					+ "\n5 - ATUALIZAR DADOS"
 					+ "\n6 - ALTERAR SENHA"
 					+ "\n7 - MEUS PAGAMENTOS"
-					+ "\n8 - SAIR");
+					+ "\n0 - SAIR");
 			op = scanner.nextInt();
 			scanner.nextLine();
 			
@@ -111,7 +111,13 @@ public class usuarioConsole {
 				break;
 			case 4: System.out.println(Plano.mostrarPlanos());
 				break;
-			case 5 :System.out.println("SAINDO DO SISTEMA.......");
+			case 5: atualizarDados();
+				break;
+			case 6: //auterar senha
+				break;
+			case 7: //listar pagamentos
+				break;
+			case 0 :System.out.println("SAINDO DO SISTEMA.......");
 			System.exit(0);
 			default: System.out.println("OPÇÃO INVALIDA!");
 		}
@@ -189,6 +195,27 @@ public class usuarioConsole {
 		    }
 		
 	}
+	////////////////////////////////////////////////////////////////////////
+	public void atualizarDados() {
+		
+		Usuario usuario = auth.getUsuario();
+		
+		System.out.println("==========DADOS ATUAIS============="
+				+"\n" + usuario.gerarCredenciaisCadastro() 
+				+ "\n" + usuario.gerarCredenciaisLogin()
+				);
+		toolbox.espacoMenu();
+		System.out.println("==========Atualizar dados dos alunos============");
+		System.out.println("NOME: ");
+		String nome = scanner.nextLine();
+		usuario.setNome(nome);
+		
+		System.out.println("EMAIL: ");
+		String email = 
+		
+		
+	}
+	
 	
 	////////////////////////////////////////////////////////////////////////
 	public void nivelMenu() {
@@ -282,6 +309,8 @@ public class usuarioConsole {
 		break;
 		}
 	}
+	
+	
 	
 	public void descricaoMenu() {
 		System.out.println("DESCRIÇÃO: ");

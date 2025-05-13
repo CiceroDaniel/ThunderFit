@@ -19,10 +19,6 @@ public abstract class Usuario{
 		protected LocalDate dataDeNascimento;
 		protected LocalDate dataDeCadastro;
 		
-		//teste de adm unico
-		private boolean isAdmin;
-		
-		
 		//**--------------CONSTRUTOR----------------------**//
 		
 		public Usuario(String nome, String email, String senha,String cpf) {

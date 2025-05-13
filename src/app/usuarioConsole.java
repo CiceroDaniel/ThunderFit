@@ -22,11 +22,13 @@ public class usuarioConsole {
 	String descricao = null;
 	private Scanner scanner;
 	private UsuarioService services;
+	private AuthService auth;
 	
 	
-	public usuarioConsole(Scanner scanner, UsuarioService services) {
+	public usuarioConsole(Scanner scanner, UsuarioService services,AuthService auth) {
 		this.scanner = scanner;
 	    this.services = services;
+	    this.auth=auth;
 	}
 
 	
@@ -91,17 +93,21 @@ public class usuarioConsole {
 			System.out.println("========= MENU ALUNO =========="
 					+ "\n1 - PERFIL"
 					+ "\n2 - INSTRUTORES"
-					+ "\n3 - CRONOGRAMA"
-					+ "\n4 - PACOTES");
+					+ "\n3 - MEUS TREINOS"
+					+ "\n4 - PACOTES"
+					+ "\n5 - ATUALIZAR DADOS"
+					+ "\n6 - ALTERAR SENHA"
+					+ "\n7 - MEUS PAGAMENTOS"
+					+ "\n8 - SAIR");
 			op = scanner.nextInt();
 			scanner.nextLine();
 			
 			switch(op) {
-			case 1 :  //chama o perfil;
+			case 1 :  Perfil();
 				break;
 			case 2 :  listarTutor();
 				break;
-			case 3: //cronograma
+			case 3: listarTreinosDoAluno();
 				break;
 			case 4: System.out.println(Plano.mostrarPlanos());
 				break;
@@ -115,7 +121,7 @@ public class usuarioConsole {
 	}
 	////////////////////////////////////////////////////////////////////////
 	
-	/*public void Perfil() {
+	public void Perfil() {
 		toolbox.espacoMenu();
 		
 		 if (!auth.getUsuarioLogado()) {
@@ -125,12 +131,63 @@ public class usuarioConsole {
 		
 		 Usuario usuario = auth.getUsuario();
 		 
-		 
-			
-	}*/
+		 if(usuario instanceof Aluno) {
+		 System.out.println("========== PERFIL DO ALUNO ==========\n");
+		 System.out.println(usuario.gerarCredenciaisCadastro());
+		 System.out.println(usuario.gerarCredenciaisLogin()+"\n");
+		 }
+		 /*if(usuario instanceof Tutor) {
+	    	System.out.println("========== PERFIL DO TUTOR ==========");
+		    System.out.println(usuario.gerarCredenciais()+"\n");
+			 }*/
+		    
+	}
 	
 	public void listarTutor() {
-		services.listarTutores();
+		List <Tutor> tutores = services.listarTutores();
+		if(tutores.isEmpty()) {
+			System.out.println("Nenhum tutor cadastrado!");
+			return;
+		}
+		System.out.println("=============== LISTA DE TUTORES ==================");
+		int i=1;
+		for(Tutor tutor: tutores) {
+	        System.out.println("-------- Tutor " + i + " --------");
+	        System.out.println("Nome: " + tutor.getNome());
+	        System.out.println("Email: " + tutor.getEmail());
+	        System.out.println("---------------------------------\n");
+	        i++;
+		}
+		
+	
+	}
+	
+	public void listarTreinosDoAluno() {
+		
+		 if (!auth.getUsuarioLogado()) {
+		        System.out.println("Nenhum usuário logado.");
+		        return;
+		    }
+		
+		 Usuario usuario = auth.getUsuario();
+		 Aluno aluno = (Aluno) usuario;
+		 List<Treino> treinos = aluno.getTreinos();
+		 
+		 System.out.println("========== MEUS TREINOS ==========\n");
+		  if (treinos.isEmpty()) {
+		        System.out.println("Você não possui treinos cadastrados.");
+		        System.out.println("Entre em contato com seu tutor para criar um treino personalizado.\n");
+		        return;
+		    }
+		  for (int i = 0; i < treinos.size(); i++) {
+		        Treino t = treinos.get(i);
+		        System.out.printf("%d. %s (Nível: %s) - %d exercícios%n",
+		            i + 1,
+		            t.getNome(),
+		            t.getNivelDif(),
+		            t.getExercicios().size());
+		    }
+		
 	}
 	
 	////////////////////////////////////////////////////////////////////////
@@ -235,7 +292,7 @@ public class usuarioConsole {
 		String dataScn = "2006-02-28";
 		LocalDate dataDeNascimento = LocalDate.parse(dataScn);
 
-		services.cadastroAluno("Victor Hugo", "vh@gmail.com","10023256396", "10987654321", dataDeNascimento, 1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO);
+		services.cadastroAluno("Victor Hugo", "vh@gmail.com","123456789", "10987654321", dataDeNascimento, 1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO);
 
 	}
 	

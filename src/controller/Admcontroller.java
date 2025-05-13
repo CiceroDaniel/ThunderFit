@@ -1,4 +1,5 @@
 package controller;
+import model.Administrador;
 import model.Aluno;
 import model.Tutor;
 import model.Usuario;
@@ -11,6 +12,8 @@ import services.*;
 //METODOS PRINCIPAIS DO ALUNO
 
 public class Admcontroller {
+
+	
 	
 	private final AuthService authservice;
 	private final UsuarioService usuarioservice;
@@ -19,21 +22,19 @@ public class Admcontroller {
 		this.authservice=authservice;
 		this.usuarioservice=usuarioservice;
 	}
-	public List<Aluno>getAlunosCadastrados(){
-		return usuarioservice.listarAlunos(null);
-	}
 	
-	public List<Tutor>getTutoresCadastrados(){
-		return usuarioservice.listarTutores(null);
-	}
+	//-----------------------------ADM-----------------------------------------
 	
+	  public void cadastroAdmController(Administrador adm) {
+			
+		 usuarioservice.cadastroAdministrador(adm.getNome(),adm.getEmail(),adm.getSenha(),adm.getCpf(),adm.getDataDeNascimento());
+	  }
 	
 	//--------------------------ALUNOS---------------------------------------------
 	
-	   public List<Aluno> listaralunoController(Aluno aluno) {
+	   public List<Aluno> listaralunoController(Aluno filtro) {
 	 	
-		List<Aluno> todosAluno = usuarioservice.listarAlunos(aluno);
-		return todosAluno;
+		return usuarioservice.listarAlunos(filtro);
 		
 		
 		}
@@ -42,9 +43,7 @@ public class Admcontroller {
 	
 	  usuarioservice.cadastroAluno(aluno.getNome(),aluno.getEmail(),aluno.getSenha(),aluno.getCpf(),aluno.getDataDeNascimento(),aluno.getAltura(),aluno.getPeso(),aluno.getNivel(),aluno.getMetas(),aluno.getMetaPersonalizada(),aluno.getPlano(), aluno.getGenero());
 	
-	
        }
-
 		public void atualizaralunoController(Aluno aluno) {
 			//atualizarDados
 			//atualizarStatusOnline
@@ -85,23 +84,45 @@ public class Admcontroller {
 			return resultado;
 				
 			}
+			/*
+			public List<Aluno>filtrarAlunos(String nome,String email,String cpf){
+				List<Aluno>alunosFiltrados = new ArrayList<>();
+				if(Aluno aluno : listaralunoController(null)) {
+					if(aluno.getNome().contains(nome) && aluno.getEmail().contains(email)&& aluno.getCpf().contains(cpf)) {
+					alunosFiltrados.add(aluno);	
+					}
+				}
+				return alunosFiltrados;
+			}
+			
+			public void excluirAluno(Aluno aluno) {
+				usuarioservice.excluirAluno(aluno);
+			}*/
 			
 //------------------------------TUTORES------------------------------------------------
 			
 	public void Cadastrotutor(Tutor tutor) {
 		
-		usuarioservice.cadastroTutor(tutor.getNome(),tutor.getEmail(),tutor.getSenha(),tutor.getCpf(), null, 0);
+		usuarioservice.cadastroTutor(tutor.getNome(),tutor.getEmail(),tutor.getSenha(),tutor.getCpf(),tutor.getDataDeNascimento(),tutor.getSalario());
 		
 	}
 	
 	
-	public List<Tutor> ListarTutores(Tutor tutor) {
+	public List<Tutor> ListarTutores(Tutor filtro) {
 		
-		List<Tutor> todosTutores = usuarioservice.listarTutores(tutor);
-		return todosTutores;
+		return usuarioservice.listarTutores(filtro);
 		
 	}
+
 	
 	
 //----------------------------------------------------------------------------------------
+	
+	
+	public Administrador loginAdmController(String email, String senha) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
+

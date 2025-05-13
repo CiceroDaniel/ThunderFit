@@ -1,5 +1,6 @@
 package model;
-//PROVAVELMENTE ESSA CLASSE TAMBEM SERA USADA PARA OS TUTORES
+
+
 public class Catraca {
 	
 	private boolean liberada;
@@ -9,9 +10,13 @@ public class Catraca {
 		this.liberada = false;
 	}
 	
-	public void liberar() {
+	public boolean liberar(Aluno aluno) {
+		if(aluno == null) {
+			return false;
+		}
+		
 		this.liberada = true;
-		System.out.println("Catraca foi liberada");
+		return true;
 	}
 	
 	public void bloquear() {
@@ -29,11 +34,11 @@ public class Catraca {
 	
 	
 	//NESSA PARTE O ALUNO ESTÁ PASSANDO PELA CATRACA
-	public boolean passar(Aluno aluno,SistemadePresença sistema) {
+	/*public boolean passar(Aluno aluno,PresencaRepository presencaRepo) {// responsabilidade do service,devo APAGAR ~VICTOR
 
 	if(liberada) {
         //ADICIONA A PRESENÇA DO ALUNO
-		sistema.registrarEntrada(aluno);
+		//sistema.registrarEntrada(aluno);
 		
 		//DEPOIS QUE O ALUNO PASSAR,A CATRACA É BLOQUEADA
 		bloquear();
@@ -45,6 +50,6 @@ public class Catraca {
 	}
 		
 		
-	}
+	}*/
 
 }

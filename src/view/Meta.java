@@ -94,7 +94,7 @@ public class Meta extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				dispose();
-				Principal principalScreen = new Principal(aluno, null);
+				Principal principalScreen = new Principal(aluno, null, null, null, null, null);
 			    principalScreen.setVisible(true);
 				
 			}

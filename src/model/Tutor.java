@@ -7,17 +7,10 @@ public class Tutor extends Usuario{
 	protected float salario;
 	private boolean trabalhoAtivo;
 	
-	  //TELA DE CADASTRO ALUNO
-	public Tutor(String nome,String email,String senha,String cpf) {
-	super(nome, email, senha,cpf);		
-
-	
-	}
 	
 	public Tutor(String nome,String email,String senha,String cpf,LocalDate dataDeNascimento,float salario) {
-		super(nome,email,senha ,cpf,dataDeNascimento);
-		//this.setSalario(salario);
-		this.salario=salario;
+		super(nome,email,senha ,cpf,null);// nao adianta a data nao pode ser nula  
+		this.salario=0;
 		this.trabalhoAtivo= true;
 	}
 

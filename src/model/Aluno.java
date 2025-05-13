@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 import java.util.Objects;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Aluno extends Usuario {
@@ -16,9 +17,10 @@ public class Aluno extends Usuario {
 		private Plano plano;
 		private Nivel nivel;
 		private List<Treino> treinos;
+		private List<RegistroPeso> historicoPeso = new ArrayList<>();
 		
-		private String datanascimento;
-		private String datainicio;
+		/*private String datanascimento;
+		private String datainicio;*/
 		
 		private Genero genero;//genero do tipo Genero
 		
@@ -31,8 +33,7 @@ public class Aluno extends Usuario {
 	   //TELA DE CADASTRO ALUNO
 		public Aluno(String nome,String email,String senha,String cpf) {
 			super(nome, email, senha,cpf);
-			this.altura=0;
-			this.peso=0;
+			
 			
 		}
 
@@ -49,38 +50,23 @@ public class Aluno extends Usuario {
 			this.imc= peso/(altura * altura);
 			}
 		
-		//*----------------METODOS--------------
-		/*
-		 * 
-		 * 
-		 *METODOS QUE PRECISAM SER IMPLEMENTADOS 
-		 * 
-		 * 
-		public double calcularImc() {
-		return imc;
-		}
-		
-		public boolean alunoPresente() {
-			return false;
-		}
-		
-		public int alunoFrequenecia(){
-		
-		}
-		
-		*/
-		
 
 		@Override
 		public String gerarCredenciaisCadastro() {
-			return String.format("Nome:%s\nEmail:%s\nSenha:%s\nCPF:%s\n",
+			return String.format("Nome: %s\nEmail: %s\nSenha: %s\nCPF: %s",
 					this.getNome(),this.getEmail(),this.getSenha(),this.getCpf());
 			}
 		
 		//@Override
 		public String gerarCredenciaisLogin() {
-			return String.format("\nAltura: %.2f \nPeso: %.2f\nGenero:%s\nMetas:%s\nPlano:%s\nData de inicio:%s\nData de Nascimento:%s\nIMC: %.2f",
-					this.getAltura(),this.getPeso(),this.getGenero(),this.getMetas(),this.getPlano(),this.getDatainicio(),this.getDatanascimento(),this.getImc());
+			
+			DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		    String dataCadastroFormatada = this.getDataDeCadastro().format(dateFormatter);
+		    String dataNascimentoFormatada = this.getDataDeNascimento().format(dateFormatter);
+			
+			
+			return String.format("Altura: %.2fm \nPeso: %.2fKg\nGenero: %s\nMetas: %s\nPlano: %s\nData de inicio: %s\nData de Nascimento: %s\nIMC: %.2f",
+					this.getAltura(),this.getPeso(),this.getGenero(),this.getMetas().name(),this.getPlano().getNome(),dataCadastroFormatada,dataNascimentoFormatada,this.getImc());
 			}
 		
 		//@Override
@@ -112,6 +98,16 @@ public class Aluno extends Usuario {
 			this.treinos.add(treino);
 		}
 		
+		public void registrarPeso(double peso) {
+			if (peso <= 0) {
+		        throw new IllegalArgumentException("Peso inválido: " + peso);
+		    }
+			LocalDate data = LocalDate.now();
+	        this.historicoPeso.add(new RegistroPeso(data, peso));
+	        this.peso = peso; // Atualiza o peso atual do aluno
+	        this.imc = peso / (altura * altura); // Atualiza o IMC
+	    }
+		
 		
 		//*-----------------------GETTERS AND SETTERS--------------------
 		
@@ -132,6 +128,7 @@ public class Aluno extends Usuario {
 			if(peso<=0) {
 				throw new IllegalArgumentException("Erro: Peso invalido! "+peso);
 			}
+			registrarPeso(peso);
 			this.peso = peso;
 		}
 		public Plano getPlano() {
@@ -203,7 +200,8 @@ public class Aluno extends Usuario {
 			this.imc = imc;
 		}
 
-		public String getDatanascimento() {
+		
+		/*public String getDatanascimento() { Estamos usando dateLocal
 			return datanascimento;
 		}
 
@@ -217,7 +215,8 @@ public class Aluno extends Usuario {
 
 		public void setDatainicio(String datainicio) {
 			this.datainicio = datainicio;
-		}
+		}*/
+		
 		
 		
 		public Nivel getNivel() {
@@ -226,6 +225,11 @@ public class Aluno extends Usuario {
 		
 		public List<Treino> getTreinos(){
 			return new ArrayList<>(treinos);
+		}
+		public List<RegistroPeso> getHistoricoPeso() {
+		    List<RegistroPeso> copia = new ArrayList<>(historicoPeso);
+		    copia.sort((r1, r2) -> r1.getData().compareTo(r2.getData())); // Ordena por data
+		    return copia;
 		}
 
 }

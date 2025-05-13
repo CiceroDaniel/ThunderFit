@@ -16,10 +16,6 @@ public class UsuarioService {
 	public UsuarioService(UsuarioRepository usuarioRepository) {
 		this.usuarioRepository = usuarioRepository;
 	}
-
-	
-	//UsuarioRepository repositorio = new UsuarioRepository();
-	
 	
 	
 	//--------------------------- CADASTRO ---------------------------------
@@ -37,11 +33,9 @@ public class UsuarioService {
 		
 		Aluno aluno = new Aluno(nome, email,senha,cpf,dataDeNascimento,altura, peso,nivel,metas,metaPersonalizada, plano, genero);			
 		
-		//Aluno aluno = new Aluno(nome, email,senha,cpf, dataDeNascimento, altura, peso, nivel, metas, metaPersonalizada, plano, genero);
 		
 		usuarioRepository.cadastro(aluno);
 		
-		//System.out.println(aluno.gerarCredenciais());
 	}
 	
 	public void cadastroTutor(String nome,String email,String senha, String cpf,LocalDate dataDeNascimento ,float salario ) {
@@ -56,7 +50,7 @@ public class UsuarioService {
 		Tutor tutor = new Tutor(nome, email, senha,cpf, dataDeNascimento, salario);
 		
 		usuarioRepository.cadastro(tutor);
-		//System.out.println(tutor.gerarCredenciais());
+	
 	}
 	
 	public void cadastroAdministrador(String nome, String email, String senha, String cpf,LocalDate dataDeNascimento) {
@@ -93,23 +87,32 @@ public class UsuarioService {
 
 	public List<Tutor> listarTutores(){
 		
-		//------TA DANDO ERRO NO LOGIN DO TUTOR
-		
+		/*if(!(solicitante instanceof Administrador)) { alunos vao poder ver os tutores agr
+			throw new SecurityException("Apenas ADMs podem listar");
+		}*/
 		
 		return usuarioRepository.listarTutores();
 	}
 	
 	//--------------------------- ATUALIZAR ---------------------------------
 	
-	public void atualizarDados(String cpf, String novoEmail, double novoPeso, Metas novaMeta) {
+	public void atualizarDados(String cpf, String novoEmail, double novoPeso,double novaAltura, Metas novaMeta) {
 		Aluno aluno = (Aluno) usuarioRepository.buscarPorCpf(cpf);
 		if(aluno == null) throw new IllegalArgumentException("Erro: Aluno não encontrado!");
 		
 		 	if (novoEmail != null && !novoEmail.isBlank()) aluno.setEmail(novoEmail);
+		    if (novaAltura > 0) aluno.setAltura(novaAltura);
 		    if (novoPeso > 0) aluno.setPeso(novoPeso);
 		    if (novaMeta != null) aluno.setMetas(novaMeta);
 		    
 		    usuarioRepository.atualizarDados(aluno);
+	}
+	public void alterarSenha(String cpf, String senhaNova) {
+		Usuario usuario = usuarioRepository.buscarPorCpf(cpf);
+		if(usuario == null) throw new IllegalArgumentException("Erro: Aluno não encontrado!");
+		
+		if(senhaNova != null) usuario.setSenha(senhaNova);
+		usuarioRepository.atualizarDados(usuario);
 	}
 	
 	public void atualizarStatusOnline(String cpf, boolean online) {

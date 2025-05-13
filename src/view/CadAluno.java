@@ -1,8 +1,6 @@
 package view;
 
 
-//FAZER UMA CAIXA DE TEXTO PARA CPF
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.Admcontroller;
 import controller.Alunocontroller;
+import controller.Tutorcontroller;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -50,7 +49,7 @@ import javax.swing.SwingConstants;
 
 import services.*;
 
-public class Cad extends JFrame {
+public class CadAluno extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -87,12 +86,7 @@ public class Cad extends JFrame {
 	private JTextField campoCpf;
 	private JButton btnNewButton_LOGOUT;
 
-	
-	private Aluno aluno;
-	private Tutor tutor;
-	private Administrador adm;
-	private final Admcontroller admController;
-	private JLabel linkParaLoginAdm;
+
 
 	public class RoundedButtonSimples extends JButton{
 		private int arc;
@@ -136,13 +130,24 @@ public class Cad extends JFrame {
 		botao.setIconTextGap(10);
 	}
 	
-
 	
-	public Cad(Aluno aluno,Tutor tutor, Admcontroller admController) {
+	private Aluno aluno;
+	private Tutor tutor;
+	private Administrador adm;
+	private final Admcontroller admcontroller;
+	private final Tutorcontroller tutorcontroller;
+	private final Alunocontroller alunocontroller;
+	private JLabel linkParaLoginAdm;
+	
+	public CadAluno(Aluno aluno,Tutor tutor,Administrador adm,Alunocontroller alunocontroller,Tutorcontroller tutorcontroller, Admcontroller admcontroller) {
 		
+	
 		this.aluno=aluno;
 		this.tutor = tutor;
-		this.admController= admController;
+		this.adm=adm;
+		this.admcontroller= admcontroller;
+		this.tutorcontroller=tutorcontroller;
+		this.alunocontroller = alunocontroller;
 		
 		setResizable(false);
 		setBackground(new Color(224, 188, 233));
@@ -324,20 +329,21 @@ public class Cad extends JFrame {
                 
                 	
 				// Cria um objeto aluno com os dados fornecidos
-				Aluno aluno = new Aluno(nome, email, senha, cpf);		
-				 JOptionPane.showMessageDialog(null,aluno.gerarCredenciaisCadastro());
-	                
+				Aluno aluno = new Aluno(nome, email, senha, cpf);
+				JOptionPane.showMessageDialog(null,aluno.gerarCredenciaisCadastro());
+				  System.out.println("INFO:\n"+aluno.gerarCredenciaisCadastro());
 	                // Limpa os campos
 	                Campoemail.setText("");  
 	                Campodenome.setText("");    
 	                Camposenha.setText("");
 	                campoCpf.setText("");
 	                
-	                System.out.println("INFO"+aluno.gerarCredenciaisCadastro());
+	       
 	                
 	                dispose();
+	                
 	                //ta pegando as informações do aluno nome,email e senha e mandando para a subtela
-	                Formulario formularioScreen = new Formulario(aluno, tutor, admController);
+	                Formulario formularioScreen = new Formulario(aluno,tutor,alunocontroller, admcontroller);
 	                formularioScreen.setVisible(true);
 	                
 				
@@ -415,7 +421,7 @@ public class Cad extends JFrame {
 				
 				dispose();
 				
-				Loginaluno loginScreen = new Loginaluno(aluno);
+				Loginaluno loginScreen = new Loginaluno(aluno, null, alunocontroller, tutorcontroller, admcontroller);
 				loginScreen.setVisible(true);
 			}
 		});
@@ -465,7 +471,7 @@ public class Cad extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor, admController);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor, adm, alunocontroller, tutorcontroller, admcontroller);
 				escolhaScreen.setVisible(true);
 			}
 		});
@@ -482,12 +488,12 @@ public class Cad extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				
-				Cadtutor cadAdmScreen = new Cadtutor(tutor,admController);
+				Cadtutor cadAdmScreen = new Cadtutor(aluno, tutor,alunocontroller, tutorcontroller, admcontroller);
 				cadAdmScreen.setVisible(true);
 			}
 		});
 		
-		/*
+		
 		JLabel linkParaLoginAdm = new JLabel("ADMNISTRADOR");
 		linkParaLoginAdm.setForeground(Color.BLUE);
 		linkParaLoginAdm.setFont(new Font("Tahoma", Font.BOLD, 10));
@@ -499,10 +505,10 @@ public class Cad extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				
-				LoginAdm loginScreen = new LoginAdm(aluno, tutor, adm, alunoController);
+				LoginAdm loginScreen = new LoginAdm(aluno, tutor, adm, alunocontroller, tutorcontroller, admcontroller);
 				loginScreen.setVisible(true);
 			}
-		});*/
+		});
 		
 	}
 }

@@ -9,10 +9,14 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import controller.Admcontroller;
 import controller.Alunocontroller;
+import controller.Tutorcontroller;
 import model.Aluno;
 import model.ModeloTabela;
 import model.Tutor;
+import services.AuthService;
+import services.UsuarioService;
 
 import javax.swing.JTree;
 import java.awt.Color;
@@ -40,33 +44,22 @@ public class Tabelacadastrosdotutor extends JFrame {
 	private JTextField campocpf;
 	private JLabel lblCpf;
 	
-	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TabelaCadastrosAdm frame = new TabelaCadastrosAdm();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	private Tutor tutor;
 	private Aluno aluno;
+	private final Alunocontroller alunocontroller;
+	private final Tutorcontroller tutorcontroller;
+	private final Admcontroller admcontroller;
 	
-	public Tabelacadastrosdotutor(Tutor tutor,Aluno aluno) {
+	public Tabelacadastrosdotutor(Aluno aluno,Tutor tutor,Alunocontroller alunocontroller,Tutorcontroller tutorcontroller,Admcontroller admcontroller) {
 		this.tutor=tutor;
 		this.aluno=aluno;
+		this.alunocontroller = alunocontroller;
+		this.tutorcontroller=tutorcontroller;
+		this.admcontroller = admcontroller;
          ArrayList<Aluno> alunos;
          ModeloTabela modelotabela;
-		//alunos.add();
+
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1080,720);
@@ -83,7 +76,7 @@ public class Tabelacadastrosdotutor extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, tutor);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno, tutor, null, alunocontroller, tutorcontroller, admcontroller);
 				escolhaScreen.setVisible(true);
 				
 			}
@@ -97,7 +90,9 @@ public class Tabelacadastrosdotutor extends JFrame {
 		
 		//-------------------------------------------------------------
 		
-        alunos = (ArrayList<Aluno>)Alunocontroller.getAlunosCadastrados();
+
+		Admcontroller  adm = new Admcontroller(new AuthService(null, null),new UsuarioService(null));
+		alunos = (ArrayList<Aluno>)adm.listaralunoController(aluno);
 		modelotabela = new ModeloTabela(alunos);
 		
 		
@@ -159,7 +154,7 @@ public class Tabelacadastrosdotutor extends JFrame {
 				String email = campoemail.getText();
 				String cpf = campocpf.getText();
 				
-				List<Aluno> resultado = Alunocontroller.buscaralunoController(nome,email,cpf);
+				List<Aluno> resultado = admcontroller.buscaralunoController(nome,email,cpf);
 				
 				//ATUALIZA A TABELA
 				table.setModel(new ModeloTabela(resultado));
@@ -174,7 +169,7 @@ public class Tabelacadastrosdotutor extends JFrame {
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				List<Aluno> todos = Alunocontroller.listaralunoController(aluno);
+				List<Aluno> todos = admcontroller.listaralunoController(aluno);
 				
 				//ATUALIZA A TABELA
 				table.setModel(new ModeloTabela(todos));

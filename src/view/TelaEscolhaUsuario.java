@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.Admcontroller;
+import controller.Alunocontroller;
+import controller.Tutorcontroller;
+import model.Administrador;
 import model.Aluno;
 import model.Tutor;
 
@@ -70,12 +73,17 @@ public class TelaEscolhaUsuario extends JFrame {
 	
 	private Aluno aluno;
 	private Tutor tutor;
-	private Admcontroller admcontroller;
+	private Administrador adm;
+	private final Alunocontroller alunocontroller;
+	private final Tutorcontroller tutorcontroller;
+	private final Admcontroller admcontroller;
 	
-	public TelaEscolhaUsuario(Aluno aluno,Tutor tutor,Admcontroller admcontroller) {
+	public TelaEscolhaUsuario(Aluno aluno,Tutor tutor,Administrador adm,Alunocontroller alunocontroller,Tutorcontroller tutorcontroller,Admcontroller admcontroller) {
 		setResizable(false);
-		
+		this.alunocontroller = alunocontroller;
+		this.tutorcontroller = tutorcontroller;
 		this.admcontroller=admcontroller;
+		this.adm=adm;
 		this.aluno=aluno;
 		this.tutor=tutor;
 		
@@ -105,7 +113,7 @@ public class TelaEscolhaUsuario extends JFrame {
 				
 				dispose();
 				
-				Loginaluno LoginScreen = new Loginaluno(aluno);
+				Loginaluno LoginScreen = new Loginaluno(aluno,tutor,alunocontroller, tutorcontroller, admcontroller);
 				LoginScreen.setVisible(true);
 			}
 		});
@@ -120,7 +128,7 @@ public class TelaEscolhaUsuario extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen = new Cad(aluno, tutor,admcontroller);
+				CadAluno cadScreen = new CadAluno(aluno, tutor,adm, alunocontroller, tutorcontroller, admcontroller);
 				cadScreen.setVisible(true);
 				
 			}
@@ -136,7 +144,7 @@ public class TelaEscolhaUsuario extends JFrame {
 				
 				dispose();
 				
-				Logintutor logintutorscreen = new  Logintutor(tutor);
+				Logintutor logintutorscreen = new  Logintutor(aluno,tutor,alunocontroller, tutorcontroller, admcontroller);
 				logintutorscreen.setVisible(true);
 				
 			}

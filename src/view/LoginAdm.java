@@ -6,11 +6,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.Admcontroller;
 import controller.Alunocontroller;
 import controller.Tutorcontroller;
 import model.Administrador;
 import model.Aluno;
 import model.Tutor;
+import services.AuthService;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -69,12 +71,6 @@ public class LoginAdm extends JFrame {
 	private JLabel lblNewLabel_iconeSenha;
 	private JLabel lblNewLabel_walpaper2;
 	
-
-	 // Lista de alunos cadastrados
-	
-	
-   // private ArrayList<Aluno> alunos = (ArrayList<Aluno>) Alunocontroller.getAlunos();
-
 	
 	//===========================ARREDONDAR BORDAS DOS BOTÕES===============================//
 	
@@ -123,15 +119,19 @@ public class LoginAdm extends JFrame {
 		private Aluno aluno;
 		private Tutor tutor;
 		private Administrador adm;
-		private final Alunocontroller alunoController;
 		private JButton btnNewButton_LOGOUT;
+        private final Alunocontroller alunocontroller;
+        private final Tutorcontroller tutorcontroller;
+        private final Admcontroller admcontroller;
 		
-	public LoginAdm(Aluno aluno,Tutor tutor,Administrador adm, Alunocontroller alunoController) {
+	public LoginAdm(Aluno aluno,Tutor tutor,Administrador adm,Alunocontroller alunocontroller,Tutorcontroller tutorcontroller,Admcontroller admcontroller) {
 		
-		this.adm=adm;
 		this.tutor=tutor;
+		this.adm=adm;
+		this.alunocontroller=alunocontroller;
+		this.tutorcontroller = tutorcontroller;
+		this.admcontroller=admcontroller;
 		this.aluno=aluno;
-		this.alunoController=alunoController;
 		
 		setResizable(false);
 		setBackground(new Color(255, 255, 255));
@@ -178,35 +178,17 @@ public class LoginAdm extends JFrame {
 	           
 	                String email = textFieldEmail.getText().trim();//trim remove os espaços extras
 	                String senha = new String(passwordField.getPassword()).trim();
-	                
-	            	if(!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")) {
-                		JOptionPane.showMessageDialog(btnLogin,"Verifique seus dados");	
-                		return;
-                	}
-                	
-	             //TESTAR SE O LOGIN É VALIDO
-	                boolean loginValido = false;
-	                
+	    
                 // Verifica se algum cliente cadastrado tem o email e senha corretos
-	                for (Tutor tutor : Tutorcontroller.getTutoresCadastrados()) {//VERIFICA A LISTA DE PESSOAS CADASTRADAs
-	                if (tutor.getEmail().equals(email) && tutor.getSenha().equals(senha)) {
+	                   Administrador admLogado = admcontroller.loginAdmController(email, senha);
+	                	if (admLogado != null) {
 						
-	                        loginValido = true;
-	                        break;
-	                }
-	              }
-	                if (loginValido) {
-	                    JOptionPane.showMessageDialog(btnLogin, "Bem vindo!");
-	               
-		                // Direciona para a tela principal após o login
-	                    dispose();
-	                    
-	                    
-	                    
-	                    Tabelacadastrosdotutor ttScreen = new Tabelacadastrosdotutor(tutor, aluno);
-	                    ttScreen.setVisible(true);
+	                	JOptionPane.showMessageDialog(btnLogin,"Bem vindo "+admLogado.getNome()+"!");
+	                    TabelaCadastrosAdm cadastrosScreen = new TabelaCadastrosAdm();
+	                    cadastrosScreen.setVisible(true);
 
 	                } else {
+	                	 System.out.println("INFO:\n"+adm.gerarCredenciais());
 	                    JOptionPane.showMessageDialog(btnLogin, "Email ou senha incorretos.", "Erro", JOptionPane.WARNING_MESSAGE);
 	              }
 	           }
@@ -237,7 +219,7 @@ public class LoginAdm extends JFrame {
 		//=============================TEXTOS=============================//
 		//================================================================//
 		
-		JLabel lblNewLabel = new JLabel("LOGIN ADM");
+		JLabel lblNewLabel = new JLabel("LOGIN USER");
 		lblNewLabel.setBounds(179, 60, 134, 66);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblNewLabel.setForeground(new Color(255, 255, 255));
@@ -313,35 +295,6 @@ public class LoginAdm extends JFrame {
 		//================================================================//
 		//================================================================//
 		
-		//================================================================//
-		//==========================IMAGENS===============================//
-		//================================================================//
-		
-		/*
-		lblNewLabel_6 = new JLabel("New label");
-		lblNewLabel_6.setIcon(new ImageIcon("C:\\Users\\UFCA\\Downloads\\WhatsApp Image 2025-04-03 at 13.58.32.jpeg"));
-		lblNewLabel_6.setBounds(463, 0, 500, 725);
-		contentPane.add(lblNewLabel_6);
-		
-
-		lblNewLabel_9 = new JLabel("New label");
-		ImageIcon originalIcon = new ImageIcon(getClass().getResource("/img/email.jpeg"));
-		Image originalImage = originalIcon.getImage();
-		Image resizedImage = originalImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-		ImageIcon resizedIcon = new ImageIcon(resizedImage);
-		lblNewLabel_9.setIcon(resizedIcon);
-		lblNewLabel_9.setBounds(5, 227, 50, 50);
-		contentPane.add(lblNewLabel_9);
-		
-		lblNewLabel_12 = new JLabel("New label");
-		ImageIcon originalIcon2 = new ImageIcon(getClass().getResource("/img/senha.jpeg"));
-		Image originalImage2 = originalIcon2.getImage();
-		Image resizedImage2 = originalImage2.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-		ImageIcon resizedIcon2 = new ImageIcon(resizedImage2);
-		lblNewLabel_12.setIcon(resizedIcon2);
-		lblNewLabel_12.setBounds(5, 321, 45, 45); 
-		contentPane.add(lblNewLabel_12);
-		*/
 		
 		//================================================================//
 		//================================================================//
@@ -388,7 +341,7 @@ public class LoginAdm extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor,alunocontroller, tutorcontroller, admcontroller);
 				escolhaScreen.setVisible(true);
 				
 			}
@@ -405,7 +358,7 @@ public class LoginAdm extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen = new Cad(aluno,tutor);
+				CadAluno cadScreen = new CadAluno(aluno,tutor,null, alunocontroller, tutorcontroller, admcontroller);
 				cadScreen.setVisible(true);
 		}
 	});
@@ -413,6 +366,10 @@ public class LoginAdm extends JFrame {
 		//================================================================//
 		//================================================================//
 		//================================================================//
+		
+		
+		
+		
 		
 	            }
 	        }

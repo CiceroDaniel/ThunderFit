@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.Admcontroller;
 import controller.Alunocontroller;
 import controller.Tutorcontroller;
 import model.Aluno;
@@ -68,13 +69,6 @@ public class Logintutor extends JFrame {
 	private JLabel lblNewLabel_iconeSenha;
 	private JLabel lblNewLabel_walpaper2;
 	
-
-	 // Lista de alunos cadastrados
-	
-	
-   // private ArrayList<Aluno> alunos = (ArrayList<Aluno>) Alunocontroller.getAlunos();
-
-	
 	//===========================ARREDONDAR BORDAS DOS BOTÕES===============================//
 	
 		public class RoundedButtonSimples extends JButton{
@@ -121,19 +115,28 @@ public class Logintutor extends JFrame {
 		}
 		private Aluno aluno;
 		private Tutor tutor;
+		private final Tutorcontroller tutorcontroller;
+		private final Alunocontroller alunocontroller;
+		private final Admcontroller admcontroller;
 		private JButton btnNewButton_LOGOUT;
 		
-	public Logintutor(Tutor tutor) {
+	public Logintutor(Aluno aluno,Tutor tutor,Alunocontroller alunocontroller,Tutorcontroller tutorcontroller,Admcontroller admcontroller) {
 		
+		this.aluno=aluno;
+		this.tutor=tutor;
+		this.alunocontroller=alunocontroller;
+		this.tutorcontroller=tutorcontroller;
+		this.admcontroller=admcontroller;
+	
+		/*
 		//SO PRA VERIFICAR SE O TUTOR FOI PASSADO CORRETAMENTE
 				if(tutor == null) {
-					JOptionPane.showMessageDialog(null,"Não foi possivel carregar o tutor");
+					JOptionPane.showMessageDialog(null,"Não foi possivel carregar o tutor:"+tutor);
 			        dispose();
 			        return;
-				}
+				}*/
 		
-		this.tutor=tutor;
-		
+			
 		setResizable(false);
 		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -177,42 +180,31 @@ public class Logintutor extends JFrame {
 	        btnLogin.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	           
-	                String email = textFieldEmail.getText().trim();//trim remove os espaços extras
-	                String senha = new String(passwordField.getPassword()).trim();
-	                
-	            	if(!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")) {
-                		JOptionPane.showMessageDialog(btnLogin,"Verifique seus dados");	
-                		return;
-                	}
-                	
-	             //TESTAR SE O LOGIN É VALIDO
-	                boolean loginValido = false;
-	                
-                // Verifica se algum cliente cadastrado tem o email e senha corretos
-	                for (Tutor tutor : Tutorcontroller.getTutoresCadastrados()) {//VERIFICA A LISTA DE PESSOAS CADASTRADAs
-	                if (tutor.getEmail().equals(email) && tutor.getSenha().equals(senha)) {
-						
-	                        loginValido = true;
-	                        break;
-	                }
-	              }
-	                if (loginValido) {
-	                    JOptionPane.showMessageDialog(btnLogin, "Bem vindo!");
-	               
-		                // Direciona para a tela principal após o login
-	                    dispose();
-	                    
-	                    
-	                    
-	                    Tabelacadastrosdotutor ttScreen = new Tabelacadastrosdotutor(tutor, aluno);
-	                    ttScreen.setVisible(true);
+	            	   String email = textFieldEmail.getText().trim();//trim remove os espaços extras
+		                String senha = new String(passwordField.getPassword()).trim();
+		                
+		    
+	                // Verifica se algum cliente cadastrado tem o email e senha corretos
+		                Tutor tutorLogado = tutorcontroller.loginTutorController(email, senha);
+		               
+		                	
+		                	if (tutorLogado != null) {
+							
+		                		JOptionPane.showMessageDialog(btnLogin,"Bem vindo"+tutorLogado.getNome()+"!");
+		                        
+		                    
+		                		dispose();
+		                		
+		                    Tabelacadastrosdotutor tabelatutorScreen = new Tabelacadastrosdotutor(aluno, tutorLogado,alunocontroller, tutorcontroller, admcontroller);
+		                    tabelatutorScreen.setVisible(true);
 
-	                } else {
-	                    JOptionPane.showMessageDialog(btnLogin, "Email ou senha incorretos.", "Erro", JOptionPane.WARNING_MESSAGE);
-	              }
-	           }
-	           
-	        });
+		                } else {
+		                    JOptionPane.showMessageDialog(btnLogin, "Email ou senha incorretos.", "Erro", JOptionPane.WARNING_MESSAGE);
+		              }
+		           }
+		           
+		        });
+		        
 	        
 	                
 	            
@@ -313,36 +305,7 @@ public class Logintutor extends JFrame {
 		//================================================================//
 		//================================================================//
 		//================================================================//
-		
-		//================================================================//
-		//==========================IMAGENS===============================//
-		//================================================================//
-		
-		/*
-		lblNewLabel_6 = new JLabel("New label");
-		lblNewLabel_6.setIcon(new ImageIcon("C:\\Users\\UFCA\\Downloads\\WhatsApp Image 2025-04-03 at 13.58.32.jpeg"));
-		lblNewLabel_6.setBounds(463, 0, 500, 725);
-		contentPane.add(lblNewLabel_6);
-		
 
-		lblNewLabel_9 = new JLabel("New label");
-		ImageIcon originalIcon = new ImageIcon(getClass().getResource("/img/email.jpeg"));
-		Image originalImage = originalIcon.getImage();
-		Image resizedImage = originalImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-		ImageIcon resizedIcon = new ImageIcon(resizedImage);
-		lblNewLabel_9.setIcon(resizedIcon);
-		lblNewLabel_9.setBounds(5, 227, 50, 50);
-		contentPane.add(lblNewLabel_9);
-		
-		lblNewLabel_12 = new JLabel("New label");
-		ImageIcon originalIcon2 = new ImageIcon(getClass().getResource("/img/senha.jpeg"));
-		Image originalImage2 = originalIcon2.getImage();
-		Image resizedImage2 = originalImage2.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-		ImageIcon resizedIcon2 = new ImageIcon(resizedImage2);
-		lblNewLabel_12.setIcon(resizedIcon2);
-		lblNewLabel_12.setBounds(5, 321, 45, 45); 
-		contentPane.add(lblNewLabel_12);
-		*/
 		
 		//================================================================//
 		//================================================================//
@@ -389,7 +352,7 @@ public class Logintutor extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor, null, alunocontroller,tutorcontroller, admcontroller);
 				escolhaScreen.setVisible(true);
 				
 			}
@@ -406,7 +369,7 @@ public class Logintutor extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen = new Cad(aluno,tutor);
+				CadAluno cadScreen = new CadAluno(aluno,tutor, null, alunocontroller,tutorcontroller, admcontroller);
 				cadScreen.setVisible(true);
 		}
 	});

@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.Admcontroller;
 import controller.Alunocontroller;
+import controller.Tutorcontroller;
 import model.Aluno;
 import model.Tutor;
 import services.AuthService;
@@ -69,12 +70,6 @@ public class Loginaluno extends JFrame {
 	private JLabel lblNewLabel_iconeSenha;
 	private JLabel lblNewLabel_walpaper2;
 	
-
-	 // Lista de alunos cadastrados
-	
-	
-   // private ArrayList<Aluno> alunos = (ArrayList<Aluno>) Alunocontroller.getAlunos();
-
 	
 	//===========================ARREDONDAR BORDAS DOS BOTÕES===============================//
 	
@@ -123,13 +118,16 @@ public class Loginaluno extends JFrame {
 		private Aluno aluno;
 		private Tutor tutor;
 		private JButton btnNewButton_LOGOUT;
-        private Alunocontroller alunocontroller;
+        private final Alunocontroller alunocontroller;
+        private final Tutorcontroller tutorcontroller;
+        private final Admcontroller admcontroller;
 		
-	public Loginaluno(Aluno aluno,Alunocontroller alunocontroller) {
+	public Loginaluno(Aluno aluno,Tutor tutor,Alunocontroller alunocontroller,Tutorcontroller tutorcontroller,Admcontroller admcontroller) {
 		
-		AuthService service = new AuthService(null);
-		
+		this.tutor=tutor;
 		this.alunocontroller=alunocontroller;
+		this.tutorcontroller = tutorcontroller;
+		this.admcontroller=admcontroller;
 		this.aluno=aluno;
 		
 		setResizable(false);
@@ -177,35 +175,17 @@ public class Loginaluno extends JFrame {
 	           
 	                String email = textFieldEmail.getText().trim();//trim remove os espaços extras
 	                String senha = new String(passwordField.getPassword()).trim();
-	                
-	                
-	            	if(!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")) {
-                		JOptionPane.showMessageDialog(btnLogin,"Verifique seus dados");	
-                		return;
-                	}
-                	
-	             //TESTAR SE O LOGIN É VALIDO
-	                boolean loginValido = false;
-	                
+	    
                 // Verifica se algum cliente cadastrado tem o email e senha corretos
-	                for (Aluno aluno : alunocontroller.loginAlunoController(email, senha)) {//VERIFICA A LISTA DE PESSOAS CADASTRADAs
+	                   Aluno alunoLogado = alunocontroller.loginAlunoController(email, senha);
 	               
-	                	
-	                	if (aluno.getEmail().equals(email) && aluno.getSenha().equals(senha)) {
+	                	if (alunoLogado != null) {
 						
-	                        loginValido = true;
-	                        break;
-	                }
-	              }
-	                if (loginValido) {
-	                    JOptionPane.showMessageDialog(btnLogin, "Bem vindo!");
-	               
-		                // Direciona para a tela principal após o login
-	                    dispose();
-	                    
-	                    
-	                    
-	                    Principal principalScreen = new Principal(aluno, tutor);
+	                	JOptionPane.showMessageDialog(btnLogin,"Bem vindo "+alunoLogado.getNome()+"!");
+	                	
+	                	dispose();
+	                	
+	                    Principal principalScreen = new Principal(alunoLogado, tutor, null, alunocontroller,tutorcontroller, admcontroller);
 	                    principalScreen.setVisible(true);
 
 	                } else {
@@ -315,35 +295,6 @@ public class Loginaluno extends JFrame {
 		//================================================================//
 		//================================================================//
 		
-		//================================================================//
-		//==========================IMAGENS===============================//
-		//================================================================//
-		
-		/*
-		lblNewLabel_6 = new JLabel("New label");
-		lblNewLabel_6.setIcon(new ImageIcon("C:\\Users\\UFCA\\Downloads\\WhatsApp Image 2025-04-03 at 13.58.32.jpeg"));
-		lblNewLabel_6.setBounds(463, 0, 500, 725);
-		contentPane.add(lblNewLabel_6);
-		
-
-		lblNewLabel_9 = new JLabel("New label");
-		ImageIcon originalIcon = new ImageIcon(getClass().getResource("/img/email.jpeg"));
-		Image originalImage = originalIcon.getImage();
-		Image resizedImage = originalImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-		ImageIcon resizedIcon = new ImageIcon(resizedImage);
-		lblNewLabel_9.setIcon(resizedIcon);
-		lblNewLabel_9.setBounds(5, 227, 50, 50);
-		contentPane.add(lblNewLabel_9);
-		
-		lblNewLabel_12 = new JLabel("New label");
-		ImageIcon originalIcon2 = new ImageIcon(getClass().getResource("/img/senha.jpeg"));
-		Image originalImage2 = originalIcon2.getImage();
-		Image resizedImage2 = originalImage2.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-		ImageIcon resizedIcon2 = new ImageIcon(resizedImage2);
-		lblNewLabel_12.setIcon(resizedIcon2);
-		lblNewLabel_12.setBounds(5, 321, 45, 45); 
-		contentPane.add(lblNewLabel_12);
-		*/
 		
 		//================================================================//
 		//================================================================//
@@ -390,7 +341,7 @@ public class Loginaluno extends JFrame {
 				
 				dispose();
 				
-				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor);
+				TelaEscolhaUsuario escolhaScreen = new TelaEscolhaUsuario(aluno,tutor,null, alunocontroller, tutorcontroller, admcontroller);
 				escolhaScreen.setVisible(true);
 				
 			}
@@ -407,7 +358,7 @@ public class Loginaluno extends JFrame {
 				
 				dispose();
 				
-				Cad cadScreen = new Cad(aluno,tutor, null);
+				CadAluno cadScreen = new CadAluno(aluno,tutor,null, alunocontroller, tutorcontroller, admcontroller);
 				cadScreen.setVisible(true);
 		}
 	});

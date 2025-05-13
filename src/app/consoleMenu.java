@@ -1,8 +1,12 @@
 package app;
 
 import app.*;
+import repository.ExercicioRepository;
+import repository.TreinoRepository;
 import repository.UsuarioRepository;
 import services.AuthService;
+import services.ExercicioService;
+import services.TreinoService;
 import services.UsuarioService;
 
 import java.util.Scanner;
@@ -18,18 +22,28 @@ public class consoleMenu {
 	admConsole admConsole;
 	tutorConsole tutorConsole;
 	private Scanner scanner;
-	private toolbox tools;
+	toolbox tools;
 	private AuthService auth;
 	private UsuarioService services;
+	private ExercicioRepository exRepo;
+	private ExercicioService exServi; 
+	private TreinoRepository treRepo;
+	private TreinoService treServi;
+	
 
-	public consoleMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
+	public consoleMenu(Scanner scanner, UsuarioRepository repo, AuthService auth,UsuarioService services,ExercicioRepository exRepo
+			,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi ) {
 		this.scanner = scanner;
 	    this.repo = repo;
 	    this.auth = auth;
 	    this.services = services;
+	    this.exRepo= exRepo;
+	    this.exServi= exServi;
+	    this.treRepo= treRepo;
+	    this.treServi=treServi;
 	    
-	    this.tutorConsole = new tutorConsole(scanner, repo, auth, services);
-	    this.userConsole = new usuarioConsole(scanner, services);
+	    this.tutorConsole = new tutorConsole(scanner, repo, auth, services, exRepo, exServi, treRepo, treServi);
+	    this.userConsole = new usuarioConsole(scanner, services, auth);
 	    this.admConsole = new admConsole(scanner, repo, auth, services);
 	    this.tools = new toolbox(userConsole, admConsole, tutorConsole);
 	}

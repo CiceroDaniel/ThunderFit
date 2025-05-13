@@ -7,9 +7,14 @@ import repository.UsuarioRepository;
 public class AuthService {
 	private final UsuarioRepository usuarioRepository;
 	private Usuario usuarioLogado;
+	private UsuarioService usuarioService;
 	
-	public AuthService(UsuarioRepository usuarioRepository) {
-		this.usuarioRepository=usuarioRepository;
+	//modifiquei
+	
+	public AuthService(UsuarioRepository usuarioRepository,UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
+		this.usuarioRepository = usuarioRepository;
+		this.usuarioLogado= null;
 	}
 	
 	
@@ -40,6 +45,13 @@ public class AuthService {
 	
 	public boolean getUsuarioLogado(){
 		return usuarioLogado != null;
+	}
+	
+	public Usuario getUsuario() {
+		if(this.usuarioLogado == null) {
+			throw new IllegalArgumentException("Nenhuam usuario esta logado!");
+		}
+		return this.usuarioLogado;
 	}
 	
 }

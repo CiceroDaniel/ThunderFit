@@ -21,9 +21,10 @@ public class UsuarioRepository implements InterfaceRepository<Usuario>{
 	@Override
 	public void cadastro(Usuario usuario) {
 		
-		//NÃO TO CONSEGUINDO IMPLEMENTAR ISSO 
 		
-		//Objects.requireNonNull(usuario,"Erro: Usuario não pode ser nulo!");
+		Objects.requireNonNull(usuario,"Erro: Usuario não pode ser nulo!");
+		
+		//Não tá funcionano no front
 		//Objects.requireNonNull(usuario.getDataDeNascimento(),"Data de nascimento obrigatoria");
 		
 		if(usuario.getNome()==null || usuario.getNome().isBlank()) {

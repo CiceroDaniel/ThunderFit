@@ -29,9 +29,9 @@ public class teste {
 		Scanner scan = new Scanner(System.in);
 		
 		
-		consoleMenu menu = new consoleMenu(scan,repo,auth,services, exRepo, exServi, treRepo, treServi, pagRepo, pagService);
+		consoleMenu menu = new consoleMenu(scan,repo,auth,services, exRepo, exServi, treRepo, treServi, pagRepo, pagService, null, null, null, null);
 		menu.tools.preCad();
-		menu.tutorConsole.listarTutor();
+		
 		
 	
 		

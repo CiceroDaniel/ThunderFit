@@ -188,13 +188,12 @@ public void AtualizarSenha() {
 		System.out.println("================== TUTOR ===================");
 		int op; 
 		do {
-			System.out.println("======= CRUD DOS TUTORES ======="
+			System.out.println("======= MENU DOS TUTORES ======="
 					+ "\n1 - MEU PERFIL"
 					+ "\n2 - GERENCIAR TREINOS" // MENU DE TREINOS COM CRUD, PARA ADICIONAR TREINO ELE LISTA OS EXERCICIOS
-					+ "\n3 - GERENCIAR ALUNOS"
-					+ "\n4 - ATUALIZAR DADOS"
-					+ "\n5 - ALTERAR SENHA"  //MENU PARA LISTAR BUSCAR POR NOME, ATUALIZAR DADOS
-					+ "\n4 - SAIR");
+					+ "\n3 - ATUALIZAR DADOS"
+					+ "\n4 - ALTERAR SENHA"  //MENU PARA LISTAR BUSCAR POR NOME, ATUALIZAR DADOS
+					+ "\n0 - VOLTAR");
 			op = scanner.nextInt();
 			scanner.nextLine();
 			
@@ -204,18 +203,17 @@ public void AtualizarSenha() {
 				break;
 			case 2 :  gerenciarTreinos();
 				break;
-			case 3: //gerenciar alunos
+			case 3:	atualizarDados();
 				break;
-			case 4:	atualizarDados();
-				break;
-			case 5: AtualizarSenha();
+			case 4: AtualizarSenha();
 			break;
-			case 6: adm.admMenu();
+			case 0: adm.admMenu();
 			default: System.out.println("OPÇÃO INVALIDA!");
 		}
 			
 		}while(op!=0);
 	}
+	
 	
 	public void gerenciarTreinos() {
 		System.out.println("======GERENCIAR TREINOS=========");
@@ -257,6 +255,7 @@ public void AtualizarSenha() {
 		treServi.criarTreino(nome, nivel, auth.getUsuario());
 	}
 	
+	
 	public void AssociarTreino() {
 		System.out.println("=====ASSOCIAR TREINO A ALUNO======");
 		System.out.println("DIGITE O CPF DO ALUNO");
@@ -276,24 +275,7 @@ public void AtualizarSenha() {
 		treServi.removerTreino(nome, auth.getUsuario());
 	}
 	
-	public void listarTutor() {
-		List <Tutor> tutores = services.listarTutores();
-		if(tutores.isEmpty()) {
-			System.out.println("Nenhum tutor cadastrado!");
-			return;
-		}
-		System.out.println("=============== LISTA DE TUTORES ==================");
-		int i=1;
-		for(Tutor tutor: tutores) {
-	        System.out.println("-------- Tutor " + i + " --------");
-	        System.out.println("Nome: " + tutor.getNome());
-	        System.out.println("Email: " + tutor.getEmail());
-	        System.out.println("---------------------------------\n");
-	        i++;
-		}
-		
 	
-	}
 	
 	public void cdTutor() {
 	    String dataScn = "2006-10-23";

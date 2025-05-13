@@ -8,6 +8,10 @@ import repository.UsuarioRepository;
 import services.AuthService;
 import services.ExercicioService;
 import services.PagamentoService;
+import services.PlanoService;
+import services.PresencaService;
+import services.RelatorioFinanceiroService;
+import services.RelatorioPresencaService;
 import services.TreinoService;
 import services.UsuarioService;
 
@@ -33,10 +37,14 @@ public class consoleMenu {
 	private TreinoService treServi;
 	private PagamentoRepository pagRepo;
 	private PagamentoService pagService;
+
+	private final RelatorioPresencaService relatorioPresencaService;
+    private final RelatorioFinanceiroService relatorioFinanceiroService;
+    private final PlanoService planoService;
+    private final PresencaService presencaService;
 	
 
-	public consoleMenu(Scanner scanner, UsuarioRepository repo, AuthService auth,UsuarioService services,ExercicioRepository exRepo
-			,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi, PagamentoRepository pagRepo, PagamentoService pagService ) {
+	public consoleMenu(Scanner scanner, UsuarioRepository repo, AuthService auth,UsuarioService services,ExercicioRepository exRepo,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi, PagamentoRepository pagRepo, PagamentoService pagService, RelatorioPresencaService relatorioPresencaService, RelatorioFinanceiroService relatorioFinanceiroService, PlanoService planoService, PresencaService presencaService ) {
 		this.scanner = scanner;
 	    this.repo = repo;
 	    this.auth = auth;
@@ -48,15 +56,19 @@ public class consoleMenu {
 	    this.pagRepo = pagRepo;
 	    this.pagService = pagService;
 	    
+	    this.relatorioPresencaService = relatorioPresencaService;
+        this.relatorioFinanceiroService = relatorioFinanceiroService;
+        this.planoService = planoService;
+        this.presencaService = presencaService;
+	    
 	    this.tutorConsole = new tutorConsole(scanner, repo, auth, services, exRepo, exServi, treRepo, treServi, pagRepo, pagService);
 	    this.userConsole = new usuarioConsole(scanner, services, auth, pagRepo, pagService);
-	    this.admConsole = new admConsole(scanner, repo, auth, services, pagRepo, pagService);
+	    this.admConsole = new admConsole(scanner, repo, auth, services, pagRepo, pagService, relatorioPresencaService, relatorioFinanceiroService, planoService, presencaService);
 	    this.tools = new toolbox(userConsole, admConsole, tutorConsole);
 	}
 	
 	
 
-	
 
 	
 
@@ -66,19 +78,16 @@ public class consoleMenu {
 		int op;
 		do {
 			System.out.println("==========MENU INICIAL=========== \n"
-					+ "1 - CADASTRO \n"
-			 		+ "2 - LOGIN \n"
-					+ "3 - SAIR \n"
+			 		+ "1 - LOGIN \n"
+					+ "0 - SAIR \n"
 					+ "ESCOLHA A OPÇÃO: ");
 			op = scanner.nextInt();
 			scanner.nextLine();
 			//testando pra victor hugo
 			switch(op) {
-				case 1 :  Cadastro(scanner, repo, auth, services);
+				case 1 :  login(scanner, repo, auth, services);
 					break;
-				case 2 :  login(scanner, repo, auth, services);
-					break;
-				case 3 :System.out.println("SAINDO DO SISTEMA.......");
+				case 0 :System.out.println("SAINDO DO SISTEMA.......");
 				System.exit(0);
 				default: System.out.println("OPÇÃO INVALIDA!");
 			}
@@ -93,7 +102,7 @@ public class consoleMenu {
 			System.out.println("============CADASTRAR============"
 					+ "\n1 - CLIENTE"
 					+ "\n2 - TUTOR"
-					+ "\n3 - VOLTAR"
+					+ "\n0 - VOLTAR"
 					+ "\nESCOLHA UMA OPÇÃO: ");
 			op = scanner.nextInt();
 			scanner.nextLine();
@@ -103,7 +112,7 @@ public class consoleMenu {
 			break;
 			case 2: tutorConsole.cadastroMenu(scanner, repo, auth, services);
 			break;
-			case 3: init(scanner, repo, auth, services);
+			case 0: init(scanner, repo, auth, services);
 			}
 			
 		}while(op!=0);
@@ -118,7 +127,7 @@ public class consoleMenu {
 					+ "\n1 - CLIENTE"
 					+ "\n2 - TUTOR"
 					+ "\n3 - ADIMINISTRADOR"
-					+ "\n4 - VOLTAR"
+					+ "\n0 - VOLTAR"
 					+ "\nESCOLHA UMA OPÇÃO: ");
 			op = scanner.nextInt();
 			scanner.nextLine();
@@ -131,7 +140,7 @@ public class consoleMenu {
 			break;
 			case 3: admConsole.loginMenu();
 			break;
-			case 4: init(scanner, repo, auth, services);
+			case 0: init(scanner, repo, auth, services);
 			break;
 			default: System.out.println("OPÇAÕ INVALIDA!");
 			}

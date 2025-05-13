@@ -27,6 +27,7 @@ public class usuarioConsole {
 	private AuthService auth;
 	private PagamentoRepository pagRepo;
 	private PagamentoService pagService;
+	tutorConsole tutor;
 	
 	
 	public usuarioConsole(Scanner scanner, UsuarioService services,AuthService auth, PagamentoRepository pagRepo, PagamentoService pagService) {
@@ -70,6 +71,8 @@ public class usuarioConsole {
 		
 		planoMenu();
 		
+		Genero();
+		
 		services.cadastroAluno(nome, email, senha, cpf, dataDeNascimento, altura, peso, nivel, metas, descricao, plano, genero);
 
 	}
@@ -112,7 +115,7 @@ public class usuarioConsole {
 			switch(op) {
 			case 1 :  Perfil();
 				break;
-			case 2 :  //
+			case 2 :  listarTutor();
 				break;
 			case 3: listarTreinosDoAluno();
 				break;
@@ -368,7 +371,24 @@ public class usuarioConsole {
 		}
 	}
 	
+	public void listarTutor() {
+		List <Tutor> tutores = services.listarTutores();
+		if(tutores.isEmpty()) {
+			System.out.println("Nenhum tutor cadastrado!");
+			return;
+		}
+		System.out.println("=============== LISTA DE TUTORES ==================");
+		int i=1;
+		for(Tutor tutor: tutores) {
+	        System.out.println("-------- Tutor " + i + " --------");
+	        System.out.println("Nome: " + tutor.getNome());
+	        System.out.println("Email: " + tutor.getEmail());
+	        System.out.println("---------------------------------\n");
+	        i++;
+		}
+		
 	
+	}
 	
 	public void descricaoMenu() {
 		System.out.println("DESCRIÇÃO: ");

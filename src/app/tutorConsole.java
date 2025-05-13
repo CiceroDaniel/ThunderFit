@@ -1,13 +1,19 @@
 package app;
 import app.consoleMenu;
+import model.Metas;
+import model.Tutor;
+import model.Usuario;
+
 import java.time.LocalDate;
 import java.util.*;
 
 import repository.ExercicioRepository;
+import repository.PagamentoRepository;
 import repository.TreinoRepository;
 import repository.UsuarioRepository;
 import services.AuthService;
 import services.ExercicioService;
+import services.PagamentoService;
 import services.TreinoService;
 import services.UsuarioService;
 
@@ -26,11 +32,12 @@ public class tutorConsole {
 	private ExercicioService exServi; 
 	private TreinoRepository treRepo;
 	private TreinoService treServi;
-
+	private PagamentoRepository pagRepo;
+	private PagamentoService pagService;
 	
 	
 	public tutorConsole(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services,
-			ExercicioRepository exRepo,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi) {
+			ExercicioRepository exRepo,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi, PagamentoRepository pagRepo, PagamentoService pagService) {
 		this.scanner = scanner;
 	    this.uRepo = repo;  // Usa o repositório injetado
 	    this.auth = auth;   // Usa o auth injetado
@@ -39,6 +46,8 @@ public class tutorConsole {
 	    this.exServi= exServi;
 	    this.treRepo= treRepo;
 	    this.treServi=treServi;
+	    this.pagRepo = pagRepo;
+	    this.pagService = pagService;
 	}
 
 	//========================================================================
@@ -108,6 +117,44 @@ public class tutorConsole {
 		
 	}
 	
+public void atualizarDados() {
+		
+		Usuario usuario = auth.getUsuario();
+		
+		System.out.println("==========DADOS ATUAIS============="
+				+"\n" + usuario.gerarCredenciaisCadastro() 
+				+ "\n" + usuario.gerarCredenciaisLogin()
+				);
+		toolbox.espacoMenu();
+		auth.getUsuario().getCpf();
+		System.out.println("==========Atualizar dados dos alunos============");
+		System.out.println("EMAIL: ");
+		String email = scanner.nextLine();
+		
+		System.out.println("PESO: ");
+		double peso = scanner.nextDouble();
+		scanner.nextLine();
+		
+		System.out.println("ALTURA: ");
+		double altura = scanner.nextDouble();
+		scanner.nextLine();
+		
+		
+		services.atualizarDados(auth.getUsuario().getCpf(), email, peso, altura, null);
+		
+		
+		
+	}
+
+public void AtualizarSenha() {
+	System.out.println("=======ATUALIZAR SENHA=====");
+	System.out.println("NOVA SENHA: ");
+	String senha = scanner.nextLine();
+	
+	
+	services.alterarSenha(auth.getUsuario().getCpf(), senha);
+}
+	
 	public void menuGerenciarTreinos() {
 	    int op;
 	    do {
@@ -121,7 +168,7 @@ public class tutorConsole {
 	        scanner.nextLine();
 	        
 	        switch(op) {
-	            case 1: //criarNovoTreino();
+	            case 1: criarTreino();
 	                break;
 	            case 2: //editarTreino();
 	                break;
@@ -144,7 +191,9 @@ public class tutorConsole {
 			System.out.println("======= CRUD DOS TUTORES ======="
 					+ "\n1 - MEU PERFIL"
 					+ "\n2 - GERENCIAR TREINOS" // MENU DE TREINOS COM CRUD, PARA ADICIONAR TREINO ELE LISTA OS EXERCICIOS
-					+ "\n3 - GERENCIAR ALUNOS"  //MENU PARA LISTAR BUSCAR POR NOME, ATUALIZAR DADOS
+					+ "\n3 - GERENCIAR ALUNOS"
+					+ "\n4 - ATUALIZAR DADOS"
+					+ "\n5 - ALTERAR SENHA"  //MENU PARA LISTAR BUSCAR POR NOME, ATUALIZAR DADOS
 					+ "\n4 - SAIR");
 			op = scanner.nextInt();
 			scanner.nextLine();
@@ -153,19 +202,97 @@ public class tutorConsole {
 			switch(op) {
 			case 1 : tutor.cadastroMenu(scanner, repo, auth, services); ;
 				break;
-			case 2 :  //atualizar um tutor
+			case 2 :  gerenciarTreinos();
 				break;
-			case 3: //cronograma
+			case 3: //gerenciar alunos
 				break;
-			case 4: //System.out.println(Plano.mostrarPlanos());
+			case 4:	atualizarDados();
 				break;
-			case 5: services.listarTutores();
+			case 5: AtualizarSenha();
 			break;
 			case 6: adm.admMenu();
 			default: System.out.println("OPÇÃO INVALIDA!");
 		}
 			
 		}while(op!=0);
+	}
+	
+	public void gerenciarTreinos() {
+		System.out.println("======GERENCIAR TREINOS=========");
+		int op;
+		do{
+			System.out.println("\n1 - CRIAR NOVO TREINO"
+					+ "\n2 - ASSOCIAR TREINO A ALUNO"
+					+ "\n3 - REMOVER TREINO"
+					+ "\n0 - VOLTAR");
+			op = scanner.nextInt();
+			scanner.nextLine();
+			
+			switch(op) {
+			case 1: criarTreino();
+				break;
+			case 2: associarTreinoAluno();
+				break;
+			case 3: removerTreino();
+				break;
+			case 0: tutorMenu(scanner, uRepo, auth, services);
+				break;
+			default: System.out.println("OPÇÃO INVALIDA!");
+			
+			
+			}
+			
+		}while(op!=0);
+	}
+	
+	
+	public void criarTreino() {
+		System.out.println("=====CRIAR NOVOS TREINOS====="
+				+ "\nNOME: ");
+		String  nome = scanner.nextLine();
+		
+		System.out.println("NIVEL: ");
+		String nivel = scanner.nextLine();
+		
+		treServi.criarTreino(nome, nivel, auth.getUsuario());
+	}
+	
+	public void AssociarTreino() {
+		System.out.println("=====ASSOCIAR TREINO A ALUNO======");
+		System.out.println("DIGITE O CPF DO ALUNO");
+		String cpf = scanner.nextLine();
+		System.out.println("QUAL TREINO QUER ASSOCIAR?");
+		String treino = scanner.nextLine();
+		
+		treServi.associarTreinoAluno(cpf, treino, auth.getUsuario());
+		
+		
+	}
+	
+	public void removerTreino() {
+		System.out.println("QUAL TREINO QUER DELETAR?"
+				+ "\nNOME: ");
+		String nome = scanner.nextLine();
+		treServi.removerTreino(nome, auth.getUsuario());
+	}
+	
+	public void listarTutor() {
+		List <Tutor> tutores = services.listarTutores();
+		if(tutores.isEmpty()) {
+			System.out.println("Nenhum tutor cadastrado!");
+			return;
+		}
+		System.out.println("=============== LISTA DE TUTORES ==================");
+		int i=1;
+		for(Tutor tutor: tutores) {
+	        System.out.println("-------- Tutor " + i + " --------");
+	        System.out.println("Nome: " + tutor.getNome());
+	        System.out.println("Email: " + tutor.getEmail());
+	        System.out.println("---------------------------------\n");
+	        i++;
+		}
+		
+	
 	}
 	
 	public void cdTutor() {

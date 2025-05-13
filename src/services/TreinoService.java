@@ -35,7 +35,7 @@ public class TreinoService {
 	//--------------------READ--------------------
 	
 	public boolean alunoPossuiTreino(String cpfAluno, String nomeTreino, Usuario solicitante) {
-	    Aluno aluno = (Aluno) usuarioService.buscarPorCpf(cpfAluno,solicitante);
+	    Aluno aluno = (Aluno) usuarioService.buscarPorCpf(cpfAluno);
 	    
 	    for (Treino treino : aluno.getTreinos()) {
 	        if (treino.getNome().equalsIgnoreCase(nomeTreino)) {
@@ -50,7 +50,7 @@ public class TreinoService {
 		if(!(solicitante instanceof Administrador || solicitante instanceof Tutor|| solicitante.getCpf().equals(cpfAluno))) {
 			throw new SecurityException("Acesso Negado");
 		}
-	    Aluno aluno = (Aluno) usuarioService.buscarPorCpf(cpfAluno, solicitante);
+	    Aluno aluno = (Aluno) usuarioService.buscarPorCpf(cpfAluno);
 	    return new ArrayList<>(aluno.getTreinos()); 
 	}
 	
@@ -59,7 +59,7 @@ public class TreinoService {
 		if(!(solicitante instanceof Administrador || solicitante instanceof Tutor|| solicitante.getCpf().equals(cpfAluno))) {
 			throw new SecurityException("Acesso Negado");
 		}
-		 Aluno aluno = (Aluno) usuarioService.buscarPorCpf(cpfAluno, solicitante);
+		 Aluno aluno = (Aluno) usuarioService.buscarPorCpf(cpfAluno);
 		
 		
 		Treino treino = buscarTreinoDoAluno(aluno, nomeTreino);
@@ -137,7 +137,7 @@ public class TreinoService {
 			throw new SecurityException("Acesso apenas para ADMs e Tutores");
 		}
 		
-		Aluno aluno = (Aluno) usuarioService.buscarPorCpf(cpfAluno, solicitante);
+		Aluno aluno = (Aluno) usuarioService.buscarPorCpf(cpfAluno);
 		Treino treino= treinoRepository.buscarPorNome(nomeTre);
 		
 		 if (aluno == null) throw new IllegalArgumentException("Aluno não encontrado");

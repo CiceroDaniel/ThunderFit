@@ -96,7 +96,7 @@ public class UsuarioRepository implements InterfaceRepository<Usuario>{
 	 //--------------------ATUALIZAR--------------------
 	
 	public void atualizarDados(Usuario usuario) {
-		int indice= usuarios.indexOf(buscarPorCpf(usuario.getCpf()));
+		int indice = usuarios.indexOf(buscarPorCpf(usuario.getCpf()));
 		if(indice != -1) {
 			usuarios.set(indice, usuario);
 		}

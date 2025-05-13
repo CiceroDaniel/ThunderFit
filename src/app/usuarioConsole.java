@@ -3,8 +3,10 @@ package app;
 import java.util.*;
 import java.time.*;
 import model.*;
+import repository.PagamentoRepository;
 import repository.UsuarioRepository;
 import services.AuthService;
+import services.PagamentoService;
 import services.UsuarioService;
 
 public class usuarioConsole {
@@ -23,12 +25,16 @@ public class usuarioConsole {
 	private Scanner scanner;
 	private UsuarioService services;
 	private AuthService auth;
+	private PagamentoRepository pagRepo;
+	private PagamentoService pagService;
 	
 	
-	public usuarioConsole(Scanner scanner, UsuarioService services,AuthService auth) {
+	public usuarioConsole(Scanner scanner, UsuarioService services,AuthService auth, PagamentoRepository pagRepo, PagamentoService pagService) {
 		this.scanner = scanner;
 	    this.services = services;
 	    this.auth=auth;
+	    this.pagRepo = pagRepo;
+	    this.pagService = pagService;
 	}
 
 	
@@ -98,6 +104,7 @@ public class usuarioConsole {
 					+ "\n5 - ATUALIZAR DADOS"
 					+ "\n6 - ALTERAR SENHA"
 					+ "\n7 - MEUS PAGAMENTOS"
+					+ "\n8 - RELATÓRIOS"
 					+ "\n0 - SAIR");
 			op = scanner.nextInt();
 			scanner.nextLine();
@@ -105,7 +112,7 @@ public class usuarioConsole {
 			switch(op) {
 			case 1 :  Perfil();
 				break;
-			case 2 :  listarTutor();
+			case 2 :  //
 				break;
 			case 3: listarTreinosDoAluno();
 				break;
@@ -113,9 +120,11 @@ public class usuarioConsole {
 				break;
 			case 5: atualizarDados();
 				break;
-			case 6: //auterar senha
+			case 6: AtualizarSenha();
 				break;
-			case 7: //listar pagamentos
+			case 7: System.out.println(pagService.listarPagamentosPorAluno(auth.getUsuario().getCpf(), auth.getUsuario()));
+				break;
+			case 8: //relatorios
 				break;
 			case 0 :System.out.println("SAINDO DO SISTEMA.......");
 			System.exit(0);
@@ -125,6 +134,27 @@ public class usuarioConsole {
 		}while(op!=0);
 		
 	}
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////
+	
+	/*public void Pagamentos() {
+		System.out.println("======PAGAMENTOS======");
+		System.out.println("\n1 - TODOS OS PAGAMENTOS"
+				+ "\n2 - PAGAMENTOS PENDENTES"
+				+ "\n3 - PAGAMENTOS COMPLETOS");
+		int op = scanner.nextInt();
+		scanner.nextLine();
+		
+		
+		switch(op) {
+		case 1 : pagService.listarPagamentosPorAluno(auth.getUsuario().getCpf(), auth.getUsuario());
+		break;
+		case 2: pagService.listarPagamentoPendentes(null)
+		}
+	}*/
+	
 	////////////////////////////////////////////////////////////////////////
 	
 	public void Perfil() {
@@ -149,24 +179,7 @@ public class usuarioConsole {
 		    
 	}
 	
-	public void listarTutor() {
-		List <Tutor> tutores = services.listarTutores();
-		if(tutores.isEmpty()) {
-			System.out.println("Nenhum tutor cadastrado!");
-			return;
-		}
-		System.out.println("=============== LISTA DE TUTORES ==================");
-		int i=1;
-		for(Tutor tutor: tutores) {
-	        System.out.println("-------- Tutor " + i + " --------");
-	        System.out.println("Nome: " + tutor.getNome());
-	        System.out.println("Email: " + tutor.getEmail());
-	        System.out.println("---------------------------------\n");
-	        i++;
-		}
-		
 	
-	}
 	
 	public void listarTreinosDoAluno() {
 		
@@ -205,17 +218,62 @@ public class usuarioConsole {
 				+ "\n" + usuario.gerarCredenciaisLogin()
 				);
 		toolbox.espacoMenu();
+		auth.getUsuario().getCpf();
 		System.out.println("==========Atualizar dados dos alunos============");
-		System.out.println("NOME: ");
-		String nome = scanner.nextLine();
-		usuario.setNome(nome);
-		
 		System.out.println("EMAIL: ");
-		String email = 
+		String email = scanner.nextLine();
+		
+		System.out.println("PESO: ");
+		double peso = scanner.nextDouble();
+		scanner.nextLine();
+		
+		System.out.println("ALTURA: ");
+		double altura = scanner.nextDouble();
+		scanner.nextLine();
+		
+		int op;
+		toolbox.espacoMenu();
+		System.out.println("======METAS DO ALUNO=============");
+		System.out.println("\n1- Ganhar Massa"
+				+ "\n2- Perder peso"
+				+ "\n3 -Personalizada"
+				+ "\n ESCOLHA UMA OPÇÃO");
+		op = scanner.nextInt();
+		scanner.nextLine();
+		
+		switch (op) {
+		case 1: metas = Metas.ganharMassa;
+		break;
+		case 2: metas = Metas.perderPeso;
+		break;
+		case 3: metas = Metas.personalizada;
+		descricaoMenu();
+		break;
+		default: System.out.println("opção invalida!");
+		break;
+		}
+		
+		services.atualizarDados(auth.getUsuario().getCpf(), email, peso, altura, metas);
+		
 		
 		
 	}
+	////////////////////////////////////////////////////////////////////////
 	
+	public void AtualizarSenha() {
+		System.out.println("=======ATUALIZAR SENHA=====");
+		System.out.println("NOVA SENHA: ");
+		String senha = scanner.nextLine();
+		
+		
+		services.alterarSenha(auth.getUsuario().getCpf(), senha);
+	}
+	
+	////////////////////////////////////////////////////////////////////////
+
+	public void pagamentos() {
+		
+	}
 	
 	////////////////////////////////////////////////////////////////////////
 	public void nivelMenu() {

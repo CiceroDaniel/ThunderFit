@@ -2,10 +2,12 @@ package app;
 
 import app.*;
 import repository.ExercicioRepository;
+import repository.PagamentoRepository;
 import repository.TreinoRepository;
 import repository.UsuarioRepository;
 import services.AuthService;
 import services.ExercicioService;
+import services.PagamentoService;
 import services.TreinoService;
 import services.UsuarioService;
 
@@ -29,10 +31,12 @@ public class consoleMenu {
 	private ExercicioService exServi; 
 	private TreinoRepository treRepo;
 	private TreinoService treServi;
+	private PagamentoRepository pagRepo;
+	private PagamentoService pagService;
 	
 
 	public consoleMenu(Scanner scanner, UsuarioRepository repo, AuthService auth,UsuarioService services,ExercicioRepository exRepo
-			,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi ) {
+			,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi, PagamentoRepository pagRepo, PagamentoService pagService ) {
 		this.scanner = scanner;
 	    this.repo = repo;
 	    this.auth = auth;
@@ -41,10 +45,12 @@ public class consoleMenu {
 	    this.exServi= exServi;
 	    this.treRepo= treRepo;
 	    this.treServi=treServi;
+	    this.pagRepo = pagRepo;
+	    this.pagService = pagService;
 	    
-	    this.tutorConsole = new tutorConsole(scanner, repo, auth, services, exRepo, exServi, treRepo, treServi);
-	    this.userConsole = new usuarioConsole(scanner, services, auth);
-	    this.admConsole = new admConsole(scanner, repo, auth, services);
+	    this.tutorConsole = new tutorConsole(scanner, repo, auth, services, exRepo, exServi, treRepo, treServi, pagRepo, pagService);
+	    this.userConsole = new usuarioConsole(scanner, services, auth, pagRepo, pagService);
+	    this.admConsole = new admConsole(scanner, repo, auth, services, pagRepo, pagService);
 	    this.tools = new toolbox(userConsole, admConsole, tutorConsole);
 	}
 	
@@ -133,6 +139,7 @@ public class consoleMenu {
 		}while(op!=0);
 	}
 
+	
 	public toolbox getTools() {
 		return tools;
 	}

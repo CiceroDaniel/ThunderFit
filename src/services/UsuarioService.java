@@ -133,10 +133,10 @@ public class UsuarioService {
 	
 	//--------------------------- BUSCAR ---------------------------------
 	
-	public Usuario buscarPorCpf(String cpf, Usuario solicitante) {
-		if(!(solicitante instanceof Tutor ||solicitante instanceof Administrador)) {
+	public Usuario buscarPorCpf(String cpf) {
+		/*if(!(solicitante instanceof Tutor ||solicitante instanceof Administrador)) {
 			throw new SecurityException("Apenas tutores e ADMs podem buscar Usuarios");
-		}
+		}*/
 		Usuario usuario = usuarioRepository.buscarPorCpf(cpf);
 		if(usuario == null) {
 			throw new IllegalArgumentException("Usuario não encontrado!");
@@ -144,10 +144,10 @@ public class UsuarioService {
 		return usuario;
 	}
 	
-	public List<Usuario> buscarPorNome(String nome, Usuario solicitante){
-		if(!solicitante.temAcessoAdmin()) {// talvez erro
+	public List<Usuario> buscarPorNome(String nome){
+	/*	if(!solicitante.temAcessoAdmin()) {// talvez erro
 			throw new SecurityException("Apenas tutores e ADMs podem buscar Usuarios");
-		}
+		}*/
 		
 		  if (nome == null || nome.trim().isEmpty()) {
 		        throw new IllegalArgumentException("Erro: Nome não pode ser vazio!");

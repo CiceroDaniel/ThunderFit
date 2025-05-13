@@ -4,10 +4,12 @@ import  java.util.Scanner;
 import app.consoleMenu;
 import app.toolbox;
 import repository.ExercicioRepository;
+import repository.PagamentoRepository;
 import repository.TreinoRepository;
 import repository.UsuarioRepository;
 import services.AuthService;
 import services.ExercicioService;
+import services.PagamentoService;
 import services.TreinoService;
 import services.UsuarioService;
 public class teste {
@@ -21,16 +23,19 @@ public class teste {
 		final UsuarioRepository repo = new UsuarioRepository();
 		final UsuarioService services = new UsuarioService(repo);
 		final TreinoService treServi = new TreinoService(treRepo, exServi, repo, services);
-		
+		final PagamentoRepository pagRepo = new PagamentoRepository();
+		final PagamentoService pagService = new PagamentoService(pagRepo, services);
 		final AuthService auth = new AuthService(repo,services);
 		Scanner scan = new Scanner(System.in);
 		
 		
-		consoleMenu menu = new consoleMenu(scan,repo,auth,services, exRepo, exServi, treRepo, treServi);
+		consoleMenu menu = new consoleMenu(scan,repo,auth,services, exRepo, exServi, treRepo, treServi, pagRepo, pagService);
 		menu.tools.preCad();
+		menu.tutorConsole.listarTutor();
+		
+	
+		
 		toolbox.espacoMenu();
-		
-		
 		menu.init(scan, repo, auth, services);
 		//menu.mostarAdm();
 		//menu.cadTutor();

@@ -158,6 +158,9 @@ public abstract class Usuario{
 		public LocalDate getDataDeCadastro() {
 			return dataDeCadastro;
 		}
+		public void setDataDeCadastro(LocalDate dataDeCadastro) {
+			this.dataDeCadastro=dataDeCadastro;
+		}
 		
 		
 		public LocalDate getDataDeNascimento() {

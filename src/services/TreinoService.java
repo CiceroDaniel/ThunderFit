@@ -125,8 +125,9 @@ public class TreinoService {
 		
 		if(!treinoRepository.removerPorNome(nome)) {
 			throw new IllegalArgumentException("Treino não encontrado!");
-			
 		}
+		
+		treinoRepository.removerPorNome(nome);
 	}
 	
 	//-------------------------------------------------

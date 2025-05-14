@@ -4,9 +4,12 @@ import java.util.*;
 import java.time.*;
 import model.*;
 import repository.PagamentoRepository;
+import repository.PresencaRepository;
 import repository.UsuarioRepository;
 import services.AuthService;
+import services.CatracaService;
 import services.PagamentoService;
+import services.PresencaService;
 import services.UsuarioService;
 
 public class usuarioConsole {
@@ -23,15 +26,26 @@ public class usuarioConsole {
 	private AuthService auth;
 	private PagamentoRepository pagRepo;
 	private PagamentoService pagService;
+    private final PresencaRepository presencaRepo;
+    private final PresencaService presencaService;
+    private final Catraca catraca;
+    private final CatracaService catracaSer; 
+    
 	tutorConsole tutor;
 	
 	
-	public usuarioConsole(Scanner scanner, UsuarioService services,AuthService auth, PagamentoRepository pagRepo, PagamentoService pagService) {
+	public usuarioConsole(Scanner scanner, UsuarioService services,AuthService auth, PagamentoRepository pagRepo,
+			PagamentoService pagService, PresencaRepository presencaRepo, PresencaService presencaService,Catraca catraca,
+			CatracaService catracaSer) {
 		this.scanner = scanner;
 	    this.services = services;
 	    this.auth=auth;
 	    this.pagRepo = pagRepo;
 	    this.pagService = pagService;
+        this.presencaRepo=presencaRepo;
+        this.presencaService = presencaService;
+        this.catraca=catraca;
+        this.catracaSer =catracaSer;
 	}
 
 	
@@ -104,6 +118,7 @@ public class usuarioConsole {
 					+ "\n6 - ALTERAR SENHA"
 					+ "\n7 - MEUS PAGAMENTOS"
 					+ "\n8 - RELATÓRIOS"
+					+ "\n9 - REGISTRAR ENTRADA NA ACADEMIA"
 					+ "\n0 - SAIR");
 			op = scanner.nextInt();
 			scanner.nextLine();
@@ -123,7 +138,9 @@ public class usuarioConsole {
 				break;
 			case 7: System.out.println(pagService.listarPagamentosPorAluno(auth.getUsuario().getCpf(), auth.getUsuario()));
 				break;
-			case 8: //relatorios
+			case 8: registrarEntrada();
+				break;
+			case 9: //relatorios
 				break;
 			case 0 :System.out.println("SAINDO DO SISTEMA.......");
 			System.exit(0);
@@ -133,6 +150,32 @@ public class usuarioConsole {
 		}while(op!=0);
 		
 	}
+	//////////////////////////////////////////////////////////
+	public void registrarEntrada() {
+	    Usuario usuario = auth.getUsuario();
+	    
+	    System.out.print("Você está fisicamente na academia agora? (S/N): ");
+	    String resposta = scanner.nextLine();
+	    
+	    if (resposta.equalsIgnoreCase("S")) {
+	        if (usuario instanceof Aluno aluno) {  
+	            boolean acessoLiberado = catracaSer.registrarPassagem(aluno);
+
+	            if (acessoLiberado) {
+	                System.out.println("✅ Catraca liberada para " + usuario.getNome() + "!");
+	            } else {
+	                System.out.println("❌ Acesso negado! Motivos:");
+	                System.out.println("- Pagamento pendente OU");
+	                System.out.println("- Plano vencido");
+	            }
+	        } else {
+	            System.out.println("❌ Apenas alunos podem passar pela catraca.");
+	        }
+	    } else {
+	        System.out.println("Entrada não registrada.");
+	    }
+	}
+
 	
 	
 	
@@ -396,7 +439,7 @@ public class usuarioConsole {
 		LocalDate dataDeNascimento = LocalDate.parse(dataScn);
 
 		services.cadastroAluno("Victor Hugo", "vh@gmail.com","123456789", "10987654321", dataDeNascimento, 1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO);
-
+		services.atualizaDataDeCadastro("10987654321",LocalDate.of(2025, 04, 21));
 	}
 	
 }

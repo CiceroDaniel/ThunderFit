@@ -3,6 +3,7 @@ package services;
 import model.Catraca;
 import model.Pagamento;
 import repository.PagamentoRepository;
+import repository.PresencaRepository;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class CatracaService{
 	private final PagamentoRepository pagamentoRepository;
 	private final PresencaService presencaService;
 	
-	public CatracaService(Catraca catraca, PagamentoRepository pagamentoRepository, PresencaService presencaService){
+ public CatracaService(Catraca catraca, PagamentoRepository pagamentoRepository, PresencaService presencaService){
 		this.catraca=catraca;
 		this.pagamentoRepository= pagamentoRepository;
 		this.presencaService=presencaService;

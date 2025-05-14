@@ -1,11 +1,14 @@
 package app;
 
 import app.*;
+import model.Catraca;
 import repository.ExercicioRepository;
 import repository.PagamentoRepository;
+import repository.PresencaRepository;
 import repository.TreinoRepository;
 import repository.UsuarioRepository;
 import services.AuthService;
+import services.CatracaService;
 import services.ExercicioService;
 import services.PagamentoService;
 import services.PlanoService;
@@ -41,10 +44,17 @@ public class consoleMenu {
 	private final RelatorioPresencaService relatorioPresencaService;
     private final RelatorioFinanceiroService relatorioFinanceiroService;
     private final PlanoService planoService;
+    private final PresencaRepository presencaRepo;
     private final PresencaService presencaService;
+    private final Catraca catraca;
+    private final CatracaService catracaSer; 
+    
 	
 
-	public consoleMenu(Scanner scanner, UsuarioRepository repo, AuthService auth,UsuarioService services,ExercicioRepository exRepo,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi, PagamentoRepository pagRepo, PagamentoService pagService, RelatorioPresencaService relatorioPresencaService, RelatorioFinanceiroService relatorioFinanceiroService, PlanoService planoService, PresencaService presencaService ) {
+	public consoleMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services,ExercicioRepository exRepo,
+			ExercicioService exServi,TreinoRepository treRepo, TreinoService treServi, PagamentoRepository pagRepo, PagamentoService pagService,
+			RelatorioPresencaService relatorioPresencaService,RelatorioFinanceiroService relatorioFinanceiroService, PlanoService planoService,
+			PresencaRepository presencaRepo, PresencaService presencaService,Catraca catraca, CatracaService catracaSer) {
 		this.scanner = scanner;
 	    this.repo = repo;
 	    this.auth = auth;
@@ -59,11 +69,14 @@ public class consoleMenu {
 	    this.relatorioPresencaService = relatorioPresencaService;
         this.relatorioFinanceiroService = relatorioFinanceiroService;
         this.planoService = planoService;
+        this.presencaRepo=presencaRepo;
         this.presencaService = presencaService;
+        this.catraca=catraca;
+        this.catracaSer = catracaSer;
 	    
 	    this.tutorConsole = new tutorConsole(scanner, repo, auth, services, exRepo, exServi, treRepo, treServi, pagRepo, pagService);
-	    this.userConsole = new usuarioConsole(scanner, services, auth, pagRepo, pagService);
-	    this.admConsole = new admConsole(scanner, repo, auth, services, pagRepo, pagService, relatorioPresencaService, relatorioFinanceiroService, planoService, presencaService);
+	    this.userConsole = new usuarioConsole(scanner, services, auth, pagRepo, pagService, presencaRepo, presencaService, catraca, catracaSer);
+	    this.admConsole = new admConsole(scanner, repo, auth, services, pagRepo, pagService, relatorioPresencaService, relatorioFinanceiroService, planoService, presencaRepo, presencaService, catraca, catracaSer);
 	    this.tools = new toolbox(userConsole, admConsole, tutorConsole);
 	}
 	

@@ -6,10 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import repository.PagamentoRepository;
+import repository.PresencaRepository;
 //import model.Plano;
 import repository.UsuarioRepository;
-import services.AuthService;
-import services.PagamentoService;
 import services.*;
 import model.*;
 
@@ -32,10 +31,16 @@ public class admConsole {
 	private final RelatorioPresencaService relatorioPresencaService;
     private final RelatorioFinanceiroService relatorioFinanceiroService;
     private final PlanoService planoService;
+    private final PresencaRepository presencaRepo;
     private final PresencaService presencaService;
+    private final Catraca catraca;
+    private final CatracaService catracaSer;
 
 	
-	public admConsole(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services, PagamentoRepository pagRepo, PagamentoService pagService, RelatorioPresencaService relatorioPresencaService,RelatorioFinanceiroService relatorioFinanceiroService, PlanoService planoService, PresencaService presencaService) {
+	public admConsole(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services, 
+			PagamentoRepository pagRepo, PagamentoService pagService, RelatorioPresencaService relatorioPresencaService,
+			RelatorioFinanceiroService relatorioFinanceiroService, PlanoService planoService, PresencaRepository presencaRepo,
+			PresencaService presencaService,Catraca catraca, CatracaService catracaSer) {
 		this.scanner = scanner;
 	    this.repo = repo;
 	    this.auth = auth;
@@ -43,13 +48,16 @@ public class admConsole {
 	    this.pagRepo= pagRepo;
 	    this.pagService = pagService;
 	    
-	    this.user = new usuarioConsole(scanner, services, auth, pagRepo, pagService);
-	    this.tutor = new tutorConsole(scanner, repo, auth, services, null, null, null, null, pagRepo, pagService);
-	    
 	    this.relatorioPresencaService = relatorioPresencaService;
         this.relatorioFinanceiroService = relatorioFinanceiroService;
         this.planoService = planoService;
+        this.presencaRepo=presencaRepo;
         this.presencaService = presencaService;
+        this.catraca=catraca;
+        this.catracaSer=catracaSer;
+        
+        this.user = new usuarioConsole(scanner, services, auth, pagRepo, pagService, presencaRepo, presencaService, catraca, catracaSer);
+        this.tutor = new tutorConsole(scanner, repo, auth, services, null, null, null, null, pagRepo, pagService);
 	}
 
 	
@@ -94,7 +102,7 @@ public class admConsole {
 			 System.out.println("║           🧑🏫 PERFIL DO TUTOR         ║");
 			 System.out.println("╠════════════════════════════════════════╣");
 			 System.out.println("║                                        ║");
-			 System.out.println("║  " + usuario.gerarCredenciais().replace("\n", "\n║  "));
+			 System.out.println("║  " + usuario.gerarCredenciaisCadastro().replace("\n", "\n║  "));
 			 System.out.println("║                                        ║");
 			 System.out.println("╚════════════════════════════════════════╝");
 			 }
@@ -337,7 +345,7 @@ public class admConsole {
 			String cpf = scanner.nextLine();
 			System.out.println("║                                        ║");
 			System.out.println("╚════════════════════════════════════════╝");
-			String cpf = scanner.nextLine();
+			//String cpf = scanner.nextLine();
 			
 			
 			
@@ -496,7 +504,7 @@ public class admConsole {
 	    
 	    String email = scanner.nextLine();
 	    try {
-	        Usuario usuario = services.buscarPorEmail(email, auth.getUsuario());
+	        Usuario usuario = services.buscarPorEmail(email);
 	        if(usuario != null) {
 	            System.out.println("======== USUÁRIO ENCONTRADO ========");
 	            System.out.println("Nome: " + usuario.getNome());

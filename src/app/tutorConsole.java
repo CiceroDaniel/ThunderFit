@@ -37,7 +37,8 @@ public class tutorConsole {
 	
 	
 	public tutorConsole(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services,
-			ExercicioRepository exRepo,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi, PagamentoRepository pagRepo, PagamentoService pagService) {
+			ExercicioRepository exRepo,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi,
+			PagamentoRepository pagRepo, PagamentoService pagService) {
 		this.scanner = scanner;
 	    this.uRepo = repo;  // Usa o repositório injetado
 	    this.auth = auth;   // Usa o auth injetado

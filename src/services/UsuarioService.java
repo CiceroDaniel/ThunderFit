@@ -131,6 +131,11 @@ public class UsuarioService {
 		usuarioRepository.atualizarDados(aluno);
 	}
 	
+	public void atualizaDataDeCadastro(String cpf, LocalDate novaDataCadastro) {// nao disponivel para os menus apenas para ter registros de pesos e mudar data de matricula
+		Aluno aluno = (Aluno) usuarioRepository.buscarPorCpf(cpf);
+		aluno.setDataDeCadastro(novaDataCadastro);
+		usuarioRepository.atualizarDados(aluno);
+	}
 	//--------------------------- BUSCAR ---------------------------------
 	
 	public Usuario buscarPorCpf(String cpf) {
@@ -157,7 +162,7 @@ public class UsuarioService {
 		
 	}
 	
-	public Usuario buscarPorEmail(String email,Usuario solicitante) {
+	public Usuario buscarPorEmail(String email) {
 		return usuarioRepository.buscarPorEmail(email);
 	}
 	

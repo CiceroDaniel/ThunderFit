@@ -5,6 +5,7 @@ public class Exercicio {
 	private String grupoMuscular;
 	private String equipamento;
 	private String variacao;
+	private int quantidade;
 	
 	public Exercicio(String nome, String grupoMuscular, String equipamento, String variacao) {
 		this.nome=nome;
@@ -57,6 +58,16 @@ public class Exercicio {
 	
 	public void setVariacao(String variacao) {
 		this.variacao = variacao;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		if(quantidade > 0) {
+		this.quantidade = quantidade;
+		}
 	}
 	
 	

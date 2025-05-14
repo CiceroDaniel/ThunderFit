@@ -3,13 +3,17 @@ package app;
 import java.util.*;
 import java.time.*;
 import model.*;
+import repository.ExercicioRepository;
 import repository.PagamentoRepository;
 import repository.PresencaRepository;
+import repository.TreinoRepository;
 import repository.UsuarioRepository;
 import services.AuthService;
 import services.CatracaService;
+import services.ExercicioService;
 import services.PagamentoService;
 import services.PresencaService;
+import services.TreinoService;
 import services.UsuarioService;
 
 public class usuarioConsole {
@@ -28,6 +32,9 @@ public class usuarioConsole {
 	private PagamentoService pagService;
     private final PresencaRepository presencaRepo;
     private final PresencaService presencaService;
+	private ExercicioService exServi; 
+	private TreinoRepository treRepo;
+	private TreinoService treServi;
     private final Catraca catraca;
     private final CatracaService catracaSer; 
     
@@ -35,14 +42,17 @@ public class usuarioConsole {
 	
 	
 	public usuarioConsole(Scanner scanner, UsuarioService services,AuthService auth, PagamentoRepository pagRepo,
-			PagamentoService pagService, PresencaRepository presencaRepo, PresencaService presencaService,Catraca catraca,
-			CatracaService catracaSer) {
+			PagamentoService pagService, PresencaRepository presencaRepo, ExercicioService exServi,
+			TreinoRepository treRepo, TreinoService treServi ,PresencaService presencaService,Catraca catraca, CatracaService catracaSer) {
 		this.scanner = scanner;
 	    this.services = services;
 	    this.auth=auth;
 	    this.pagRepo = pagRepo;
 	    this.pagService = pagService;
         this.presencaRepo=presencaRepo;
+	    this.exServi= exServi;
+	    this.treRepo= treRepo;
+	    this.treServi=treServi;
         this.presencaService = presencaService;
         this.catraca=catraca;
         this.catracaSer =catracaSer;
@@ -96,12 +106,23 @@ public class usuarioConsole {
 		System.out.println("SENHA: ");
 		String senhaLogin = scanner.nextLine();
 		
-		auth.login(emailLogin, senhaLogin);
-		//System.out.println(auth.getUsuarioLogado());
-		
-		if(auth.getUsuarioLogado() == true) {
-			alunoMenu();
-		}
+		try {
+	        auth.login(emailLogin, senhaLogin);
+
+	        if (auth.getUsuarioLogado()) {
+	            Usuario logado = auth.getUsuario();
+
+	            if (logado instanceof Aluno) {
+	                alunoMenu();
+	            }  else {
+	            	System.out.println("❌ Apenas alunos podem acessar este menu. Faça login na área correta.");
+	                auth.logout();
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Erro no login: " + e.getMessage());
+	    }
 	}
 	
 	
@@ -221,7 +242,7 @@ public class usuarioConsole {
 		    
 	}
 	
-	
+	///////////////////////////////////////
 	
 	public void listarTreinosDoAluno() {
 		
@@ -242,11 +263,18 @@ public class usuarioConsole {
 		    }
 		  for (int i = 0; i < treinos.size(); i++) {
 		        Treino t = treinos.get(i);
-		        System.out.printf("%d. %s (Nível: %s) - %d exercícios%n",
-		            i + 1,
-		            t.getNome(),
-		            t.getNivelDif(),
-		            t.getExercicios().size());
+		        System.out.printf("%d. %s (Nível: %s)%n", i + 1, t.getNome(), t.getNivelDif());
+		        
+		        List<Exercicio> exercicios = t.getExercicios();
+		        if (exercicios.isEmpty()) {
+		            System.out.println("   Nenhum exercício adicionado ainda.\n");
+		        } else {
+		            for (Exercicio e : exercicios) {
+		                System.out.printf("   - %s | Grupo: %s | Equipamento: %s | 3 Repetições: %d%n",
+		                        e.getNome(), e.getGrupoMuscular(), e.getEquipamento(), e.getQuantidade());
+		            }
+		        }
+
 		    }
 		
 	}
@@ -440,6 +468,9 @@ public class usuarioConsole {
 
 		services.cadastroAluno("Victor Hugo", "vh@gmail.com","123456789", "10987654321", dataDeNascimento, 1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO);
 		services.atualizaDataDeCadastro("10987654321",LocalDate.of(2025, 04, 21));
+		treServi.criarTreino("Treino A",nivel.INICIANTE);
+		treServi.associarTreinoAluno("10987654321", "Treino A", null);
+		treServi.adicionarExercicios("Treino A", "Supino reto", null, 12);
 	}
 	
 }

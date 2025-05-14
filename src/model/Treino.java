@@ -7,13 +7,13 @@ public class Treino {
 	//----------------------Atributos---------------------
 	private String nome;
 	private List<Exercicio> exercicios;
-	private String nivelDif;
+	private Nivel nivel;
 
 	//----------------------Construtor---------------------
 	
-	public Treino(String nome, String nivel) {
+	public Treino(String nome, Nivel nivel) {
 		this.nome=nome;
-		this.nivelDif=nivel;
+		this.nivel=nivel;
 		this.exercicios = new ArrayList<>();
 	}
 	
@@ -43,12 +43,12 @@ public class Treino {
 		this.exercicios = exercicios;
 	}
 
-	public String getNivelDif() {
-		return nivelDif;
+	public Nivel getNivelDif() {
+		return nivel;
 	}
 
-	public void setNivelDif(String nivelDif) {
-		this.nivelDif = nivelDif;
+	public void setNivelDif(Nivel nivel) {
+		this.nivel = nivel;
 	}
 
 	

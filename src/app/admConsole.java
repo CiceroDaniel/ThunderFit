@@ -7,6 +7,7 @@ import java.util.*;
 
 import repository.PagamentoRepository;
 import repository.PresencaRepository;
+import repository.TreinoRepository;
 //import model.Plano;
 import repository.UsuarioRepository;
 import services.*;
@@ -33,6 +34,9 @@ public class admConsole {
     private final PlanoService planoService;
     private final PresencaRepository presencaRepo;
     private final PresencaService presencaService;
+	private ExercicioService exServi; 
+	private TreinoRepository treRepo;
+	private TreinoService treServi;
     private final Catraca catraca;
     private final CatracaService catracaSer;
 
@@ -40,7 +44,8 @@ public class admConsole {
 	public admConsole(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services, 
 			PagamentoRepository pagRepo, PagamentoService pagService, RelatorioPresencaService relatorioPresencaService,
 			RelatorioFinanceiroService relatorioFinanceiroService, PlanoService planoService, PresencaRepository presencaRepo,
-			PresencaService presencaService,Catraca catraca, CatracaService catracaSer) {
+			PresencaService presencaService,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi,Catraca catraca,
+			CatracaService catracaSer) {
 		this.scanner = scanner;
 	    this.repo = repo;
 	    this.auth = auth;
@@ -53,10 +58,14 @@ public class admConsole {
         this.planoService = planoService;
         this.presencaRepo=presencaRepo;
         this.presencaService = presencaService;
+	    this.exServi= exServi;
+	    this.treRepo= treRepo;
+	    this.treServi=treServi;
         this.catraca=catraca;
         this.catracaSer=catracaSer;
         
-        this.user = new usuarioConsole(scanner, services, auth, pagRepo, pagService, presencaRepo, presencaService, catraca, catracaSer);
+        this.user = new usuarioConsole(scanner, services, auth, pagRepo, pagService, presencaRepo, exServi, treRepo, treServi,
+        		presencaService, catraca, catracaSer);
         this.tutor = new tutorConsole(scanner, repo, auth, services, null, null, null, null, pagRepo, pagService);
 	}
 
@@ -76,12 +85,23 @@ public class admConsole {
 		System.out.println("║                                        ║");
 		System.out.println("╚════════════════════════════════════════╝");
 		
-		auth.login(emailLogin, senhaLogin);
-		System.out.println(auth.getUsuarioLogado());
-		
-		if(auth.getUsuarioLogado() == true) {
-			admMenu();
-		}
+		try {
+	        auth.login(emailLogin, senhaLogin);
+
+	        if (auth.getUsuarioLogado()) {
+	            Usuario logado = auth.getUsuario();
+
+	            if (logado instanceof Administrador) {
+	                admMenu();
+	            }  else {
+	            	System.out.println("❌ Apenas ADM's podem acessar este menu. Faça login na área correta.");
+	                auth.logout();
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Erro no login: " + e.getMessage());
+	    }
 		
 	}
 	///////////////////////////////////////////////////////////////////////////

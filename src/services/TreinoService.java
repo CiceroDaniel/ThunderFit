@@ -22,10 +22,7 @@ public class TreinoService {
 	
 	//------------------------ CRIAR -----------------
 	
-	public void criarTreino(String nome, String nivel,Usuario solicitante) {
-		if(!solicitante.temAcessoAdmin()) {
-			throw new SecurityException("Acesso apenas para ADMs e Tutores");
-		}
+	public void criarTreino(String nome,Nivel nivel) {
 		
 		Treino treinoNovo = new Treino(nome,nivel);
 		treinoRepository.cadastro(treinoNovo);
@@ -81,10 +78,10 @@ public class TreinoService {
 	
 	
 	//--------------------ATUALIZAR--------------------
-	public void adicionarExercicios(String nomeTreino, String nomeExercicio, Usuario solicitante) {
-		if(!solicitante.temAcessoAdmin()) {
+	public void adicionarExercicios(String nomeTreino, String nomeExercicio, Usuario solicitante, int quantidade) {
+		/*if(!solicitante.temAcessoAdmin()) {
 			throw new SecurityException("Acesso apenas para ADMs e Tutores");
-		}
+		}*/
 		
 		Treino treino = treinoRepository.buscarPorNome(nomeTreino);
 		exercicioService.listarTodosExercicios();//Tutor ver tds os exercicios e decidir quais devem selecionar
@@ -92,16 +89,16 @@ public class TreinoService {
 		
 		if (treino == null) throw new IllegalArgumentException("Treino não existe");
 		if (exercicio == null) throw new IllegalArgumentException("Exercício não existe");
-		
+		exercicio.setQuantidade(quantidade);
 		treino.adicionarExercicio(exercicio);
 		treinoRepository.atualizarTreino(treino);
 		
 	}
 	
 	public void removerExercicios(String nomeTreino, String nomeExercicio, Usuario solicitante) {
-		if(!solicitante.temAcessoAdmin()) {
+		/*if(!solicitante.temAcessoAdmin()) {
 			throw new SecurityException("Acesso apenas para ADMs e Tutores");
-		}
+		}*/
 		
 		Treino treino = treinoRepository.buscarPorNome(nomeTreino);
 		exercicioService.listarTodosExercicios();//Tutor ver tds os exercicios e decidir quais devem selecionar
@@ -119,9 +116,9 @@ public class TreinoService {
 	//--------------------REMOVER--------------------
 	
 	public void removerTreino(String nome, Usuario solicitante) {
-		if(!solicitante.temAcessoAdmin()) {
+		/*if(!solicitante.temAcessoAdmin()) {
 			throw new SecurityException("Acesso apenas para ADMs e Tutores");
-		}
+		}*/
 		
 		if(!treinoRepository.removerPorNome(nome)) {
 			throw new IllegalArgumentException("Treino não encontrado!");
@@ -134,9 +131,9 @@ public class TreinoService {
 	
 	
 	public void associarTreinoAluno(String cpfAluno, String nomeTre, Usuario solicitante) {
-		if(!solicitante.temAcessoAdmin()) {
+		/*if(!solicitante.temAcessoAdmin()) {
 			throw new SecurityException("Acesso apenas para ADMs e Tutores");
-		}
+		}*/
 		
 		Aluno aluno = (Aluno) usuarioService.buscarPorCpf(cpfAluno);
 		Treino treino= treinoRepository.buscarPorNome(nomeTre);

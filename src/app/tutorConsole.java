@@ -2,6 +2,7 @@ package app;
 import app.consoleMenu;
 import model.Aluno;
 import model.Metas;
+import model.Nivel;
 import model.Tutor;
 import model.Usuario;
 
@@ -121,11 +122,21 @@ public class tutorConsole {
 	    System.out.println("╚════════════════════════╝");
 	    
 	    try {
-	    	auth.login(emailLogin, senhaLogin);
-	    	System.out.println("\n✔ Login realizado com sucesso!");
-	    	tutorMenu(scanner, repo, auth, services);
-	    }catch(Exception e){
-	    	System.out.println("\n✖ Erro: " + e.getMessage());
+	        auth.login(emailLogin, senhaLogin);
+
+	        if (auth.getUsuarioLogado()) {
+	            Usuario logado = auth.getUsuario();
+
+	            if (logado instanceof Tutor) {
+	                tutorMenu(scanner, repo, auth, services);
+	            }  else {
+	            	System.out.println("❌ Apenas tutores podem acessar este menu. Faça login na área correta.");
+	                auth.logout();
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Erro no login: " + e.getMessage());
 	    }
 		
 		
@@ -298,15 +309,29 @@ public void AtualizarSenha() {
 	    
 	    System.out.print("│ Nome: ");
 	    String nome = scanner.nextLine();
-	    
-	    System.out.println("│ Nível:                │");
-	    System.out.println("│ 1. Iniciante          │");
-	    System.out.println("│ 2. Intermediário      │");
-	    System.out.println("│ 3. Avançado           │");
-	    System.out.print("│ Opção: ");
-		String nivel = scanner.nextLine();
 		
-		treServi.criarTreino(nome, nivel, auth.getUsuario());
+
+	    System.out.println("│ Nível:                │");
+	    System.out.println("│ 1. INICIANTE          │");
+	    System.out.println("│ 2. INTERMEDIARIO      │");
+	    System.out.println("│ 3. AVANCADO           │");
+	    System.out.print("│ Opção: ");
+	    
+	    int opcao = scanner.nextInt();
+	    scanner.nextLine(); // Limpar buffer
+	    
+	    Nivel nivel;
+	    switch(opcao) {
+	        case 1: nivel = Nivel.INICIANTE; break;
+	        case 2: nivel = Nivel.INTERMEDIARIO; break;
+	        case 3: nivel = Nivel.AVANCADO; break;
+	        default: 
+	            System.out.println("Opção inválida! Usando nível INICIANTE como padrão.");
+	            nivel = Nivel.INICIANTE;
+	    }
+	    
+	    treServi.criarTreino(nome, nivel);
+	    System.out.println("└───────────────────────┘");
 	}
 	
 	

@@ -75,13 +75,11 @@ public class consoleMenu {
         this.catracaSer = catracaSer;
 	    
 	    this.tutorConsole = new tutorConsole(scanner, repo, auth, services, exRepo, exServi, treRepo, treServi, pagRepo, pagService);
-	    this.userConsole = new usuarioConsole(scanner, services, auth, pagRepo, pagService, presencaRepo, presencaService, catraca, catracaSer);
-	    this.admConsole = new admConsole(scanner, repo, auth, services, pagRepo, pagService, relatorioPresencaService, relatorioFinanceiroService, planoService, presencaRepo, presencaService, catraca, catracaSer);
+	    this.userConsole = new usuarioConsole(scanner, services, auth, pagRepo, pagService, presencaRepo, exServi, treRepo, treServi, presencaService, catraca, catracaSer);
+	    this.admConsole = new admConsole(scanner, repo, auth, services, pagRepo, pagService, relatorioPresencaService, relatorioFinanceiroService, planoService, presencaRepo,
+	    		presencaService, exServi, treRepo, treServi, catraca, catracaSer);
 	    this.tools = new toolbox(userConsole, admConsole, tutorConsole);
 	}
-	
-	
-
 
 	
 

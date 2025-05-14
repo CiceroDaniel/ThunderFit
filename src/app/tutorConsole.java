@@ -1,5 +1,6 @@
 package app;
 import app.consoleMenu;
+import model.Aluno;
 import model.Metas;
 import model.Tutor;
 import model.Usuario;
@@ -16,6 +17,7 @@ import services.ExercicioService;
 import services.PagamentoService;
 import services.TreinoService;
 import services.UsuarioService;
+import view.Perfil;
 
 public class tutorConsole {
 	usuarioConsole user;
@@ -40,9 +42,9 @@ public class tutorConsole {
 			ExercicioRepository exRepo,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi,
 			PagamentoRepository pagRepo, PagamentoService pagService) {
 		this.scanner = scanner;
-	    this.uRepo = repo;  // Usa o repositório injetado
-	    this.auth = auth;   // Usa o auth injetado
-	    this.services = services; // Usa o service injetado
+	    this.uRepo = repo;  
+	    this.auth = auth;  
+	    this.services = services; 
 	    this.exRepo= exRepo;
 	    this.exServi= exServi;
 	    this.treRepo= treRepo;
@@ -108,10 +110,10 @@ public class tutorConsole {
 		System.out.println("\n╔════════════════════════╗");
 	    System.out.println("║       🔐 LOGIN        ║");
 	    System.out.println("╚════════════════════════╝");
-		System.out.println("\\n📧 Email: ");
+		System.out.println("\n📧 Email: ");
 		String emailLogin = scanner.nextLine();
 		
-		System.out.println("\\n🔒 Senha: ");
+		System.out.println("\n🔒 Senha: ");
 		String senhaLogin = scanner.nextLine();
 		
 		System.out.println("\n╔════════════════════════╗");
@@ -121,16 +123,11 @@ public class tutorConsole {
 	    try {
 	    	auth.login(emailLogin, senhaLogin);
 	    	System.out.println("\n✔ Login realizado com sucesso!");
+	    	tutorMenu(scanner, repo, auth, services);
 	    }catch(Exception e){
 	    	System.out.println("\n✖ Erro: " + e.getMessage());
 	    }
 		
-		//System.out.println(auth.getUsuarioLogado());
-		
-		/*if(auth.getUsuarioLogado() == true) {
-			System.out.println("[SISTEMA] Tutor autenticado."); 
-			tutorMenu(scanner, repo, auth, services);
-		}*/
 		
 	}
 	
@@ -201,6 +198,7 @@ public void AtualizarSenha() {
 	    	    System.out.println("│ 2. Editar existente   │");
 	    	    System.out.println("│ 3. Listar todos       │");
 	    	    System.out.println("│ 4. Associar aluno     │");
+	    	    System.out.println("│ 5. Remover            │");
 	    	    System.out.println("│                       │");
 	    	    System.out.println("│ 0. Voltar             │");
 	    	    System.out.println("└───────────────────────┘");
@@ -214,15 +212,27 @@ public void AtualizarSenha() {
 	            case 2: //editarTreino();
 	                break;
 	            case 3: //listarTreinos();
+	            	listarTreinoDoAluno();
 	                break;
 	            case 4: associarTreinoAluno();
 	                break;
-	            case 5: return;
+	            case 5: removerTreino();
+	            	break;
+	            case 0:	tutorMenu(scanner, uRepo, auth, services);
 	            default: System.out.println("Opção inválida!");
 	        }
 	    } while(true);
 	}
-	
+	//listar treinos
+	public void listarTreinoDoAluno() {
+		System.out.println("QUAL O ALUNO?\nCPF: ");
+		String cpf = scanner.nextLine();
+		System.out.println(treServi.listarTreinosDoAluno(cpf, auth.getUsuario()));
+	}
+	// editar treino
+	public void editTreino() {
+		
+	}
 	
 	public void tutorMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();
@@ -236,7 +246,7 @@ public void AtualizarSenha() {
 			    System.out.println("│ 3. ✏️ Atualizar dados   │");
 			    System.out.println("│ 4. 🔒 Alterar senha     │");
 			    System.out.println("│                          │");
-			    System.out.println("│ 0. ↩️ Voltar             │");
+			    System.out.println("│ 0. ↩️ SAIR             │");
 			    System.out.println("└──────────────────────────┘");
 			    System.out.print("Opção: ");
 			op = scanner.nextInt();
@@ -244,54 +254,41 @@ public void AtualizarSenha() {
 			
 			//
 			switch(op) {
-			case 1 : tutor.cadastroMenu(scanner, repo, auth, services); ;
+			case 1 : Perfil();
 				break;
-			case 2 :  gerenciarTreinos();
+			case 2 :  menuGerenciarTreinos();
 				break;
 			case 3:	atualizarDados();
 				break;
 			case 4: AtualizarSenha();
 			break;
-			case 0: adm.admMenu();
+			case 0: auth.logout();
+			return;
+				//loginMenu(scanner, repo, auth, services);;
 			default: System.out.println("OPÇÃO INVALIDA!");
 		}
 			
 		}while(op!=0);
 	}
 	
-	
-	public void gerenciarTreinos() {
-		int op;
-		do{
-			 System.out.println("\n┌───────────────────────┐");
-			    System.out.println("│   🏋️ Gerenciar Treinos  │");
-			    System.out.println("├───────────────────────┤");
-			    System.out.println("│ 1. 🆕 Criar           │");
-			    System.out.println("│ 2. 🤝 Associar        │");
-			    System.out.println("│ 3. ❌ Remover         │");
-			    System.out.println("│                       │");
-			    System.out.println("│ 0. ↩️ Voltar          │");
-			    System.out.println("└───────────────────────┘");
-			    System.out.print("Opção: ");
-			op = scanner.nextInt();
-			scanner.nextLine();
-			
-			switch(op) {
-			case 1: criarTreino();
-				break;
-			case 2: associarTreinoAluno();
-				break;
-			case 3: removerTreino();
-				break;
-			case 0: tutorMenu(scanner, uRepo, auth, services);
-				break;
-			default: System.out.println("OPÇÃO INVALIDA!");
-			
-			
-			}
-			
-		}while(op!=0);
+	public void Perfil() {
+		toolbox.espacoMenu();
+		
+		 if (!auth.getUsuarioLogado()) {
+		        System.out.println("Nenhum usuário logado.");
+		        return;
+		    }
+		
+		 Usuario tutor = auth.getUsuario();
+		 
+		 if(tutor instanceof Tutor) {
+		 System.out.println("========== PERFIL DO ALUNO ==========\n");
+		 System.out.println(tutor.gerarCredenciais());
+		 }
+		    
 	}
+	
+	
 	
 	
 	public void criarTreino() {

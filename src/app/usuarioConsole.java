@@ -113,7 +113,7 @@ public class usuarioConsole {
 					+ "\n1 - PERFIL"
 					+ "\n2 - INSTRUTORES"
 					+ "\n3 - MEUS TREINOS"
-					+ "\n4 - PACOTES"
+					+ "\n4 - PLANOS"
 					+ "\n5 - ATUALIZAR DADOS"
 					+ "\n6 - ALTERAR SENHA"
 					+ "\n7 - MEUS PAGAMENTOS"
@@ -138,12 +138,14 @@ public class usuarioConsole {
 				break;
 			case 7: System.out.println(pagService.listarPagamentosPorAluno(auth.getUsuario().getCpf(), auth.getUsuario()));
 				break;
-			case 8: registrarEntrada();
+			case 8: relatorio();
 				break;
-			case 9: //relatorios
+			case 9: registrarEntrada();
 				break;
 			case 0 :System.out.println("SAINDO DO SISTEMA.......");
-			System.exit(0);
+			auth.logout();
+			return;
+			//ginMenu(scanner, null, auth, services);
 			default: System.out.println("OPÇÃO INVALIDA!");
 		}
 			
@@ -181,21 +183,23 @@ public class usuarioConsole {
 	
 	////////////////////////////////////////////////////////////////////////
 	
-	/*public void Pagamentos() {
-		System.out.println("======PAGAMENTOS======");
-		System.out.println("\n1 - TODOS OS PAGAMENTOS"
-				+ "\n2 - PAGAMENTOS PENDENTES"
-				+ "\n3 - PAGAMENTOS COMPLETOS");
+	public void relatorio() {
+		System.out.println("========RELATORIO=========="
+				+ "\n1 - PESO"
+				+ "\n2 - FREQUENCIA"
+				+ "\n0 -  VOLTAR");
 		int op = scanner.nextInt();
 		scanner.nextLine();
 		
-		
 		switch(op) {
-		case 1 : pagService.listarPagamentosPorAluno(auth.getUsuario().getCpf(), auth.getUsuario());
-		break;
-		case 2: pagService.listarPagamentoPendentes(null)
+		case 1: //relatorio peso
+			break;
+		case 2: // relatorio frequencia
+			break;
+		case 0: alunoMenu();
 		}
-	}*/
+		
+	}
 	
 	////////////////////////////////////////////////////////////////////////
 	
@@ -214,10 +218,6 @@ public class usuarioConsole {
 		 System.out.println(usuario.gerarCredenciaisCadastro());
 		 System.out.println(usuario.gerarCredenciaisLogin()+"\n");
 		 }
-		 /*if(usuario instanceof Tutor) {
-	    	System.out.println("========== PERFIL DO TUTOR ==========");
-		    System.out.println(usuario.gerarCredenciais()+"\n");
-			 }*/
 		    
 	}
 	

@@ -121,10 +121,9 @@ public class admConsole {
 			System.out.println("║  1. 👤 PERFIL                          ║");
 			System.out.println("║  2. 🏋️ INSTRUTORES                     ║");
 			System.out.println("║  3. 👥 USUÁRIOS                        ║");
-			System.out.println("║  4. 📦 PACOTES                         ║");
-			System.out.println("║  5. 📅 RELATÓRIOS DE FREQUÊNCIA        ║");
-			System.out.println("║  6. 💰 RELATÓRIOS FINANCEIROS          ║");
-			System.out.println("║  7. 📊 GERENCIAR PLANOS                ║");
+			System.out.println("║  4. 📅 RELATÓRIOS DE FREQUÊNCIA        ║");
+			System.out.println("║  5. 💰 RELATÓRIOS FINANCEIROS          ║");
+			System.out.println("║  6. 📊 GERENCIAR PLANOS                ║");
 			System.out.println("║  0. 🚪 SAIR                            ║");
 			System.out.println("║                                        ║");
 			System.out.println("╚════════════════════════════════════════╝");
@@ -139,23 +138,120 @@ public class admConsole {
 	            	break;
 	            case 3: CrudAluno(); 
 	            	break;
-	            case 4: System.out.println(Plano.mostrarPlanos()); 
+	            case 4:  gerenciarRelatoriosFrequencia(); 
 	            	break;
-	            case 5: gerenciarRelatoriosFrequencia(); 
+	            case 5: gerenciarRelatoriosFinanceiros(); 
 	            	break;
-	            case 6: gerenciarRelatoriosFinanceiros(); 
-	            	break;
-	            case 7: listarAlunos(); 
+	            case 6: //System.out.println(Plano.mostrarPlanos());
+	            		//alteraPlano();
+	            	gerenciarPlanos();
 	            	break;
 	            case 0: System.out.println("SAINDO DO SISTEMA.......");
-	            	break;
+			            auth.logout();
+			            return;
 	            default: System.out.println("OPÇÃO INVALIDA!");
 	        }
 	    } while(op != 0);
 		
 	}
 	
+	private void gerenciarPlanos() {
+	    int op;
+	    do {
+	        System.out.println("\n╔════════════════════════════════════════╗");
+	        System.out.println("║          📊 GERENCIAR PLANOS           ║");
+	        System.out.println("╠════════════════════════════════════════╣");
+	        System.out.println("║                                        ║");
+	        System.out.println("║  1. 📝 ALTERAR VALOR DO PLANO          ║");
+	        System.out.println("║  2. 📋 LISTAR PLANOS                   ║");
+	        System.out.println("║  0. ↩ VOLTAR                           ║");
+	        System.out.println("║                                        ║");
+	        System.out.println("╚════════════════════════════════════════╝");
+	        System.out.print("\n▸ SELECIONE UMA OPÇÃO: ");
+	        op = scanner.nextInt();
+	        scanner.nextLine();
+	        
+	        switch(op) {
+	            case 1: 
+	                alteraPlano();
+	                break;
+	            case 2: 
+	                listarPlanos();
+	                break;
+	            case 0: 
+	                return;
+	            default: 
+	                System.out.println("OPÇÃO INVÁLIDA!");
+	        }
+	    } while(op != 0);
+	}
 
+	private void alteraPlano() {
+	    try {
+	        System.out.println("\n===== ALTERAR VALOR DO PLANO =====");
+	        System.out.println("Selecione o plano:");
+	        System.out.println("1. Mensal");
+	        System.out.println("2. Trimestral");
+	        System.out.println("3. Anual");
+	        System.out.print("Opção: ");
+	        int tipoPlano = scanner.nextInt();
+	        
+	        System.out.print("\nNovo valor: ");
+	        double novoValor = scanner.nextDouble();
+	        scanner.nextLine();
+	        
+	        Plano plano = null;
+	        switch(tipoPlano) {
+	            case 1: plano = Plano.planoMensal; break;
+	            case 2: plano = Plano.planoTrimestral; break;
+	            case 3: plano = Plano.planoAnual; break;
+	            default: throw new IllegalArgumentException("Opção inválida");
+	        }
+	        
+	        planoService.atualizarValorPlano(plano, novoValor, auth.getUsuario());
+	        System.out.println("✔ Valor do plano atualizado com sucesso!");
+	        
+	    } catch (Exception e) {
+	        System.out.println("❌ Erro: " + e.getMessage());
+	    }
+	}
+
+	private void listarPlanos() {
+	    System.out.println("\n===== PLANOS DISPONÍVEIS =====");
+	    System.out.println(Plano.mostrarPlanos());
+	}
+
+	/*public void alteraPlano() {
+		int op;
+		Plano plano = null;
+		System.out.println("======= ALTERAR VALOR DOS PLANOS ===========");
+		System.out.println("Qual plano quer atualizar?");
+		System.out.println("\n1- Mensal"
+				+ "\n2- Trimestral"
+				+ "\n3 -Anual"
+				+ "\n ESCOLHA UMA OPÇÃO");
+		op = scanner.nextInt();
+		scanner.nextLine();
+		
+		
+		switch (op) {
+		case 1: plano = Plano.planoMensal;
+		break;
+		case 2: plano = Plano.planoTrimestral;
+		break;
+		case 3: plano = Plano.planoAnual;
+		break;
+		default: System.out.println("opção invalida!");
+		break;
+		}
+		
+		System.out.println("QUAL O NOVO VALOR?\n|> ");
+		double valor = scanner.nextDouble();
+		scanner.nextLine();
+		
+		planoService.atualizarValorPlano(plano, valor, auth.getUsuario());
+		
+	}*/
 	public void gerenciarRelatoriosFinanceiros() {
 	    int op;
 	    do {
@@ -438,11 +534,11 @@ public class admConsole {
         scanner.nextLine();
         
 	       switch(op){
-	            case 1: buscarPorNome();
+	            case 1: buscarPorNome(u);
 	            break;
-	            case 2: buscarPorEmail();
+	            case 2: buscarPorEmail(u);
 	            break;
-	            case 3: buscarPoCpf();
+	            case 3: buscarPoCpf(u);
 	            break;
 	            case 4: if(u) CrudTutor();
 	            else CrudAluno();
@@ -470,7 +566,7 @@ public class admConsole {
 	
 	}
     
-	public void buscarPorNome(){
+	public void buscarPorNome(boolean u){
 	    
 	    System.out.println("QUAL O NOME DO USUÁRIO QUE DESEJA PESQUISAR?"
 	    + "\nNOME: ");
@@ -487,6 +583,8 @@ public class admConsole {
 	                System.out.println("Email: " + usuario.getEmail());
 	                System.out.println("CPF: " + usuario.getCpf());
 	                System.out.println("---------------------------------");
+	               
+	                pesquisar(u);
 	            }
 	        }
 	    } catch (IllegalArgumentException e) {
@@ -497,7 +595,7 @@ public class admConsole {
 	
 	/////////NAO TA PRINTANDO O USUARIO
 	
-	public void buscarPorEmail(){
+	public void buscarPorEmail(boolean u){
 	    
 	    System.out.println("QUAL O Email DO USUÁRIO QUE DESEJA PESQUISAR?"
 	    + "\nEmail: ");
@@ -512,6 +610,7 @@ public class admConsole {
 	            System.out.println("CPF: " + usuario.getCpf());
 	            System.out.println("Tipo: " + (usuario instanceof Aluno ? "Aluno" : 
 	                             usuario instanceof Tutor ? "Tutor" : "Administrador"));
+	            pesquisar(u);
 	        } else {
 	            System.out.println("Nenhum usuário encontrado com esse email.");
 	        }
@@ -521,7 +620,7 @@ public class admConsole {
 			
 	}
 	    
-	public void buscarPoCpf(){
+	public void buscarPoCpf(boolean u){
 	    
 	    System.out.println("QUAL O CPF DO USUÁRIO QUE DESEJA PESQUISAR?"
 	    + "\nCPF: ");
@@ -536,6 +635,7 @@ public class admConsole {
 	        System.out.println("CPF: " + usuario.getCpf());
 	        System.out.println("Tipo: " + (usuario instanceof Aluno ? "Aluno" : 
 	                         usuario instanceof Tutor ? "Tutor" : "Administrador"));
+	        pesquisar(u);
 	    } catch (IllegalArgumentException e) {
 	        System.out.println("Erro: " + e.getMessage());
 	    }

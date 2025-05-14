@@ -26,9 +26,9 @@ public class teste {
 		final ExercicioRepository exRepo = new ExercicioRepository();
 		final ExercicioService exServi = new ExercicioService(exRepo);
 		final UsuarioRepository repo = new UsuarioRepository();
-		final UsuarioService services = new UsuarioService(repo);
-		final TreinoService treServi = new TreinoService(treRepo, exServi, repo, services);
 		final PagamentoRepository pagRepo = new PagamentoRepository();
+		final UsuarioService services = new UsuarioService(repo,pagRepo);
+		final TreinoService treServi = new TreinoService(treRepo, exServi, repo, services);
 		final PagamentoService pagService = new PagamentoService(pagRepo, services);
 		final PresencaRepository presencaRepo = new PresencaRepository();
 		final PresencaService presencaServi = new PresencaService(presencaRepo);

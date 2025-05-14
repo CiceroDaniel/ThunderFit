@@ -93,7 +93,7 @@ public class usuarioConsole {
 		
 		Genero();
 		
-		services.cadastroAluno(nome, email, senha, cpf, dataDeNascimento, altura, peso, nivel, metas, descricao, plano, genero);
+		services.cadastroAluno(nome, email, senha, cpf, dataDeNascimento, altura, peso, nivel, metas, descricao, plano, genero, LocalDate.now());
 
 	}
 	/////////////////////////////////////////////////////////////////////////
@@ -157,7 +157,7 @@ public class usuarioConsole {
 				break;
 			case 6: AtualizarSenha();
 				break;
-			case 7: System.out.println(pagService.listarPagamentosPorAluno(auth.getUsuario().getCpf(), auth.getUsuario()));
+			case 7: pagamentos();
 				break;
 			case 8: relatorio();
 				break;
@@ -221,6 +221,8 @@ public class usuarioConsole {
 		}
 		
 	}
+	
+	
 	
 	////////////////////////////////////////////////////////////////////////
 	
@@ -342,7 +344,33 @@ public class usuarioConsole {
 	////////////////////////////////////////////////////////////////////////
 
 	public void pagamentos() {
-		
+		pagService.listarPagamentosPorAluno(auth.getUsuario().getCpf());
+
+		List <Pagamento> pagamentos = pagService.listarPagamentosPorAluno(auth.getUsuario().getCpf());
+		if(pagamentos.isEmpty()) {
+			System.out.println("Nenhum pagamento registrado!");
+			return;
+		}
+		System.out.println("\n╔══════════════════════════════════════════════════════════════╗");
+	    System.out.println("║               📋 HISTÓRICO DE PAGAMENTOS               ║");
+	    System.out.println("╠══════════════════════════════════════════════════════════════╣");
+	    
+	    int i = 1;
+	    for(Pagamento pagamento: pagamentos) {
+	        System.out.println("║                                                          ║");
+	        System.out.printf("║ %d. Data: %s\n", i, pagamento.getDataPagamento());
+	        System.out.printf("║    Valor do Plano: R$ %.2f\n", pagamento.getValorDoPlano());
+	        System.out.printf("║    Valor Pago: R$ %.2f\n", pagamento.getValorPago());
+	        System.out.printf("║    Vencimento: %s\n", pagamento.getDataVencimento());
+	        System.out.printf("║    Status: %s\n", pagamento.getPago() ? "✅ PAGO" : "❌ PENDENTE");
+	        if(pagamento.estaVencido()) {
+	            System.out.println("║    ⚠ ATENÇÃO: PAGAMENTO VENCIDO!");
+	        }
+	        System.out.println("╠══════════════════════════════════════════════════════════════╣");
+	        i++;
+	    }
+	    System.out.println("╚══════════════════════════════════════════════════════════════╝");
+	
 	}
 	
 	////////////////////////////////////////////////////////////////////////
@@ -466,8 +494,9 @@ public class usuarioConsole {
 		String dataScn = "2006-02-28";
 		LocalDate dataDeNascimento = LocalDate.parse(dataScn);
 
-		services.cadastroAluno("Victor Hugo", "vh@gmail.com","123456789", "10987654321", dataDeNascimento, 1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO);
-		services.atualizaDataDeCadastro("10987654321",LocalDate.of(2025, 04, 21));
+		services.cadastroAluno("Victor Hugo", "vh@gmail.com","123456789", "10987654321", dataDeNascimento,
+				1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO, LocalDate.of(2025, 04, 21));
+		//services.atualizaDataDeCadastro("10987654321",LocalDate.of(2025, 05, 12));
 		treServi.criarTreino("Treino A",nivel.INICIANTE);
 		treServi.associarTreinoAluno("10987654321", "Treino A", null);
 		treServi.adicionarExercicios("Treino A", "Supino reto", null, 12);

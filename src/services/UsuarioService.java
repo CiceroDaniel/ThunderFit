@@ -1,6 +1,7 @@
 package services;
 
 import model.*;
+import repository.PagamentoRepository;
 import repository.UsuarioRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,17 +12,19 @@ import java.util.List;
 
 public class UsuarioService {
 	private final UsuarioRepository usuarioRepository;
+	private final PagamentoRepository pagamentoRepository;
 	private boolean admCadastrado = false;
 	
-	public UsuarioService(UsuarioRepository usuarioRepository) {
+	public UsuarioService(UsuarioRepository usuarioRepository, PagamentoRepository pagamentoRepository) {
 		this.usuarioRepository = usuarioRepository;
+		this.pagamentoRepository = pagamentoRepository;
 	}
 	
 	
 	//--------------------------- CADASTRO ---------------------------------
 	
 	public void cadastroAluno(String nome,String email, String senha,String cpf,LocalDate dataDeNascimento,double altura,
-			double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano, Genero genero) {
+			double peso,Nivel nivel, Metas metas,String metaPersonalizada,Plano plano, Genero genero, LocalDate dataCadastro) {
 		
 		if(usuarioRepository.buscarPorCpf(cpf)!= null) {
 			throw new IllegalArgumentException(" Erro: CPF já cadastrado!");
@@ -32,9 +35,11 @@ public class UsuarioService {
 		
 		
 		Aluno aluno = new Aluno(nome, email,senha,cpf,dataDeNascimento,altura, peso,nivel,metas,metaPersonalizada, plano, genero);			
-		
+		aluno.setDataDeCadastro(dataCadastro);
 		
 		usuarioRepository.cadastro(aluno);
+		Pagamento pagamentoInicial = new Pagamento(aluno,plano.getValor(), dataCadastro,true);
+	    pagamentoRepository.cadastro(pagamentoInicial);
 		
 	}
 	

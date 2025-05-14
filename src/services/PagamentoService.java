@@ -38,14 +38,10 @@ public class PagamentoService {
 	
 	//--------------------LISTAR---------------------
 	
-	 public List<Pagamento> listarPagamentosPorAluno(String cpfAluno, Usuario solicitante) {
-			Objects.requireNonNull(solicitante);
+	 public List<Pagamento> listarPagamentosPorAluno(String cpfAluno) {
 			if (cpfAluno == null || cpfAluno.isBlank()) {
 			    throw new IllegalArgumentException("CPF não pode ser vazio!");
 			}
-	        if (!(solicitante instanceof Administrador) && !(solicitante.getCpf().equals(cpfAluno))) {
-	            throw new SecurityException("Acesso não autorizado!");
-	        }
 	        
 	        return pagamentoRepository.listarPorAluno(cpfAluno);
 	 }

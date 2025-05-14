@@ -10,6 +10,7 @@ import repository.UsuarioRepository;
 import services.AuthService;
 import services.CatracaService;
 import services.ExercicioService;
+import services.GraficoPesoService;
 import services.PagamentoService;
 import services.PlanoService;
 import services.PresencaService;
@@ -48,13 +49,14 @@ public class consoleMenu {
     private final PresencaService presencaService;
     private final Catraca catraca;
     private final CatracaService catracaSer; 
+    private final GraficoPesoService graPesoService;
     
 	
 
 	public consoleMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services,ExercicioRepository exRepo,
 			ExercicioService exServi,TreinoRepository treRepo, TreinoService treServi, PagamentoRepository pagRepo, PagamentoService pagService,
 			RelatorioPresencaService relatorioPresencaService,RelatorioFinanceiroService relatorioFinanceiroService, PlanoService planoService,
-			PresencaRepository presencaRepo, PresencaService presencaService,Catraca catraca, CatracaService catracaSer) {
+			PresencaRepository presencaRepo, PresencaService presencaService,Catraca catraca, CatracaService catracaSer, GraficoPesoService graficoPesoService) {
 		this.scanner = scanner;
 	    this.repo = repo;
 	    this.auth = auth;
@@ -73,11 +75,13 @@ public class consoleMenu {
         this.presencaService = presencaService;
         this.catraca=catraca;
         this.catracaSer = catracaSer;
+        this.graPesoService= graficoPesoService;
 	    
 	    this.tutorConsole = new tutorConsole(scanner, repo, auth, services, exRepo, exServi, treRepo, treServi, pagRepo, pagService);
-	    this.userConsole = new usuarioConsole(scanner, services, auth, pagRepo, pagService, presencaRepo, exServi, treRepo, treServi, presencaService, catraca, catracaSer);
+	    this.userConsole = new usuarioConsole(scanner, services, auth, pagRepo, pagService, presencaRepo, exServi, treRepo, treServi,
+	    		presencaService, catraca, catracaSer, graficoPesoService);
 	    this.admConsole = new admConsole(scanner, repo, auth, services, pagRepo, pagService, relatorioPresencaService, relatorioFinanceiroService, planoService, presencaRepo,
-	    		presencaService, exServi, treRepo, treServi, catraca, catracaSer);
+	    		presencaService, exServi, treRepo, treServi, catraca, catracaSer, graficoPesoService);
 	    this.tools = new toolbox(userConsole, admConsole, tutorConsole);
 	}
 

@@ -12,6 +12,7 @@ import repository.UsuarioRepository;
 import services.AuthService;
 import services.CatracaService;
 import services.ExercicioService;
+import services.GraficoPesoService;
 import services.PagamentoService;
 import services.PresencaService;
 import services.TreinoService;
@@ -21,7 +22,8 @@ public class teste {
 	
 	public static void main(String[] args) {
 		
-		final Catraca catraca = new Catraca();
+		final GraficoPesoService grafiPesoServi= new GraficoPesoService();
+		final Catraca catraca = new Catraca();		
 		final TreinoRepository treRepo = new TreinoRepository();
 		final ExercicioRepository exRepo = new ExercicioRepository();
 		final ExercicioService exServi = new ExercicioService(exRepo);
@@ -38,7 +40,7 @@ public class teste {
 		
 		
 		consoleMenu menu = new consoleMenu(scan,repo,auth,services, exRepo, exServi, treRepo, treServi, pagRepo,
-				pagService, null, null, null, presencaRepo, presencaServi, catraca, catracaSer);
+				pagService, null, null, null, presencaRepo, presencaServi, catraca, catracaSer, grafiPesoServi);
 		menu.tools.preCad();
 		
 		

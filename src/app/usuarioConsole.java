@@ -11,6 +11,7 @@ import repository.UsuarioRepository;
 import services.AuthService;
 import services.CatracaService;
 import services.ExercicioService;
+import services.GraficoPesoService;
 import services.PagamentoService;
 import services.PresencaService;
 import services.TreinoService;
@@ -36,14 +37,15 @@ public class usuarioConsole {
 	private TreinoRepository treRepo;
 	private TreinoService treServi;
     private final Catraca catraca;
-    private final CatracaService catracaSer; 
+    private final CatracaService catracaSer;
+    private final GraficoPesoService graPesoServi;
     
 	tutorConsole tutor;
 	
 	
 	public usuarioConsole(Scanner scanner, UsuarioService services,AuthService auth, PagamentoRepository pagRepo,
 			PagamentoService pagService, PresencaRepository presencaRepo, ExercicioService exServi,
-			TreinoRepository treRepo, TreinoService treServi ,PresencaService presencaService,Catraca catraca, CatracaService catracaSer) {
+			TreinoRepository treRepo, TreinoService treServi ,PresencaService presencaService,Catraca catraca, CatracaService catracaSer,  GraficoPesoService graPesoServi) {
 		this.scanner = scanner;
 	    this.services = services;
 	    this.auth=auth;
@@ -56,6 +58,7 @@ public class usuarioConsole {
         this.presencaService = presencaService;
         this.catraca=catraca;
         this.catracaSer =catracaSer;
+        this.graPesoServi= graPesoServi;
 	}
 
 	
@@ -174,17 +177,27 @@ public class usuarioConsole {
 		
 	}
 	//////////////////////////////////////////////////////////
+	///
+	private LocalDate ultimoDiaRegistro = null;
 	public void registrarEntrada() {
-	    Usuario usuario = auth.getUsuario();
+		LocalDate hoje = LocalDate.now();
+		  Usuario usuario = auth.getUsuario();
+		
+		if (ultimoDiaRegistro != null && ultimoDiaRegistro.equals(hoje)) {
+	        System.out.println("⚠ Você já registrou entrada hoje!");
+	        return;
+	    }
+		
 	    
 	    System.out.print("Você está fisicamente na academia agora? (S/N): ");
-	    String resposta = scanner.nextLine();
+	    String resposta = scanner.nextLine().trim();
 	    
 	    if (resposta.equalsIgnoreCase("S")) {
 	        if (usuario instanceof Aluno aluno) {  
 	            boolean acessoLiberado = catracaSer.registrarPassagem(aluno);
 
 	            if (acessoLiberado) {
+	            	ultimoDiaRegistro = hoje;
 	                System.out.println("✅ Catraca liberada para " + usuario.getNome() + "!");
 	            } else {
 	                System.out.println("❌ Acesso negado! Motivos:");
@@ -213,7 +226,7 @@ public class usuarioConsole {
 		scanner.nextLine();
 		
 		switch(op) {
-		case 1: //relatorio peso
+		case 1: relatorioPeso();
 			break;
 		case 2: // relatorio frequencia
 			break;
@@ -222,7 +235,22 @@ public class usuarioConsole {
 		
 	}
 	
-	
+	public void relatorioPeso(){
+		
+		 if (!auth.getUsuarioLogado()) {
+	     System.out.println("Nenhum usuário logado.");
+	     return;
+		 }
+			 
+		  Usuario usuario = auth.getUsuario();
+		  
+		  if (usuario instanceof Aluno) {
+		    Aluno aluno = (Aluno) usuario;
+	       graPesoServi.exibirGraficoEvolucaoPeso(aluno);
+	   } else {
+	       System.out.println("Apenas alunos podem visualizar o gráfico de peso.");
+	   }
+	}
 	
 	////////////////////////////////////////////////////////////////////////
 	
@@ -497,6 +525,7 @@ public class usuarioConsole {
 		services.cadastroAluno("Victor Hugo", "vh@gmail.com","123456789", "10987654321", dataDeNascimento,
 				1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO, LocalDate.of(2025, 04, 21));
 		//services.atualizaDataDeCadastro("10987654321",LocalDate.of(2025, 05, 12));
+		services.atualizarDados("10987654321", "vh@gmail.com", 20, 1.24, metas.ganharMassa);
 		treServi.criarTreino("Treino A",nivel.INICIANTE);
 		treServi.associarTreinoAluno("10987654321", "Treino A", null);
 		treServi.adicionarExercicios("Treino A", "Supino reto", null, 12);

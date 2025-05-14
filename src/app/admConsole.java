@@ -39,13 +39,14 @@ public class admConsole {
 	private TreinoService treServi;
     private final Catraca catraca;
     private final CatracaService catracaSer;
+    private final GraficoPesoService graPesoServi;
 
 	
 	public admConsole(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services, 
 			PagamentoRepository pagRepo, PagamentoService pagService, RelatorioPresencaService relatorioPresencaService,
 			RelatorioFinanceiroService relatorioFinanceiroService, PlanoService planoService, PresencaRepository presencaRepo,
 			PresencaService presencaService,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi,Catraca catraca,
-			CatracaService catracaSer) {
+			CatracaService catracaSer, GraficoPesoService graPesoServi) {
 		this.scanner = scanner;
 	    this.repo = repo;
 	    this.auth = auth;
@@ -63,9 +64,10 @@ public class admConsole {
 	    this.treServi=treServi;
         this.catraca=catraca;
         this.catracaSer=catracaSer;
+        this.graPesoServi = graPesoServi;
         
         this.user = new usuarioConsole(scanner, services, auth, pagRepo, pagService, presencaRepo, exServi, treRepo, treServi,
-        		presencaService, catraca, catracaSer);
+        		presencaService, catraca, catracaSer, graPesoServi);
         this.tutor = new tutorConsole(scanner, repo, auth, services, null, null, null, null, pagRepo, pagService);
 	}
 

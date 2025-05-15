@@ -1,8 +1,10 @@
 package app;
 import app.consoleMenu;
 import model.Aluno;
+import model.Exercicio;
 import model.Metas;
 import model.Nivel;
+import model.Treino;
 import model.Tutor;
 import model.Usuario;
 
@@ -199,41 +201,320 @@ public void AtualizarSenha() {
 	services.alterarSenha(auth.getUsuario().getCpf(), senha);
 }
 	
-	public void menuGerenciarTreinos() {
-	    int op;
-	    do {
-	    	 System.out.println("\n┌───────────────────────┐");
-	    	    System.out.println("│   🏋️ Gerenciar Treinos  │");
-	    	    System.out.println("├───────────────────────┤");
-	    	    System.out.println("│ 1. Criar novo         │");
-	    	    System.out.println("│ 2. Editar existente   │");
-	    	    System.out.println("│ 3. Listar todos       │");
-	    	    System.out.println("│ 4. Associar aluno     │");
-	    	    System.out.println("│ 5. Remover            │");
-	    	    System.out.println("│                       │");
-	    	    System.out.println("│ 0. Voltar             │");
-	    	    System.out.println("└───────────────────────┘");
-	    	    System.out.print("Opção: ");
-	        op = scanner.nextInt();
-	        scanner.nextLine();
-	        
-	        switch(op) {
-	            case 1: criarTreino();
-	                break;
-	            case 2: //editarTreino();
-	                break;
-	            case 3: //listarTreinos();
-	            	listarTreinoDoAluno();
-	                break;
-	            case 4: associarTreinoAluno();
-	                break;
-	            case 5: removerTreino();
-	            	break;
-	            case 0:	tutorMenu(scanner, uRepo, auth, services);
-	            default: System.out.println("Opção inválida!");
-	        }
-	    } while(true);
-	}
+public void menuGerenciarTreinos() {
+    int op;
+    do {
+        System.out.println("\n╔════════════════════════════════════════╗");
+        System.out.println("║        🏋️  GERENCIAMENTO DE TREINOS      ║");
+        System.out.println("╠════════════════════════════════════════╣");
+        System.out.println("║                                        ║");
+        System.out.println("║  1. 📝 CRIAR NOVO TREINO               ║");
+        System.out.println("║  2. 👥 ASSOCIAR TREINO A ALUNO         ║");
+        System.out.println("║  3. 📋 LISTAR TREINOS DE UM ALUNO      ║");
+        System.out.println("║  4. ✏️ EDITAR TREINO                   ║");
+        System.out.println("║  5. ❌ REMOVER TREINO                  ║");
+        System.out.println("║  0. ↩ VOLTAR                          ║");
+        System.out.println("║                                        ║");
+        System.out.println("╚════════════════════════════════════════╝");
+        System.out.print("\n▸ SELECIONE UMA OPÇÃO: ");
+        
+        op = scanner.nextInt();
+        scanner.nextLine();
+        
+        switch(op) {
+            case 1:
+                criarTreino();
+                break;
+            case 2:
+                associarTreinoAluno();
+                break;
+            case 3:
+                listarTreinosDoAluno();
+                break;
+            case 4:
+                editarTreino();
+                break;
+            case 5:
+                removerTreino();
+                break;
+            case 0:
+                return;
+            default:
+                System.out.println("OPÇÃO INVÁLIDA!");
+        }
+    } while(op != 0);
+}
+
+public void editarTreino() {
+    System.out.println("\n╔════════════════════════════════════════╗");
+    System.out.println("║          ✏️ EDITAR TREINO              ║");
+    System.out.println("╠════════════════════════════════════════╣");
+    
+    // 1. Solicitar CPF do aluno
+    System.out.print("║ CPF DO ALUNO (somente números): ");
+    String cpfAluno = scanner.nextLine();
+    
+    try {
+        // 2. Verificar se aluno existe
+        Aluno aluno = (Aluno) services.buscarPorCpf(cpfAluno);
+        
+        // 3. Listar treinos do aluno
+        List<Treino> treinos = treServi.listarTreinosDoAluno(cpfAluno, auth.getUsuario());
+        
+        if (treinos.isEmpty()) {
+            System.out.println("╠════════════════════════════════════════╣");
+            System.out.println("║   ❌ ALUNO NÃO POSSUI TREINOS CADASTRADOS ║");
+            System.out.println("╚════════════════════════════════════════╝");
+            return;
+        }
+        
+        System.out.println("╠════════════════════════════════════════╣");
+        System.out.println("║        TREINOS DISPONÍVEIS             ║");
+        System.out.println("╠════════════════════════════════════════╣");
+        
+        for (int i = 0; i < treinos.size(); i++) {
+            System.out.printf("║ %d. %-20s (Nível: %-12s) ║\n", 
+                            i+1, 
+                            treinos.get(i).getNome(), 
+                            treinos.get(i).getNivelDif());
+        }
+        
+        // 4. Selecionar treino para edição
+        System.out.println("╠════════════════════════════════════════╣");
+        System.out.print("║ SELECIONE O TREINO PARA EDITAR (NÚMERO): ");
+        int opcaoTreino = scanner.nextInt();
+        scanner.nextLine(); // Limpar buffer
+        
+        if (opcaoTreino < 1 || opcaoTreino > treinos.size()) {
+            System.out.println("╠════════════════════════════════════════╣");
+            System.out.println("║           ❌ OPÇÃO INVÁLIDA!           ║");
+            System.out.println("╚════════════════════════════════════════╝");
+            return;
+        }
+        
+        Treino treinoSelecionado = treinos.get(opcaoTreino - 1);
+        String nomeTreinoOriginal = treinoSelecionado.getNome();
+        
+        // 5. Menu de edição
+        int opcaoEdicao;
+        do {
+            System.out.println("\n╔════════════════════════════════════════╗");
+            System.out.printf ("║ EDITANDO: %-29s ║\n", nomeTreinoOriginal);
+            System.out.println("╠════════════════════════════════════════╣");
+            System.out.println("║ 1. ✏️  RENOMEAR TREINO                 ║");
+            System.out.println("║ 2. 🔄  ALTERAR NÍVEL DE DIFICULDADE   ║");
+            System.out.println("║ 3. ➕  ADICIONAR EXERCÍCIO             ║");
+            System.out.println("║ 4. ➖  REMOVER EXERCÍCIO               ║");
+            System.out.println("║ 5. 📋  LISTAR EXERCÍCIOS               ║");
+            System.out.println("║ 0. ↩  VOLTAR                           ║");
+            System.out.println("╠════════════════════════════════════════╣");
+            System.out.print("║ SELECIONE UMA OPÇÃO: ");
+            
+            opcaoEdicao = scanner.nextInt();
+            scanner.nextLine(); // Limpar buffer
+            
+            switch (opcaoEdicao) {
+                case 1: // Renomear treino
+                    System.out.print("║ NOVO NOME DO TREINO: ");
+                    String novoNome = scanner.nextLine();
+                    
+                    if (!novoNome.trim().isEmpty()) {
+                        treinoSelecionado.setNome(novoNome);
+                        treServi.atualizarTreino(treinoSelecionado);
+                        System.out.println("╠════════════════════════════════════════╣");
+                        System.out.println("║       ✅ NOME ALTERADO COM SUCESSO     ║");
+                        nomeTreinoOriginal = novoNome; // Atualiza para próxima iteração
+                    } else {
+                        System.out.println("╠════════════════════════════════════════╣");
+                        System.out.println("║    ❌ NOME NÃO PODE SER VAZIO!         ║");
+                    }
+                    break;
+                    
+                case 2: // Alterar nível
+                    System.out.println("╠════════════════════════════════════════╣");
+                    System.out.println("║ SELECIONE O NOVO NÍVEL:               ║");
+                    System.out.println("║ 1. INICIANTE                          ║");
+                    System.out.println("║ 2. INTERMEDIÁRIO                     ║");
+                    System.out.println("║ 3. AVANÇADO                           ║");
+                    System.out.print("║ OPÇÃO: ");
+                    
+                    int opcaoNivel = scanner.nextInt();
+                    scanner.nextLine(); // Limpar buffer
+                    
+                    Nivel novoNivel;
+                    switch (opcaoNivel) {
+                        case 1: novoNivel = Nivel.INICIANTE; break;
+                        case 2: novoNivel = Nivel.INTERMEDIARIO; break;
+                        case 3: novoNivel = Nivel.AVANCADO; break;
+                        default:
+                            System.out.println("╠════════════════════════════════════════╣");
+                            System.out.println("║      ❌ OPÇÃO DE NÍVEL INVÁLIDA!      ║");
+                            continue;
+                    }
+                    
+                    treinoSelecionado.setNivelDif(novoNivel);
+                    treServi.atualizarTreino(treinoSelecionado);
+                    System.out.println("╠════════════════════════════════════════╣");
+                    System.out.println("║    ✅ NÍVEL ALTERADO COM SUCESSO!      ║");
+                    break;
+                    
+                case 3: // Adicionar exercício
+                    System.out.println("╠════════════════════════════════════════╣");
+                    System.out.println("║       ADICIONAR EXERCÍCIO             ║");
+                    System.out.println("╠════════════════════════════════════════╣");
+                    
+                    // Listar exercícios disponíveis
+                    List<Exercicio> exerciciosDisponiveis = exServi.listarTodosExercicios();
+                    System.out.println("║ EXERCÍCIOS DISPONÍVEIS:                ║");
+                    for (int i = 0; i < Math.min(5, exerciciosDisponiveis.size()); i++) {
+                        System.out.printf("║ %d. %-35s ║\n", 
+                                        i+1, 
+                                        exerciciosDisponiveis.get(i).getNome());
+                    }
+                    System.out.println("║ ... (mais exercícios disponíveis)      ║");
+                    
+                    System.out.print("║ NOME DO EXERCÍCIO: ");
+                    String nomeExercicio = scanner.nextLine();
+                    
+                    System.out.print("║ NÚMERO DE REPETIÇÕES: ");
+                    int repeticoes = scanner.nextInt();
+                    scanner.nextLine(); // Limpar buffer
+                    
+                    treServi.adicionarExercicios(nomeTreinoOriginal, nomeExercicio, auth.getUsuario(), repeticoes);
+                    System.out.println("╠════════════════════════════════════════╣");
+                    System.out.println("║  ✅ EXERCÍCIO ADICIONADO COM SUCESSO!  ║");
+                    break;
+                    
+                case 4: // Remover exercício
+                    List<Exercicio> exerciciosAtuais = treServi.listarTreinosDoAluno(
+                        cpfAluno, nomeTreinoOriginal, auth.getUsuario());
+                    
+                    if (exerciciosAtuais.isEmpty()) {
+                        System.out.println("╠════════════════════════════════════════╣");
+                        System.out.println("║  ❌ TREINO NÃO TEM EXERCÍCIOS!         ║");
+                        break;
+                    }
+                    
+                    System.out.println("╠════════════════════════════════════════╣");
+                    System.out.println("║ EXERCÍCIOS ATUAIS:                     ║");
+                    for (int i = 0; i < exerciciosAtuais.size(); i++) {
+                        System.out.printf("║ %d. %-20s (%d reps)       ║\n",
+                                        i+1,
+                                        exerciciosAtuais.get(i).getNome(),
+                                        exerciciosAtuais.get(i).getQuantidade());
+                    }
+                    
+                    System.out.print("║ NÚMERO DO EXERCÍCIO A REMOVER: ");
+                    int exercicioRemover = scanner.nextInt();
+                    scanner.nextLine(); // Limpar buffer
+                    
+                    if (exercicioRemover < 1 || exercicioRemover > exerciciosAtuais.size()) {
+                        System.out.println("╠════════════════════════════════════════╣");
+                        System.out.println("║        ❌ OPÇÃO INVÁLIDA!             ║");
+                        break;
+                    }
+                    
+                    String nomeExercicioRemover = exerciciosAtuais.get(exercicioRemover-1).getNome();
+                    treServi.removerExercicios(nomeTreinoOriginal, nomeExercicioRemover, auth.getUsuario());
+                    System.out.println("╠════════════════════════════════════════╣");
+                    System.out.println("║  ✅ EXERCÍCIO REMOVIDO COM SUCESSO!    ║");
+                    break;
+                    
+                case 5: // Listar exercícios
+                    listarExerciciosTreino(nomeTreinoOriginal);
+                    break;
+                    
+                case 0: // Sair
+                    System.out.println("╠════════════════════════════════════════╣");
+                    System.out.println("║      ALTERAÇÕES SALVAS COM SUCESSO!   ║");
+                    break;
+                    
+                default:
+                    System.out.println("╠════════════════════════════════════════╣");
+                    System.out.println("║           ❌ OPÇÃO INVÁLIDA!           ║");
+            }
+            
+        } while (opcaoEdicao != 0);
+        
+        System.out.println("╚════════════════════════════════════════╝");
+        
+    } catch (SecurityException e) {
+        System.out.println("╠════════════════════════════════════════╣");
+        System.out.println("║ ❌ ACESSO NEGADO: " + e.getMessage() + " ║");
+        System.out.println("╚════════════════════════════════════════╝");
+    } catch (Exception e) {
+        System.out.println("╠════════════════════════════════════════╣");
+        System.out.println("║ ❌ ERRO: " + e.getMessage());
+        System.out.println("╚════════════════════════════════════════╝");
+    }
+}
+
+public void listarTreinosDoAluno() {
+    System.out.println("\n╔════════════════════════════════════════╗");
+    System.out.println("║        📋 LISTAR TREINOS DE ALUNO       ║");
+    System.out.println("╠════════════════════════════════════════╣");
+    
+    System.out.print("║ CPF DO ALUNO (somente números): ");
+    String cpfAluno = scanner.nextLine();
+    
+    try {
+        // Verifica se o usuário logado tem permissão
+        Usuario solicitante = auth.getUsuario();
+        List<Treino> treinos = treServi.listarTreinosDoAluno(cpfAluno, solicitante);
+        
+        if (treinos.isEmpty()) {
+            System.out.println("╠════════════════════════════════════════╣");
+            System.out.println("║   ❌ ALUNO NÃO POSSUI TREINOS CADASTRADOS ║");
+            System.out.println("╚════════════════════════════════════════╝");
+            return;
+        }
+        
+        System.out.println("╠════════════════════════════════════════╣");
+        System.out.println("║          TREINOS ENCONTRADOS           ║");
+        System.out.println("╠════════════════════════════════════════╣");
+        
+        int i = 1;
+        for (Treino treino : treinos) {
+            System.out.printf("║ %d. %-20s (Nível: %-12s) ║\n", 
+                            i++, 
+                            treino.getNome(), 
+                            treino.getNivelDif());
+        }
+        
+        System.out.println("╠════════════════════════════════════════╣");
+        System.out.println("║ Deseja ver os exercícios de algum treino? (S/N) ");
+        System.out.print("║ ▸ ");
+        String opcao = scanner.nextLine();
+        
+        if (opcao.equalsIgnoreCase("S")) {
+            System.out.print("║ NÚMERO DO TREINO: ");
+            int numTreino = scanner.nextInt();
+            scanner.nextLine(); // Limpar buffer
+            
+            if (numTreino > 0 && numTreino <= treinos.size()) {
+                Treino treinoSelecionado = treinos.get(numTreino - 1);
+                listarExerciciosTreino(treinoSelecionado.getNome());
+            } else {
+                System.out.println("║ ❌ NÚMERO INVÁLIDO!");
+            }
+        }
+        
+        System.out.println("╚════════════════════════════════════════╝");
+        
+    } catch (SecurityException e) {
+        System.out.println("╠════════════════════════════════════════╣");
+        System.out.println("║ ❌ ACESSO NEGADO: " + e.getMessage());
+        System.out.println("╚════════════════════════════════════════╝");
+    } catch (Exception e) {
+        System.out.println("╠════════════════════════════════════════╣");
+        System.out.println("║ ❌ ERRO: " + e.getMessage());
+        System.out.println("╚════════════════════════════════════════╝");
+    }
+}
+	
+
+	
+	
 	//listar treinos
 	public void listarTreinoDoAluno() {
 		System.out.println("QUAL O ALUNO?\nCPF: ");
@@ -241,9 +522,30 @@ public void AtualizarSenha() {
 		System.out.println(treServi.listarTreinosDoAluno(cpf, auth.getUsuario()));
 	}
 	// editar treino
-	public void editTreino() {
-		
+	
+	public void listarExerciciosTreino(String nomeTreino) {
+	    try {
+	        List<Exercicio> exercicios = treServi.listarTreinosDoAluno(
+	            auth.getUsuario().getCpf(), nomeTreino, auth.getUsuario());
+	        
+	        if (exercicios.isEmpty()) {
+	            System.out.println("Este treino não possui exercícios cadastrados!");
+	            return;
+	        }
+	        
+	        System.out.println("\n📋 Exercícios do Treino '" + nomeTreino + "':");
+	        System.out.println("----------------------------------------");
+	        for (Exercicio ex : exercicios) {
+	            System.out.printf("- %s | %s | %d repetições%n",
+	                ex.getNome(),
+	                ex.getGrupoMuscular(),
+	                ex.getQuantidade());
+	        }
+	    } catch (Exception e) {
+	        System.out.println("Erro ao listar exercícios: " + e.getMessage());
+	    }
 	}
+	
 	
 	public void tutorMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
 		toolbox.espacoMenu();

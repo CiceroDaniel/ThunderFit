@@ -112,6 +112,37 @@ public class TreinoService {
 		
 	}
 	
+	public void atualizarTreino(Treino treinoAtualizado) {
+	    // 1. Validação básica
+	    if (treinoAtualizado == null) {
+	        throw new IllegalArgumentException("Treino não pode ser nulo");
+	    }
+
+	  
+
+	    // 2. Verificar se o treino existe no repositório
+	    Treino treinoExistente = treinoRepository.buscarPorNome(treinoAtualizado.getNome());
+	    if (treinoExistente == null) {
+	        throw new IllegalArgumentException("Treino não encontrado para atualização");
+	    }
+
+	    // 3. Validar dados do treino
+	    if (treinoAtualizado.getNome() == null || treinoAtualizado.getNome().trim().isEmpty()) {
+	        throw new IllegalArgumentException("Nome do treino é obrigatório");
+	    }
+
+	    if (treinoAtualizado.getNivelDif() == null) {
+	        throw new IllegalArgumentException("Nível de dificuldade é obrigatório");
+	    }
+
+	    // 4. Atualizar no repositório
+	    try {
+	        treinoRepository.atualizarTreino(treinoAtualizado);
+	    } catch (Exception e) {
+	        throw new RuntimeException("Erro ao atualizar treino no banco de dados: " + e.getMessage());
+	    }
+	}
+	
 	
 	//--------------------REMOVER--------------------
 	

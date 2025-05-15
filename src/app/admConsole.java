@@ -67,7 +67,7 @@ public class admConsole {
         this.graPesoServi = graPesoServi;
         
         this.user = new usuarioConsole(scanner, services, auth, pagRepo, pagService, presencaRepo, exServi, treRepo, treServi,
-        		presencaService, catraca, catracaSer, graPesoServi);
+        		presencaService, catraca, catracaSer, graPesoServi, relatorioPresencaService);
         this.tutor = new tutorConsole(scanner, repo, auth, services, null, null, null, null, pagRepo, pagService);
 	}
 

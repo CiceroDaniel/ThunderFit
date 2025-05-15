@@ -14,6 +14,7 @@ import services.ExercicioService;
 import services.GraficoPesoService;
 import services.PagamentoService;
 import services.PresencaService;
+import services.RelatorioPresencaService;
 import services.TreinoService;
 import services.UsuarioService;
 
@@ -39,13 +40,15 @@ public class usuarioConsole {
     private final Catraca catraca;
     private final CatracaService catracaSer;
     private final GraficoPesoService graPesoServi;
+    private final RelatorioPresencaService relatorioPresencaService;
     
 	tutorConsole tutor;
 	
 	
 	public usuarioConsole(Scanner scanner, UsuarioService services,AuthService auth, PagamentoRepository pagRepo,
 			PagamentoService pagService, PresencaRepository presencaRepo, ExercicioService exServi,
-			TreinoRepository treRepo, TreinoService treServi ,PresencaService presencaService,Catraca catraca, CatracaService catracaSer,  GraficoPesoService graPesoServi) {
+			TreinoRepository treRepo, TreinoService treServi ,PresencaService presencaService,Catraca catraca, CatracaService catracaSer,
+			GraficoPesoService graPesoServi, RelatorioPresencaService relatorioPresencaService) {
 		this.scanner = scanner;
 	    this.services = services;
 	    this.auth=auth;
@@ -59,6 +62,7 @@ public class usuarioConsole {
         this.catraca=catraca;
         this.catracaSer =catracaSer;
         this.graPesoServi= graPesoServi;
+        this.relatorioPresencaService= relatorioPresencaService;
 	}
 
 	
@@ -228,7 +232,7 @@ public class usuarioConsole {
 		switch(op) {
 		case 1: relatorioPeso();
 			break;
-		case 2: // relatorio frequencia
+		case 2: relatorioPresenca();
 			break;
 		case 0: alunoMenu();
 		}
@@ -250,6 +254,19 @@ public class usuarioConsole {
 	   } else {
 	       System.out.println("Apenas alunos podem visualizar o gráfico de peso.");
 	   }
+	}
+	
+	public void relatorioPresenca() {
+
+	    System.out.println("Digite o mês (1-12):");
+	    int mes = scanner.nextInt();
+	    System.out.println("Digite o ano:");
+	    int ano = scanner.nextInt();
+	    scanner.nextLine();
+	    
+	    String relatorio = relatorioPresencaService.gerarFrequenciaMensal(auth.getUsuario().getCpf(), mes, ano);
+	    System.out.println("\n" + relatorio + "\n");
+		
 	}
 	
 	////////////////////////////////////////////////////////////////////////
@@ -526,6 +543,10 @@ public class usuarioConsole {
 				1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO, LocalDate.of(2025, 04, 21));
 		//services.atualizaDataDeCadastro("10987654321",LocalDate.of(2025, 05, 12));
 		services.atualizarDados("10987654321", "vh@gmail.com", 20, 1.24, metas.ganharMassa);
+		services.atualizarDados("10987654321", "vh@gmail.com", 25, 1.24, metas.ganharMassa);
+		services.atualizarDados("10987654321", "vh@gmail.com", 50, 1.24, metas.ganharMassa);
+		services.atualizarDados("10987654321", "vh@gmail.com", 45, 1.24, metas.ganharMassa);
+		
 		treServi.criarTreino("Treino A",nivel.INICIANTE);
 		treServi.associarTreinoAluno("10987654321", "Treino A", null);
 		treServi.adicionarExercicios("Treino A", "Supino reto", null, 12);

@@ -362,27 +362,100 @@ public void editarTreino() {
                     System.out.println("╠════════════════════════════════════════╣");
                     System.out.println("║       ADICIONAR EXERCÍCIO             ║");
                     System.out.println("╠════════════════════════════════════════╣");
-                    
-                    // Listar exercícios disponíveis
+
+                    // Listar todos os exercícios disponíveis com paginação
                     List<Exercicio> exerciciosDisponiveis = exServi.listarTodosExercicios();
-                    System.out.println("║ EXERCÍCIOS DISPONÍVEIS:                ║");
-                    for (int i = 0; i < Math.min(5, exerciciosDisponiveis.size()); i++) {
-                        System.out.printf("║ %d. %-35s ║\n", 
-                                        i+1, 
-                                        exerciciosDisponiveis.get(i).getNome());
-                    }
-                    System.out.println("║ ... (mais exercícios disponíveis)      ║");
-                    
-                    System.out.print("║ NOME DO EXERCÍCIO: ");
-                    String nomeExercicio = scanner.nextLine();
-                    
-                    System.out.print("║ NÚMERO DE REPETIÇÕES: ");
-                    int repeticoes = scanner.nextInt();
-                    scanner.nextLine(); // Limpar buffer
-                    
-                    treServi.adicionarExercicios(nomeTreinoOriginal, nomeExercicio, auth.getUsuario(), repeticoes);
-                    System.out.println("╠════════════════════════════════════════╣");
-                    System.out.println("║  ✅ EXERCÍCIO ADICIONADO COM SUCESSO!  ║");
+                    int paginaAtual = 0;
+                    int exerciciosPorPagina = 10;
+                    boolean sair = false;
+
+                    do {
+                        System.out.println("╠════════════════════════════════════════╣");
+                        System.out.printf("║ PÁGINA %-2d DE %-2d %26s ║\n", 
+                                        paginaAtual + 1, 
+                                        (int) Math.ceil((double)exerciciosDisponiveis.size()/exerciciosPorPagina),
+                                        "");
+                        System.out.println("╠════════════════════════════════════════╣");
+
+                        int inicio = paginaAtual * exerciciosPorPagina;
+                        int fim = Math.min(inicio + exerciciosPorPagina, exerciciosDisponiveis.size());
+
+                        for (int i = inicio; i < fim; i++) {
+                            Exercicio ex = exerciciosDisponiveis.get(i);
+                            System.out.printf("║ %2d. %-25s (%s) ║\n", 
+                                            i+1, 
+                                            ex.getNome(),
+                                            ex.getGrupoMuscular());
+                        }
+
+                        System.out.println("╠════════════════════════════════════════╣");
+                        System.out.println("║ n. PRÓXIMA PÁGINA                     ║");
+                        System.out.println("║ p. PÁGINA ANTERIOR                    ║");
+                        System.out.println("║ s. SELECIONAR EXERCÍCIO                ║");
+                        System.out.println("║ 0. VOLTAR                              ║");
+                        System.out.println("╠════════════════════════════════════════╣");
+                        System.out.print("║ OPÇÃO: ");
+                        String opcaoExercicio = scanner.nextLine();
+
+                        switch (opcaoExercicio.toLowerCase()) {
+                            case "n":
+                                if ((paginaAtual + 1) * exerciciosPorPagina < exerciciosDisponiveis.size()) {
+                                    paginaAtual++;
+                                } else {
+                                    System.out.println("╠════════════════════════════════════════╣");
+                                    System.out.println("║      ❌ ÚLTIMA PÁGINA ALCANÇADA!      ║");
+                                }
+                                break;
+                                
+                            case "p":
+                                if (paginaAtual > 0) {
+                                    paginaAtual--;
+                                } else {
+                                    System.out.println("╠════════════════════════════════════════╣");
+                                    System.out.println("║      ❌ PRIMEIRA PÁGINA ALCANÇADA!    ║");
+                                }
+                                break;
+                                
+                            case "s":
+                                System.out.print("║ NÚMERO DO EXERCÍCIO: ");
+                                try {
+                                    int numExercicio = Integer.parseInt(scanner.nextLine()) - 1;
+                                    
+                                    if (numExercicio >= 0 && numExercicio < exerciciosDisponiveis.size()) {
+                                        Exercicio exercicioSelecionado = exerciciosDisponiveis.get(numExercicio);
+                                        
+                                        System.out.print("║ NÚMERO DE REPETIÇÕES: ");
+                                        int repeticoes = scanner.nextInt();
+                                        scanner.nextLine(); // Limpar buffer
+                                        
+                                        treServi.adicionarExercicios(nomeTreinoOriginal, 
+                                                                   exercicioSelecionado.getNome(), 
+                                                                   auth.getUsuario(), 
+                                                                   repeticoes);
+                                        
+                                        System.out.println("╠════════════════════════════════════════╣");
+                                        System.out.printf("║ ✅ %-25s ADICIONADO! ║\n", 
+                                                        exercicioSelecionado.getNome());
+                                        sair = true;
+                                    } else {
+                                        System.out.println("╠════════════════════════════════════════╣");
+                                        System.out.println("║        ❌ NÚMERO INVÁLIDO!            ║");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    System.out.println("╠════════════════════════════════════════╣");
+                                    System.out.println("║     ❌ DIGITE UM NÚMERO VÁLIDO!        ║");
+                                }
+                                break;
+                                
+                            case "0":
+                                sair = true;
+                                break;
+                                
+                            default:
+                                System.out.println("╠════════════════════════════════════════╣");
+                                System.out.println("║        ❌ OPÇÃO INVÁLIDA!              ║");
+                        }
+                    } while (!sair);
                     break;
                     
                 case 4: // Remover exercício
@@ -523,26 +596,48 @@ public void listarTreinosDoAluno() {
 	}
 	// editar treino
 	
-	public void listarExerciciosTreino(String nomeTreino) {
+	private void listarExerciciosTreino(String nomeTreino) {
 	    try {
-	        List<Exercicio> exercicios = treServi.listarTreinosDoAluno(
-	            auth.getUsuario().getCpf(), nomeTreino, auth.getUsuario());
+	        // Primeiro obtemos o usuário logado
+	        Usuario usuarioLogado = auth.getUsuario();
+	        
+	        // Verificamos se é um aluno ou se é um tutor/admin consultando
+	        String cpfAluno;
+	        if (usuarioLogado instanceof Aluno) {
+	            cpfAluno = usuarioLogado.getCpf();
+	        } else {
+	            // Se for tutor/admin, pedimos o CPF do aluno
+	            System.out.print("║ CPF DO ALUNO: ");
+	            cpfAluno = scanner.nextLine();
+	        }
+
+	        // Agora buscamos os exercícios
+	        List<Exercicio> exercicios = treServi.listarTreinosDoAluno(cpfAluno, nomeTreino, auth.getUsuario());
+	        
+	        System.out.println("\n╔══════════════════════════════════════════════╗");
+	        System.out.printf ("║ EXERCÍCIOS DO TREINO: %-21s ║\n", nomeTreino);
+	        System.out.println("╠══════════════════════════════════════════════╣");
 	        
 	        if (exercicios.isEmpty()) {
-	            System.out.println("Este treino não possui exercícios cadastrados!");
-	            return;
+	            System.out.println("║          NENHUM EXERCÍCIO CADASTRADO          ║");
+	        } else {
+	            for (Exercicio ex : exercicios) {
+	                System.out.printf("║ ► %-25s (%d repetições) ║\n", 
+	                                ex.getNome(), 
+	                                ex.getQuantidade());
+	                System.out.printf("║   Grupo: %-20s Equip: %-10s ║\n",
+	                                ex.getGrupoMuscular(),
+	                                ex.getEquipamento());
+	                System.out.println("╠══════════════════════════════════════════════╣");
+	            }
 	        }
+	        System.out.println("╚══════════════════════════════════════════════╝");
 	        
-	        System.out.println("\n📋 Exercícios do Treino '" + nomeTreino + "':");
-	        System.out.println("----------------------------------------");
-	        for (Exercicio ex : exercicios) {
-	            System.out.printf("- %s | %s | %d repetições%n",
-	                ex.getNome(),
-	                ex.getGrupoMuscular(),
-	                ex.getQuantidade());
-	        }
 	    } catch (Exception e) {
-	        System.out.println("Erro ao listar exercícios: " + e.getMessage());
+	        System.out.println("╔════════════════════════════════════════╗");
+	        System.out.println("║ ❌ ERRO: " + e.getMessage());
+	        System.out.println("╚════════════════════════════════════════╝");
+	        e.printStackTrace(); // Isso ajuda no debug durante o desenvolvimento
 	    }
 	}
 	

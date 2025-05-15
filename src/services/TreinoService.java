@@ -52,17 +52,24 @@ public class TreinoService {
 	}
 	
 	
-	public List<Exercicio> listarTreinosDoAluno(String cpfAluno,String nomeTreino, Usuario solicitante){
-		if(!(solicitante instanceof Administrador || solicitante instanceof Tutor|| solicitante.getCpf().equals(cpfAluno))) {
-			throw new SecurityException("Acesso Negado");
-		}
-		 Aluno aluno = (Aluno) usuarioService.buscarPorCpf(cpfAluno);
-		
-		
-		Treino treino = buscarTreinoDoAluno(aluno, nomeTreino);
-		
-		return treino.getExercicios();
-		
+	public List<Exercicio> listarTreinosDoAluno(String cpfAluno, String nomeTreino, Usuario solicitante) {
+	    // Verifica permissões
+	    if (!(solicitante instanceof Administrador || 
+	          solicitante instanceof Tutor || 
+	          solicitante.getCpf().equals(cpfAluno))) {
+	        throw new SecurityException("Acesso Negado");
+	    }
+	    
+	    // Busca o aluno (não aceita mais Tutor aqui)
+	    Usuario usuario = usuarioService.buscarPorCpf(cpfAluno);
+	    if (!(usuario instanceof Aluno)) {
+	        throw new IllegalArgumentException("CPF não pertence a um aluno");
+	    }
+	    
+	    Aluno aluno = (Aluno) usuario;
+	    Treino treino = buscarTreinoDoAluno(aluno, nomeTreino);
+	    
+	    return treino.getExercicios();
 	}
 	
 	//------------------BUSCAR----------------

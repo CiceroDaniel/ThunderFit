@@ -150,6 +150,7 @@ public class admConsole {
 			System.out.println("║  4. 📅 RELATÓRIOS DE FREQUÊNCIA        ║");
 			System.out.println("║  5. 💰 RELATÓRIOS FINANCEIROS          ║");
 			System.out.println("║  6. 📊 GERENCIAR PLANOS                ║");
+			System.out.println("║  7. 💳 GERENCIAR PAGAMENTOS            ║");
 			System.out.println("║  0. 🚪 SAIR                            ║");
 			System.out.println("║                                        ║");
 			System.out.println("╚════════════════════════════════════════╝");
@@ -172,6 +173,8 @@ public class admConsole {
 	            		//alteraPlano();
 	            	gerenciarPlanos();
 	            	break;
+	            case 7: menuPagamentos();
+	            	break;
 	            case 0: System.out.println("SAINDO DO SISTEMA.......");
 			            auth.logout();
 			            return;
@@ -180,6 +183,254 @@ public class admConsole {
 	    } while(op != 0);
 		
 	}
+	
+	public void menuPagamentos() {
+	    int op;
+	    do {
+	        System.out.println("\n╔════════════════════════════════════════╗");
+	        System.out.println("║          💳 MENU PAGAMENTOS            ║");
+	        System.out.println("╠════════════════════════════════════════╣");
+	        System.out.println("║                                        ║");
+	        System.out.println("║  1. ➕ Registrar pagamento              ║");
+	        System.out.println("║  2. 📄 Listar pagamentos de aluno       ║");
+	        System.out.println("║  3. ⏳ Pagamentos pendentes             ║");
+	        System.out.println("║  4. ⛔ Pagamentos vencidos              ║");
+	        System.out.println("║  5. 🔍 Buscar pagamento por ID         ║");
+	        System.out.println("║  6. ✏️ Atualizar data de pagamento      ║");     
+	        System.out.println("║  7. 🗑️ Remover pagamento                 ║");
+	        System.out.println("║  0. 🔙 Voltar ao menu anterior          ║");
+	        System.out.println("║                                        ║");
+	        System.out.println("╚════════════════════════════════════════╝");
+	        System.out.print("\n▸ SELECIONE UMA OPÇÃO: ");
+	        op = scanner.nextInt();
+	        scanner.nextLine();
+
+	        try {
+	            switch (op) {
+	                case 1:
+	                    registrarPagamento();
+	                    break;
+	                case 2:
+	                    listarPagamentosDeAluno();
+	                    break;
+	                case 3:
+	                    listarPendentes();
+	                    break;
+	                case 4:
+	                    listarVencidos();
+	                    break;
+	                case 5:
+	                	buscarPagamentoPorId();	                    
+	                    break;
+	                case 6:
+	                	atualizarDataPagamento();
+	                    break;
+	                case 7:
+	                	removerPagamento();
+	                    break;
+	                case 0:
+	                    System.out.println("Retornando ao menu anterior...");
+	                    break;
+	                default:
+	                    System.out.println("Opção inválida!");
+	            }
+	        } catch (Exception e) {
+	            System.out.println("Erro: " + e.getMessage());
+	        }
+
+	    } while (op != 0);
+	}
+
+	private void registrarPagamento() {
+	    try {
+	        System.out.print("CPF do aluno: ");
+	        String cpf = scanner.nextLine();
+
+	        Aluno aluno = (Aluno) services.buscarPorCpf(cpf);
+	        if (aluno == null) {
+	            System.out.println("Aluno não encontrado.");
+	            return;
+	        }
+
+	        System.out.print("Valor pago: ");
+	        double valorPago = scanner.nextDouble();
+	        scanner.nextLine();
+
+	        System.out.print("Data do pagamento (AAAA-MM-DD): ");
+	        String dataStr = scanner.nextLine();
+	        LocalDate dataPagamento = LocalDate.parse(dataStr);
+
+	        Pagamento pagamento = pagService.registrarPagamento(aluno, valorPago, dataPagamento);
+
+	        System.out.println("✅ Pagamento registrado com sucesso:");
+	        System.out.println("ID: " + pagamento.getId());
+	        System.out.println("Aluno: " + aluno.getNome());
+	        System.out.println("Valor: R$ " + pagamento.getValorPago());
+	        System.out.println("Data: " + pagamento.getDataPagamento());
+
+	    } catch (SecurityException se) {
+	        System.out.println("🚫 Acesso negado: " + se.getMessage());
+	    } catch (IllegalArgumentException iae) {
+	        System.out.println("❌ Erro nos dados: " + iae.getMessage());
+	    } catch (Exception e) {
+	        System.out.println("❗ Erro ao registrar pagamento: " + e.getMessage());
+	    }
+	}
+
+	private void listarPagamentosDeAluno() {
+	    try {
+	        System.out.print("Digite o CPF do aluno: ");
+	        String cpf = scanner.nextLine();
+
+	        List<Pagamento> pagamentos = pagService.listarPagamentosPorAluno(cpf);
+
+	        if (pagamentos.isEmpty()) {
+	            System.out.println("📭 Nenhum pagamento encontrado para este aluno.");
+	            return;
+	        }
+
+	        System.out.println("\n📄 Lista de Pagamentos:");
+	        System.out.println("═══════════════════════════════════════════════════════");
+	        for (Pagamento pagamento : pagamentos) {
+	            System.out.println("ID: " + pagamento.getId());
+	            System.out.println("Valor: R$ " + pagamento.getValorPago());
+	            System.out.println("Data de Pagamento: " + (pagamento.getDataPagamento() != null ? pagamento.getDataPagamento() : "N/A"));
+	            System.out.println("Vencimento: " + pagamento.getDataVencimento());
+	            System.out.println("Status: " + (pagamento.getPago() ? "✅ Pago" : "⏳ Pendente"));
+	            System.out.println("-------------------------------------------------------");
+	        }
+
+	    } catch (IllegalArgumentException e) {
+	        System.out.println("❌ Erro: " + e.getMessage());
+	    } catch (Exception e) {
+	        System.out.println("❗ Erro ao listar pagamentos: " + e.getMessage());
+	    }
+	}
+
+	private void listarPendentes() {
+	    try {
+	        List<Pagamento> pendentes = pagService.listarPagamentoPendentes();
+
+	        if (pendentes.isEmpty()) {
+	            System.out.println("🎉 Nenhum pagamento pendente encontrado.");
+	            return;
+	        }
+
+	        System.out.println("\n⏳ Pagamentos Pendentes:");
+	        System.out.println("═══════════════════════════════════════════════════════");
+	        for (Pagamento pagamento : pendentes) {
+	            System.out.println("ID: " + pagamento.getId());
+	            System.out.println("Aluno: " + pagamento.getAluno().getNome());
+	            System.out.println("Valor: R$ " + pagamento.getValorPago());
+	            System.out.println("Vencimento: " + pagamento.getDataVencimento());
+	            System.out.println("Status: ⏳ Pendente");
+	            System.out.println("-------------------------------------------------------");
+	        }
+
+	    } catch (SecurityException se) {
+	        System.out.println("🚫 Acesso negado: " + se.getMessage());
+	    } catch (Exception e) {
+	        System.out.println("❗ Erro ao listar pagamentos pendentes: " + e.getMessage());
+	    }
+	}
+
+	private void listarVencidos() {
+	    try {
+	        List<Pagamento> vencidos = pagService.listarPagamentoVencidos();
+
+	        if (vencidos.isEmpty()) {
+	            System.out.println("🎉 Nenhum pagamento vencido encontrado.");
+	            return;
+	        }
+
+	        System.out.println("\n⚠️ Pagamentos Vencidos:");
+	        System.out.println("═══════════════════════════════════════════════════════");
+	        for (Pagamento pagamento : vencidos) {
+	            System.out.println("ID: " + pagamento.getId());
+	            System.out.println("Aluno: " + pagamento.getAluno().getNome());
+	            System.out.println("Valor: R$ " + pagamento.getValorPago());
+	            System.out.println("Vencimento: " + pagamento.getDataVencimento());
+	            System.out.println("Status: ❌ Vencido");
+	            System.out.println("-------------------------------------------------------");
+	        }
+
+	    } catch (SecurityException se) {
+	        System.out.println("🚫 Acesso negado: " + se.getMessage());
+	    } catch (Exception e) {
+	        System.out.println("❗ Erro ao listar pagamentos vencidos: " + e.getMessage());
+	    }
+	}
+
+	private void buscarPagamentoPorId() {
+	    try {
+	        System.out.print("Digite o ID do pagamento: ");
+	        int id = Integer.parseInt(scanner.nextLine());
+
+	        Pagamento pagamento = pagService.buscarPorId(id);
+
+	        System.out.println("\n🔍 Pagamento Encontrado:");
+	        System.out.println("═══════════════════════════════════════════════════════");
+	        System.out.println("ID: " + pagamento.getId());
+	        System.out.println("Aluno: " + pagamento.getAluno().getNome());
+	        System.out.println("CPF: " + pagamento.getAluno().getCpf());
+	        System.out.println("Valor: R$ " + pagamento.getValorPago());
+	        System.out.println("Data de Pagamento: " + (pagamento.getDataPagamento() != null ? pagamento.getDataPagamento() : "N/A"));
+	        System.out.println("Vencimento: " + pagamento.getDataVencimento());
+	        System.out.println("Status: " + (pagamento.getPago() ? "✅ Pago" : "⏳ Pendente"));
+
+	    } catch (IllegalArgumentException e) {
+	        System.out.println("❌ Erro: " + e.getMessage());
+	    } catch (SecurityException se) {
+	        System.out.println("🚫 Acesso negado: " + se.getMessage());
+	    } catch (Exception e) {
+	        System.out.println("❗ Erro ao buscar pagamento: " + e.getMessage());
+	    }
+	}
+
+	private void atualizarDataPagamento() {
+	    try {
+	        System.out.print("Digite o ID do pagamento: ");
+	        int id = Integer.parseInt(scanner.nextLine());
+
+	        System.out.print("Digite a nova data de pagamento (AAAA-MM-DD): ");
+	        String dataStr = scanner.nextLine();
+	        LocalDate novaData = LocalDate.parse(dataStr);
+
+	        pagService.atualizarDataDePagamento(id, novaData);
+
+	        System.out.println("✅ Data de pagamento atualizada com sucesso!");
+
+	    } catch (IllegalArgumentException e) {
+	        System.out.println("❌ Erro: " + e.getMessage());
+	    } catch (SecurityException se) {
+	        System.out.println("🚫 Acesso negado: " + se.getMessage());
+	    } catch (Exception e) {
+	        System.out.println("❗ Erro ao atualizar data: " + e.getMessage());
+	    }
+	}
+
+	private void removerPagamento() {
+	    try {
+	        System.out.print("Digite o ID do pagamento que deseja remover: ");
+	        int id = Integer.parseInt(scanner.nextLine());
+
+	        boolean removido = pagService.removerPagamento(id);
+
+	        if (removido) {
+	            System.out.println("✅ Pagamento removido com sucesso!");
+	        } else {
+	            System.out.println("⚠️ Nenhum pagamento foi removido. Verifique se o ID está correto.");
+	        }
+
+	    } catch (SecurityException se) {
+	        System.out.println("🚫 Acesso negado: " + se.getMessage());
+	    } catch (Exception e) {
+	        System.out.println("❗ Erro ao remover pagamento: " + e.getMessage());
+	    }
+	}
+
+	
+	
 	
 	private void gerenciarPlanos() {
 	    int op;

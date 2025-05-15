@@ -22,10 +22,8 @@ public class PagamentoService {
 	
 	//--------------------CRIAÇAO---------------------
 	
-	public Pagamento registrarPagamento(Aluno aluno,double valorPago, LocalDate dataPagamento, Usuario solicitante) {
-		if(!(solicitante instanceof Administrador)) {
-			throw new SecurityException("Acesso não autorizado!");
-		}
+	public Pagamento registrarPagamento(Aluno aluno,double valorPago, LocalDate dataPagamento) {
+		
 		if (dataPagamento.isAfter(LocalDate.now())) {
 	        throw new IllegalArgumentException("Data de pagamento não pode ser do futuro!");
 	    }
@@ -46,18 +44,14 @@ public class PagamentoService {
 	        return pagamentoRepository.listarPorAluno(cpfAluno);
 	 }
 	 
-	 public List<Pagamento> listarPagamentoPendentes(Usuario solicitante){
-	        if (!solicitante.temAcessoAdmin()) {
-	            throw new SecurityException("Apenas administradores podem ver pagamentos pendentes!");
-	        }
+	 public List<Pagamento> listarPagamentoPendentes(){
+	     
 	        
 	        return pagamentoRepository.listarTodos().stream().filter(p -> !p.getPago()).toList();
 	    }
 	 
-	 public List<Pagamento> listarPagamentoVencidos(Usuario solicitante){
-	        if (!solicitante.temAcessoAdmin()) {
-	            throw new SecurityException("Apenas administradores podem ver pagamentos pendentes!");
-	        }
+	 public List<Pagamento> listarPagamentoVencidos(){
+	    
 	        
 	        return pagamentoRepository.listarTodos().stream().filter(p -> !p.getPago()&& p.getDataVencimento().isBefore(LocalDate.now())).toList();
 	    }
@@ -82,10 +76,8 @@ public class PagamentoService {
 
 	//-------------------BUSCAR-----------------------
 	 
-	 public Pagamento buscarPorId(int idPagamento, Usuario solicitante) {
-		 if(!(solicitante instanceof Administrador)) {
-			 throw new SecurityException("Acesso negado");
-		 }
+	 public Pagamento buscarPorId(int idPagamento) {
+		
 		 Pagamento pagamento = pagamentoRepository.buscarPorId(idPagamento).orElseThrow(() -> new IllegalArgumentException("Pagamento não encontrado"));
 		 
 	
@@ -95,10 +87,8 @@ public class PagamentoService {
 	 
 	//--------------------ATUALIZAR---------------------
 	
-	public void atualizarDataDePagamento(int idPagamento, LocalDate data, Usuario solicitante) {
-		 if (!(solicitante instanceof Administrador)) {
-		        throw new SecurityException("Apenas administradores podem alterar datas!");
-		    }
+	public void atualizarDataDePagamento(int idPagamento, LocalDate data) {
+		
 		    
 		    Pagamento pagamento = pagamentoRepository.buscarPorId(idPagamento)
 		        .orElseThrow(() -> new IllegalArgumentException("Pagamento não encontrado!"));
@@ -110,10 +100,8 @@ public class PagamentoService {
 	}
 	
 	
-	public void marcarComoPago(int idPagamento, Usuario solicitante) {
-		if(!(solicitante instanceof Administrador)) {
-			throw new SecurityException("Acesso não autorizado!");
-		}
+	public void marcarComoPago(int idPagamento) {
+		
 		
 		Pagamento pagamento = pagamentoRepository.buscarPorId(idPagamento).orElseThrow(() -> new IllegalArgumentException("Pagamento com ID não encontrado!"));
 
@@ -134,10 +122,7 @@ public class PagamentoService {
 	
 	//--------------------REMOVER---------------------
 	
-	public boolean removerPagamento(int idPagamento, Usuario solicitante) {
-	    if (!(solicitante instanceof Administrador)) {
-	        throw new SecurityException("Apenas administradores podem remover pagamentos!");
-	    }
+	public boolean removerPagamento(int idPagamento) {
 	    
 	    return pagamentoRepository.remover(idPagamento);
 	}

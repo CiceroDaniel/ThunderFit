@@ -15,6 +15,7 @@ import services.GraficoPesoService;
 import services.PagamentoService;
 import services.PlanoService;
 import services.PresencaService;
+import services.RelatorioFinanceiroService;
 import services.RelatorioPresencaService;
 import services.TreinoService;
 import services.UsuarioService;
@@ -36,6 +37,7 @@ public class teste {
 		final PagamentoService pagService = new PagamentoService(pagRepo, services);
 		final PresencaRepository presencaRepo = new PresencaRepository();
 		final PresencaService presencaServi = new PresencaService(presencaRepo);
+		final RelatorioFinanceiroService relaFinanServi= new RelatorioFinanceiroService(pagRepo, services);
 		final RelatorioPresencaService RePresencaServi = new RelatorioPresencaService(presencaRepo);
 		final CatracaService catracaSer = new CatracaService(catraca, pagRepo, presencaServi);
 		final AuthService auth = new AuthService(repo,services);
@@ -43,7 +45,7 @@ public class teste {
 		
 		
 		consoleMenu menu = new consoleMenu(scan,repo,auth,services, exRepo, exServi, treRepo, treServi, pagRepo,
-				pagService,  RePresencaServi,  null, planoServi, presencaRepo, presencaServi, catraca, catracaSer, grafiPesoServi);
+				pagService,  RePresencaServi, relaFinanServi, planoServi, presencaRepo, presencaServi, catraca, catracaSer, grafiPesoServi);
 		menu.tools.preCad();
 		
 		

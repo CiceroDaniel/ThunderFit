@@ -75,10 +75,7 @@ public class UsuarioService {
 	//--------------------------- LISTAR ---------------------------------
 	
 	
-	public List<Usuario> listarUsuarios(Usuario solicitante){
-		if(!(solicitante instanceof Administrador)) {
-			throw new SecurityException("Apenas ADMs podem listar");
-		}
+	public List<Usuario> listarUsuarios(){
 		return usuarioRepository.listarTodos();
 	}
 	

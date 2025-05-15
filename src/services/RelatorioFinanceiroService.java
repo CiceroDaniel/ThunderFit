@@ -17,10 +17,8 @@ public class RelatorioFinanceiroService {
 
     
     //---------------CRIAR---------------------
-    public RelatorioFinanceiro gerarRelatorioMensal(YearMonth mes, Usuario solicitante) {
-    	 if (!(solicitante instanceof Administrador)) {
-             throw new SecurityException("Apenas administradores podem gerar relatórios!");
-    	 }
+    public RelatorioFinanceiro gerarRelatorioMensal(YearMonth mes) {
+    	
 
          double receita = calcularReceitaMensal(mes); //metodos do relatorioservice
 
@@ -40,7 +38,7 @@ public class RelatorioFinanceiroService {
             .mapToDouble(Pagamento::getValorPago).sum();//SOMA
     }
     private double calcularDespesasMensais() {
-        return usuarioService.listarUsuarios(null).stream().filter(usuario -> usuario instanceof Tutor)
+        return usuarioService.listarUsuarios().stream().filter(usuario -> usuario instanceof Tutor)
             .map(usuario -> (Tutor) usuario).mapToDouble(Tutor::getSalario).sum();
     }
     

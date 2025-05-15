@@ -1,4 +1,5 @@
 package app;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
@@ -246,70 +247,77 @@ public class admConsole {
 	    System.out.println(Plano.mostrarPlanos());
 	}
 
-	/*public void alteraPlano() {
-		int op;
-		Plano plano = null;
-		System.out.println("======= ALTERAR VALOR DOS PLANOS ===========");
-		System.out.println("Qual plano quer atualizar?");
-		System.out.println("\n1- Mensal"
-				+ "\n2- Trimestral"
-				+ "\n3 -Anual"
-				+ "\n ESCOLHA UMA OPÇÃO");
-		op = scanner.nextInt();
-		scanner.nextLine();
-		
-		
-		switch (op) {
-		case 1: plano = Plano.planoMensal;
-		break;
-		case 2: plano = Plano.planoTrimestral;
-		break;
-		case 3: plano = Plano.planoAnual;
-		break;
-		default: System.out.println("opção invalida!");
-		break;
-		}
-		
-		System.out.println("QUAL O NOVO VALOR?\n|> ");
-		double valor = scanner.nextDouble();
-		scanner.nextLine();
-		
-		planoService.atualizarValorPlano(plano, valor, auth.getUsuario());
-		
-	}*/
+
 	public void gerenciarRelatoriosFinanceiros() {
 	    int op;
 	    do {
-	        System.out.println("===== RELATÓRIOS FINANCEIROS ====="
-	                + "\n1 - MENSAL"
-	                + "\n2 - ANUAL"
-	                + "\n0 - VOLTAR");
+	        toolbox.espacoMenu();
+	        
+	        System.out.println("\n╔════════════════════════════════════════╗");
+	        System.out.println("║        💰 RELATÓRIOS FINANCEIROS        ║");
+	        System.out.println("╠════════════════════════════════════════╣");
+	        System.out.println("║                                        ║");
+	        System.out.println("║  1. 📅 RELATÓRIO MENSAL                ║");
+	        System.out.println("║  0. ↩ VOLTAR                           ║");
+	        System.out.println("║                                        ║");
+	        System.out.println("╚════════════════════════════════════════╝");
+	        System.out.print("\n▸ SELECIONE UMA OPÇÃO: ");
+	        
 	        op = scanner.nextInt();
 	        scanner.nextLine();
 	        
-	        if(op == 1) exibirRelatorioFinanceiroMensal();
+	        if(op == 1) {
+	            exibirRelatorioFinanceiroMensal();
+	        } else if(op != 0) {
+	            System.out.println("❌ OPÇÃO INVÁLIDA!");
+	        }
 	    } while(op != 0);
 	}
 
 	private void exibirRelatorioFinanceiroMensal() {
 	    try {
-	        System.out.println("Mês (1-12):");
+	        toolbox.espacoMenu();
+	        
+	        System.out.println("\n╔════════════════════════════════════════╗");
+	        System.out.println("║        📅 RELATÓRIO FINANCEIRO         ║");
+	        System.out.println("╠════════════════════════════════════════╣");
+	        System.out.println("║                                        ║");
+	        System.out.print  ("║  MÊS (1-12): ");
 	        int mes = scanner.nextInt();
-	        System.out.println("Ano:");
+	        System.out.print  ("║  ANO: ");
 	        int ano = scanner.nextInt();
 	        scanner.nextLine();
+	        System.out.println("║                                        ║");
+	        System.out.println("╚════════════════════════════════════════╝");
 	        
 	        YearMonth yearMonth = YearMonth.of(ano, mes);
-	        RelatorioFinanceiro relatorio = relatorioFinanceiroService.gerarRelatorioMensal(yearMonth, auth.getUsuario());
+	        System.out.println("\n=== PAGAMENTOS PARA " + yearMonth + " ===");
+        pagRepo.listarTodos().stream()
+            .filter(p -> YearMonth.from(p.getDataPagamento()).equals(yearMonth))
+            .forEach(p -> System.out.printf("%s | R$ %.2f | %s%n", 
+                p.getDataPagamento(), 
+                p.getValorPago(),
+                p.getAluno().getNome()));
+        
+        RelatorioFinanceiro relatorio = relatorioFinanceiroService.gerarRelatorioMensal(yearMonth);
 	        
-	        System.out.println("\n======== RELATÓRIO FINANCEIRO ========");
-	        System.out.printf("Período: %s/%d\n", yearMonth.getMonth(), yearMonth.getYear());
-	        System.out.printf("Receita: R$ %.2f\n", relatorio.getReceitaTotal());
-	        System.out.printf("Despesas (salários): R$ %.2f\n", relatorio.getDespesasTotal());
-	        System.out.printf("Lucro: R$ %.2f\n", relatorio.getLucro());
-	        System.out.println("==================================\n");
+	        System.out.println("\n╔══════════════════════════════════════════════════════════════╗");
+	        System.out.println("║                📊 RELATÓRIO FINANCEIRO MENSAL               ║");
+	        System.out.println("╠══════════════════════════════════════════════════════════════╣");
+	        System.out.printf ("║ Período: %02d/%d %45s ║\n", mes, ano, "");
+	        System.out.println("╠══════════════════════════════════════════════════════════════╣");
+	        System.out.printf ("║ Receita Total: R$ %-10.2f %35s ║\n", relatorio.getReceitaTotal(), "");
+	        System.out.printf ("║ Despesas (salários): R$ %-10.2f %28s ║\n", relatorio.getDespesasTotal(), "");
+	        System.out.printf ("║ Lucro: R$ %-10.2f %44s ║\n", relatorio.getLucro(), "");
+	        System.out.println("╚══════════════════════════════════════════════════════════════╝");
+	        
+	    } catch (InputMismatchException e) {
+	        System.out.println("❌ Erro: Digite valores numéricos para mês e ano.");
+	        scanner.nextLine(); // Limpa o buffer
+	    } catch (DateTimeException e) {
+	        System.out.println("❌ Erro: Data inválida. Verifique o mês (1-12) e ano.");
 	    } catch (Exception e) {
-	        System.out.println("Erro ao gerar relatório: " + e.getMessage());
+	        System.out.println("❌ Erro ao gerar relatório: " + e.getMessage());
 	    }
 	}
 	

@@ -36,13 +36,12 @@ public class AuthService {
 	}
 	
 	public void logout() {
-		if(usuarioLogado != null) {
-			usuarioLogado.setOnline(false);
-			usuarioLogado = null;
-		}
-		
+	    if (usuarioLogado != null) {
+	        usuarioLogado.setOnline(false);
+	        usuarioLogado = null;          
+	    }
 	}
-	
+
 	public boolean getUsuarioLogado(){
 		return usuarioLogado != null;
 	}

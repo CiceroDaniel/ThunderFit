@@ -779,6 +779,7 @@ public void listarTreinosDoAluno() {
 	    LocalDate dataDeNascimento1 = LocalDate.parse(dataScn);
 	    try {
 	        services.cadastroTutor("Ysabelle", "bell@gmail.com", "ysabelle01", "96385274101", dataDeNascimento1, 1900);
+	        services.atualizaDataDeCadastro("96385274101", LocalDate.of(2025, 04, 01));
 	    } catch (IllegalArgumentException e) {
 	        System.out.println(e.getMessage());
 	    }

@@ -10,7 +10,7 @@ public class Tutor extends Usuario{
 	
 	public Tutor(String nome,String email,String senha,String cpf,LocalDate dataDeNascimento,float salario) {
 		super(nome,email,senha ,cpf,null);// nao adianta a data nao pode ser nula  
-		this.salario=0;
+		this.setSalario(salario);
 		this.trabalhoAtivo= true;
 	}
 

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import repository.ExercicioRepository;
 import repository.PagamentoRepository;
@@ -527,30 +528,63 @@ public class admConsole {
 
 	private void exibirRelatorioFinanceiroMensal() {
 	    try {
+	        // Limpa a tela e exibe cabeçalho
 	        toolbox.espacoMenu();
 	        
 	        System.out.println("\n╔════════════════════════════════════════╗");
 	        System.out.println("║        📅 RELATÓRIO FINANCEIRO         ║");
 	        System.out.println("╠════════════════════════════════════════╣");
 	        System.out.println("║                                        ║");
-	        System.out.print  ("║  MÊS (1-12): ");
-	        int mes = scanner.nextInt();
-	        System.out.print  ("║  ANO: ");
-	        int ano = scanner.nextInt();
-	        scanner.nextLine();
+	        
+	        // Validação de entrada do mês
+	        int mes;
+	        do {
+	            System.out.print("║  MÊS (1-12): ");
+	            while (!scanner.hasNextInt()) {
+	                System.out.println("❌ Por favor, digite um número entre 1 e 12.");
+	                scanner.next(); // Descarta entrada inválida
+	                System.out.print("║  MÊS (1-12): ");
+	            }
+	            mes = scanner.nextInt();
+	        } while (mes < 1 || mes > 12);
+
+	        // Validação de entrada do ano
+	        int ano;
+	        do {
+	            System.out.print("║  ANO (4 dígitos): ");
+	            while (!scanner.hasNextInt()) {
+	                System.out.println("❌ Por favor, digite um ano válido.");
+	                scanner.next();
+	                System.out.print("║  ANO (4 dígitos): ");
+	            }
+	            ano = scanner.nextInt();
+	        } while (ano < 1000 || ano > 9999);
+	        
+	        scanner.nextLine(); // Limpa o buffer
 	        System.out.println("║                                        ║");
 	        System.out.println("╚════════════════════════════════════════╝");
 	        
 	        YearMonth yearMonth = YearMonth.of(ano, mes);
+	        
+	        // Lista de pagamentos
 	        System.out.println("\n=== PAGAMENTOS PARA " + yearMonth + " ===");
-        pagRepo.listarTodos().stream()
-            .filter(p -> YearMonth.from(p.getDataPagamento()).equals(yearMonth))
-            .forEach(p -> System.out.printf("%s | R$ %.2f | %s%n", 
-                p.getDataPagamento(), 
-                p.getValorPago(),
-                p.getAluno().getNome()));
-        
-        RelatorioFinanceiro relatorio = relatorioFinanceiroService.gerarRelatorioMensal(yearMonth);
+	        List<Pagamento> pagamentosDoMes = pagRepo.listarTodos().stream()
+	            .filter(p -> p != null && p.getDataPagamento() != null)
+	            .filter(p -> YearMonth.from(p.getDataPagamento()).equals(yearMonth))
+	            .collect(Collectors.toList());
+
+	        if (pagamentosDoMes.isEmpty()) {
+	            System.out.println("Nenhum pagamento registrado neste período.");
+	        } else {
+	            pagamentosDoMes.forEach(p -> System.out.printf(
+	                "%s | R$ %.2f | %s%n", 
+	                p.getDataPagamento(), 
+	                p.getValorPago(),
+	                p.getAluno() != null ? p.getAluno().getNome() : "Aluno não informado"));
+	        }
+
+	        // Gera e exibe o relatório
+	        RelatorioFinanceiro relatorio = relatorioFinanceiroService.gerarRelatorioMensal(yearMonth);
 	        
 	        System.out.println("\n╔══════════════════════════════════════════════════════════════╗");
 	        System.out.println("║                📊 RELATÓRIO FINANCEIRO MENSAL               ║");
@@ -562,13 +596,13 @@ public class admConsole {
 	        System.out.printf ("║ Lucro: R$ %-10.2f %44s ║\n", relatorio.getLucro(), "");
 	        System.out.println("╚══════════════════════════════════════════════════════════════╝");
 	        
-	    } catch (InputMismatchException e) {
-	        System.out.println("❌ Erro: Digite valores numéricos para mês e ano.");
-	        scanner.nextLine(); // Limpa o buffer
 	    } catch (DateTimeException e) {
 	        System.out.println("❌ Erro: Data inválida. Verifique o mês (1-12) e ano.");
 	    } catch (Exception e) {
-	        System.out.println("❌ Erro ao gerar relatório: " + e.getMessage());
+	        System.out.println("❌ Erro inesperado ao gerar relatório: " + e.getMessage());
+	        e.printStackTrace(); // Apenas para debug, remova em produção
+	    } finally {
+	        scanner.nextLine(); // Limpeza adicional do buffer
 	    }
 	}
 	
@@ -637,12 +671,12 @@ public class admConsole {
 			System.out.println("║          🧑🏫 CRUD DE TUTORES         ║");
 			System.out.println("╠════════════════════════════════════════╣");
 			System.out.println("║                                        ║");
-			System.out.println("║  1. 📝 CADASTRAR TUTOR                ║");
-			System.out.println("║  2. 🔄 ATUALIZAR TUTOR               ║");
-			System.out.println("║  3. 🔍 PESQUISAR TUTOR              ║");
-			System.out.println("║  4. ❌ DELETAR TUTOR                 ║");
-			System.out.println("║  5. 📋 LISTAR TUTORES                ║");
-			System.out.println("║  6. ↩ VOLTAR                         ║");
+			System.out.println("║  1. 📝 CADASTRAR TUTOR                 ║");
+			System.out.println("║  2. 🔄 ATUALIZAR TUTOR                 ║");
+			System.out.println("║  3. 🔍 PESQUISAR TUTOR                 ║");
+			System.out.println("║  4. ❌ DELETAR TUTOR                   ║");
+			System.out.println("║  5. 📋 LISTAR TUTORES                  ║");
+			System.out.println("║  6. ↩ VOLTAR                           ║");
 			System.out.println("║                                        ║");
 			System.out.println("╚════════════════════════════════════════╝");
 			System.out.print("\n▸ SELECIONE UMA OPÇÃO: ");
@@ -660,7 +694,7 @@ public class admConsole {
 				break;
 			case 5: user.listarTutor();
 			break;
-			case 6: admMenu();
+			case 6: return;
 			default: System.out.println("OPÇÃO INVALIDA!");
 		}
 			
@@ -703,7 +737,7 @@ public class admConsole {
 				break;
 			case 5: listarAlunos();
 			break;
-			case 6: admMenu();
+			case 6: return;
 			default: System.out.println("OPÇÃO INVALIDA!");
 		}
 			

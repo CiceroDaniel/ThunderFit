@@ -55,6 +55,8 @@ public class UsuarioService {
 		Tutor tutor = new Tutor(nome, email, senha,cpf, dataDeNascimento, salario);
 		
 		usuarioRepository.cadastro(tutor);
+		tutor.setTrabalhoAtivo(true);
+		usuarioRepository.atualizarDados(tutor);
 	
 	}
 	
@@ -134,9 +136,9 @@ public class UsuarioService {
 	}
 	
 	public void atualizaDataDeCadastro(String cpf, LocalDate novaDataCadastro) {// nao disponivel para os menus apenas para ter registros de pesos e mudar data de matricula
-		Aluno aluno = (Aluno) usuarioRepository.buscarPorCpf(cpf);
-		aluno.setDataDeCadastro(novaDataCadastro);
-		usuarioRepository.atualizarDados(aluno);
+		Usuario usuario = usuarioRepository.buscarPorCpf(cpf);
+		usuario.setDataDeCadastro(novaDataCadastro);
+		usuarioRepository.atualizarDados(usuario);
 	}
 	//--------------------------- BUSCAR ---------------------------------
 	

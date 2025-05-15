@@ -189,7 +189,4 @@ public class consoleMenu {
 		this.tools = tools;
 	}
 	
-	/*public void mostarAdm() {
-		admConsole.cdAdm();
-	}*/
 }

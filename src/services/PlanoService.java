@@ -1,9 +1,10 @@
 package services;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import model.Plano;
-import model.Usuario;
 
 public class PlanoService {
 	
@@ -11,20 +12,18 @@ public class PlanoService {
 		return List.of(Plano.values());
 	}
 	
-	public void atualizarValorPlano(Plano plano, double novoValor, Usuario administrador) {
-		if(!administrador.temAcessoAdmin()) {
-			throw new SecurityException("Apenas administradores podem alterar valores de planos!");
-		}
+	public void atualizarValorPlano(Plano plano, double novoValor) {
 		
-		plano.setValor(novoValor, administrador);
+		plano.setValor(novoValor);
 	}
 	
 	public Plano buscarPlanoPorNome(String nome) {
-		try {
-			return Plano.valueOf(nome);
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Plano invalido!");
-		}
-	}
+        Optional<Plano> planoEncontrado = Arrays.stream(Plano.values())
+            .filter(p -> p.getNome().equalsIgnoreCase(nome))
+            .findFirst();
+        
+        return planoEncontrado.orElseThrow(() -> 
+            new IllegalArgumentException("Plano inválido: " + nome));
+    }
 
 }

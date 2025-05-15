@@ -13,6 +13,7 @@ import services.CatracaService;
 import services.ExercicioService;
 import services.GraficoPesoService;
 import services.PagamentoService;
+import services.PlanoService;
 import services.PresencaService;
 import services.RelatorioPresencaService;
 import services.TreinoService;
@@ -24,6 +25,7 @@ public class teste {
 		
 		final GraficoPesoService grafiPesoServi= new GraficoPesoService();
 		final Catraca catraca = new Catraca();		
+		final PlanoService planoServi = new PlanoService();
 		final TreinoRepository treRepo = new TreinoRepository();
 		final ExercicioRepository exRepo = new ExercicioRepository();
 		final ExercicioService exServi = new ExercicioService(exRepo);
@@ -41,7 +43,7 @@ public class teste {
 		
 		
 		consoleMenu menu = new consoleMenu(scan,repo,auth,services, exRepo, exServi, treRepo, treServi, pagRepo,
-				pagService,  RePresencaServi, null, null, presencaRepo, presencaServi, catraca, catracaSer, grafiPesoServi);
+				pagService,  RePresencaServi,  null, planoServi, presencaRepo, presencaServi, catraca, catracaSer, grafiPesoServi);
 		menu.tools.preCad();
 		
 		

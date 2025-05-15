@@ -35,10 +35,7 @@ public enum Plano {
 	public double getValor() {
 		return valor;
 	}
-	public void setValor(double valor, Usuario usuario) {
-	    if(usuario == null || !usuario.temAcessoAdmin()) {
-	        throw new SecurityException("Acesso negado: apenas administradores podem alterar valores");
-	    }
+	public void setValor(double valor) {
 	    this.valor = valor;
 	}
 	

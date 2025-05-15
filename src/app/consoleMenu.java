@@ -81,7 +81,7 @@ public class consoleMenu {
 	    this.userConsole = new usuarioConsole(scanner, services, auth, pagRepo, pagService, presencaRepo, exServi, treRepo, treServi,
 	    		presencaService, catraca, catracaSer, graficoPesoService, relatorioPresencaService);
 	    this.admConsole = new admConsole(scanner, repo, auth, services, pagRepo, pagService, relatorioPresencaService, relatorioFinanceiroService, planoService, presencaRepo,
-	    		presencaService, exServi, treRepo, treServi, catraca, catracaSer, graficoPesoService);
+	    		presencaService, exRepo, exServi, treRepo, treServi, catraca, catracaSer, graficoPesoService);
 	    this.tools = new toolbox(userConsole, admConsole, tutorConsole);
 	}
 

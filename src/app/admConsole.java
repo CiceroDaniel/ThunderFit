@@ -5,6 +5,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import repository.ExercicioRepository;
 import repository.PagamentoRepository;
 import repository.PresencaRepository;
 import repository.TreinoRepository;
@@ -34,9 +35,10 @@ public class admConsole {
     private final PlanoService planoService;
     private final PresencaRepository presencaRepo;
     private final PresencaService presencaService;
-	private ExercicioService exServi; 
-	private TreinoRepository treRepo;
-	private TreinoService treServi;
+    private final ExercicioRepository exRepo;
+	private final ExercicioService exServi; 
+	private final TreinoRepository treRepo;
+	private final TreinoService treServi;
     private final Catraca catraca;
     private final CatracaService catracaSer;
     private final GraficoPesoService graPesoServi;
@@ -45,7 +47,7 @@ public class admConsole {
 	public admConsole(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services, 
 			PagamentoRepository pagRepo, PagamentoService pagService, RelatorioPresencaService relatorioPresencaService,
 			RelatorioFinanceiroService relatorioFinanceiroService, PlanoService planoService, PresencaRepository presencaRepo,
-			PresencaService presencaService,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi,Catraca catraca,
+			PresencaService presencaService,ExercicioRepository exRepo,ExercicioService exServi, TreinoRepository treRepo, TreinoService treServi,Catraca catraca,
 			CatracaService catracaSer, GraficoPesoService graPesoServi) {
 		this.scanner = scanner;
 	    this.repo = repo;
@@ -59,6 +61,7 @@ public class admConsole {
         this.planoService = planoService;
         this.presencaRepo=presencaRepo;
         this.presencaService = presencaService;
+		this.exRepo = exRepo;
 	    this.exServi= exServi;
 	    this.treRepo= treRepo;
 	    this.treServi=treServi;
@@ -68,7 +71,7 @@ public class admConsole {
         
         this.user = new usuarioConsole(scanner, services, auth, pagRepo, pagService, presencaRepo, exServi, treRepo, treServi,
         		presencaService, catraca, catracaSer, graPesoServi, relatorioPresencaService);
-        this.tutor = new tutorConsole(scanner, repo, auth, services, null, null, null, null, pagRepo, pagService);
+        this.tutor = new tutorConsole(scanner, repo, auth, services, exRepo, exServi, treRepo, treServi, pagRepo, pagService);
 	}
 
 	
@@ -230,7 +233,7 @@ public class admConsole {
 	            default: throw new IllegalArgumentException("Opção inválida");
 	        }
 	        
-	        planoService.atualizarValorPlano(plano, novoValor, auth.getUsuario());
+	        planoService.atualizarValorPlano(plano, novoValor);
 	        System.out.println("✔ Valor do plano atualizado com sucesso!");
 	        
 	    } catch (Exception e) {

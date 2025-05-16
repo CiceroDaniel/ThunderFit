@@ -816,7 +816,7 @@ public void listarTreinosDoAluno() {
 	    LocalDate dataDeNascimento = LocalDate.parse(dataScn);
 
 	    try {
-	        services.cadastroTutor("yuri", "yuri@gmail.com", "123456789", "14725836910", dataDeNascimento, 1520);
+	        services.cadastroTutor("yuri", "yuri@gmail.com", "123456789", "14725836910", dataDeNascimento, 1200);
 	    } catch (IllegalArgumentException e) {
 	        System.out.println(e.getMessage());
 	    }
@@ -824,7 +824,7 @@ public void listarTreinosDoAluno() {
 	    dataScn = "2005-06-18";
 	    LocalDate dataDeNascimento1 = LocalDate.parse(dataScn);
 	    try {
-	        services.cadastroTutor("Ysabelle", "bell@gmail.com", "ysabelle01", "96385274101", dataDeNascimento1, 1900);
+	        services.cadastroTutor("Ysabelle", "bell@gmail.com", "ysabelle01", "96385274101", dataDeNascimento1, 1200);
 	        services.atualizaDataDeCadastro("96385274101", LocalDate.of(2025, 04, 01));
 	    } catch (IllegalArgumentException e) {
 	        System.out.println(e.getMessage());

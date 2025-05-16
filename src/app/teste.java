@@ -48,7 +48,10 @@ public class teste {
 				pagService,  RePresencaServi, relaFinanServi, planoServi, presencaRepo, presencaServi, catraca, catracaSer, grafiPesoServi);
 		menu.tools.preCad();
 		
-		
+		/*Luana para vc ter as informaçoes para login do usuario: "vh@gmail.com","123456789".
+		 * do tutor "yuri@gmail.com", "123456789" e "bell@gmail.com", "ysabelle01"
+		 * do adm "daniel@gmail.com","123123123"
+		 */
 	
 		
 		toolbox.espacoMenu();

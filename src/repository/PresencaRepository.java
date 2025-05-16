@@ -45,55 +45,5 @@ public class PresencaRepository implements InterfaceRepository<Presenca>{
 	}
 	
 	
-	//OBJETOS TIPO REGISTROPRESENCA
-	
-
-	
-	
-	//=========================================//
-	//=================METODOS=================//
-	//=========================================//
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//ADICIONA PRESENÇA AO LIST
-	/*public void registrarEntrada(Aluno aluno) { devo implementar isso no service
-		RegistroPresenca registro = new RegistroPresenca(aluno);
-		registros.add(registro);
-		System.out.println("Nome:"+aluno.getNome()+"\nEmail:"+aluno.getEmail()+"\npresença registrada");
-	}
-	//CALCULAR FREQUENCIA PARA SABER A PRODUTIVIDADE DO ALUNO
-	public void calcularFrequencia(Aluno aluno){
-		int totalPresencas = 0;//INCIALIZEI
-		
-		for(RegistroPresenca r : registros) {
-		
-			if(r.getAluno().getEmail() == aluno.email) {
-				totalPresencas++;		
-			}
-			//PRECISA SER CONCERTADO
-			
-			
-		}
-	}
-    //AQUI A PRA RETORNAR A LISTA COMPLETA DE REGISTROS
-	public List<RegistroPresenca> getRegistros() {
-		return registros;
-	}
-	
-	public void mostrarRegistros(Aluno aluno) {
-		for(RegistroPresenca r:registros) {
-			System.out.println("Nome:"+r.getAluno().getNome()+"Email:"+r.getAluno().getEmail());
-		}
-	}*/
-
-	
 	
 }

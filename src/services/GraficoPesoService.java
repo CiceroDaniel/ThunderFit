@@ -32,8 +32,7 @@ public class GraficoPesoService {
                 registro.getData(),
                 peso,
                 "█".repeat(barLength),
-                barLength == 0 ? "|" : ""
-            );
+                barLength == 0 ? "|" : "");
         }
     }
 }

@@ -53,14 +53,13 @@ public class TreinoService {
 	
 	
 	public List<Exercicio> listarTreinosDoAluno(String cpfAluno, String nomeTreino, Usuario solicitante) {
-	    // Verifica permissões
 	    if (!(solicitante instanceof Administrador || 
 	          solicitante instanceof Tutor || 
 	          solicitante.getCpf().equals(cpfAluno))) {
 	        throw new SecurityException("Acesso Negado");
 	    }
 	    
-	    // Busca o aluno (não aceita mais Tutor aqui)
+	    
 	    Usuario usuario = usuarioService.buscarPorCpf(cpfAluno);
 	    if (!(usuario instanceof Aluno)) {
 	        throw new IllegalArgumentException("CPF não pertence a um aluno");
@@ -86,9 +85,7 @@ public class TreinoService {
 	
 	//--------------------ATUALIZAR--------------------
 	public void adicionarExercicios(String nomeTreino, String nomeExercicio, Usuario solicitante, int quantidade) {
-		/*if(!solicitante.temAcessoAdmin()) {
-			throw new SecurityException("Acesso apenas para ADMs e Tutores");
-		}*/
+		
 		
 		Treino treino = treinoRepository.buscarPorNome(nomeTreino);
 		exercicioService.listarTodosExercicios();//Tutor ver tds os exercicios e decidir quais devem selecionar
@@ -103,9 +100,7 @@ public class TreinoService {
 	}
 	
 	public void removerExercicios(String nomeTreino, String nomeExercicio, Usuario solicitante) {
-		/*if(!solicitante.temAcessoAdmin()) {
-			throw new SecurityException("Acesso apenas para ADMs e Tutores");
-		}*/
+
 		
 		Treino treino = treinoRepository.buscarPorNome(nomeTreino);
 		exercicioService.listarTodosExercicios();//Tutor ver tds os exercicios e decidir quais devem selecionar
@@ -120,20 +115,20 @@ public class TreinoService {
 	}
 	
 	public void atualizarTreino(Treino treinoAtualizado) {
-	    // 1. Validação básica
+	    // Validaçao
 	    if (treinoAtualizado == null) {
 	        throw new IllegalArgumentException("Treino não pode ser nulo");
 	    }
 
 	  
 
-	    // 2. Verificar se o treino existe no repositório
+	    //Verificar se o treino existe 
 	    Treino treinoExistente = treinoRepository.buscarPorNome(treinoAtualizado.getNome());
 	    if (treinoExistente == null) {
 	        throw new IllegalArgumentException("Treino não encontrado para atualização");
 	    }
 
-	    // 3. Validar dados do treino
+	    // Validar dados do treino
 	    if (treinoAtualizado.getNome() == null || treinoAtualizado.getNome().trim().isEmpty()) {
 	        throw new IllegalArgumentException("Nome do treino é obrigatório");
 	    }
@@ -142,7 +137,7 @@ public class TreinoService {
 	        throw new IllegalArgumentException("Nível de dificuldade é obrigatório");
 	    }
 
-	    // 4. Atualizar no repositório
+	    // Atualizar no repository
 	    try {
 	        treinoRepository.atualizarTreino(treinoAtualizado);
 	    } catch (Exception e) {
@@ -153,25 +148,36 @@ public class TreinoService {
 	
 	//--------------------REMOVER--------------------
 	
-	public void removerTreino(String nome, Usuario solicitante) {
-		/*if(!solicitante.temAcessoAdmin()) {
-			throw new SecurityException("Acesso apenas para ADMs e Tutores");
-		}*/
-		
-		if(!treinoRepository.removerPorNome(nome)) {
-			throw new IllegalArgumentException("Treino não encontrado!");
-		}
-		
-		treinoRepository.removerPorNome(nome);
+	public void removerTreino(String nome) {
+	    removerAssociacoesTreino(nome);
+	    
+	    boolean sucesso = treinoRepository.removerPorNome(nome);
+	    if (!sucesso) {
+	        throw new IllegalArgumentException("Treino não encontrado!");
+	    }
+	}
+
+	private void removerAssociacoesTreino(String nomeTreino) {
+	    // Percorre todos os alunos e remove o treino
+	    for (Aluno aluno : usuarioRepository.listarAlunos()) {
+	        // Cria uma nova lista sem o treino a ser removido
+	        List<Treino> novosTreinos = new ArrayList<>();
+	        for (Treino t : aluno.getTreinos()) {
+	            if (!t.getNome().equalsIgnoreCase(nomeTreino)) {
+	                novosTreinos.add(t);
+	            }
+	        }
+	        // Atualiza a lista de treinos do aluno
+	        aluno.setTreinos(novosTreinos);
+	        usuarioRepository.atualizarDados(aluno);
+	    }
 	}
 	
 	//-------------------------------------------------
 	
 	
 	public void associarTreinoAluno(String cpfAluno, String nomeTre, Usuario solicitante) {
-		/*if(!solicitante.temAcessoAdmin()) {
-			throw new SecurityException("Acesso apenas para ADMs e Tutores");
-		}*/
+		
 		
 		Aluno aluno = (Aluno) usuarioService.buscarPorCpf(cpfAluno);
 		Treino treino= treinoRepository.buscarPorNome(nomeTre);

@@ -96,7 +96,6 @@ public class ExercicioService {
 		
 	}
 	
-	//--------------------------GERAR TREINOS AUTOMATICOS---------------------//
 	
 	//--------------------------LISTAR------------------------
 	

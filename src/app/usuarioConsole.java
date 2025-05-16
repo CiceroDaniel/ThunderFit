@@ -101,7 +101,7 @@ public class usuarioConsole {
 		Genero();
 		
 		services.cadastroAluno(nome, email, senha, cpf, dataDeNascimento, altura, peso, nivel, metas, descricao, plano, genero, LocalDate.now());
-
+		
 	}
 	/////////////////////////////////////////////////////////////////////////
 	public void loginMenu(Scanner scanner, UsuarioRepository repo, AuthService auth, UsuarioService services) {
@@ -173,7 +173,6 @@ public class usuarioConsole {
 			case 0 :System.out.println("SAINDO DO SISTEMA.......");
 			auth.logout();
 			return;
-			//ginMenu(scanner, null, auth, services);
 			default: System.out.println("OPÇÃO INVALIDA!");
 		}
 			
@@ -541,7 +540,6 @@ public class usuarioConsole {
 
 		services.cadastroAluno("Victor Hugo", "vh@gmail.com","123456789", "10987654321", dataDeNascimento,
 				1.20, 15, nivel.INICIANTE, metas.ganharMassa, descricao, plano.planoAnual, genero.FEMININO, LocalDate.of(2025, 04, 21));
-		//services.atualizaDataDeCadastro("10987654321",LocalDate.of(2025, 05, 12));
 		services.atualizarDados("10987654321", "vh@gmail.com", 20, 1.24, metas.ganharMassa);
 		services.atualizarDados("10987654321", "vh@gmail.com", 25, 1.24, metas.ganharMassa);
 		services.atualizarDados("10987654321", "vh@gmail.com", 50, 1.24, metas.ganharMassa);
@@ -550,6 +548,9 @@ public class usuarioConsole {
 		treServi.criarTreino("Treino A",nivel.INICIANTE);
 		treServi.associarTreinoAluno("10987654321", "Treino A", null);
 		treServi.adicionarExercicios("Treino A", "Supino reto", null, 12);
+		treServi.adicionarExercicios("Treino A", "Flexão de braço", null, 12);
+		treServi.adicionarExercicios("Treino A", "Puxada frontal", null, 12);
+		treServi.adicionarExercicios("Treino A", "Remada baixa", null, 12);
 	}
 	
 }

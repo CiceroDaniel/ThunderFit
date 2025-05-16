@@ -19,8 +19,6 @@ public class Aluno extends Usuario {
 		private List<Treino> treinos;
 		private List<RegistroPeso> historicoPeso = new ArrayList<>();
 		
-		/*private String datanascimento;
-		private String datainicio;*/
 		
 		private Genero genero;//genero do tipo Genero
 		
@@ -69,23 +67,11 @@ public class Aluno extends Usuario {
 					this.getAltura(),this.getPeso(),this.getGenero(),this.getMetas().name(),this.getPlano().getNome(),dataCadastroFormatada,dataNascimentoFormatada,this.getImc());
 			}
 		
-		//@Override
-		//public String gerarCredenciaisLogin() {
-			//return String.format("%s\nAltura: %.2fm \nPeso: %.2fkg\nNivel: %s\nMetas:  %s, Descrição: %s\nInformaçoes do Plano:%s \nValor: R$%.2f ",
-				//	this.getNome(),/*this.getCpf()*/this.getEmail(),this.getAltura(),this.getPeso(),this.nivel.name(),this.metas.name(),this.metaPersonalizada,this.plano.getNome(),this.plano.getValor());
-			//}
-		
 		
 		@Override
 		public boolean temAcessoAdmin() {
 			return false;
 		}
-
-		//REVER
-		/*protected void adicionarTreino(Treino treino) { // sera usado pelo tutor
-			Objects.requireNonNull(treino,"Erro: Treino não pode ser nulo");
-
-		}*/
 		
 		public void adicionarTreino(Treino treino) { // sera usado pelo tutor
 			Objects.requireNonNull(treino," Treino não pode ser nulo");
@@ -108,6 +94,9 @@ public class Aluno extends Usuario {
 	        this.imc = peso / (altura * altura); // Atualiza o IMC
 	    }
 		
+		public boolean removerTreino(String nomeTreino) {
+		    return treinos.removeIf(t -> t.getNome().equalsIgnoreCase(nomeTreino));
+		}
 		
 		//*-----------------------GETTERS AND SETTERS--------------------
 		
@@ -165,16 +154,9 @@ public class Aluno extends Usuario {
 		}
 		
 		public void setNivel(Nivel nivel) {
-		//NÃO CONSIGO IMPLEMENTAR ISSO
-			/*
-			if(nivel == null) {
-				throw new IllegalArgumentException("Erro: Nível invalido! "+nivel);
-			}*/
 		 this.nivel=nivel;
 		}
 
-		
-       //TESTE DE ENUM PARA VALORES DEFINIDOS E IMUTAVEIS
 		public Genero getGenero() {
 			return genero;
 		}
@@ -199,24 +181,6 @@ public class Aluno extends Usuario {
 		public void setImc(double imc) {
 			this.imc = imc;
 		}
-
-		
-		/*public String getDatanascimento() { Estamos usando dateLocal
-			return datanascimento;
-		}
-
-		public void setDatanascimento(String datanascimento) {
-			this.datanascimento = datanascimento;
-		}
-
-		public String getDatainicio() {
-			return datainicio;
-		}
-
-		public void setDatainicio(String datainicio) {
-			this.datainicio = datainicio;
-		}*/
-		
 		
 		
 		public Nivel getNivel() {
@@ -225,6 +189,9 @@ public class Aluno extends Usuario {
 		
 		public List<Treino> getTreinos(){
 			return new ArrayList<>(treinos);
+		}
+		public void setTreinos(List<Treino> treinos) {
+		    this.treinos = new ArrayList<>(treinos);
 		}
 		public List<RegistroPeso> getHistoricoPeso() {
 		    List<RegistroPeso> copia = new ArrayList<>(historicoPeso);

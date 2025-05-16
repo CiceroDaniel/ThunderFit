@@ -44,7 +44,6 @@ public abstract class Usuario{
 			this.setCpf(cpf);
 			
 
-			//this.dataDeCadastro = LocalDate.now();
 			this.status = true;
 			this.setDataDeNascimento(dataDeNascimento);
 			this.dataDeCadastro = LocalDate.now();

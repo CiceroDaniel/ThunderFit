@@ -27,29 +27,5 @@ public class Catraca {
 	public boolean estaLiberada() {
 		return liberada;
 	}
-	
-	//=========================================//
-	//=================METODOS=================//
-	//=========================================//
-	
-	
-	//NESSA PARTE O ALUNO ESTÁ PASSANDO PELA CATRACA
-	/*public boolean passar(Aluno aluno,PresencaRepository presencaRepo) {// responsabilidade do service,devo APAGAR ~VICTOR
-
-	if(liberada) {
-        //ADICIONA A PRESENÇA DO ALUNO
-		//sistema.registrarEntrada(aluno);
-		
-		//DEPOIS QUE O ALUNO PASSAR,A CATRACA É BLOQUEADA
-		bloquear();
-		return true;
-		
-	}else {
-		System.out.println("");
-		return false;
-	}
-		
-		
-	}*/
 
 }

@@ -170,8 +170,7 @@ public class admConsole {
 	            	break;
 	            case 5: gerenciarRelatoriosFinanceiros(); 
 	            	break;
-	            case 6: //System.out.println(Plano.mostrarPlanos());
-	            		//alteraPlano();
+	            case 6: 
 	            	gerenciarPlanos();
 	            	break;
 	            case 7: menuPagamentos();
@@ -536,19 +535,19 @@ public class admConsole {
 	        System.out.println("╠════════════════════════════════════════╣");
 	        System.out.println("║                                        ║");
 	        
-	        // Validação de entrada do mês
+	        // Validaçao de entrada do mes
 	        int mes;
 	        do {
 	            System.out.print("║  MÊS (1-12): ");
 	            while (!scanner.hasNextInt()) {
 	                System.out.println("❌ Por favor, digite um número entre 1 e 12.");
-	                scanner.next(); // Descarta entrada inválida
+	                scanner.next();
 	                System.out.print("║  MÊS (1-12): ");
 	            }
 	            mes = scanner.nextInt();
 	        } while (mes < 1 || mes > 12);
 
-	        // Validação de entrada do ano
+	        // Validaçao de entrada do ano
 	        int ano;
 	        do {
 	            System.out.print("║  ANO (4 dígitos): ");
@@ -583,7 +582,7 @@ public class admConsole {
 	                p.getAluno() != null ? p.getAluno().getNome() : "Aluno não informado"));
 	        }
 
-	        // Gera e exibe o relatório
+	        // Gera e exibe o relatorio
 	        RelatorioFinanceiro relatorio = relatorioFinanceiroService.gerarRelatorioMensal(yearMonth);
 	        
 	        System.out.println("\n╔══════════════════════════════════════════════════════════════╗");
@@ -600,14 +599,12 @@ public class admConsole {
 	        System.out.println("❌ Erro: Data inválida. Verifique o mês (1-12) e ano.");
 	    } catch (Exception e) {
 	        System.out.println("❌ Erro inesperado ao gerar relatório: " + e.getMessage());
-	        e.printStackTrace(); // Apenas para debug, remova em produção
 	    } finally {
-	        scanner.nextLine(); // Limpeza adicional do buffer
+	        scanner.nextLine(); // buffer
 	    }
 	}
 	
 	private void gerenciarRelatoriosFrequencia() {
-		// TODO Auto-generated method stub
 		int op;
 	    do {
 	        System.out.println("===== RELATÓRIOS DE FREQUÊNCIA ====="
@@ -759,7 +756,6 @@ public class admConsole {
 			String cpf = scanner.nextLine();
 			System.out.println("║                                        ║");
 			System.out.println("╚════════════════════════════════════════╝");
-			//String cpf = scanner.nextLine();
 			
 			
 			
@@ -911,7 +907,7 @@ public class admConsole {
 	    
 	}
 	
-	/////////NAO TA PRINTANDO O USUARIO
+	////////////////////////////q
 	
 	public void buscarPorEmail(boolean u){
 	    
